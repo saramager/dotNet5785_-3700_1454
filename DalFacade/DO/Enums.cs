@@ -2,14 +2,19 @@
 
 public enum CallType
 {
-   
+   /**/
 }
 public enum RoleType
 {
-    manager, volunteer 
+    Manager, Volunteer 
 }
 public enum Distance
 {
     AirDistance, walkingDistance, DrivingDistance
 
+}
+
+public enum FinishType
+{
+    Treated, SelfCancel, ManagerCancel, ExpiredCancel
 }

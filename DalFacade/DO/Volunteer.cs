@@ -31,5 +31,5 @@ public record Volunteer
     double? maxDistance = null
  )
 {
-    public Volunteer() : this(0,"","","",default, RoleType.volunteer, Distance.AirDistance) { } // empty ctor for stage 3 
+    public Volunteer() : this(0,"","","",default, RoleType.Volunteer, Distance.AirDistance) { } // empty ctor for stage 3 
 }

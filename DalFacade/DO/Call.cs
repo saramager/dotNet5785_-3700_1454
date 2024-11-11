@@ -5,18 +5,19 @@ namespace DO;
 /// 
 /// </summary>
 /// <param name="id">A number that uniquely identifies the call.>
-/// <param name="address"></param>
-/// <param name="latitude"></param>
-/// <param name="longitude"></param>
-/// <param name="openTime"></param>
-/// <param name="maxTime"></param>
-/// <param name="verbalDescription"></param>
+/// <param name="address">Full and real address in correct format, of the reading location>
+/// <param name="callT">according to the specific system type>
+/// <param name="latitude">A number indicating how far a point on Earth is south or north of the equator.>
+/// <param name="longitude">A number indicating how far a point on Earth is east or west of the equator.>
+/// <param name="openTime">Time (date and time) when the call was opened by the manager.>
+/// <param name="maxTime">Time (date and time) by which the reading should be closed.>
+/// <param name="verbalDescription">Description of the call>
 public record Call
 (
 
     int id,
     string  address,
-    // סוג הקריאה  ,
+    CallType callT,
     double latitude,
     double longitude,
     DateTime openTime,
@@ -26,5 +27,4 @@ public record Call
 )
  
 {
-    public Call() : this(0, "",0,0, default(DateTime)) { } // empty ctor for stage 3 
-}
+    public Call() : this(0, "", /**/,0,0, default(DateTime)) { } // empty ctor for stage 3 
