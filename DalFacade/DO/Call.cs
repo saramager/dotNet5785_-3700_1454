@@ -4,7 +4,16 @@ using System.Net;
 namespace DO;
 
 
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="id"></param>
+/// <param name="address"></param>
+/// <param name="latitude"></param>
+/// <param name="longitude"></param>
+/// <param name="openTime"></param>
+/// <param name="maxTime"></param>
+/// <param name="verbalDescription"></param>
 public record Call
 (
 
@@ -18,6 +27,7 @@ public record Call
     string? verbalDescription = null
 
 )
+ 
 {
     public Call() : this(0, "",0,0, default(DateTime)) { } // empty ctor for stage 3 
 }
