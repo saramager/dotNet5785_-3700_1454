@@ -22,8 +22,8 @@ public record Volunteer
     string phone,
     string email,
     bool active,
-    Enum role,
-    Enum distanceType,
+    RoleType role,
+    Distance distanceType,
     string? password = null,
     string? currentAddress = null,
     double? Latitude = null,
@@ -31,5 +31,5 @@ public record Volunteer
     double? maxDistance = null
  )
 {
-    public Volunteer() : this(0,"","","") { } // empty ctor for stage 3 
+    public Volunteer() : this(0,"","","",default, RoleType.volunteer, Distance.AirDistance) { } // empty ctor for stage 3 
 }
