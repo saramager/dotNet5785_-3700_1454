@@ -4,12 +4,12 @@ namespace DO;
 /// <summary>
 /// 
 /// </summary>
-/// <param name="ID"></param>
-/// <param name="CallId"></param>
-/// <param name="VolunteerId"></param>
-/// <param name="startTreatment"></param>
-/// <param name="finishTreatment"></param>
-/// <param name="typeFinish"></param>
+/// <param name="ID">A number that uniquely identifies the allocation entity.>
+/// <param name="CallId">A number that identifies the call that the volunteer chose to handle>
+/// <param name="VolunteerId">ID number of the volunteer who chose to take care of the reading>
+/// <param name="startTreatment">Time (date and time) when the current call was processed.>
+/// <param name="finishTreatment">Time (date and time) when the current volunteer finished handling the current call.>
+/// <param name="typeFinish">The manner in which the treatment of the current reading was completed by the current volunteer.>
 public record Assignment
 (
   int ID,
