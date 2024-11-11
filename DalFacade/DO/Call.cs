@@ -3,6 +3,7 @@ using System.Net;
 
 namespace DO;
 
+
 /// <summary>
 /// 
 /// </summary>
@@ -26,6 +27,7 @@ public record Call
     string? verbalDescription = null
 
 )
+ 
 {
     public Call() : this(0, "",0,0, default(DateTime)) { } // empty ctor for stage 3 
 }
