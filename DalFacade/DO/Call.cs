@@ -27,4 +27,4 @@ public record Call
 )
  
 {
-    public Call() : this(0, "", /**/,0,0, default(DateTime)) { } // empty ctor for stage 3 
+    public Call() : this(0, "",CallType, 0,0, default(DateTime)) { } // empty ctor for stage 3 

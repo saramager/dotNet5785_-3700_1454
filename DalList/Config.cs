@@ -17,7 +17,7 @@ namespace Dal;
 
     internal static DateTime Clock { get; set; } = DateTime.Now;
     internal static TimeSpan RiskRange { get; set; }
-
+    // להבין למה על הזמן 
     internal static void Reset()
     {
         NextCallId = StartCallId;

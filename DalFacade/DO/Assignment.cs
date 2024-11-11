@@ -17,7 +17,7 @@ public record Assignment
   int VolunteerId,
   DateTime startTreatment,
   DateTime? finishTreatment = null,
- FinishType? finishT = null
+  FinishType? finishT = null
  )
 {
     public Assignment() : this(0, 0, 0, default(DateTime)) { } // empty ctor for stage 3 
