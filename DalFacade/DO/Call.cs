@@ -1,10 +1,18 @@
-﻿// Module Call.cs
+﻿
 using System.Net;
 
 namespace DO;
 
-
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name="id"></param>
+/// <param name="address"></param>
+/// <param name="latitude"></param>
+/// <param name="longitude"></param>
+/// <param name="openTime"></param>
+/// <param name="maxTime"></param>
+/// <param name="verbalDescription"></param>
 public record Call
 (
 
