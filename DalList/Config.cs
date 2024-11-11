@@ -1,6 +1,7 @@
 ﻿
 namespace Dal;
 
+
  internal static class Config
 {
     internal const int StartCallId = 1000;
