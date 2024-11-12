@@ -16,7 +16,7 @@ public record Call
 (
 
     int id,
-    string  address,
+    string address,
     CallType callT,
     double latitude,
     double longitude,
@@ -25,6 +25,7 @@ public record Call
     string? verbalDescription = null
 
 )
- 
+
 {
-    public Call() : this(0, "",CallType, 0,0, default(DateTime)) { } // empty ctor for stage 3 
+    public Call() : this(0, "", default, 0, 0, default(DateTime)) { } // empty ctor for stage 3 
+}

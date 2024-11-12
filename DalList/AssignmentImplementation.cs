@@ -8,31 +8,52 @@ public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)
     {
-        throw new NotImplementedException();
+        int newID = Config.nextAssignmentId;
+        Assignment newAssignment = item with { ID = newID };
+        DataSource.Assignments.Add(newAssignment);
+
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        int numRemove = DataSource.Assignments.RemoveAll(AssignmentToCheck => AssignmentToCheck.ID == id);
+        if (numRemove == 0)
+        {
+            throw new Exception($"Assignment with ID={id} does Not exist");
+        }
+
     }
 
     public void DeleteAll()
     {
-        throw new NotImplementedException();
+        if (DataSource.Assignments.Count != 0)
+            DataSource.Assignments.Clear();
+
     }
 
     public Assignment? Read(int id)
     {
-        throw new NotImplementedException();
+        var AssignmentToReturn = DataSource.Assignments.Find(AssignmentToCheck => AssignmentToCheck.ID == id);
+        if (AssignmentToReturn == null)
+            return null;
+        return AssignmentToReturn;
+
     }
 
     public List<Assignment> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<Assignment>(DataSource.Assignments);
+
     }
 
     public void Update(Assignment item)
     {
-        throw new NotImplementedException();
+        int numRemove = DataSource.Assignments.RemoveAll(AssignmentToCheck => AssignmentToCheck.ID == item.ID);
+        if (numRemove == 0)
+        {
+            throw new Exception($"Assignment with ID={item.ID} does Not exist");
+        }
+        DataSource.Assignments.Add(item);
+
     }
 }
