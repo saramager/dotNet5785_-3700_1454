@@ -3,7 +3,9 @@ namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
-
+/// <summary>
+/// Implementation the func in  for IAssignment
+/// </summary>
 public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment item)

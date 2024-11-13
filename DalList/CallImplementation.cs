@@ -2,9 +2,10 @@
 namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
+/// <summary>
+///  Implementation the func in  for ICall
+/// </summary>
 public class CallImplementation : ICall
 {
     public void Create(Call item)

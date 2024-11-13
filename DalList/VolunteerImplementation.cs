@@ -4,7 +4,9 @@ namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
-
+/// <summary>
+/// Implementation the func in  for IVolunteer
+/// </summary>
 public class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
