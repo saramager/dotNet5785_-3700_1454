@@ -1,9 +1,6 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
-using System;
-using System.Numerics;
-using System.Xml.Linq;
 
 public static class Initialization
 {
