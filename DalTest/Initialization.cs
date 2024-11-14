@@ -35,8 +35,41 @@ public static class Initialization
     }
     private static void createAssignment()
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 60; i++)
         {
+           
+            int randVolunteer = s_rand.Next(s_dalVolunteer!.ReadAll().Count);
+            Volunteer volunteerToAssig = s_dalVolunteer.ReadAll()[randVolunteer];
+            int randCAll = s_rand.Next(s_dalCall!.ReadAll().Count - 15);
+            Call callToAssig = s_dalCall.ReadAll()[randCAll];
+            while (callToAssig.openTime> s_dalConfig!.Clock)
+            {
+                randCAll = s_rand.Next(s_dalCall!.ReadAll().Count - 15);
+                callToAssig = s_dalCall.ReadAll()[randCAll];
+            }
+            FinishType? finish= null;
+            DateTime? finishTime= null;
+            if (callToAssig.maxTime!=null&& callToAssig.maxTime>= s_dalConfig?.Clock)
+            {
+                finish = FinishType.ExpiredCancel;
+            }
+            else
+            {
+                int randFinish = s_rand.Next(0,4);
+                switch (randFinish)
+                {
+                    case 0: finish = FinishType.Treated;
+                        finishTime = s_dalConfig!.Clock;
+                        break;
+                    case 1: finish = FinishType.SelfCancel; break;
+                    case 2: finish = FinishType.ManagerCancel; break;
+               
+
+
+
+                }
+            }
+            s_dalAssignment?.Create(new Assignment(0,callToAssig.id,volunteerToAssig.ID, s_dalConfig!.Clock, finishTime,finish));  
 
 
         }
@@ -114,6 +147,7 @@ public static class Initialization
     }
     private static void createConfig()
     {
+        
        
     }
 
