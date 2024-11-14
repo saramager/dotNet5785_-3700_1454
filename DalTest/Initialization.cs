@@ -30,7 +30,7 @@ public static class Initialization
             {
                  VId = s_rand.Next(200000000, 400000001);
             }
-            s_dalVolunteer!.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance, "password321", address[i], latitude[i], longitude[i], DisMax));
+            s_dalVolunteer!.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance, "password321", address[i], latitude[i], longitude[i], DisMax));
         }
     }
     private static void createAssignment()
