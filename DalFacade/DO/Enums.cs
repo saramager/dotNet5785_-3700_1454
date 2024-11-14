@@ -2,7 +2,11 @@
 
 public enum CallType
 {
-  a,b, c, d, e
+    BabyGift,
+    MomGift,
+    HouseholdHelp,
+    MealPreparation
+
 }
 /// <summary>
 /// for Volunteer class - this enum represent the role  manger or regular volunteer 
@@ -10,14 +14,17 @@ public enum CallType
 public enum RoleType
 {
     
-    Manager, Volunteer 
+    Manager, 
+    TVolunteer
 }
 /// <summary>
 ///  for Call class - this enum represent the  different types of distance: Air distance, walking distance, Driving distance.
 /// </summary>
 public enum Distance
 {
-    AirDistance, walkingDistance, DrivingDistance
+    AirDistance, 
+    walkingDistance, 
+    DrivingDistance
 
 }
 /// <summary>
@@ -25,5 +32,8 @@ public enum Distance
 /// </summary>
 public enum FinishType
 {
-    Treated, SelfCancel, ManagerCancel, ExpiredCancel
+    Treated, 
+    SelfCancel, 
+    ManagerCancel, 
+    ExpiredCancel
 }
