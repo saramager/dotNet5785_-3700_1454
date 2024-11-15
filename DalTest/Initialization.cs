@@ -9,15 +9,54 @@ public static class Initialization
     private static ICall? s_dalCall; //stage 1
     private static IConfig? s_dalConfig; //stage 1
     private static readonly Random s_rand = new();
+    // המערך של הכתובות באנגלית
+    public static readonly string[] addresses = new string[]
+    {
+        "Amram Gaon 14, Jerusalem, Israel",
+        "Amram Gaon 6, Jerusalem, Israel",
+        "Harav Haim Vital 8, Jerusalem, Israel",
+        "Beit Hadfus 9, Jerusalem, Israel",
+        "Harav Shrira Gaon 18, Jerusalem, Israel",
+        "Harav Shrira Gaon 10, Jerusalem, Israel",
+        "Harav Shrira Gaon 5, Jerusalem, Israel",
+        "Beit Hadfus 22, Jerusalem, Israel",
+        "Beit Hadfus 35, Jerusalem, Israel",
+        "Kanfei Nesharim 13, Jerusalem, Israel",
+        "Kanfei Nesharim 24, Jerusalem, Israel",
+        "Kanfei Nesharim 40, Jerusalem, Israel",
+        "Harav Tzvi Yehuda 16, Jerusalem, Israel",
+        "Najara 3, Jerusalem, Israel",
+        "HaIlui 9, Jerusalem, Israel",
+        "Harav Reines 30, Jerusalem, Israel",
+        "Najara 14, Jerusalem, Israel",
+        "Givat Shaul 25, Jerusalem, Israel",
+        "Beit Shearim 4, Jerusalem, Israel",
+        "Beit Hadfus 22, Jerusalem, Israel"
+    };
+
+    // (Longitude) מערך קווי האורך
+    public static readonly double[] longitudes = new double[]
+    {
+        35.19262, 35.19285, 35.19285, 35.18921, 35.19136,
+        35.19252, 35.19383, 35.18556, 35.18081, 35.18475,
+        35.1867, 35.18392, 35.19622, 35.19214, 35.19566,
+        35.195, 35.19139, 35.19087, 35.19624, 35.18556
+    };
+
+    // (Latitude) מערך קווי הרוחב
+    public static readonly double[] latitudes = new double[]
+    {
+        31.79052, 31.79141, 31.78845, 31.7857, 31.78878,
+        31.78846, 31.78827, 31.78659, 31.78582, 31.78737,
+        31.78813, 31.78792, 31.78776, 31.79202, 31.78888,
+        31.79003, 31.79062, 31.79251, 31.79032, 31.78659
+    };
     private static void createVolunteers()
     {
 
         string[] names = { "David Levy", "Miriam Cohen", "Yosef Katz", "Sarah Gold", "Shlomo Klein", "Chana Rosen", "Aharon Azulay", "Tova Benita", "Yaakov Pinto", "Esther Bar", "Dov Cohen", "Rivka Dayan", "Yitzhak Azulay", "Malkah Shalom", "Avraham Segal" ,"Moshe Chaim"};
         string[] emails = { "levy.david@email.com", "miriamCohen@gmail.com", "yosef.katz@outlook.com", "sarahGold789@yahoo.com", "shlomo.klein@live.com", "chana.rosen@icloud.com", "aharonAzulay@mail.com", "tova.benita@webmail.com", "yaakov.pinto@zoho.com", "esther.bar@aol.com", "dov.cohen@ymail.com", "rivka.dayan@fastmail.com", "yitzhak.azulay@protonmail.com", "malkah.shalom@gmx.com", "avraham.segal@tutanota.com","moshe342@gmail.co.il" };
         string[] phoneNumbers = { "0521234567", "0532345678", "0543456789", "0554567890", "0585678901", "0596789012", "0577890123", "0588901234", "0529012345", "0530123456", "0541234567", "0552345678", "0583456789", "0574567890", "0595678901", "050897463" };
-        string[] address = { "vvv" };//???//;
-        double[] latitude = { };
-        double[] longitude = { };
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
@@ -26,11 +65,12 @@ public static class Initialization
             int VId = s_rand.Next(200000000, 400000001);
             bool active = !(i % 7 == 0);
             double DisMax = s_rand.NextDouble() * 5.0;
+            int randAddress = s_rand.Next(addresses.Length);
             while (s_dalVolunteer!.Read(VId) != null)
             {
                  VId = s_rand.Next(200000000, 400000001);
             }
-            s_dalVolunteer!.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance, "password321", address[i], latitude[i], longitude[i], DisMax));
+            s_dalVolunteer!.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance, "password321", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
         }
     }
     private static void createAssignment()
@@ -77,9 +117,6 @@ public static class Initialization
     }
     private static void createCall()
     {
-        string[] address = { "vvv" };//???//;
-        double[] latitude = { };
-        double[] longitude = { };
         string[][] VolunteerDescriptions = new string[][] {
             // BabyGift descriptions
             new string[]
@@ -129,6 +166,7 @@ public static class Initialization
         for (int i = 0; i < 60; i++)
         {
             CallType TypeOfCall = (CallType)s_rand.Next(0, 4);  // Randomly select a volunteer activity
+            int randAddress = s_rand.Next(addresses.Length);// Randomly selsct adrees of call
             string CallDescription = VolunteerDescriptions[(int)TypeOfCall][s_rand.Next(0, VolunteerDescriptions[(int)TypeOfCall].Length)];
 
             DateTime startCall = startRange.AddHours(s_rand.Next(range));
@@ -140,7 +178,7 @@ public static class Initialization
             {
                 finishCall = startCall.AddHours(CallTime + s_rand.Next(200));
             }
-            s_dalCall!.Create(new Call(0, address[i], TypeOfCall, latitude[i], longitude[i], startCall, finishCall, CallDescription));
+            s_dalCall!.Create(new Call(0,addresses[randAddress], TypeOfCall, latitudes[randAddress], longitudes[randAddress], startCall, finishCall, CallDescription));
 
         }
 
