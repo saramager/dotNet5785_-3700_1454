@@ -56,17 +56,17 @@ internal class Program
                 
                 if (OPTION.RESET_DB == option)
                 {
-                    //s_dalStudent.DeleteAll(); //stage 1
-                    ////...
-                    ////s_dalCourse.DeleteAll(); //stage 1 
-                    ////Links_dalLinkDeleteAll();//stage 1 
-                    //s_dalConfig.ResetConfig(); //stage 1 
+                    s_dalVolunteer?.DeleteAll();//stage 1
+
+                    s_dalCall?.DeleteAll(); //stage 1 
+                    s_dalAssignment?.DeleteAll();//stage 1 
+                    s_dalConfig?.Reset(); //stage 1 
                 }
                 else if (OPTION.INIT_DB == option)
                 {
-                    //Initialization.Do(s_dalStudent, s_dalCourse, s_dalLink, s_dalConfig); //stage 1
+                    Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig); //stage 1
                     //Initialization.Do(s_dal); //stage 2
-                    Initialization.Do(); //stage 4
+                    //Initialization.Do(); //stage 4
                 }
                 else if (OPTION.CONFIG == option)
                 {

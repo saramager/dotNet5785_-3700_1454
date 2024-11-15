@@ -145,12 +145,27 @@ public static class Initialization
         }
 
     }
-    private static void createConfig()
+    public static void Do( IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig)
     {
-        
-       
+        s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalCall = dalCall ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL can not be null!");
+        Console.WriteLine( "Reset Configuration values and List values.");
+        s_dalConfig.Reset(); //stage 1
+        s_dalAssignment.DeleteAll(); //stage 1
+        s_dalCall.DeleteAll();
+        s_dalVolunteer.DeleteAll();
+                                  
+        Console.WriteLine("Initializing Volunteer list");
+        createVolunteers();
+        Console.WriteLine("Initializing Call list");
+        createCall();
+        Console.WriteLine("Initializing Assignment list");
+        createAssignment();
     }
+}
 
-};
+
 
 
