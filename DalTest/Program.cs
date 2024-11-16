@@ -192,19 +192,19 @@ Config Options:
     private static void showAllDB()
     {
         Console.WriteLine("--------------- List of Courses ------------------------------------------");
-        foreach (var item in s_dal!.Course.ReadAll())
+        foreach (var item in s_dal!.ASSIGNMENT.ReadAll())
         {
             Console.WriteLine(item);
         }
 
         Console.WriteLine("--------------- List of Students ------------------------------------------");
-        foreach (var item in s_dal!.Student.ReadAll())
+        foreach (var item in s_dal!.VOLUNTEER.ReadAll())
         {
             Console.WriteLine(item);
         }
 
         Console.WriteLine("--------------- List of Links ------------------------------------------");
-        foreach (var item in s_dal!.Link.ReadAll())
+        foreach (var item in s_dal!.CALL.ReadAll())
         {
             Console.WriteLine(item);
         }
@@ -273,16 +273,16 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                createStudent(out Student st);
-                s_dal!.Student.Create(st);
+                createVolunteer(out Volunteer vo);
+                s_dal!.Volunteer.Create(vo);
                 break;
             case OPTION.ASSIGNMENT:
-                createCourse(out Course cr);
-                s_dal!.Course.Create(cr);
+                createAssignment(out Assignment ass);
+                s_dal!.Assignment.Create(ass);
                 break;
             case OPTION.CALL:
-                createLink(out Link lk);
-                s_dal!.Link.Create(lk);
+                createCall(out Call ca);
+                s_dal!.Call.Create(ca);
                 break;
             default:
                 break;
@@ -297,10 +297,10 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dal!.Student.Read(id));
+                Console.WriteLine(s_dal!.Volunteer.Read(id));
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dal!.Course.Read(id));
+                Console.WriteLine(s_dal!.Assignment.Read(id));
                 break;
             case OPTION.CALL:
                 //removed - from 2025
@@ -308,7 +308,7 @@ Config Options:
                 //if (false == int.TryParse(Console.ReadLine(), out int id2))
                 //    Console.WriteLine("Wrong input");
                 //Console.WriteLine(s_dal!.Link.Read(id, id2));
-                Console.WriteLine(s_dal!.Link.Read(id));
+                Console.WriteLine(s_dal!.Call.Read(id));
                 break;
             default:
                 break;
@@ -320,15 +320,15 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                foreach (var item in s_dal!.Student.ReadAll())
+                foreach (var item in s_dal!.Volunteer.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.ASSIGNMENT:
-                foreach (var item in s_dal!.Course.ReadAll())
+                foreach (var item in s_dal!.Assignment.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.CALL:
-                foreach (var item in s_dal!.Link.ReadAll())
+                foreach (var item in s_dal!.Call.ReadAll())
                     Console.WriteLine(item);
                 break;
             default:
@@ -345,19 +345,19 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dal!.Student.Read(id));
-                createStudent(out Student st, id);
-                s_dal!.Student.Update(st);
+                Console.WriteLine(s_dal!.Volunteer.Read(id));
+                createVolunteer(out Volunteer vo, id);
+                s_dal!.Volunteer.Update(vo);
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dal!.Course.Read(id));
-                createCourse(out Course cr, id);
-                s_dal!.Course.Update(cr);
+                Console.WriteLine(s_dal!.Assignment.Read(id));
+                createAssignment(out Assignment ass, id);
+                s_dal!.Assignment.Update(ass);
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dal!.Link.Read(id));
-                createLink(out Link lk, id);
-                s_dal!.Link.Update(lk);
+                Console.WriteLine(s_dal!.Call.Read(id));
+                createCall(out Call ca, id);
+                s_dal!.Call.Update(ca);
                 break;
             default:
                 break;
@@ -372,13 +372,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dal!.Student.Delete(id);
+                s_dal!.Volunteer.Delete(id);
                 break;
             case OPTION.ASSIGNMENT:
-                s_dal!.Course.Delete(id);
+                s_dal!.Assignment.Delete(id);
                 break;
             case OPTION.CALL:
-                s_dal!.Link.Delete(id);
+                s_dal!.Call.Delete(id);
                 break;
             default:
                 break;
@@ -390,19 +390,122 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dal!.Student.DeleteAll();
+                s_dal!.Volunteer.DeleteAll();
                 break;
             case OPTION.ASSIGNMENT:
-                s_dal!.Course.DeleteAll();
+                s_dal!.Assignment.DeleteAll();
                 break;
             case OPTION.CALL:
-                s_dal!.Link.DeleteAll();
+                s_dal!.Call.DeleteAll();
                 break;
             default:
                 break;
         }
     }
+
+    private static void createVolunteer(out Volunteer vo, int id = 0)
+    {
+        if (id == 0)
+        {
+            Console.Write("enter VolunteerId: ");
+            if (!int.TryParse(Console.ReadLine(), out int _id))
+                throw new FormatException("Wrong input");
+            else
+                id = _id;
+        }
+
+        Console.Write("enter Name of the Volunteer: ");
+        string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
+
+        Console.Write("enter phone of the Volunteer: ");
+        string? phone = Console.ReadLine() ?? throw new FormatException("Wrong input");
+
+        Console.Write("enter email of the Volunteer: ");
+        string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
+
+        Console.Write("enter true/false if the Student is active: ");
+        if (!bool.TryParse(Console.ReadLine(), out bool active))
+            throw new FormatException("Wrong input");
+
+        Console.Write("Enter role of the Volunteer: ");
+        int input1 = int.Parse(Console.ReadLine());
+
+        // בדיקה ישירה של הערכים
+        if (input1 == (int)RoleType.Manager || input1 == (int)RoleType.TVolunteer)
+        {
+            // המרה של הערך ל-`RoleType`
+            RoleType role = (RoleType)input1;
+        }
+        else
+            throw new FormatException("Invalid input: must be 0 or 1.");
+        // Distance distanceType?
+
+        Console.Write("Enter the distance type: ");
+        int input2 = int.Parse(Console.ReadLine());
+
+        // בדיקה ישירה של הערכים
+        if (input2 == (int)Distance.AirDistance || input2 == (int)Distance.walkingDistance
+            || input2 == (int)Distance.DrivingDistance)
+        {
+            // המרה של הערך ל-`Distance`
+            Distance distance = (Distance)input2;
+        }
+        else
+            throw new FormatException("Invalid input: must be 0 or 1 or 2.");
+
+        vo = new Volunteer(id, name, phone, email, active, role, distance);
+    }
+        
+
+    private static void createAssignment(out Assignment ass, int id = 0)
+    {
+       
+        Console.Write("enter id of the call: ");
+       /// איך עושים?
+
+        if (id == 0)
+        {
+            Console.Write("enter VolunteerId: ");
+            if (!int.TryParse(Console.ReadLine(), out int _id))
+                throw new FormatException("Wrong input");
+            else
+                id = _id;
+        }
+
+        ass = new Assignment(0, 0 ,id , default(DateTime));
+
+
+
+    }
+    private static void createCall(out Call ca, int id = 0)
+    {
+
+        Console.Write("Enter the Call address: ");
+        string? address = Console.ReadLine() ?? throw new FormatException("Wrong input");
+
+        Console.Write("Enter the call type: ");
+        int input = int.Parse(Console.ReadLine());
+
+        // בדיקה ישירה של הערכים
+        if (input == (int)CallType.BabyGift || input == (int)CallType.MomGift
+            || input == (int)CallType.HouseholdHelp || input == (int)CallType.MealPreparation)
+        {
+            // המרה של הערך ל-`CallType`
+            CallType typeCall = (CallType)input;
+        }
+        else
+            throw new FormatException("Invalid input: must be 0 or 1 or 2 or 3.");
+        //קווי אורך
+        //קוורי רוחב
+
+
+        ca = Call(0,address,typeCall, , , default(DateTime));
+    }
+
+
+
 }
+
 
 
 
