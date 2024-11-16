@@ -120,44 +120,44 @@ OPTION Options:
             {
                 case CONFIG.FORWARD_CLOCK_ONE_HOUR:
                     {
-                        s_dal.Config.Clock = s_dal.Config.Clock.AddHours(1);
+                       s_dalConfig.Clock =s_dalConfig.Clock.AddHours(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_DAY:
                     {
-                        s_dal.Config.Clock = s_dal.Config.Clock.AddDays(1);
+                       s_dalConfig.Clock =s_dalConfig.Clock.AddDays(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_MONTH:
                     {
-                        s_dal.Config.Clock = s_dal.Config.Clock.AddMonths(1);
+                       s_dalConfig.Clock =s_dalConfig.Clock.AddMonths(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_YEAR:
                     {
-                        s_dal.Config.Clock = s_dal.Config.Clock.AddYears(1);
+                       s_dalConfig.Clock =s_dalConfig.Clock.AddYears(1);
                         break;
                     }
                 case CONFIG.GET_CLOCK:
                     {
-                        Console.WriteLine(s_dal.Config.Clock);
+                        Console.WriteLine(s_dalConfig.Clock);
                         break;
                     }
                 case CONFIG.SET_MAX_RANGE:
                     {
                         Console.Write("enter Max Range: ");
-                        if (!int.TryParse(Console.ReadLine(), out int maxRange))
+                        if (!int.TryParse(Console.ReadLine(), out int riskRange))
                             throw new FormatException("Wrong input");
-                        s_dal.Config.MaxRange = maxRange;
+                       s_dalConfig.RiskRange = (TimeSpan)maxRange;
                         break;
                     }
                 case CONFIG.GET_MAX_RANGE:
                     {
-                        Console.WriteLine(s_dal.Config.MaxRange);
+                        Console.WriteLine(s_dalConfig.RiskRange);
                         break;
                     }
                 case CONFIG.RESET_CONFIG:
-                    s_dal.Config.Reset();
+                   s_dalConfig.Reset();
                     break;
                 default:
                     return;
@@ -168,6 +168,7 @@ OPTION Options:
             Console.WriteLine(ex);
         }
     }
+
 
     private static CONFIG showConfigMenu()
     {
@@ -182,8 +183,8 @@ Config Options:
 3 - Forward Clock One Month
 4 - Forward Clock One Year
 5 - Get Clock
-6 - Set MaxRange
-7 - Get MaxRange 
+6 - Set RiskRange
+7 - Get RiskRange 
 8 - ResetConfig Config");
         }
         while (!int.TryParse(s: Console.ReadLine(), out choice));
@@ -191,20 +192,18 @@ Config Options:
     }
     private static void showAllDB()
     {
-        Console.WriteLine("--------------- List of Courses ------------------------------------------");
-        foreach (var item in s_dal!.ASSIGNMENT.ReadAll())
+        Console.WriteLine("--------------- List of Volunteers ------------------------------------------");
+        foreach (var item in s_dalVolunteer!.ReadAll())
         {
             Console.WriteLine(item);
         }
-
-        Console.WriteLine("--------------- List of Students ------------------------------------------");
-        foreach (var item in s_dal!.VOLUNTEER.ReadAll())
+        Console.WriteLine("--------------- List of Calls ------------------------------------------");
+        foreach (var item in s_dalCall!.ReadAll())
         {
             Console.WriteLine(item);
         }
-
-        Console.WriteLine("--------------- List of Links ------------------------------------------");
-        foreach (var item in s_dal!.CALL.ReadAll())
+        Console.WriteLine("--------------- List of Assignments ------------------------------------------");
+        foreach (var item in s_dalAssignment!.ReadAll())
         {
             Console.WriteLine(item);
         }
@@ -274,15 +273,15 @@ Config Options:
         {
             case OPTION.VOLUNTEER:
                 createVolunteer(out Volunteer vo);
-                s_dal!.Volunteer.Create(vo);
+                s_dalVolunteer!.Create(vo);
                 break;
             case OPTION.ASSIGNMENT:
                 createAssignment(out Assignment ass);
-                s_dal!.Assignment.Create(ass);
+                s_dalAssignment!.Create(ass);
                 break;
             case OPTION.CALL:
                 createCall(out Call ca);
-                s_dal!.Call.Create(ca);
+                s_dalCall!.Create(ca);
                 break;
             default:
                 break;
@@ -297,10 +296,10 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dal!.Volunteer.Read(id));
+                Console.WriteLine(s_dalVolunteer!.Read(id));
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dal!.Assignment.Read(id));
+                Console.WriteLine(s_dalAssignment!.Read(id));
                 break;
             case OPTION.CALL:
                 //removed - from 2025
@@ -308,7 +307,7 @@ Config Options:
                 //if (false == int.TryParse(Console.ReadLine(), out int id2))
                 //    Console.WriteLine("Wrong input");
                 //Console.WriteLine(s_dal!.Link.Read(id, id2));
-                Console.WriteLine(s_dal!.Call.Read(id));
+                Console.WriteLine(s_dalCall!.Read(id));
                 break;
             default:
                 break;
@@ -320,15 +319,15 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                foreach (var item in s_dal!.Volunteer.ReadAll())
+                foreach (var item in s_dalVolunteer!.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.ASSIGNMENT:
-                foreach (var item in s_dal!.Assignment.ReadAll())
+                foreach (var item in s_dalAssignment!.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.CALL:
-                foreach (var item in s_dal!.Call.ReadAll())
+                foreach (var item in s_dalCall!.ReadAll())
                     Console.WriteLine(item);
                 break;
             default:
@@ -345,19 +344,19 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dal!.Volunteer.Read(id));
+                Console.WriteLine(s_dalVolunteer!.Read(id));
                 createVolunteer(out Volunteer vo, id);
-                s_dal!.Volunteer.Update(vo);
+                s_dalVolunteer!.Update(vo);
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dal!.Assignment.Read(id));
+                Console.WriteLine(s_dalAssignment!.Read(id));
                 createAssignment(out Assignment ass, id);
-                s_dal!.Assignment.Update(ass);
+                s_dalAssignment!.Update(ass);
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dal!.Call.Read(id));
+                Console.WriteLine(s_dalCall!.Read(id));
                 createCall(out Call ca, id);
-                s_dal!.Call.Update(ca);
+                s_dalCall!.Update(ca);
                 break;
             default:
                 break;
@@ -372,13 +371,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dal!.Volunteer.Delete(id);
+                s_dalVolunteer!.Delete(id);
                 break;
             case OPTION.ASSIGNMENT:
-                s_dal!.Assignment.Delete(id);
+                s_dalAssignment!.Delete(id);
                 break;
             case OPTION.CALL:
-                s_dal!.Call.Delete(id);
+                s_dalCall!.Delete(id);
                 break;
             default:
                 break;
@@ -390,13 +389,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dal!.Volunteer.DeleteAll();
+                s_dalVolunteer!.DeleteAll();
                 break;
             case OPTION.ASSIGNMENT:
-                s_dal!.Assignment.DeleteAll();
+                s_dalAssignment!.DeleteAll();
                 break;
             case OPTION.CALL:
-                s_dal!.Call.DeleteAll();
+                s_dalCall!.DeleteAll();
                 break;
             default:
                 break;
@@ -405,6 +404,8 @@ Config Options:
 
     private static void createVolunteer(out Volunteer vo, int id = 0)
     {
+        Distance distance;
+        RoleType role;
         if (id == 0)
         {
             Console.Write("enter VolunteerId: ");
@@ -413,7 +414,7 @@ Config Options:
             else
                 id = _id;
         }
-
+        
         Console.Write("enter Name of the Volunteer: ");
         string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
@@ -434,7 +435,7 @@ Config Options:
         if (input1 == (int)RoleType.Manager || input1 == (int)RoleType.TVolunteer)
         {
             // המרה של הערך ל-`RoleType`
-            RoleType role = (RoleType)input1;
+            role = (RoleType)input1;
         }
         else
             throw new FormatException("Invalid input: must be 0 or 1.");
@@ -448,7 +449,7 @@ Config Options:
             || input2 == (int)Distance.DrivingDistance)
         {
             // המרה של הערך ל-`Distance`
-            Distance distance = (Distance)input2;
+            distance = (Distance)input2;
         }
         else
             throw new FormatException("Invalid input: must be 0 or 1 or 2.");
@@ -485,13 +486,13 @@ Config Options:
 
         Console.Write("Enter the call type: ");
         int input = int.Parse(Console.ReadLine());
-
+        CallType typeCall;
         // בדיקה ישירה של הערכים
         if (input == (int)CallType.BabyGift || input == (int)CallType.MomGift
             || input == (int)CallType.HouseholdHelp || input == (int)CallType.MealPreparation)
         {
             // המרה של הערך ל-`CallType`
-            CallType typeCall = (CallType)input;
+             typeCall = (CallType)input;
         }
         else
             throw new FormatException("Invalid input: must be 0 or 1 or 2 or 3.");
@@ -499,7 +500,7 @@ Config Options:
         //קוורי רוחב
 
 
-        ca = Call(0,address,typeCall, , , default(DateTime));
+        ca =  new Call(0,address,typeCall ,0 , 1, default(DateTime));
     }
 
 

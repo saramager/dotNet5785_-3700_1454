@@ -11,7 +11,7 @@ public class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-       if(Read(item.ID)==null)
+       if(Read(item.ID)!=null)
             throw new Exception($"Volunteer with ID={item.ID} already exists");
         DataSource.Volunteers.Add(item);
 
