@@ -484,7 +484,8 @@ Config Options:
     }
     private static void createCall(out Call ca, int id = 0)
     {
-       
+        DateTime? maxTime;
+   
         Console.Write("Enter the Call address: ");
         string? address = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
@@ -493,12 +494,29 @@ Config Options:
    
         if (!CallType.TryParse(Console.ReadLine(), out CallType typeCall))
             throw new FormatException("Wrong input- of CallType");
+
         Console.Write("Enter the Latitude: ");
-        if (!CallType.TryParse(Console.ReadLine(), out double latitude))
-            throw new FormatException("Wrong input- of CallType");
+        if (!double.TryParse(Console.ReadLine(), out double latitude))
+            throw new FormatException("Wrong input- of Latitude");
 
+        Console.Write("Enter the Longitude: ");
+        if (!double.TryParse(Console.ReadLine(), out double longitude))
+            throw new FormatException("Wrong input- of Longitude");
 
-        ca =  new Call(id ,address,typeCall ,latitude,longitude,);
+        Console.Write("Enter open time for call: ");
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime openTime))
+            throw new FormatException("Wrong input- of Time");
+
+        Console.Write("Enter the maximum time for Call: ");
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime MaxResult))
+            maxTime = null;
+        else
+            maxTime = MaxResult;
+
+        Console.Write("Enter the verbal describe  ");
+        string? describe = Console.ReadLine() ?? null;
+
+        ca =  new Call(id ,address,typeCall ,latitude,longitude, openTime,maxTime,describe);
     }
 
 
