@@ -3,7 +3,10 @@ using DalApi;
 using DO;
 namespace DalTest;
 
-public enum OPTION
+/// <summary>
+/// Main menu
+/// </summary>
+public enum OPTION 
 {
     EXIT,
     VOLUNTEER,
@@ -14,6 +17,11 @@ public enum OPTION
     CONFIG,
     RESET_DB
 }
+
+
+/// <summary>
+/// CRUD menu
+/// </summary>
 public enum CRUD
 {
     EXIT,
@@ -24,6 +32,10 @@ public enum CRUD
     DELETE,
     DELETE_ALL
 }
+
+/// <summary>
+/// CONFIG menu
+/// </summary>
 public enum CONFIG
 {
     EXIT,
@@ -40,14 +52,16 @@ public enum CONFIG
 
 internal class Program
 {
+   
     private static IVolunteer? s_dalVolunteer = new VolunteerImplementation(); //stage 1
     private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
     private static ICall? s_dalCall = new CallImplementation(); //stage 1
     private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
 
-
+    
     static void Main(string[] args)
     {
+        
         try
         {
             OPTION option = showMainMenu();
@@ -86,11 +100,15 @@ internal class Program
             }
 
         }
-        catch (Exception ex)
+        catch (Exception ex)// One catch for all the try
         {
             Console.WriteLine(ex);
         }
     }
+    /// <summary>
+    /// Show the main menu for the user
+    /// </summary>
+    /// <returns></returns>
     private static OPTION showMainMenu()
     {
         int choice;
@@ -112,6 +130,10 @@ OPTION Options:
         return (OPTION)choice;
     }
 
+    /// <summary>
+    /// Deal with all the config option
+    /// </summary>
+    /// <exception cref="FormatException"></exception>
     private static void handleConfigOptions()
     {
         try
@@ -175,7 +197,10 @@ OPTION Options:
         }
     }
 
-
+    /// <summary>
+    ///  Show the config menu for the user
+    /// </summary>
+    /// <returns></returns>
     private static CONFIG showConfigMenu()
     {
         int choice;
@@ -196,6 +221,9 @@ Config Options:
         while (!int.TryParse(s: Console.ReadLine(), out choice));
         return (CONFIG)choice;
     }
+    /// <summary>
+    /// Print all the lists: Volunteers, Calls and Assignments
+    /// </summary>
     private static void showAllDB()
     {
         Console.WriteLine("--------------- List of Volunteers ------------------------------------------");
@@ -214,6 +242,12 @@ Config Options:
             Console.WriteLine(item);
         }
     }
+
+
+    /// <summary>
+    /// Deal with all the CRUD option
+    /// </summary>
+    /// <param name="entity"></param>
     private static void handleCRUDOptions(OPTION entity)
     {
         try
@@ -249,7 +283,11 @@ Config Options:
             Console.WriteLine(ex);
         }
     }
-
+    /// <summary>
+    /// Show the menu CRUD
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     private static CRUD showCrudMenu(OPTION entity)
     {
         int choice;
@@ -452,15 +490,14 @@ Config Options:
         if (!bool.TryParse(Console.ReadLine(), out bool active))
             throw new FormatException("Wrong input");
 
-        Console.Write("Enter role of the Volunteer: ");
+        Console.Write("Enter role of the Volunteer: Manager or TVolunteer: ");
         if (!RoleType.TryParse(Console.ReadLine(), out RoleType role))
              throw new FormatException("Wrong input");
 
-   
-        Console.Write("Enter the distance type: ");
+        Console.Write("Enter the distance type: AirDistance, walkingDistance or DrivingDistance: ");
        if (!Distance.TryParse(Console.ReadLine(), out  Distance distance))
             throw new FormatException("Wrong input- of distance ");
-
+    
         Console.Write("Enter current address: ");
         string? address = Console.ReadLine() ?? null;
 
