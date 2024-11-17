@@ -1,7 +1,9 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
-
+/// <summary>
+/// initializon the database with values 
+/// </summary>
 public static class Initialization
 {
     private static IVolunteer? s_dalVolunteer; //stage 1
@@ -9,7 +11,7 @@ public static class Initialization
     private static ICall? s_dalCall; //stage 1
     private static IConfig? s_dalConfig; //stage 1
     private static readonly Random s_rand = new();
-    // המערך של הכתובות באנגלית
+    //arr of address
     public static readonly string[] addresses = new string[]
     {
         "Amram Gaon 14, Jerusalem, Israel",
@@ -34,7 +36,7 @@ public static class Initialization
         "Beit Hadfus 22, Jerusalem, Israel"
     };
 
-    // (Longitude) מערך קווי האורך
+    // (Longitude) arr
     public static readonly double[] longitudes = new double[]
     {
         35.19262, 35.19285, 35.19285, 35.18921, 35.19136,
@@ -43,7 +45,7 @@ public static class Initialization
         35.195, 35.19139, 35.19087, 35.19624, 35.18556
     };
 
-    // (Latitude) מערך קווי הרוחב
+    // (Latitude) arr
     public static readonly double[] latitudes = new double[]
     {
         31.79052, 31.79141, 31.78845, 31.7857, 31.78878,
@@ -62,11 +64,11 @@ public static class Initialization
             string name = names[i];
             string email = emails[i];
             string phone = phoneNumbers[i];
-            int VId = s_rand.Next(200000000, 400000001);
+            int VId = s_rand.Next(200000000, 400000000);//randonID
             bool active = !(i % 7 == 0);
-            double DisMax = s_rand.NextDouble() * 5.0;
+            double DisMax = s_rand.NextDouble() * 5.0;//randondistance 
             int randAddress = s_rand.Next(addresses.Length);
-            while (s_dalVolunteer!.Read(VId) != null)
+            while (s_dalVolunteer!.Read(VId) != null)// create new id is the id is found already.
             {
                  VId = s_rand.Next(200000000, 400000001);
             }
@@ -91,11 +93,11 @@ public static class Initialization
             DateTime? finishTime= null;
             if (callToAssig.maxTime!=null&& callToAssig.maxTime>= s_dalConfig?.Clock)
             {
-                finish = FinishType.ExpiredCancel;
+                finish = FinishType.ExpiredCancel;//if the time over the assigment is cancelld 
             }
             else
             {
-                int randFinish = s_rand.Next(0,4);
+                int randFinish = s_rand.Next(0,4);//randonly cose finish type 
                 switch (randFinish)
                 {
                     case 0: finish = FinishType.Treated;

@@ -268,7 +268,10 @@ Config Options:
         while (!int.TryParse(s: Console.ReadLine(), out choice));
         return (CRUD)choice;
     }
-
+    /// <summary>
+    /// help create the item for specific options 
+    /// </summary>
+    /// <param name="entity"></param> the specific option of delete 
     private static void handleCreate(OPTION entity)
     {
         switch (entity)
@@ -289,6 +292,10 @@ Config Options:
                 break;
         }
     }
+    /// <summary>
+    /// help read the item for specific options 
+    /// </summary>
+    /// <param name="entity"></param> the specific option of delete 
     private static void handleRead(OPTION entity)
     {
         Console.WriteLine("Enter an id");
@@ -310,7 +317,10 @@ Config Options:
                 break;
         }
     }
-
+    /// <summary>
+    /// help read  all the items for specific options 
+    /// </summary>
+    /// <param name="entity"></param> the specific option of delete 
     private static void handleReadAll(OPTION entity)
     {
         switch (entity)
@@ -331,7 +341,10 @@ Config Options:
                 break;
         }
     }
-
+    /// <summary>
+    /// help update  the items for specific options 
+    /// </summary>
+    /// <param name="entity"></param> the specific option of delete 
     private static void handleUpdate(OPTION entity)
     {
         Console.WriteLine("Enter an id");
@@ -359,6 +372,10 @@ Config Options:
                 break;
         }
     }
+    /// <summary>
+    /// help delete  the item for specific options 
+    /// </summary>
+    /// <param name="entity"></param> the specific option of delete 
     private static void handleDelete(OPTION entity)
     {
         Console.WriteLine("Enter an id");
@@ -380,7 +397,10 @@ Config Options:
                 break;
         }
     }
-
+    /// <summary>
+    /// help delete all the items for specific options 
+    /// </summary>
+    /// <param name="entity"></param> the specific option of delete 
     private static void handleDeleteAll(OPTION entity)
     {
         switch (entity)
@@ -398,7 +418,12 @@ Config Options:
                 break;
         }
     }
-
+    /// <summary>
+    /// craete a volunteer 
+    /// </summary>
+    /// <param name="vo"></param> out - help return the voulnteer 
+    /// <param name="id"></param>
+    /// <exception cref="FormatException"></exception>
     private static void createVolunteer(out Volunteer vo, int id = 0)
     {
         double? latitude;
@@ -460,8 +485,13 @@ Config Options:
 
         vo = new Volunteer(id, name, phone, email, active, role, distance, "password321",address, latitude, longitude,maxDis);
     }
-        
 
+    /// <summary>
+    /// craete an assignment 
+    /// </summary>
+    /// <param name="ass"></param> the assigment as  out  help to return the value
+    /// <param name="id"></param> can get id but it change because the id is running id 
+    /// <exception cref="FormatException"></exception>
     private static void createAssignment(out Assignment ass, int id = 0)
     {
         DateTime? finishTime;
@@ -485,7 +515,7 @@ Config Options:
         else
             finishTime = finishT;
 
-        Console.Write("Enter the finish type: ");
+        Console.Write("Enter the finish type, Treated or  SelfCancel or  ManagerCancel or   ExpiredCancel: ");
         if (!FinishType.TryParse(Console.ReadLine(), out FinishType typeF))
             finishType = null;
         else
@@ -496,6 +526,12 @@ Config Options:
 
 
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="ca"></param> out - help return the call
+    /// <param name="id"></param> can get id but it change because the id is running id 
+    /// <exception cref="FormatException"></exception>
     private static void createCall(out Call ca, int id = 0)
     {
         DateTime? maxTime;
@@ -504,7 +540,7 @@ Config Options:
         string? address = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
 
-        Console.Write("Enter the call type: ");
+        Console.Write("Enter the call type BabyGift or  MomGift or HouseholdHelp or MealPreparation: ");
    
         if (!CallType.TryParse(Console.ReadLine(), out CallType typeCall))
             throw new FormatException("Wrong input- of CallType");
