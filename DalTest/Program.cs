@@ -146,9 +146,10 @@ OPTION Options:
                 case CONFIG.SET_MAX_RANGE:
                     {
                         Console.Write("enter Max Range: ");
-                        if (!int.TryParse(Console.ReadLine(), out int riskRange))
+                       
+                        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan  riskRange))
                             throw new FormatException("Wrong input");
-                       s_dalConfig.RiskRange = (TimeSpan)maxRange;
+                       s_dalConfig.RiskRange = riskRange;
                         break;
                     }
                 case CONFIG.GET_MAX_RANGE:
