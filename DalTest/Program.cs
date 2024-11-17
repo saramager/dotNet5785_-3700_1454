@@ -427,15 +427,14 @@ Config Options:
         if (!bool.TryParse(Console.ReadLine(), out bool active))
             throw new FormatException("Wrong input");
 
-        Console.Write("Enter role of the Volunteer: ");
+        Console.Write("Enter role of the Volunteer: Manager or TVolunteer: ");
         if (!RoleType.TryParse(Console.ReadLine(), out RoleType role))
              throw new FormatException("Wrong input");
 
-   
-        Console.Write("Enter the distance type: ");
+        Console.Write("Enter the distance type: AirDistance, walkingDistance or DrivingDistance: ");
        if (!Distance.TryParse(Console.ReadLine(), out  Distance distance))
             throw new FormatException("Wrong input- of distance ");
-
+    
         Console.Write("Enter current address: ");
         string? address = Console.ReadLine() ?? null;
 
