@@ -464,20 +464,34 @@ Config Options:
 
     private static void createAssignment(out Assignment ass, int id = 0)
     {
-       
-        Console.Write("enter id of the call: ");
-       /// איך עושים?
+        DateTime? finishTime;
+        FinishType? finishType;
 
-        if (id == 0)
-        {
-            Console.Write("enter VolunteerId: ");
-            if (!int.TryParse(Console.ReadLine(), out int _id))
+            Console.Write("enter Call Id: ");
+            if (!int.TryParse(Console.ReadLine(), out int Cid))
                 throw new FormatException("Wrong input");
-            else
-                id = _id;
-        }
+         
+            Console.Write("enter Volunteer Id: ");
+            if (!int.TryParse(Console.ReadLine(), out int Vid))
+                throw new FormatException("Wrong input");
 
-        ass = new Assignment(0, 0 ,id , default(DateTime));
+        Console.Write("enter the start treatment: ");
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime start))
+            throw new FormatException("Wrong input");
+
+        Console.Write("Enter the finish time: ");
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime finishT))
+            finishTime = null;
+        else
+            finishTime = finishT;
+
+        Console.Write("Enter the finish type: ");
+        if (!FinishType.TryParse(Console.ReadLine(), out FinishType typeF))
+            finishType = null;
+        else
+            finishType = typeF;
+
+        ass = new Assignment(id, Cid, Vid, start, finishTime, finishType);
 
 
 
