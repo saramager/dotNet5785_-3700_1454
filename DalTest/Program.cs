@@ -27,6 +27,7 @@ public enum CRUD
 public enum CONFIG
 {
     EXIT,
+    FORWARD_CLOCK_ONE_MINUTE,
     FORWARD_CLOCK_ONE_HOUR,
     FORWARD_CLOCK_ONE_DAY,
     FORWARD_CLOCK_ONE_MONTH,
@@ -65,8 +66,7 @@ internal class Program
                 else if (OPTION.INIT_DB == option)
                 {
                     Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig); //stage 1
-                    //Initialization.Do(s_dal); //stage 2
-                    //Initialization.Do(); //stage 4
+                   
                 }
                 else if (OPTION.CONFIG == option)
                 {
@@ -108,7 +108,7 @@ OPTION Options:
 7 - Reset DB & Config");
    
         }
-        while (!int.TryParse(Console.ReadLine(), out choice));
+        while (!int.TryParse(Console.ReadLine(), out  choice));
         return (OPTION)choice;
     }
 
@@ -118,29 +118,34 @@ OPTION Options:
         {
             switch (showConfigMenu())
             {
+                case CONFIG.FORWARD_CLOCK_ONE_MINUTE:
+                    {
+                        s_dalConfig!.Clock = s_dalConfig.Clock.AddMinutes(1);
+                        break;
+                    }
                 case CONFIG.FORWARD_CLOCK_ONE_HOUR:
                     {
-                       s_dalConfig.Clock =s_dalConfig.Clock.AddHours(1);
+                       s_dalConfig!.Clock =s_dalConfig.Clock.AddHours(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_DAY:
                     {
-                       s_dalConfig.Clock =s_dalConfig.Clock.AddDays(1);
+                       s_dalConfig!.Clock =s_dalConfig.Clock.AddDays(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_MONTH:
                     {
-                       s_dalConfig.Clock =s_dalConfig.Clock.AddMonths(1);
+                       s_dalConfig!.Clock =s_dalConfig.Clock.AddMonths(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_YEAR:
                     {
-                       s_dalConfig.Clock =s_dalConfig.Clock.AddYears(1);
+                       s_dalConfig!.Clock =s_dalConfig.Clock.AddYears(1);
                         break;
                     }
                 case CONFIG.GET_CLOCK:
                     {
-                        Console.WriteLine(s_dalConfig.Clock);
+                        Console.WriteLine(s_dalConfig!.Clock);
                         break;
                     }
                 case CONFIG.SET_MAX_RANGE:
@@ -149,16 +154,16 @@ OPTION Options:
                        
                         if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan  riskRange))
                             throw new FormatException("Wrong input");
-                       s_dalConfig.RiskRange = riskRange;
+                       s_dalConfig!.RiskRange = riskRange;
                         break;
                     }
                 case CONFIG.GET_MAX_RANGE:
                     {
-                        Console.WriteLine(s_dalConfig.RiskRange);
+                        Console.WriteLine(s_dalConfig!.RiskRange);
                         break;
                     }
                 case CONFIG.RESET_CONFIG:
-                   s_dalConfig.Reset();
+                   s_dalConfig!.Reset();
                     break;
                 default:
                     return;
@@ -213,11 +218,7 @@ Config Options:
     {
         try
         {
-            //if (OPTION.SHOW_ALL_DB == option)
-            //{
-            //    showAllDB();
-            //    return;
-            //}
+           
             switch (showCrudMenu(entity))
             {
                 case CRUD.CREATE:
@@ -303,11 +304,6 @@ Config Options:
                 Console.WriteLine(s_dalAssignment!.Read(id));
                 break;
             case OPTION.CALL:
-                //removed - from 2025
-                //Console.WriteLine("Enter the next id");
-                //if (false == int.TryParse(Console.ReadLine(), out int id2))
-                //    Console.WriteLine("Wrong input");
-                //Console.WriteLine(s_dal!.Link.Read(id, id2));
                 Console.WriteLine(s_dalCall!.Read(id));
                 break;
             default:
@@ -405,8 +401,10 @@ Config Options:
 
     private static void createVolunteer(out Volunteer vo, int id = 0)
     {
-        Distance distance;
-        RoleType role;
+        double? latitude;
+        double? longitude;
+        double? maxDis;
+        
         if (id == 0)
         {
             Console.Write("enter VolunteerId: ");
@@ -425,37 +423,42 @@ Config Options:
         Console.Write("enter email of the Volunteer: ");
         string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        Console.Write("enter true/false if the Student is active: ");
+        Console.Write("enter true/false if the Volunteer is active: ");
         if (!bool.TryParse(Console.ReadLine(), out bool active))
             throw new FormatException("Wrong input");
 
         Console.Write("Enter role of the Volunteer: ");
-        int input1 = int.Parse(Console.ReadLine());
+        if (!RoleType.TryParse(Console.ReadLine(), out RoleType role))
+             throw new FormatException("Wrong input");
 
-        // בדיקה ישירה של הערכים
-        if (input1 == (int)RoleType.Manager || input1 == (int)RoleType.TVolunteer)
-        {
-            // המרה של הערך ל-`RoleType`
-            role = (RoleType)input1;
-        }
-        else
-            throw new FormatException("Invalid input: must be 0 or 1.");
-        // Distance distanceType?
-
+   
         Console.Write("Enter the distance type: ");
-        int input2 = int.Parse(Console.ReadLine());
+       if (!Distance.TryParse(Console.ReadLine(), out  Distance distance))
+            throw new FormatException("Wrong input- of distance ");
 
-        // בדיקה ישירה של הערכים
-        if (input2 == (int)Distance.AirDistance || input2 == (int)Distance.walkingDistance
-            || input2 == (int)Distance.DrivingDistance)
-        {
-            // המרה של הערך ל-`Distance`
-            distance = (Distance)input2;
-        }
+        Console.Write("Enter current address: ");
+        string? address = Console.ReadLine() ?? null;
+
+        Console.Write("Enter the Latitude: ");
+        if (!double.TryParse(Console.ReadLine(), out double latResult))
+            latitude = null;
         else
-            throw new FormatException("Invalid input: must be 0 or 1 or 2.");
+            latitude = latResult;
 
-        vo = new Volunteer(id, name, phone, email, active, role, distance);
+        Console.Write("Enter the Longitude: ");
+        if (!double.TryParse(Console.ReadLine(), out double lonResult))
+            longitude = null;
+        else
+            longitude = lonResult;
+        Console.Write("Enter max Distance: ");
+        if (!double.TryParse(Console.ReadLine(), out double DisResult))
+            maxDis = null;
+        else
+           maxDis = DisResult;
+
+
+
+        vo = new Volunteer(id, name, phone, email, active, role, distance, "password321",address, latitude, longitude,maxDis);
     }
         
 
@@ -481,27 +484,21 @@ Config Options:
     }
     private static void createCall(out Call ca, int id = 0)
     {
-
+       
         Console.Write("Enter the Call address: ");
         string? address = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
+
         Console.Write("Enter the call type: ");
-        int input = int.Parse(Console.ReadLine());
-        CallType typeCall;
-        // בדיקה ישירה של הערכים
-        if (input == (int)CallType.BabyGift || input == (int)CallType.MomGift
-            || input == (int)CallType.HouseholdHelp || input == (int)CallType.MealPreparation)
-        {
-            // המרה של הערך ל-`CallType`
-             typeCall = (CallType)input;
-        }
-        else
-            throw new FormatException("Invalid input: must be 0 or 1 or 2 or 3.");
-        //קווי אורך
-        //קוורי רוחב
+   
+        if (!CallType.TryParse(Console.ReadLine(), out CallType typeCall))
+            throw new FormatException("Wrong input- of CallType");
+        Console.Write("Enter the Latitude: ");
+        if (!CallType.TryParse(Console.ReadLine(), out double latitude))
+            throw new FormatException("Wrong input- of CallType");
 
 
-        ca =  new Call(0,address,typeCall ,0 , 1, default(DateTime));
+        ca =  new Call(id ,address,typeCall ,latitude,longitude,);
     }
 
 
