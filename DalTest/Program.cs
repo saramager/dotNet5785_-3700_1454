@@ -52,13 +52,9 @@ public enum CONFIG
 
 internal class Program
 {
-   
-    private static IVolunteer? s_dalVolunteer = new VolunteerImplementation(); //stage 1
-    private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
-    private static ICall? s_dalCall = new CallImplementation(); //stage 1
-    private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
 
-    
+    static readonly IDal s_dal = new DalList(); //stage 2
+
     static void Main(string[] args)
     {
         
@@ -71,15 +67,15 @@ internal class Program
                 
                 if (OPTION.RESET_DB == option)
                 {
-                    s_dalVolunteer?.DeleteAll();//stage 1
+                    s_dal?.Call.DeleteAll();//stage 1
 
-                    s_dalCall?.DeleteAll(); //stage 1 
-                    s_dalAssignment?.DeleteAll();//stage 1 
-                    s_dalConfig?.Reset(); //stage 1 
+                    s_dal?.Call.DeleteAll(); //stage 1 
+                    s_dal?.Call.DeleteAll();//stage 1 
+                    s_dal?.Config?.Reset(); //stage 1 
                 }
                 else if (OPTION.INIT_DB == option)
                 {
-                    Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig); //stage 1
+                    Initialization.Do(s_dal); //stage 1
                    
                 }
                 else if (OPTION.CONFIG == option)
@@ -142,32 +138,32 @@ OPTION Options:
             {
                 case CONFIG.FORWARD_CLOCK_ONE_MINUTE:
                     {
-                        s_dalConfig!.Clock = s_dalConfig.Clock.AddMinutes(1);
+                        s_dal!.Config.Clock = s_dal.Config.Clock.AddMinutes(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_HOUR:
                     {
-                       s_dalConfig!.Clock =s_dalConfig.Clock.AddHours(1);
+                       s_dal!.Config.Clock =s_dal.Config.Clock.AddHours(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_DAY:
                     {
-                       s_dalConfig!.Clock =s_dalConfig.Clock.AddDays(1);
+                       s_dal!.Config.Clock =s_dal.Config.Clock.AddDays(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_MONTH:
                     {
-                       s_dalConfig!.Clock =s_dalConfig.Clock.AddMonths(1);
+                       s_dal!.Config.Clock =s_dal.Config.Clock.AddMonths(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_YEAR:
                     {
-                       s_dalConfig!.Clock =s_dalConfig.Clock.AddYears(1);
+                       s_dal!.Config.Clock =s_dal.Config.Clock.AddYears(1);
                         break;
                     }
                 case CONFIG.GET_CLOCK:
                     {
-                        Console.WriteLine(s_dalConfig!.Clock);
+                        Console.WriteLine(s_dal!.Config.Clock);
                         break;
                     }
                 case CONFIG.SET_MAX_RANGE:
@@ -176,16 +172,16 @@ OPTION Options:
                        
                         if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan  riskRange))
                             throw new FormatException("Wrong input");
-                       s_dalConfig!.RiskRange = riskRange;
+                       s_dal!.Config.RiskRange = riskRange;
                         break;
                     }
                 case CONFIG.GET_MAX_RANGE:
                     {
-                        Console.WriteLine(s_dalConfig!.RiskRange);
+                        Console.WriteLine(s_dal!.Config.RiskRange);
                         break;
                     }
                 case CONFIG.RESET_CONFIG:
-                   s_dalConfig!.Reset();
+                   s_dal!.Config.Reset();
                     break;
                 default:
                     return;
@@ -227,17 +223,17 @@ Config Options:
     private static void showAllDB()
     {
         Console.WriteLine("--------------- List of Volunteers ------------------------------------------");
-        foreach (var item in s_dalVolunteer!.ReadAll())
+        foreach (var item in s_dal!.Volunteer.ReadAll())
         {
             Console.WriteLine(item);
         }
         Console.WriteLine("--------------- List of Calls ------------------------------------------");
-        foreach (var item in s_dalCall!.ReadAll())
+        foreach (var item in s_dal!.Call.ReadAll())
         {
             Console.WriteLine(item);
         }
         Console.WriteLine("--------------- List of Assignments ------------------------------------------");
-        foreach (var item in s_dalAssignment!.ReadAll())
+        foreach (var item in s_dal!.Assignment.ReadAll())
         {
             Console.WriteLine(item);
         }
@@ -316,15 +312,15 @@ Config Options:
         {
             case OPTION.VOLUNTEER:
                 createVolunteer(out Volunteer vo);
-                s_dalVolunteer!.Create(vo);
+                s_dal!.Volunteer.Create(vo);
                 break;
             case OPTION.ASSIGNMENT:
                 createAssignment(out Assignment ass);
-                s_dalAssignment!.Create(ass);
+                s_dal!.Assignment.Create(ass);
                 break;
             case OPTION.CALL:
                 createCall(out Call ca);
-                s_dalCall!.Create(ca);
+               s_dal!.Call.Create(ca);
                 break;
             default:
                 break;
@@ -343,13 +339,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dalVolunteer!.Read(id));
+                Console.WriteLine(s_dal!.Volunteer.Read(id));
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dalAssignment!.Read(id));
+                Console.WriteLine(s_dal!.Assignment.Read(id));
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dalCall!.Read(id));
+                Console.WriteLine(s_dal!.Call.Read(id));
                 break;
             default:
                 break;
@@ -364,15 +360,15 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                foreach (var item in s_dalVolunteer!.ReadAll())
+                foreach (var item in s_dal!.Volunteer.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.ASSIGNMENT:
-                foreach (var item in s_dalAssignment!.ReadAll())
+                foreach (var item in s_dal!.Assignment.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.CALL:
-                foreach (var item in s_dalCall!.ReadAll())
+                foreach (var item in s_dal!.Call.ReadAll())
                     Console.WriteLine(item);
                 break;
             default:
@@ -392,19 +388,19 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dalVolunteer!.Read(id));
+                Console.WriteLine(s_dal!.Volunteer.Read(id));
                 createVolunteer(out Volunteer vo, id);
-                s_dalVolunteer!.Update(vo);
+                s_dal!.Volunteer.Update(vo);
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dalAssignment!.Read(id));
+                Console.WriteLine(s_dal!.Assignment.Read(id));
                 createAssignment(out Assignment ass, id);
-                s_dalAssignment!.Update(ass);
+                s_dal!.Assignment.Update(ass);
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dalCall!.Read(id));
+                Console.WriteLine(s_dal!.Call.Read(id));
                 createCall(out Call ca, id);
-                s_dalCall!.Update(ca);
+               s_dal!.Call.Update(ca);
                 break;
             default:
                 break;
@@ -423,13 +419,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dalVolunteer!.Delete(id);
+                s_dal!.Volunteer.Delete(id);
                 break;
             case OPTION.ASSIGNMENT:
-                s_dalAssignment!.Delete(id);
+                s_dal!.Assignment.Delete(id);
                 break;
             case OPTION.CALL:
-                s_dalCall!.Delete(id);
+               s_dal!.Call.Delete(id);
                 break;
             default:
                 break;
@@ -444,13 +440,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dalVolunteer!.DeleteAll();
+                s_dal!.Volunteer.DeleteAll();
                 break;
             case OPTION.ASSIGNMENT:
-                s_dalAssignment!.DeleteAll();
+                s_dal!.Assignment.DeleteAll();
                 break;
             case OPTION.CALL:
-                s_dalCall!.DeleteAll();
+               s_dal!.Call.DeleteAll();
                 break;
             default:
                 break;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Implementation the func in  for IVolunteer
 /// </summary>
-public class VolunteerImplementation : IVolunteer
+internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {

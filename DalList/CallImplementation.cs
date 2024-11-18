@@ -6,7 +6,7 @@ using DO;
 /// <summary>
 ///  Implementation the func in  for ICall
 /// </summary>
-public class CallImplementation : ICall
+internal class CallImplementation : ICall
 {
     public void Create(Call item)
     {
