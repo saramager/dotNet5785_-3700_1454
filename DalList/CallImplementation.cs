@@ -32,7 +32,7 @@ internal class CallImplementation : ICall
 
     public Call? Read(int id)
     {
-        var callToReturn = DataSource.Calls.Find(callToCheck => callToCheck.id == id);
+        var callToReturn = DataSource.Calls.FirstOrDefault(callToCheck => callToCheck.id == id);
         if(callToReturn == null)
             return null;
         return callToReturn;
@@ -40,7 +40,7 @@ internal class CallImplementation : ICall
 
     }
 
-    public List<Call> ReadAll()
+    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
     {
         return new List<Call>(DataSource.Calls);
     }

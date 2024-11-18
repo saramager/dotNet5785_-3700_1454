@@ -360,15 +360,15 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                foreach (var item in s_dal!.Volunteer.ReadAll())
+                foreach (var item in s_dal!.Volunteer.ReadAll())//לעדכן readAll
                     Console.WriteLine(item);
                 break;
             case OPTION.ASSIGNMENT:
-                foreach (var item in s_dal!.Assignment.ReadAll())
+                foreach (var item in s_dal!.Assignment.ReadAll())//לעדכן readAll
                     Console.WriteLine(item);
                 break;
             case OPTION.CALL:
-                foreach (var item in s_dal!.Call.ReadAll())
+                foreach (var item in s_dal!.Call.ReadAll())//לעדכן readAll
                     Console.WriteLine(item);
                 break;
             default:

@@ -35,14 +35,12 @@ internal class AssignmentImplementation : IAssignment
 
     public Assignment? Read(int id)
     {
-        var AssignmentToReturn = DataSource.Assignments.Find(AssignmentToCheck => AssignmentToCheck.ID == id);
-        if (AssignmentToReturn == null)
-            return null;
+        var AssignmentToReturn = DataSource.Assignments.FirstOrDefault(assignment => assignment.ID == id);
         return AssignmentToReturn;
-
     }
 
-    public List<Assignment> ReadAll()
+
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
         return new List<Assignment>(DataSource.Assignments);
 

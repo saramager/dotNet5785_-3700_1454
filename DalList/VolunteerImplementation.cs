@@ -35,13 +35,13 @@ internal class VolunteerImplementation : IVolunteer
 
     public Volunteer? Read(int id)
     {
-        var VolunteerToReturn = DataSource.Volunteers.Find(VolunteerToCheck => VolunteerToCheck.ID == id);
+        var VolunteerToReturn = DataSource.Volunteers.FirstOrDefault(VolunteerToCheck => VolunteerToCheck.ID == id);
         if (VolunteerToReturn == null)
             return null;
         return VolunteerToReturn;
     }
 
-    public List<Volunteer> ReadAll()
+    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         return new List<Volunteer>(DataSource.Volunteers);
 
