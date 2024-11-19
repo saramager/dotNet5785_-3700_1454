@@ -1,4 +1,5 @@
-﻿namespace DalTest;
+﻿
+namespace DalTest;
 using DalApi;
 using DO;
 /// <summary>
@@ -77,19 +78,21 @@ public static class Initialization
         }
     }
     private static void createAssignment()
-    {
+    { 
+        
         for (int i = 0; i < 60; i++)
         {
-            // אנחנו צריכים לברר איפה מגדירים את אותו מצביע לפונקציה ReadAll תזכורת: בעיתיות בקריאה ל
-            // כי הפכנו אותה לכזו שמקבלת 2 פרמטרים כאשר אחד מהם הוא דלגייט דרוש בירור תיקון הקריאה והקמת הדלגייט,
-            int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count);
-            Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll()[randVolunteer];
-            int randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count - 15);
-            Call callToAssig = s_dal.Call.ReadAll()[randCAll];
+            //We made adjustments for rule sets and not just a List
+            int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
+            Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll().ElementAt(randVolunteer);
+
+            int randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
+            Call callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+
             while (callToAssig.openTime> s_dal!.Config.Clock)
             {
-                randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count - 15);
-                callToAssig = s_dal.Call.ReadAll()[randCAll];
+                randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
+                callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
             }
             FinishType? finish= null;
             DateTime? finishTime= null;

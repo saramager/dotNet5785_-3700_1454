@@ -35,10 +35,10 @@ internal class CallImplementation : ICall
         return DataSource.Calls.FirstOrDefault(filter);
     }
 
-    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
-    {
-        return new List<Call>(DataSource.Calls);
-    }
+    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null) //stage 2
+      => filter == null
+          ? DataSource.Calls.Select(item => item)
+          : DataSource.Calls.Where(filter);
 
     public void Update(Call item)
     {

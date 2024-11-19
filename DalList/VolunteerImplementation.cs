@@ -38,12 +38,14 @@ internal class VolunteerImplementation : IVolunteer
        return DataSource.Volunteers.FirstOrDefault(filter); 
     }
 
-    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
-    {
-        return new List<Volunteer>(DataSource.Volunteers);
 
-    }
- 
+    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null) //stage 2
+     => filter == null
+         ? DataSource.Volunteers.Select(item => item)
+         : DataSource.Volunteers.Where(filter);
+
+
+
     public void Update(Volunteer item)
     {
         int numRemove = DataSource.Volunteers.RemoveAll(VolunteerToCheck => VolunteerToCheck.ID == item.ID);

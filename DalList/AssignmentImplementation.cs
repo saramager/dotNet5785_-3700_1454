@@ -3,6 +3,8 @@ namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
+
 /// <summary>
 /// Implementation the func in  for IAssignment
 /// </summary>
@@ -39,11 +41,11 @@ internal class AssignmentImplementation : IAssignment
     }
 
 
-    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
-    {
-        return new List<Assignment>(DataSource.Assignments);
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null) //stage 2
+      => filter == null
+          ? DataSource.Assignments.Select(item => item)
+          : DataSource.Assignments.Where(filter);
 
-    }
 
     public void Update(Assignment item)
     {
