@@ -30,14 +30,9 @@ internal class CallImplementation : ICall
          DataSource.Calls.Clear(); 
     }
 
-    public Call? Read(int id)
+    public Call? Read(Func<Call, bool> filter)
     {
-        var callToReturn = DataSource.Calls.FirstOrDefault(callToCheck => callToCheck.id == id);
-        if(callToReturn == null)
-            return null;
-        return callToReturn;
-
-
+        return DataSource.Calls.FirstOrDefault(filter);
     }
 
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)

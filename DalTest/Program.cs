@@ -339,13 +339,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dal!.Volunteer.Read(id));
+                Console.WriteLine(s_dal!.Volunteer.Read(VItem => VItem.ID == id) ?? throw new Exception($"There is no Volunteer with {id} ID"));
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dal!.Assignment.Read(id));
+                Console.WriteLine(s_dal!.Assignment.Read(AItem => AItem.ID == id) ?? throw new Exception($"There is no Assignment with {id} ID"));
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dal!.Call.Read(id));
+                Console.WriteLine(s_dal.Call.Read(CItem => CItem.id == id) ?? throw new Exception($"There is no Call with {id} ID"));
                 break;
             default:
                 break;
@@ -388,17 +388,17 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dal!.Volunteer.Read(id));
+                Console.WriteLine(s_dal!.Volunteer.Read(VItem => VItem.ID == id) ?? throw new Exception($"There is no Volunteer  with {id} ID"));
                 createVolunteer(out Volunteer vo, id);
                 s_dal!.Volunteer.Update(vo);
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dal!.Assignment.Read(id));
+                Console.WriteLine(s_dal.Assignment.Read(AItem => AItem.ID == id) ??  throw new Exception($"There is no Assignment with {id} ID"));
                 createAssignment(out Assignment ass, id);
                 s_dal!.Assignment.Update(ass);
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dal!.Call.Read(id));
+                Console.WriteLine(s_dal.Call.Read(CItem=> CItem.id==id) ??throw new Exception($"There is no Call with this {id} ID"));
                 createCall(out Call ca, id);
                s_dal!.Call.Update(ca);
                 break;

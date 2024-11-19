@@ -33,10 +33,9 @@ internal class AssignmentImplementation : IAssignment
 
     }
 
-    public Assignment? Read(int id)
-    {
-        var AssignmentToReturn = DataSource.Assignments.FirstOrDefault(assignment => assignment.ID == id);
-        return AssignmentToReturn;
+    public Assignment? Read(Func<Assignment, bool> filter)
+    { 
+        return DataSource.Assignments.FirstOrDefault(filter);
     }
 
 

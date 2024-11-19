@@ -69,7 +69,7 @@ public static class Initialization
             bool active = !(i % 7 == 0);
             double DisMax = s_rand.NextDouble() * 5.0;//randondistance 
             int randAddress = s_rand.Next(addresses.Length);
-            while (s_dal!.Volunteer.Read(VId) != null)// create new id is the id is found already.
+            while (s_dal!.Volunteer.Read(VItem=> VItem.ID==VId) != null)// create new id is the id is found already.
             {
                  VId = s_rand.Next(200000000, 400000001);
             }

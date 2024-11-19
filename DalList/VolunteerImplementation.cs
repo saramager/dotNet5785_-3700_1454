@@ -11,7 +11,7 @@ internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-       if(Read(item.ID)!=null)
+       if(Read(vItem =>item.ID==vItem.ID)!=null)
             throw new Exception($"Volunteer with ID={item.ID} already exists");
         DataSource.Volunteers.Add(item);
 
@@ -33,12 +33,9 @@ internal class VolunteerImplementation : IVolunteer
 
     }
 
-    public Volunteer? Read(int id)
+    public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        var VolunteerToReturn = DataSource.Volunteers.FirstOrDefault(VolunteerToCheck => VolunteerToCheck.ID == id);
-        if (VolunteerToReturn == null)
-            return null;
-        return VolunteerToReturn;
+       return DataSource.Volunteers.FirstOrDefault(filter); 
     }
 
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
