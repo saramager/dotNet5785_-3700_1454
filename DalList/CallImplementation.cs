@@ -21,7 +21,7 @@ internal class CallImplementation : ICall
         int numRemove = DataSource.Calls.RemoveAll(callToCheck => callToCheck.id == id);
         if (numRemove == 0)
         {
-            throw new Exception($"Call with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Call with ID={id} does Not exist");
         }
     }
     public void DeleteAll()
@@ -45,7 +45,7 @@ internal class CallImplementation : ICall
         int numRemove = DataSource.Calls.RemoveAll(callToCheck => callToCheck.id == item.id);
         if (numRemove == 0)
         {
-            throw new Exception($"Call with ID={item.id} does Not exist");
+            throw new DalDoesNotExistException($"Call with ID={item.id} does Not exist");
         }
         DataSource.Calls.Add(item);
 

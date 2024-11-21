@@ -23,7 +23,7 @@ internal class AssignmentImplementation : IAssignment
         int numRemove = DataSource.Assignments.RemoveAll(AssignmentToCheck => AssignmentToCheck.ID == id);
         if (numRemove == 0)
         {
-            throw new Exception($"Assignment with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Assignment with ID={id} does Not exist");
         }
 
     }
@@ -52,7 +52,7 @@ internal class AssignmentImplementation : IAssignment
         int numRemove = DataSource.Assignments.RemoveAll(AssignmentToCheck => AssignmentToCheck.ID == item.ID);
         if (numRemove == 0)
         {
-            throw new Exception($"Assignment with ID={item.ID} does Not exist");
+            throw new DalDoesNotExistException($"Assignment with ID={item.ID} does Not exist");
         }
         DataSource.Assignments.Add(item);
 

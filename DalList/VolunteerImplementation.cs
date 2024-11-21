@@ -22,7 +22,7 @@ internal class VolunteerImplementation : IVolunteer
         int numRemove = DataSource.Volunteers.RemoveAll(VolunteerToCheck => VolunteerToCheck.ID == id);
         if (numRemove == 0)
         {
-            throw new Exception($"Volunteer with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Volunteer with ID={id} does Not exist");
         }
     }
 
@@ -51,7 +51,7 @@ internal class VolunteerImplementation : IVolunteer
         int numRemove = DataSource.Volunteers.RemoveAll(VolunteerToCheck => VolunteerToCheck.ID == item.ID);
         if (numRemove == 0)
         {
-            throw new Exception($"Volunteer with ID={item.ID} does Not exist");
+            throw new DalDoesNotExistException($"Volunteer with ID={item.ID} does Not exist");
         }
         DataSource.Volunteers.Add(item);
     }
