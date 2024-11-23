@@ -12,7 +12,7 @@ internal class VolunteerImplementation : IVolunteer
     public void Create(Volunteer item)
     {
        if(Read(vItem =>item.ID==vItem.ID)!=null)
-            throw new Exception($"Volunteer with ID={item.ID} already exists");
+            throw new DalAlreadyExistsException($"Volunteer with ID={item.ID} already exists");
         DataSource.Volunteers.Add(item);
 
     }

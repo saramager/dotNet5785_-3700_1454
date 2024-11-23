@@ -57,48 +57,39 @@ internal class Program
 
     static void Main(string[] args)
     {
-        
-        try
+        OPTION option = showMainMenu();
+
+        while (OPTION.EXIT != option)
         {
-            OPTION option = showMainMenu();
 
-            while (OPTION.EXIT != option)
+            if (OPTION.RESET_DB == option)
             {
-                
-                if (OPTION.RESET_DB == option)
-                {
-                    s_dal?.Call.DeleteAll();//stage 1
+                s_dal?.Call.DeleteAll();//stage 1
 
-                    s_dal?.Call.DeleteAll(); //stage 1 
-                    s_dal?.Call.DeleteAll();//stage 1 
-                    s_dal?.Config?.Reset(); //stage 1 
-                }
-                else if (OPTION.INIT_DB == option)
-                {
-                    Initialization.Do(s_dal); //stage 1
-                   
-                }
-                else if (OPTION.CONFIG == option)
-                {
-                    handleConfigOptions();
+                s_dal?.Call.DeleteAll(); //stage 1 
+                s_dal?.Call.DeleteAll();//stage 1 
+                s_dal?.Config?.Reset(); //stage 1 
+            }
+            else if (OPTION.INIT_DB == option)
+            {
+                Initialization.Do(s_dal); //stage 1
 
-                }
-                else if (OPTION.SHOW_ALL_DB == option)
-                {
-                    showAllDB();
-                }
-                else
-                {
-                    handleCRUDOptions(option);
-                }
+            }
+            else if (OPTION.CONFIG == option)
+            {
+                handleConfigOptions();
 
-                option = showMainMenu();
+            }
+            else if (OPTION.SHOW_ALL_DB == option)
+            {
+                showAllDB();
+            }
+            else
+            {
+                handleCRUDOptions(option);
             }
 
-        }
-        catch (Exception ex)// One catch for all the try
-        {
-            Console.WriteLine(ex);
+            option = showMainMenu();
         }
     }
     /// <summary>
@@ -119,12 +110,15 @@ OPTION Options:
 4 - Init DB
 5 - Show all database
 6 - Config
-7 - Reset DB & Config");
-   
-        }
-        while (!int.TryParse(Console.ReadLine(), out  choice));
+7 - Reset DB & Config
+Please enter your choice:");
+
+         
+        } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 7);
+
         return (OPTION)choice;
     }
+
 
     /// <summary>
     /// Deal with all the config option
@@ -132,64 +126,57 @@ OPTION Options:
     /// <exception cref="FormatException"></exception>
     private static void handleConfigOptions()
     {
-        try
+        switch (showConfigMenu())
         {
-            switch (showConfigMenu())
-            {
-                case CONFIG.FORWARD_CLOCK_ONE_MINUTE:
-                    {
-                        s_dal!.Config.Clock = s_dal.Config.Clock.AddMinutes(1);
-                        break;
-                    }
-                case CONFIG.FORWARD_CLOCK_ONE_HOUR:
-                    {
-                       s_dal!.Config.Clock =s_dal.Config.Clock.AddHours(1);
-                        break;
-                    }
-                case CONFIG.FORWARD_CLOCK_ONE_DAY:
-                    {
-                       s_dal!.Config.Clock =s_dal.Config.Clock.AddDays(1);
-                        break;
-                    }
-                case CONFIG.FORWARD_CLOCK_ONE_MONTH:
-                    {
-                       s_dal!.Config.Clock =s_dal.Config.Clock.AddMonths(1);
-                        break;
-                    }
-                case CONFIG.FORWARD_CLOCK_ONE_YEAR:
-                    {
-                       s_dal!.Config.Clock =s_dal.Config.Clock.AddYears(1);
-                        break;
-                    }
-                case CONFIG.GET_CLOCK:
-                    {
-                        Console.WriteLine(s_dal!.Config.Clock);
-                        break;
-                    }
-                case CONFIG.SET_MAX_RANGE:
-                    {
-                        Console.Write("enter Max Range: ");
-                       
-                        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan  riskRange))
-                            throw new FormatException("Wrong input");
-                       s_dal!.Config.RiskRange = riskRange;
-                        break;
-                    }
-                case CONFIG.GET_MAX_RANGE:
-                    {
-                        Console.WriteLine(s_dal!.Config.RiskRange);
-                        break;
-                    }
-                case CONFIG.RESET_CONFIG:
-                   s_dal!.Config.Reset();
+            case CONFIG.FORWARD_CLOCK_ONE_MINUTE:
+                {
+                    s_dal!.Config.Clock = s_dal.Config.Clock.AddMinutes(1);
                     break;
-                default:
-                    return;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
+                }
+            case CONFIG.FORWARD_CLOCK_ONE_HOUR:
+                {
+                    s_dal!.Config.Clock = s_dal.Config.Clock.AddHours(1);
+                    break;
+                }
+            case CONFIG.FORWARD_CLOCK_ONE_DAY:
+                {
+                    s_dal!.Config.Clock = s_dal.Config.Clock.AddDays(1);
+                    break;
+                }
+            case CONFIG.FORWARD_CLOCK_ONE_MONTH:
+                {
+                    s_dal!.Config.Clock = s_dal.Config.Clock.AddMonths(1);
+                    break;
+                }
+            case CONFIG.FORWARD_CLOCK_ONE_YEAR:
+                {
+                    s_dal!.Config.Clock = s_dal.Config.Clock.AddYears(1);
+                    break;
+                }
+            case CONFIG.GET_CLOCK:
+                {
+                    Console.WriteLine(s_dal!.Config.Clock);
+                    break;
+                }
+            case CONFIG.SET_MAX_RANGE:
+                {
+                    Console.Write("enter Max Range: ");
+
+                    if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan riskRange))
+                        throw new FormatException("Wrong input");
+                    s_dal!.Config.RiskRange = riskRange;
+                    break;
+                }
+            case CONFIG.GET_MAX_RANGE:
+                {
+                    Console.WriteLine(s_dal!.Config.RiskRange);
+                    break;
+                }
+            case CONFIG.RESET_CONFIG:
+                s_dal!.Config.Reset();
+                break;
+            default:
+                return;
         }
     }
 
@@ -214,7 +201,7 @@ Config Options:
 7 - Get RiskRange 
 8 - ResetConfig Config");
         }
-        while (!int.TryParse(s: Console.ReadLine(), out choice));
+        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 8);
         return (CONFIG)choice;
     }
     /// <summary>
@@ -299,7 +286,7 @@ Config Options:
 5 - Delete
 6 - Delete All");
         }
-        while (!int.TryParse(s: Console.ReadLine(), out choice));
+        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 6);
         return (CRUD)choice;
     }
     /// <summary>
@@ -488,11 +475,11 @@ Config Options:
 
         Console.Write("Enter role of the Volunteer: Manager or TVolunteer: ");
         if (!RoleType.TryParse(Console.ReadLine(), out RoleType role))
-             throw new FormatException("Wrong input");
+             throw new DalDoesNotMatchTheType("Option does not exist for role type");
 
         Console.Write("Enter the distance type: AirDistance, walkingDistance or DrivingDistance: ");
        if (!Distance.TryParse(Console.ReadLine(), out  Distance distance))
-            throw new FormatException("Wrong input- of distance ");
+            throw new DalDoesNotMatchTheType("Option does not exist for distance type ");
     
         Console.Write("Enter current address: ");
         string? address = Console.ReadLine() ?? null;
@@ -576,7 +563,7 @@ Config Options:
         Console.Write("Enter the call type BabyGift or  MomGift or HouseholdHelp or MealPreparation: ");
    
         if (!CallType.TryParse(Console.ReadLine(), out CallType typeCall))
-            throw new FormatException("Wrong input- of CallType");
+            throw new DalDoesNotMatchTheType("Option does not exist for call type");
 
         Console.Write("Enter the Latitude: ");
         if (!double.TryParse(Console.ReadLine(), out double latitude))
