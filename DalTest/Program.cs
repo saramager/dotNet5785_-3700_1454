@@ -114,7 +114,7 @@ OPTION Options:
 Please enter your choice:");
 
          
-        } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 7);
+        } while (!int.TryParse(Console.ReadLine(), out choice) );
 
         return (OPTION)choice;
     }
@@ -160,7 +160,7 @@ Please enter your choice:");
                 }
             case CONFIG.SET_MAX_RANGE:
                 {
-                    Console.Write("enter Max Range: ");
+                    Console.Write("Enter Max Range: ");
 
                     if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan riskRange))
                         throw new FormatException("Wrong input");
@@ -201,7 +201,7 @@ Config Options:
 7 - Get RiskRange 
 8 - ResetConfig Config");
         }
-        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 8);
+        while (!int.TryParse(Console.ReadLine(), out choice));
         return (CONFIG)choice;
     }
     /// <summary>
@@ -286,7 +286,7 @@ Config Options:
 5 - Delete
 6 - Delete All");
         }
-        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 6);
+        while (!int.TryParse(Console.ReadLine(), out choice));
         return (CRUD)choice;
     }
     /// <summary>
@@ -453,49 +453,49 @@ Config Options:
         
         if (id == 0)
         {
-            Console.Write("enter VolunteerId: ");
+            Console.Write("Enter VolunteerId: ");
             if (!int.TryParse(Console.ReadLine(), out int _id))
                 throw new FormatException("Wrong input");
             else
                 id = _id;
         }
         
-        Console.Write("enter Name of the Volunteer: ");
+        Console.Write("Enter Name of the Volunteer: ");
         string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        Console.Write("enter phone of the Volunteer: ");
+        Console.Write("Enter phone of the Volunteer: ");
         string? phone = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        Console.Write("enter email of the Volunteer: ");
+        Console.Write("Enter email of the Volunteer: ");
         string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        Console.Write("enter true/false if the Volunteer is active: ");
+        Console.Write("Enter true/false if the Volunteer is active: ");
         if (!bool.TryParse(Console.ReadLine(), out bool active))
             throw new FormatException("Wrong input");
 
         Console.Write("Enter role of the Volunteer: Manager or TVolunteer: ");
         if (!RoleType.TryParse(Console.ReadLine(), out RoleType role))
-             throw new DalDoesNotMatchTheType("Option does not exist for role type");
+             throw new FormatException("Option does not exist for role type");
 
         Console.Write("Enter the distance type: AirDistance, walkingDistance or DrivingDistance: ");
        if (!Distance.TryParse(Console.ReadLine(), out  Distance distance))
-            throw new DalDoesNotMatchTheType("Option does not exist for distance type ");
+            throw new FormatException("Option does not exist for distance type ");
     
-        Console.Write("Enter current address: ");
+        Console.Write("Enter current address or press enter to skip: ");
         string? address = Console.ReadLine() ?? null;
 
-        Console.Write("Enter the Latitude: ");
+        Console.Write("Enter the Latitude or press enter to skip:  ");
         if (!double.TryParse(Console.ReadLine(), out double latResult))
             latitude = null;
         else
             latitude = latResult;
 
-        Console.Write("Enter the Longitude: ");
+        Console.Write("Enter the Longitude or press enter to skip: ");
         if (!double.TryParse(Console.ReadLine(), out double lonResult))
             longitude = null;
         else
             longitude = lonResult;
-        Console.Write("Enter max Distance: ");
+        Console.Write("Enter max Distance or press enter to skip: ");
         if (!double.TryParse(Console.ReadLine(), out double DisResult))
             maxDis = null;
         else
@@ -517,25 +517,25 @@ Config Options:
         DateTime? finishTime;
         FinishType? finishType;
 
-            Console.Write("enter Call Id: ");
+            Console.Write("Enter Call Id: ");
             if (!int.TryParse(Console.ReadLine(), out int Cid))
                 throw new FormatException("Wrong input");
          
-            Console.Write("enter Volunteer Id: ");
+            Console.Write("Enter Volunteer Id: ");
             if (!int.TryParse(Console.ReadLine(), out int Vid))
                 throw new FormatException("Wrong input");
 
-        Console.Write("enter the start treatment: ");
+        Console.Write("Enter the start treatment: ");
         if (!DateTime.TryParse(Console.ReadLine(), out DateTime start))
             throw new FormatException("Wrong input");
 
-        Console.Write("Enter the finish time: ");
+        Console.Write("Enter the finish time or press enter to skip : ");
         if (!DateTime.TryParse(Console.ReadLine(), out DateTime finishT))
             finishTime = null;
         else
             finishTime = finishT;
 
-        Console.Write("Enter the finish type, Treated or  SelfCancel or  ManagerCancel or   ExpiredCancel: ");
+        Console.Write("Enter the finish type, Treated or  SelfCancel or  ManagerCancel or ExpiredCancel or press enter to skip: ");
         if (!FinishType.TryParse(Console.ReadLine(), out FinishType typeF))
             finishType = null;
         else
@@ -563,7 +563,7 @@ Config Options:
         Console.Write("Enter the call type BabyGift or  MomGift or HouseholdHelp or MealPreparation: ");
    
         if (!CallType.TryParse(Console.ReadLine(), out CallType typeCall))
-            throw new DalDoesNotMatchTheType("Option does not exist for call type");
+            throw new FormatException("Option does not exist for call type");
 
         Console.Write("Enter the Latitude: ");
         if (!double.TryParse(Console.ReadLine(), out double latitude))
@@ -577,13 +577,13 @@ Config Options:
         if (!DateTime.TryParse(Console.ReadLine(), out DateTime openTime))
             throw new FormatException("Wrong input- of Time");
 
-        Console.Write("Enter the maximum time for Call: ");
+        Console.Write("Enter the maximum time for Call or press enter to skip: ");
         if (!DateTime.TryParse(Console.ReadLine(), out DateTime MaxResult))
             maxTime = null;
         else
             maxTime = MaxResult;
 
-        Console.Write("Enter the verbal describe  ");
+        Console.Write("Enter the verbal describe or press enter to skip  ");
         string? describe = Console.ReadLine() ?? null;
 
         ca =  new Call(id ,address,typeCall ,latitude,longitude, openTime,maxTime,describe);
