@@ -11,9 +11,9 @@ namespace Dal
         internal const string s_data_config_xml = "data-config.xml"; // this????
        // internal const string s_data_config = "data-config";    Or this??
 
-        internal const string s_Volunteers_xml = "Volunteers_xml";
-        internal const string s_Calls_xml = "Calls_xml";
-        internal const string s_Assignments_xml = "Assignments_xml";
+        internal const string s_Volunteers_xml = "Volunteers.xml";
+        internal const string s_Calls_xml = "Calls.xml";
+        internal const string s_Assignments_xml = "Assignments.xml";
 
         internal static int NextCallId
         {
