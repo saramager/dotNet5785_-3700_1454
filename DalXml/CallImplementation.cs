@@ -7,31 +7,52 @@ internal class CallImplementation : ICall
 {
     public void Create(Call item)
     {
-        throw new NotImplementedException();
+        List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
+        int newID = Config.NextCallId;
+        Call newCall = item with { ID = newID };
+       Calls.Add(newCall);
+        XMLTools.SaveListToXMLSerializer(Calls, Config.s_Calls_xml);
+
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
+        int numRemove = Calls.RemoveAll(callToCheck => callToCheck.ID == id);
+        if (numRemove == 0)
+        {
+            throw new DalDoesNotExistException($"Call with ID={id} does Not exist");
+        }
+        XMLTools.SaveListToXMLSerializer(Calls, Config.s_Calls_xml);
     }
 
     public void DeleteAll()
     {
-        throw new NotImplementedException();
+        XMLTools.SaveListToXMLSerializer(new List<Call>(), Config.s_Calls_xml);
+
     }
 
     public Call? Read(Func<Call, bool> filter)
     {
-        throw new NotImplementedException();
+        List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
+        return Calls.FirstOrDefault(filter);
     }
 
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
     {
-        throw new NotImplementedException();
+       return XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
     }
 
     public void Update(Call item)
     {
-        throw new NotImplementedException();
+        List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
+            int numRemove = Calls.RemoveAll(callToCheck => callToCheck.ID == item.ID);
+            if (numRemove == 0)
+            {
+            throw new DalDoesNotExistException($"Call with ID={item.ID} does Not exist");
+        }
+        Calls.Add(item);
+        XMLTools.SaveListToXMLSerializer(Calls, Config.s_Calls_xml);
+
     }
 }

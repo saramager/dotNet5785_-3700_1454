@@ -11,14 +11,14 @@ internal class CallImplementation : ICall
     public void Create(Call item)
     {
        int  newID = Config.nextCallId;
-        Call newCall = item with { id = newID};
+        Call newCall = item with { ID = newID};
        DataSource.Calls.Add(newCall);
        
     }
 
     public void Delete(int id)
     {
-        int numRemove = DataSource.Calls.RemoveAll(callToCheck => callToCheck.id == id);
+        int numRemove = DataSource.Calls.RemoveAll(callToCheck => callToCheck.ID == id);
         if (numRemove == 0)
         {
             throw new DalDoesNotExistException($"Call with ID={id} does Not exist");
@@ -42,10 +42,10 @@ internal class CallImplementation : ICall
 
     public void Update(Call item)
     {
-        int numRemove = DataSource.Calls.RemoveAll(callToCheck => callToCheck.id == item.id);
+        int numRemove = DataSource.Calls.RemoveAll(callToCheck => callToCheck.ID == item.ID);
         if (numRemove == 0)
         {
-            throw new DalDoesNotExistException($"Call with ID={item.id} does Not exist");
+            throw new DalDoesNotExistException($"Call with ID={item.ID} does Not exist");
         }
         DataSource.Calls.Add(item);
 

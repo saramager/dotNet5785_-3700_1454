@@ -4,7 +4,7 @@ namespace DO;
 /// <summary>
 /// 
 /// </summary>
-/// <param name="id">A number that uniquely identifies the call.>
+/// <param name="ID">A number that uniquely identifies the call.>
 /// <param name="address">Full and real address in correct format, of the reading location>
 /// <param name="callT">according to the specific system type>
 /// <param name="latitude">A number indicating how far a point on Earth is south or north of the equator.>
@@ -15,7 +15,7 @@ namespace DO;
 public record Call
 (
 
-    int id,
+    int ID,
     string address,
     CallType callT,
     double latitude,
