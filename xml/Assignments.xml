@@ -448,4 +448,12 @@
     <finishTreatment xsi:nil="true" />
     <finishT xsi:nil="true" />
   </Assignment>
+  <Assignment>
+    <ID>1057</ID>
+    <CallId>345</CallId>
+    <VolunteerId>1</VolunteerId>
+    <startTreatment>2020-12-12T00:00:00</startTreatment>
+    <finishTreatment xsi:nil="true" />
+    <finishT xsi:nil="true" />
+  </Assignment>
 </ArrayOfAssignment>
