@@ -197,13 +197,14 @@ Please enter your choice:");
 Config Options:
 0 - Exit
 1 - Forward Clock One Hour
-2 - Forward Clock One Day
-3 - Forward Clock One Month
-4 - Forward Clock One Year
-5 - Get Clock
-6 - Set RiskRange
-7 - Get RiskRange 
-8 - ResetConfig Config");
+2 - Forward Clock One Hour
+3 - Forward Clock One Day
+4 - Forward Clock One Month
+5 - Forward Clock One Year
+6 - Get Clock
+7 - Set RiskRange
+8 - Get RiskRange 
+9 - ResetConfig Config");
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
         return (CONFIG)choice;
