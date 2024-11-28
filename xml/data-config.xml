@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-<NextCallId>1000</NextCallId>
-<NextAssignmentId>1000</NextAssignmentId>
-	<Clock>00/00/00 00:00:00</Clock>
-<RiskRange>00/00/00 00:00:00</RiskRange>
+  <NextCallId>1000</NextCallId>
+  <NextAssignmentId>1000</NextAssignmentId>
+  <Clock>28/11/2024 12:02:55</Clock>
+  <RiskRange>00-00-00 00:00:00</RiskRange>
 
 
 	int nextCId = Config.NextCallId;

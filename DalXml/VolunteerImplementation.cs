@@ -28,7 +28,7 @@ internal class VolunteerImplementation : IVolunteer
     static XElement createVolunteerElement(Volunteer volunteer)
     {
         XElement studentXml = new XElement("student",
-                               new XElement("ID", volunteer.ID),
+        new XElement("ID", volunteer.ID),
                               new XElement("full name", volunteer.fullName),
                               new XElement("phone", volunteer.phone),
                                 new XElement("email", volunteer.email),
@@ -77,10 +77,12 @@ internal class VolunteerImplementation : IVolunteer
     public void DeleteAll()
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
-
+       
         volunteerRootElem.Remove();
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_Volunteers_xml);
+
     }
+
 
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {

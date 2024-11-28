@@ -116,7 +116,7 @@ public static class Initialization
 
                 }
             }
-            s_dal!.Assignment.Create(new Assignment(0,callToAssig.id,volunteerToAssig.ID, s_dal!.Config.Clock, finishTime,finish));  
+            s_dal!.Assignment.Create(new Assignment(0,callToAssig.ID,volunteerToAssig.ID, s_dal!.Config.Clock, finishTime,finish));  
 
 
         }

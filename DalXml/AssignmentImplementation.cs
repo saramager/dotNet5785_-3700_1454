@@ -28,8 +28,6 @@ internal class AssignmentImplementation : IAssignment
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_Assignments_xml);
     }
 
-    }
-
     public void DeleteAll()
     {
         XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_Assignments_xml);

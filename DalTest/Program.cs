@@ -1,7 +1,8 @@
-﻿using Dal;
+﻿namespace DalTest;
+
+using Dal;
 using DalApi;
 using DO;
-namespace DalTest;
 
 /// <summary>
 /// Main menu
@@ -53,7 +54,10 @@ public enum CONFIG
 internal class Program
 {
 
-    static readonly IDal s_dal = new DalList(); //stage 2
+    //static readonly IDal s_dal = new DalList(); //stage 2
+    static readonly IDal s_dal = new DalXml(); //stage 3
+
+
 
     static void Main(string[] args)
     {
@@ -332,7 +336,7 @@ Config Options:
                 Console.WriteLine(s_dal!.Assignment.Read(AItem => AItem.ID == id) ?? throw new DalDoesNotExistException($"There is no Assignment with {id} ID"));
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dal.Call.Read(CItem => CItem.id == id) ?? throw new DalDoesNotExistException($"There is no Call with {id} ID"));
+                Console.WriteLine(s_dal.Call.Read(CItem => CItem.ID == id) ?? throw new DalDoesNotExistException($"There is no Call with {id} ID"));
                 break;
             default:
                 break;
@@ -385,7 +389,7 @@ Config Options:
                 s_dal!.Assignment.Update(ass);
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dal.Call.Read(CItem=> CItem.id==id) ??throw new DalDoesNotExistException($"There is no Call with this {id} ID"));
+                Console.WriteLine(s_dal.Call.Read(CItem=> CItem.ID == id) ??throw new DalDoesNotExistException($"There is no Call with this {id} ID"));
                 createCall(out Call ca, id);
                s_dal!.Call.Update(ca);
                 break;

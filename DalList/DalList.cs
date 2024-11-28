@@ -1,5 +1,6 @@
-﻿namespace Dal;
+﻿
 using DalApi;
+namespace Dal;
 /// <summary>
 /// Implementation of IDal based on lists in memory:
 /// DalList is responsible for accessing data stored in Lists
