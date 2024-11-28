@@ -1,7 +1,8 @@
 ﻿namespace Dal;
 using DalApi;
 /// <summary>
-/// using the IDal to unionid all the lists
+/// Implementation of IDal based on lists in memory:
+/// DalList is responsible for accessing data stored in Lists
 /// </summary>
 sealed public class DalList : IDal
 {
