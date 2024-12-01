@@ -42,7 +42,7 @@ internal class CallImplementation : ICall
     {
        return XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
     }
-
+   
     public void Update(Call item)
     {
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);

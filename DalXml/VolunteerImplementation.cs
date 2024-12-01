@@ -9,29 +9,28 @@ namespace Dal;
 /// </summary>
 internal class VolunteerImplementation : IVolunteer
 {
-    static  Volunteer getVolunteer(XElement s)
     /// <summary>
     /// help func return the volunteer that is in the XElement 
     /// </summary>
     /// <param name="s">n XElement vatrible </param>
     /// <returns>  the volunteer  from the XElement</returns>
     /// <exception cref="FormatException"></exception>
-    static Volunteer getStudent(XElement s)
+    static Volunteer getVolunteer(XElement vXml)
     {
       Volunteer v  = new DO.Volunteer()
         {
-            ID = int.TryParse((string?)s.Element("ID"), out var id) ? id : throw new FormatException("can't convert id"),
-            fullName = (string?)s.Element("fullName") ?? "",
-            phone = (string?)s.Element("phone") ?? "",
-            email = (string?)s.Element("email") ?? "",
-            active = bool.TryParse((string?)s.Element("isActive"), out bool active) ? active : throw new FormatException("can't convert active"),
-            role = RoleType.TryParse((string?)s.Element("role"), out RoleType role) ? role : throw new FormatException("can't convert role "),
-            distanceType = Distance.TryParse((string?)s.Element("distance"), out Distance dis) ? dis : throw new FormatException("can't convert distance "),
-            password = (string?)s.Element("password") ?? null,
-            currentAddress = (string?)s.Element("address") ?? null,
-            Longitude = double.TryParse((string?)s.Element("longitude"), out double longitude) ? longitude : null,
-            Latitude = double.TryParse((string?)s.Element("latitude"), out double latitude) ? latitude : null,
-            maxDistance=double.TryParse((string?)s.Element("maxDistance"),out double maxDis)?maxDis:null,
+            ID = int.TryParse((string?)vXml.Element("ID"), out var id) ? id : throw new FormatException("can't convert id"),
+            fullName = (string?)vXml.Element("fullName") ?? "",
+            phone = (string?)vXml.Element("phone") ?? "",
+            email = (string?)vXml.Element("email") ?? "",
+            active = bool.TryParse((string?)vXml.Element("isActive"), out bool active) ? active : throw new FormatException("can't convert active"),
+            role = RoleType.TryParse((string?)vXml.Element("role"), out RoleType role) ? role : throw new FormatException("can't convert role "),
+            distanceType = Distance.TryParse((string?)vXml.Element("distance"), out Distance dis) ? dis : throw new FormatException("can't convert distance "),
+            password = (string?)vXml.Element("password") ?? null,
+            currentAddress = (string?)vXml.Element("address") ?? null,
+            Longitude = double.TryParse((string?)vXml.Element("longitude"), out double longitude) ? longitude : null,
+            Latitude = double.TryParse((string?)vXml.Element("latitude"), out double latitude) ? latitude : null,
+            maxDistance=double.TryParse((string?)vXml.Element("maxDistance"),out double maxDis)?maxDis:null,
            };
         return v;
     }
@@ -114,7 +113,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns> lhe first volunteer to true for the filter </returns>
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getStudent(s)).FirstOrDefault(filter);
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter);
 
     }
     /// <summary>
@@ -124,8 +123,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns></returns>
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
-        if (filter == null)
-          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getStudent(v));
+          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v));
     }
     /// <summary>
     /// get an voulntter item and update it to the new values.
