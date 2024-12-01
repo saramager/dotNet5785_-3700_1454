@@ -3,7 +3,7 @@
 using DalApi;
 
 namespace Dal;
-/// Implementation the func in  for IConfig
+/// Implementation the func in  for IConfig of DalXml
 
 internal class ConfigImplementation : IConfig
 {
