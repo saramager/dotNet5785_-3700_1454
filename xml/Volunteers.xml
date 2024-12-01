@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--The file saves the details of volunteers-->
 <ArrayOfVolunteer>
   <Student>
-    <ID>312376021</ID>
+    <ID>325566910</ID>
     <fullName>David Levy</fullName>
     <phone>0521234567</phone>
     <email>levy.david@email.com</email>
@@ -10,13 +9,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
-    <longitude>35.18475</longitude>
-    <latitude>31.78737</latitude>
-    <maxDistance>1.5533798337353915</maxDistance>
+    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
+    <longitude>35.19252</longitude>
+    <latitude>31.78846</latitude>
+    <maxDistance>0.03657092816717722</maxDistance>
   </Student>
   <Student>
-    <ID>235686464</ID>
+    <ID>301357568</ID>
     <fullName>Miriam Cohen</fullName>
     <phone>0532345678</phone>
     <email>miriamCohen@gmail.com</email>
@@ -27,10 +26,10 @@
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.18556</longitude>
     <latitude>31.78659</latitude>
-    <maxDistance>0.9172738614025994</maxDistance>
+    <maxDistance>4.262923461068294</maxDistance>
   </Student>
   <Student>
-    <ID>377000179</ID>
+    <ID>235743790</ID>
     <fullName>Yosef Katz</fullName>
     <phone>0543456789</phone>
     <email>yosef.katz@outlook.com</email>
@@ -38,13 +37,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
-    <longitude>35.19252</longitude>
-    <latitude>31.78846</latitude>
-    <maxDistance>2.3931825287494553</maxDistance>
+    <address>Harav Reines 30, Jerusalem, Israel</address>
+    <longitude>35.195</longitude>
+    <latitude>31.79003</latitude>
+    <maxDistance>3.0425045318153443</maxDistance>
   </Student>
   <Student>
-    <ID>232292478</ID>
+    <ID>292712256</ID>
     <fullName>Sarah Gold</fullName>
     <phone>0554567890</phone>
     <email>sarahGold789@yahoo.com</email>
@@ -52,13 +51,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <longitude>35.19383</longitude>
-    <latitude>31.78827</latitude>
-    <maxDistance>3.372918626155404</maxDistance>
+    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <longitude>35.1867</longitude>
+    <latitude>31.78813</latitude>
+    <maxDistance>0.7817846448460231</maxDistance>
   </Student>
   <Student>
-    <ID>214656711</ID>
+    <ID>346484724</ID>
     <fullName>Shlomo Klein</fullName>
     <phone>0585678901</phone>
     <email>shlomo.klein@live.com</email>
@@ -66,13 +65,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>2.8877515350167213</maxDistance>
+    <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
+    <longitude>35.18475</longitude>
+    <latitude>31.78737</latitude>
+    <maxDistance>1.298318427448391</maxDistance>
   </Student>
   <Student>
-    <ID>259339186</ID>
+    <ID>220535092</ID>
     <fullName>Chana Rosen</fullName>
     <phone>0596789012</phone>
     <email>chana.rosen@icloud.com</email>
@@ -80,13 +79,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Najara 14, Jerusalem, Israel</address>
-    <longitude>35.19139</longitude>
-    <latitude>31.79062</latitude>
-    <maxDistance>2.5504612208799484</maxDistance>
+    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <longitude>35.1867</longitude>
+    <latitude>31.78813</latitude>
+    <maxDistance>0.6090837699838259</maxDistance>
   </Student>
   <Student>
-    <ID>386573113</ID>
+    <ID>329562456</ID>
     <fullName>Aharon Azulay</fullName>
     <phone>0577890123</phone>
     <email>aharonAzulay@mail.com</email>
@@ -94,13 +93,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
-    <longitude>35.18392</longitude>
-    <latitude>31.78792</latitude>
-    <maxDistance>3.737504293823828</maxDistance>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <longitude>35.18921</longitude>
+    <latitude>31.7857</latitude>
+    <maxDistance>3.9302701658570056</maxDistance>
   </Student>
   <Student>
-    <ID>280132315</ID>
+    <ID>290684883</ID>
     <fullName>Tova Benita</fullName>
     <phone>0588901234</phone>
     <email>tova.benita@webmail.com</email>
@@ -108,13 +107,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Givat Shaul 25, Jerusalem, Israel</address>
-    <longitude>35.19087</longitude>
-    <latitude>31.79251</latitude>
-    <maxDistance>0.348115755715272</maxDistance>
+    <address>Beit Shearim 4, Jerusalem, Israel</address>
+    <longitude>35.19624</longitude>
+    <latitude>31.79032</latitude>
+    <maxDistance>0.9417065953587506</maxDistance>
   </Student>
   <Student>
-    <ID>289300594</ID>
+    <ID>281193780</ID>
     <fullName>Yaakov Pinto</fullName>
     <phone>0529012345</phone>
     <email>yaakov.pinto@zoho.com</email>
@@ -122,13 +121,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <longitude>35.195</longitude>
-    <latitude>31.79003</latitude>
-    <maxDistance>3.9497548214770117</maxDistance>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <longitude>35.18921</longitude>
+    <latitude>31.7857</latitude>
+    <maxDistance>3.451571867624508</maxDistance>
   </Student>
   <Student>
-    <ID>281009451</ID>
+    <ID>342121157</ID>
     <fullName>Esther Bar</fullName>
     <phone>0530123456</phone>
     <email>esther.bar@aol.com</email>
@@ -136,13 +135,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Beit Shearim 4, Jerusalem, Israel</address>
-    <longitude>35.19624</longitude>
-    <latitude>31.79032</latitude>
-    <maxDistance>4.339693639862609</maxDistance>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <longitude>35.19087</longitude>
+    <latitude>31.79251</latitude>
+    <maxDistance>1.4387633044210753</maxDistance>
   </Student>
   <Student>
-    <ID>200048630</ID>
+    <ID>255922222</ID>
     <fullName>Dov Cohen</fullName>
     <phone>0541234567</phone>
     <email>dov.cohen@ymail.com</email>
@@ -150,13 +149,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
-    <longitude>35.18392</longitude>
-    <latitude>31.78792</latitude>
-    <maxDistance>1.4874719249124206</maxDistance>
+    <address>Harav Reines 30, Jerusalem, Israel</address>
+    <longitude>35.195</longitude>
+    <latitude>31.79003</latitude>
+    <maxDistance>1.2074158978837102</maxDistance>
   </Student>
   <Student>
-    <ID>292481139</ID>
+    <ID>210902224</ID>
     <fullName>Rivka Dayan</fullName>
     <phone>0552345678</phone>
     <email>rivka.dayan@fastmail.com</email>
@@ -164,13 +163,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
-    <longitude>35.18392</longitude>
-    <latitude>31.78792</latitude>
-    <maxDistance>1.4735991777511153</maxDistance>
+    <address>Harav Reines 30, Jerusalem, Israel</address>
+    <longitude>35.195</longitude>
+    <latitude>31.79003</latitude>
+    <maxDistance>4.115492021835979</maxDistance>
   </Student>
   <Student>
-    <ID>269886037</ID>
+    <ID>251445787</ID>
     <fullName>Yitzhak Azulay</fullName>
     <phone>0583456789</phone>
     <email>yitzhak.azulay@protonmail.com</email>
@@ -178,13 +177,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Givat Shaul 25, Jerusalem, Israel</address>
-    <longitude>35.19087</longitude>
-    <latitude>31.79251</latitude>
-    <maxDistance>4.400812809515067</maxDistance>
+    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
+    <longitude>35.19383</longitude>
+    <latitude>31.78827</latitude>
+    <maxDistance>4.249032600565489</maxDistance>
   </Student>
   <Student>
-    <ID>270317561</ID>
+    <ID>303083114</ID>
     <fullName>Malkah Shalom</fullName>
     <phone>0574567890</phone>
     <email>malkah.shalom@gmx.com</email>
@@ -192,13 +191,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-    <maxDistance>3.2605482374731527</maxDistance>
+    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <longitude>35.1867</longitude>
+    <latitude>31.78813</latitude>
+    <maxDistance>3.4800583499308924</maxDistance>
   </Student>
   <Student>
-    <ID>387823741</ID>
+    <ID>349733577</ID>
     <fullName>Avraham Segal</fullName>
     <phone>0595678901</phone>
     <email>avraham.segal@tutanota.com</email>
@@ -206,13 +205,13 @@
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>4.04677856032763</maxDistance>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.18556</longitude>
+    <latitude>31.78659</latitude>
+    <maxDistance>2.8235637638841196</maxDistance>
   </Student>
   <Student>
-    <ID>248878942</ID>
+    <ID>346535544</ID>
     <fullName>Moshe Chaim</fullName>
     <phone>050897463</phone>
     <email>moshe342@gmail.co.il</email>
@@ -220,9 +219,9 @@
     <role>Manager</role>
     <distance>AirDistance</distance>
     <password>password321</password>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <longitude>35.195</longitude>
-    <latitude>31.79003</latitude>
-    <maxDistance>4.678099475915914</maxDistance>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <longitude>35.19087</longitude>
+    <latitude>31.79251</latitude>
+    <maxDistance>4.038473203835794</maxDistance>
   </Student>
 </ArrayOfVolunteer>

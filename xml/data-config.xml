@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Updating and saving the configuration fields-->
 <config>
   <NextCallId>1060</NextCallId>
-  <NextAssignmentId>1058</NextAssignmentId>
-  <Clock>28/12/2026 19:39:32</Clock>
+  <NextAssignmentId>1060</NextAssignmentId>
+  <Clock>01/12/2024 19:38:13</Clock>
   <RiskRange>00-00-00 00:00:00</RiskRange>
 
 
