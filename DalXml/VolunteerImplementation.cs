@@ -7,7 +7,7 @@ namespace Dal;
 
 internal class VolunteerImplementation : IVolunteer
 {
-    static  Volunteer getStudent(XElement s)
+    static  Volunteer getVolunteer(XElement s)
     {
       Volunteer v  = new DO.Volunteer()
         {
