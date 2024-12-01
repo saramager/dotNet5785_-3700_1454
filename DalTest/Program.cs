@@ -55,6 +55,8 @@ internal class Program
 {
 
     //static readonly IDal s_dal = new DalList(); //stage 2
+
+    // Now we will work with XML files:
     static readonly IDal s_dal = new DalXml(); //stage 3
 
 

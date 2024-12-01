@@ -9,6 +9,7 @@ namespace Dal;
 /// </summary>
 internal class VolunteerImplementation : IVolunteer
 {
+    static  Volunteer getVolunteer(XElement s)
     /// <summary>
     /// help func return the volunteer that is in the XElement 
     /// </summary>

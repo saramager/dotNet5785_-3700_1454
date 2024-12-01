@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Updating and saving the configuration fields-->
 <config>
   <NextCallId>1060</NextCallId>
   <NextAssignmentId>1058</NextAssignmentId>
