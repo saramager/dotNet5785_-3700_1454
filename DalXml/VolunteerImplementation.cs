@@ -4,10 +4,18 @@ using DO;
 using System.Xml.Linq;
 
 namespace Dal;
-
+/// <summary>
+/// the class is to help us use voulnteer with XML 
+/// </summary>
 internal class VolunteerImplementation : IVolunteer
 {
-    static  Volunteer getStudent(XElement s)
+    /// <summary>
+    /// help func return the volunteer that is in the XElement 
+    /// </summary>
+    /// <param name="s">n XElement vatrible </param>
+    /// <returns>  the volunteer  from the XElement</returns>
+    /// <exception cref="FormatException"></exception>
+    static Volunteer getStudent(XElement s)
     {
       Volunteer v  = new DO.Volunteer()
         {
@@ -26,6 +34,11 @@ internal class VolunteerImplementation : IVolunteer
            };
         return v;
     }
+    /// <summary>
+    ///help func return the volunteer in XElement.
+    /// </summary>
+    /// <param name="volunteer"> volunteer from the user </param>
+    /// <returns></returns>
     static XElement createVolunteerElement(Volunteer volunteer)
     {
         XElement studentXml = new XElement("Student",
@@ -48,7 +61,11 @@ internal class VolunteerImplementation : IVolunteer
                             
                           
     }
-
+    /// <summary>
+    /// add the volunteer to the Xml file 
+    /// </summary>
+    /// <param name="item"> volunteer to add to the </param>
+    /// <exception cref="DO.DalAlreadyExistsException"></exception>
     public void Create(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
@@ -60,7 +77,11 @@ internal class VolunteerImplementation : IVolunteer
 
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_Volunteers_xml);
     }
-
+    /// <summary>
+    /// get an id and delete the volunteer that owns that id for the XML file 
+    /// </summary>
+    /// <param name="id"> the id for the volunteer to delete </param>
+    /// <exception cref="DO.DalAlreadyExistsException"></exception>
     public void Delete(int id)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
@@ -74,7 +95,9 @@ internal class VolunteerImplementation : IVolunteer
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_Volunteers_xml);
 
     }
-
+    /// <summary>
+    /// delete all the volunteers form the XML file 
+    /// </summary>
     public void DeleteAll()
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
@@ -83,20 +106,31 @@ internal class VolunteerImplementation : IVolunteer
 
     }
 
-
+    /// <summary>
+    /// return the volunteer from the file, the first volunteer that true from the filter 
+    /// </summary>
+    /// <param name="filter">  func to help us chose the volunteer </param>
+    /// <returns> lhe first volunteer to true for the filter </returns>
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
         return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getStudent(s)).FirstOrDefault(filter);
 
     }
-
+    /// <summary>
+    /// return all the students 
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
-        
-          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getStudent(s));
-
+        if (filter == null)
+          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getStudent(v));
     }
-
+    /// <summary>
+    /// get an voulntter item and update it to the new values.
+    /// </summary>
+    /// <param name="item"> the volunteer to update - </param>
+    /// <exception cref="DO.DalDoesNotExistException"></exception>
     public void Update(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
