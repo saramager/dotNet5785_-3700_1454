@@ -5,8 +5,10 @@ namespace Dal;
 /// Implementation of IDal based on lists in memory:
 /// DalList is responsible for accessing data stored in Lists
 /// </summary>
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
+    public static IDal Instance { get; } = new DalList();
+    private DalList() { }
     public IAssignment Assignment  { get; } = new AssignmentImplementation();
     public ICall Call { get; } = new CallImplementation();
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();
