@@ -190,12 +190,12 @@ public static class Initialization
         }
 
     }
-    public static void Do( /*IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig? dalConfig*/ IDal? dal)
+    public static void Do()
     {
         //s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL can not be null!");
         //s_dalCall = dalCall ?? throw new NullReferenceException("DAL can not be null!");
         //s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dal = dal ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = DalApi.Factory.Get;
         Console.WriteLine( "Reset Configuration values and List values.");
         s_dal.ResetDB();
                                   

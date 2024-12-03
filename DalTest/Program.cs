@@ -54,11 +54,11 @@ public enum CONFIG
 internal class Program
 {
 
-    static readonly IDal s_dal = new DalList(); //stage 2
+    //static readonly IDal s_dal = new DalList(); //stage 2
 
     // Now we will work with XML files:
     //static readonly IDal s_dal = new DalXml(); //stage 3
-
+    static readonly IDal s_dal = Factory.Get; //stage 4
 
 
     static void Main(string[] args)
@@ -79,7 +79,7 @@ internal class Program
             else if (OPTION.INIT_DB == option)
             {
                
-                Initialization.Do(s_dal); //stage 1
+                Initialization.Do(); //stage 1
 
             }
             else if (OPTION.CONFIG == option)
