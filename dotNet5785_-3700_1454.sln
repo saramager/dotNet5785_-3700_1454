@@ -27,6 +27,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{3D1CE05C-E6C
 		xml\Volunteers.xml = xml\Volunteers.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{215DF69B-F0A1-40CE-9A99-6F0167B231A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{46CBBE69-B657-496C-8842-A29311A01F68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{4A77EA4F-B24F-4E85-A87F-CBB5BCD67649}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A77EA4F-B24F-4E85-A87F-CBB5BCD67649}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A77EA4F-B24F-4E85-A87F-CBB5BCD67649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{215DF69B-F0A1-40CE-9A99-6F0167B231A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{215DF69B-F0A1-40CE-9A99-6F0167B231A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{215DF69B-F0A1-40CE-9A99-6F0167B231A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{215DF69B-F0A1-40CE-9A99-6F0167B231A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46CBBE69-B657-496C-8842-A29311A01F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46CBBE69-B657-496C-8842-A29311A01F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46CBBE69-B657-496C-8842-A29311A01F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46CBBE69-B657-496C-8842-A29311A01F68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
