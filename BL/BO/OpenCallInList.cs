@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class OpenCallInList
+    public class OpenCallInList//init or set??????
     {
+        public int ID { get; init; }
+        public string address { get; init; }
+        public CallType callT { get; init; }
+        public DateTime openTime { get; init; }
+        public DateTime? maxTime { get; init; }
+        public string? verbalDescription { get; init; }
+
+        public override string ToString() => this.ToStringProperty();// in 7ג
     }
 }
