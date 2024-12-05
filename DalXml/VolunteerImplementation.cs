@@ -41,7 +41,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns></returns>
     static XElement createVolunteerElement(Volunteer volunteer)
     {
-        XElement studentXml = new XElement("Student",
+        XElement studentXml = new XElement("Volunteer",
         new XElement("ID", volunteer.ID),
                               new XElement("fullName", volunteer.fullName),
                               new XElement("phone", volunteer.phone),
