@@ -48,3 +48,24 @@ public enum Status //1 enum? or 3
     OpenInRisk,
     InRiskTreat
 }
+public  enum FiledOfVolunteerInList
+{
+    ID , fullName ,active , numCallsHandled ,numCallsCancelled ,numCallsExpired,CallId , callT
+
+}
+public enum FiledOfCallInList
+{
+    ID ,CallId , callT,openTime,timeEndCall , volunteerLast ,TimeEndTreat ,status , numOfAssignments
+
+}
+public enum FiledOfClosedCallInList
+{ ID, address, callT, openTime, startTreatment, finishTreatment, finishT, CallDistance }
+public enum FiledOfOpenCallInList
+{
+    ID, address , callT ,openTime , maxTime ,verbalDescription
+
+}
+public enum TimeUnit
+{
+    Minute, Hour, Day, Month, Year
+}
