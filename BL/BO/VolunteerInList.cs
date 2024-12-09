@@ -9,7 +9,7 @@ namespace BO
     public class VolunteerInList //init or set??????
     {
        public int ID { get; init; }
-        public string fullName { get; init; }
+       public string fullName { get; init; }
         public bool active { get; init; }
         public int numCallsHandled { get; init; }
         public int numCallsCancelled { get; init; }

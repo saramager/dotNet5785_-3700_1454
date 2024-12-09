@@ -35,12 +35,12 @@ internal class CallImplementation : ICall
     public Call? Read(Func<Call, bool> filter)
     {
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
-        return Calls.FirstOrDefault(filter);
+        return Calls.FirstOrDefault(filter) ?? throw new DO.DalDoesNotExistException($"Student with  {filter} does not  exist"); ;
     }
 
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
     {
-       return XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
+       return XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml) ?? throw new DO.DalDoesNotExistException($"Student with  {filter} does not  exist"); ;
     }
    
     public void Update(Call item)

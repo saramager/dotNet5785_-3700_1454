@@ -81,13 +81,13 @@ internal class VolunteerImplementation : IVolunteer
     /// get an id and delete the volunteer that owns that id for the XML file 
     /// </summary>
     /// <param name="id"> the id for the volunteer to delete </param>
-    /// <exception cref="DO.DalAlreadyExistsException"></exception>
+    /// <exception cref="DO.DalDoesNotExistException"></exception>
     public void Delete(int id)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
 
         if ((volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == id)) == null)
-            throw new DO.DalAlreadyExistsException($"Student with ID={id} does not  exist");
+            throw new DO.DalDoesNotExistException($"Student with ID={id} does not  exist");
         XElement volunteerElem = (from stu in volunteerRootElem.Elements()
                           where int.Parse(stu.Element("ID")!.Value) == id
                           select stu).FirstOrDefault()!;
@@ -113,7 +113,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns> lhe first volunteer to true for the filter </returns>
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter);
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter) ?? throw new DO.DalDoesNotExistException($"Student with {filter} does not  exist"); ;
 
     }
     /// <summary>
@@ -124,8 +124,8 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         if (filter == null)
-          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v));
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v)).Where(filter);
+          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v))?? throw new DO.DalDoesNotExistException($"Student with    {filter} does not  exist"); ;
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v)).Where(filter) ?? throw new DO.DalDoesNotExistException($"Student with    {filter} does not  exist"); ;
     }
     /// <summary>
     /// get an voulntter item and update it to the new values.
