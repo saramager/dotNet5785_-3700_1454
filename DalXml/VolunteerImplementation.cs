@@ -113,7 +113,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns> lhe first volunteer to true for the filter </returns>
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter) ?? throw new DO.DalDoesNotExistException($"Student with {filter} does not  exist"); ;
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter)  ;
 
     }
     /// <summary>
@@ -124,8 +124,8 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         if (filter == null)
-          return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v))?? throw new DO.DalDoesNotExistException($"Student with    {filter} does not  exist"); ;
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v)).Where(filter) ?? throw new DO.DalDoesNotExistException($"Student with    {filter} does not  exist"); ;
+            return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v));
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v)).Where(filter) ;
     }
     /// <summary>
     /// get an voulntter item and update it to the new values.
