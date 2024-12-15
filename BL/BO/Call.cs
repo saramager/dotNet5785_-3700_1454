@@ -10,9 +10,9 @@ namespace BO
     public class Call
     {
         public int ID { get; init; }
-        public string address { get; set; }
         public CallType callT { get; set; }
         public string? verbalDescription { get; set; }
+        public string address { get; set; }
         public double latitude { get; set; }
         public double longitude { get; set; }
         public DateTime openTime { get; set; }

@@ -8,62 +8,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlImplementation
+namespace BlImplementation;
+
+internal class AdminImplementation : IAdmin
 {
-    internal class AdminImplementation : IAdmin
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+
+    public void AddToClock(TimeUnit unit)
     {
-        private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-
-        public void AddToClock(TimeUnit unit)
+        switch (unit)
         {
-            switch (unit)
-            {
-                case TimeUnit.Minute:
-                    ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
-                    break;
-                case TimeUnit.Hour:
-                    ClockManager.UpdateClock(ClockManager.Now.AddHours(1));
-                    break;
-                case TimeUnit.Day:
-                    ClockManager.UpdateClock(ClockManager.Now.AddDays(1));
-                    break;
-                case TimeUnit.Month:
-                    ClockManager.UpdateClock(ClockManager.Now.AddMonths(1));
-                    break;
-                case TimeUnit.Year:
-                    ClockManager.UpdateClock(ClockManager.Now.AddYears(1));
-                    break;
-            }
-         }
-
-        public DateTime GetClock()
-        {
-            return ClockManager.Now;
+            case TimeUnit.Minute:
+                ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+                break;
+            case TimeUnit.Hour:
+                ClockManager.UpdateClock(ClockManager.Now.AddHours(1));
+                break;
+            case TimeUnit.Day:
+                ClockManager.UpdateClock(ClockManager.Now.AddDays(1));
+                break;
+            case TimeUnit.Month:
+                ClockManager.UpdateClock(ClockManager.Now.AddMonths(1));
+                break;
+            case TimeUnit.Year:
+                ClockManager.UpdateClock(ClockManager.Now.AddYears(1));
+                break;
         }
+     }
 
-        public TimeSpan GetRiskRange()
-        {
-            return _dal.Config.RiskRange;
-        }
+    public DateTime GetClock()
+    {
+        return ClockManager.Now;
+    }
 
-        public void RestartDB()
-        {
-           _dal.ResetDB();  
-        }
+    public TimeSpan GetRiskRange()
+    {
+        return _dal.Config.RiskRange;
+    }
 
-        public void SetRiskRange(TimeSpan range)
-        {
+    public void RestartDB()
+    {
+       _dal.ResetDB();  
+    }
 
-           _dal.Config.RiskRange = range;
-        }
+    public void SetRiskRange(TimeSpan range)
+    {
 
-        public void UpdateDB()
-        {
-          
-           Initialization.Do();//do RESET DB and INSTATion 
-           
+       _dal.Config.RiskRange = range;
+    }
+
+    public void UpdateDB()
+    {
+      
+       Initialization.Do();//do RESET DB and INSTATion 
+       
 
 
-        }
     }
 }

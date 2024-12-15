@@ -14,6 +14,7 @@ namespace BO
         public DateTime openTime { get; init; }
         public DateTime? maxTime { get; init; }
         public string? verbalDescription { get; init; }
+        public double distance { get; init; }   
 
         public override string ToString() => this.ToStringProperty();// in 7ג
     }

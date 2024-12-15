@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using BO;
+using System.Net;
 using System.Reflection;
 using System.Text.Json;
 
@@ -64,7 +65,7 @@ namespace Helpers
 
                         if (locationData == null || locationData.Length == 0)
                         {
-                            throw new Exception("No geolocation data found for the given address.");
+                            throw new AdressDoesNotExistException("No geolocation data found for the given address.");
                         }
 
                         // Return latitude and longitude
@@ -143,6 +144,37 @@ namespace Helpers
         {
             return degrees * (Math.PI / 180);
         }
+        /// <summary>
+        /// Determines the type of distance based on the given distance in kilometers.
+        /// </summary>
+        /// <param name="distanceInKm">Distance in kilometers.</param>
+        /// <returns>Distance type: WalkingDistance, DrivingDistance, or AirDistance.</returns>
+        /// <author>ChatGPT, OpenAI</author>
+        public static DO.Distance GetDistanceType(double distanceInKm)
+        {
+            // Thresholds for categorizing distances
+            const double walkingDistanceThreshold = 3.0;  // <= 3 km for WalkingDistance
+            const double drivingDistanceThreshold = 50.0; // <= 50 km for DrivingDistance
+            const double airDistanceThreshold = 1000.0;   // <= 1000 km for AirDistance
+
+            if (distanceInKm <= walkingDistanceThreshold)
+            {
+                return DO.Distance.walkingDistance; // Walking distance for <= 3 km
+            }
+            else if (distanceInKm <= drivingDistanceThreshold)
+            {
+                return DO.Distance.DrivingDistance; // Driving distance for <= 50 km
+            }
+            else if (distanceInKm <= airDistanceThreshold)
+            {
+                return DO.Distance.AirDistance; // Air distance for <= 1000 km
+            }
+            else
+            {
+                return DO.Distance.AirDistance; // Default to AirDistance for greater than 1000 km
+            }
+        }
+
     }
 }
 

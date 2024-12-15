@@ -15,7 +15,12 @@ namespace Helpers
 {
     internal static class VolunteersManager
     {
-        private static IDal s_dal = Factory.Get; //stage 4
+        private static IDal s_dal = DalApi.Factory.Get; //stage 4
+        /// <summary>
+        /// convert volunteer form Do to volunteerINList  from BO
+        /// </summary>
+        /// <param name="doVolunteer"> get the volunteer to return </param>
+        /// <returns> the BO vlounteerInList  </returns>
         internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
         {
             var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
@@ -34,6 +39,11 @@ namespace Helpers
                 CallId = idCall,
             };
         }
+        /// <summary>
+        /// get volunteer from do and convert it to Bo volunteer 
+        /// </summary>
+        /// <param name="doVolunteer"> the Dovolunteer </param>
+        /// <returns>the bo vlounteer </returns>
         internal static BO.Volunteer convertDOToBOVolunteer(DO.Volunteer doVolunteer)
         {
             var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
@@ -63,6 +73,11 @@ namespace Helpers
 
             };
         }
+        /// <summary>
+        /// get volunteer and return Call in prgers if there is one 
+        /// </summary>
+        /// <param name="doVolunteer"> the volunteer we wnat to check if there is </param>
+        /// <returns>callin progerss th this spsifiec volunteer </returns>
         internal static BO.CallInProgress? GetCallIn(DO.Volunteer doVolunteer)
         {
 
@@ -77,7 +92,6 @@ namespace Helpers
                    {
                     double latitude = doVolunteer.Latitude ?? callTreat.latitude;
                     double longitude = doVolunteer.Longitude ?? callTreat.longitude;
-                    IAdmin adminImpl = new AdminImplementation(); // יצירת מופע של המחלקה המיישמת את IAdmin
                     return new()
                     {
                         ID = assignmentTreat.ID,
@@ -89,45 +103,42 @@ namespace Helpers
                         maxTime = callTreat.maxTime,
                         startTreatment = assignmentTreat.startTreatment,
                         CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude),
-                        statusT = (callTreat.maxTime - ClockManager.Now <= adminImpl.GetRiskRange() ? BO.Status.InRiskTreat : BO.Status.InTreat),
+                        statusT = (callTreat.maxTime - ClockManager.Now <= s_dal.Config.RiskRange ? BO.Status.InRiskTreat : BO.Status.InTreat),
                     };}
             }
             return null;
         }
-
-        internal static bool checkeVolunteerFormat(BO.Volunteer volunteer)
+      
+        internal static void  checkeVolunteerFormat(BO.Volunteer volunteer)
         {
             if (string.IsNullOrEmpty(volunteer.email) || volunteer.email.Count(c => c == '@') != 1)
             {
-                return false;
+                throw new BO.EmailDoesNotcoretct($"email :{volunteer.email} have problem with format ");
             }
 
             string pattern = @"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+\.com$";
 
             if (!Regex.IsMatch(volunteer.email, pattern))
             {
-                return false;
+                throw new BO.EmailDoesNotcoretct($"email :{volunteer.email} have problem with format ");
             }
             if (string.IsNullOrEmpty(volunteer.phone) || volunteer.phone.Length < 8 || volunteer.phone.Length > 9 || !(volunteer.phone.All(char.IsDigit)))
-                return false;
+                throw new BO.PhoneDoesNotcoretct($"phone :{volunteer.phone} have problem with format ");
+
             if (volunteer.maxDistance < 0)
-                return false;
+                throw new MaxDistanceDoesNotcoretct("Max Distance can't be negavite ");
 
 
 
-            
-            return true;
-
+           
 
         }
-        internal static bool checkeVolunteerlogic(BO.Volunteer volunteer)
+        internal static void  checkeVolunteerlogic(BO.Volunteer volunteer)
         {
             if (!(IsValidId(volunteer.Id)))
-                return false;
-            if (volunteer!= null && !IsStrongPassword(volunteer.password!) )
-                return false;
-            // add adress
-            return true;
+                throw new BO.IdDoesNotVaildException("the id isnt vaild ");
+            if (volunteer != null && !IsStrongPassword(volunteer.password!))
+                throw new BO.PaswordDoesNotstrongException($" this pasword :{volunteer.password!} doent have at least 6 characters, contains an uppercase letter and a digit");
         }
         internal static bool IsValidId(long id)
         {
@@ -174,14 +185,12 @@ namespace Helpers
            
             if (BoVolunteer.currentAddress !=null)
             {
-                try
-                {
+               
+               
                    double[] cordintes = Tools.GetGeolocationCoordinates(BoVolunteer.currentAddress);
                     BoVolunteer.Latitude = cordintes[0];
                     BoVolunteer.Longitude = cordintes[1];
-                }
-                catch (Exception e) { }
-
+                             
             }
             else
             {
@@ -195,8 +204,8 @@ namespace Helpers
                  email: BoVolunteer.email,
                  active: BoVolunteer.active,
                  role: (DO.RoleType)BoVolunteer.role,
-                distanceType: (DO.Distance)BoVolunteer.distanceType,
-               password: BoVolunteer.password != null ? Encrypt(BoVolunteer.password): null,
+                distanceType:(DO.Distance)BoVolunteer.distanceType,
+               password: BoVolunteer.password != null ? Encrypt(BoVolunteer.password) : null,
                currentAddress: BoVolunteer.currentAddress,
               Latitude: BoVolunteer.Latitude,
               Longitude: BoVolunteer.Longitude,

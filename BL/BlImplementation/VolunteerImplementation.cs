@@ -11,13 +11,14 @@ internal class VolunteerImplementation : IVolunteer
 
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-    public void CreateVolunteer(Volunteer volToAdd)
+    public void CreateVolunteer(BO.Volunteer volToAdd)
     {
        VolunteersManager.checkeVolunteerFormat(volToAdd);
-       VolunteersManager.checkeVolunteerlogic(volToAdd);
-       
-
-
+        VolunteersManager.checkeVolunteerlogic(volToAdd);
+        DO.Volunteer  DoVlo = VolunteersManager.convertFormBOVolunteerToDo(volToAdd);
+        try 
+       { _dal.Volunteer.Create(DoVlo); }
+        catch(DO.DalAlreadyExistsException dEx) { throw new BO.BlDoesAlreadyExistException(dEx.Message, dEx); }
 
     }
 
@@ -29,32 +30,29 @@ internal class VolunteerImplementation : IVolunteer
             throw new Exception();
         try{
             _dal.Volunteer.Delete(id); }
-        catch(Exception ex) { }
+        catch(DO.DalDoesNotExistException dEx ) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
 
     }
 
     public BO.RoleType EnterToSystem(int id, string password)
     {
         DO.Volunteer? v;
-        try {
+       
 
-            v = _dal.Volunteer.Read(v => v.ID == id)??throw new Exception();
+            v = _dal.Volunteer.Read(v => v.ID == id)??throw new BO.BlDoesNotExistException($"there is no vlounteer with id : {id} ");
             if (v.password == null || v.password.Length == 0)
-                throw new Exception("to do ");
+                throw new PaswordDoesNotExistException("The passport is not Exist");
             if (VolunteersManager.Decrypt(v.password!) != password)
-                throw new Exception("to do ");
+                throw new PasswordIsNotCorrectException($"for Id: {v.ID} the password {password} is not true");
             return (BO.RoleType)v.role;
-        }
-      
-        catch (DO.DalDoesNotExistException NotEx){ throw new Exception("",NotEx); }
-        catch (Exception EX) { throw new Exception("   ",EX); }
+       
+        
     }
-
+ 
     public IEnumerable<VolunteerInList> GetVolunteerInList(bool? IsActive, FiledOfVolunteerInList? filedToSort)
     {
         IEnumerable<VolunteerInList> volunteers;
-        try
-        {
+       
             if (IsActive != null)
                volunteers = _dal.Volunteer.ReadAll(v => v.active == IsActive).Select(v=>VolunteersManager.convertDOToBOInList(v));
             else
@@ -100,28 +98,20 @@ internal class VolunteerImplementation : IVolunteer
             return volunteers;
 
  }
-        catch (DO.DalDoesNotExistException NotEx) { throw new Exception(); }
-    }
-
+    
     public BO.Volunteer ReadVolunteer(int id)
     {
         DO.Volunteer? v;
-        try
-        {
+        
             v = _dal.Volunteer.Read(v => v.ID == id);
             if (v == null)
-                throw new Exception();//change 
+                throw new BO.BlDoesNotExistException("($\"there is no vlounteer with id : {id} \"");
             return Helpers.VolunteersManager.convertDOToBOVolunteer(v);
 
-        }
-        catch
-        {
-            throw new Exception();//change 
-
-        }
+      
 
     }
-
+   
     public void UpdateVolunteer(int id, BO.Volunteer vol)
     {
      
@@ -129,28 +119,29 @@ internal class VolunteerImplementation : IVolunteer
        {
 
             if (_dal.Volunteer.Read(vol => vol.ID == id)?.role != 0)
-                throw new Exception();
+                throw new BO.VolunteerCantUpadeOtherVolunteerException("volunteer can't upduet other volunteer ");
         }
-       Helpers.VolunteersManager.checkeVolunteerFormat(vol);
+       VolunteersManager.checkeVolunteerFormat(vol);
         VolunteersManager.checkeVolunteerlogic(vol);
-        //לחלק לבדיקה לוגית ופורמט 
        var role = _dal.Volunteer.Read(vol => vol.ID == id)?.role;
         DO.Volunteer vDo = _dal.Volunteer.Read(vo => vo.ID == vol.Id)!;
        if (vol.active == false)
         {
             var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == vol.Id );
-           // לבדוק שזה לא null 
-            if (assForVol.Count(ass => ass.finishT == null) > 0)
-               throw new Exception();
+            if (assForVol!= null)
+           { if (assForVol.Count(ass => ass.finishT == null) > 0)
+                    throw new  CantUpdatevolunteer($"vlounteer with id {id} have open assigments ");
+            }
          }
        if (role == DO.RoleType.TVolunteer )
             if (vol.role ==0 && vDo.role == DO.RoleType.TVolunteer)
-                throw new Exception();
+                throw new CantUpdatevolunteer($"vlounteer with id {id} cant change to manager  ");
 
         if (vol.Id != vDo.ID)
-            throw new Exception();
+            throw new CantUpdatevolunteer($"vlounteer with id {id} can't chage his id  ");
 
-
-        _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));   
+        try
+        { _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));  } 
+        catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
 }
