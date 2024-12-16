@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,8 +19,8 @@ namespace BO
         public DateTime openTime { get; set; }
         public DateTime? maxTime { get; set; }
         public Status statusC { get; set; }
-        List<BO.CallAssignInList>? CallAssign { get; set; }
+        public List<BO.CallAssignInList>? CallAssign { get; set; }
 
-         public override string ToString() => this.ToStringProperty();// in 7ג
+         public override string ToString() => this.ToStringProperty();
     }
 }

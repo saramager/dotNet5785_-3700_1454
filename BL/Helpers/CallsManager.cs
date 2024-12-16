@@ -12,6 +12,33 @@ namespace Helpers
     internal static  class CallsManager
     {
         private static IDal s_dal = Factory.Get; //stage 4
+
+        internal static BO.Call ConvertDOCallToBOCall(DO.Call doCall)
+        {
+            var assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.ID);
+
+            return new BO.Call
+            {
+                ID = doCall.ID,
+                callT = (BO.CallType)doCall.callT,
+                verbalDescription = doCall.verbalDescription,
+                address = doCall.address,
+                latitude = doCall.latitude,
+                longitude = doCall.longitude,
+                openTime = doCall.openTime,
+                maxTime = doCall.maxTime,
+                statusC = GetCallStatus(doCall),
+                CallAssign = assignmentsForCall.Select(a => new BO.CallAssignInList
+                {
+                    VolunteerId = a.VolunteerId,
+                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName,
+                    startTreatment = a.startTreatment,
+                    finishTreatment = a.finishTreatment,
+                    finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
+                }).ToList()
+            };
+        }
+        
         internal static BO.CallInList ConvertDOCallToBOCallInList(DO.Call doCall)
         {
             var assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.ID);
@@ -52,6 +79,30 @@ namespace Helpers
                 else return BO.Status.InTreat;
             }
             return BO.Status.Close;//default
+        }
+
+        internal static BO.Call ConvertDOCallWithAssignments(DO.Call doCall, IEnumerable<DO.Assignment> assignmentsForCall)
+        {
+            return new BO.Call
+            {
+                ID = doCall.ID,
+                callT = (BO.CallType)doCall.callT,
+                verbalDescription = doCall.verbalDescription,
+                address = doCall.address,
+                latitude = doCall.latitude,
+                longitude = doCall.longitude,
+                openTime = doCall.openTime,
+                maxTime = doCall.maxTime,
+                statusC = GetCallStatus(doCall),
+                CallAssign = assignmentsForCall.Select(a => new BO.CallAssignInList
+                {
+                    VolunteerId = a.VolunteerId,
+                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName,
+                    startTreatment = a.startTreatment,
+                    finishTreatment = a.finishTreatment,
+                    finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
+                }).ToList()
+            };
         }
         public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;
         internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, CallAssignInList lastAssignment)

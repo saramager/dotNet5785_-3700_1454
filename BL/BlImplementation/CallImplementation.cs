@@ -5,12 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DalApi;
 using Helpers;
 namespace BlImplementation;
 
 internal class CallImplementation : ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+
+    public int[] SumOfCalls()
+    {
+        IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
+            ?? throw new BO.BlNullPropertyException("There are no calls in the database");
+
+        IEnumerable<BO.Call> boCalls = allCalls.Select(call => CallsManager.ConvertDOCallToBOCall(call));
+
+        var groupedCalls = boCalls
+            .GroupBy(call => call.statusC)
+            .ToDictionary(group => group.Key, group => group.Count());
+
+        int maxStatus = Enum.GetValues(typeof(BO.Status)).Cast<int>().Max();
+        int[] result = new int[maxStatus + 1];
+
+        foreach (var pair in groupedCalls)
+        {
+            result[(int)pair.Key] = pair.Value;
+        }
+
+        return result;
+    }
+
+
     public IEnumerable<CallInList> GetCallInList(FiledOfCallInList? filedToFilter, object? sort, FiledOfCallInList? filedToSort)
     {
         IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
@@ -103,38 +128,73 @@ internal class CallImplementation : ICall
         return boCallsInList;
     }
 
-    void ICall.CreateCall(Call c)
+    public BO.Call ReadCall(int id)
+    {
+        var doCall = _dal.Call.Read(c => c.ID == id);
+
+        if (doCall == null)
+            throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
+
+        var assignmentsForCall = _dal.Assignment.ReadAll(a => a.CallId == id);
+
+        var boCall = CallsManager.ConvertDOCallWithAssignments(doCall, assignmentsForCall);
+
+        return boCall;
+    }
+
+    void UpdateCall(Call c)
+    {
+        throw new NotImplementedException();
+    }
+    internal class CallImplementation : ICall
+    {
+        private readonly IDal _dal; // Assumed data access layer interface.
+
+        public CallImplementation(IDal dal)
+        {
+            _dal = dal;
+        }
+
+        public void DeleteCall(int id)
+        {
+            // Fetch the call to check if it exists
+            var doCall = _dal.Call.Read(c => c.ID == id);
+
+            if (doCall == null)
+            {
+                throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
+            }
+
+            // Check if the call can be deleted (status should be 'open' and not yet assigned)
+            if (doCall.statusC != BO.CallStatus.Open || _dal.Assignment.ReadAll(a => a.CallId == id).Any())
+            {
+                throw new BO.CantDeleteCallException($"Call with ID {id} cannot be deleted as it is either assigned or not in an 'open' status.");
+            }
+
+            // Perform deletion
+            _dal.Call.Delete(id);
+        }
+    }
+
+
+    void DeleteCall(int id)
     {
         throw new NotImplementedException();
     }
 
-    void ICall.DeleteCall(int id)
+    void FinishTertment(int Vid, int AssignmentId)
     {
         throw new NotImplementedException();
     }
 
-    void ICall.FinishTertment(int Vid, int AssignmentId)
-    {
-        throw new NotImplementedException();
-    }
-
-    IEnumerable<CallInList> ICall.GetCallInList(FiledOfCallInList? filedToFilter, object? sort, FiledOfCallInList? filedToSort)
-    {
-        throw new NotImplementedException();
-    }
-
-    Call ICall.ReadCall(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    IEnumerable<ClosedCallInList> ICall.ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
+ 
+    IEnumerable<ClosedCallInList> ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
 
         Calls.AddRange(from item in previousCalls
-                       let DataCall = Read(item.Id)
+                       let DataCall = Read(item.ID)
                        where DataCall.Status == BO.Status.Close && DataCall.AssignmentsToCalls?.Any() == true
                        let lastAssugnment = DataCall.AssignmentsToCalls.OrderBy(c => c.StartTreat).Last()
                        select CallsManager.ConvertDOCallToBOCloseCallInList(item, lastAssugnment));
@@ -181,13 +241,13 @@ internal class CallImplementation : ICall
     }
   
 
-    IEnumerable<OpenCallInList> ICall.ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
         Calls.AddRange(from item in previousCalls
-                       let DataCall = Read(item.Id)
+                       let DataCall = Read(item.ID)
                        where DataCall.Status == BO.Status.Open || DataCall.Status == BO.Status.OpenInRisk
                        let lastAssugnment = DataCall.AssignmentsToCalls.OrderBy(c => c.StartTreat).Last()
                        select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
@@ -227,17 +287,7 @@ internal class CallImplementation : ICall
         return openCallInLists;
     }
 
-    int[] ICall.SumOfCalls()
-    {
-        throw new NotImplementedException();
-    }
-
-    void ICall.ToTreat(int Vid, int CId)
-    {
-        throw new NotImplementedException();
-    }
-
-    void ICall.UpdateCall(Call c)
+    void ToTreat(int Vid, int CId)
     {
         throw new NotImplementedException();
     }

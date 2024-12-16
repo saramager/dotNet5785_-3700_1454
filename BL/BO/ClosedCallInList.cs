@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,6 @@ namespace BO
         public FinishType? finishT { get; init; }
         public double CallDistance { get; init; }
 
-        public override string ToString() => this.ToStringProperty();// in 7ג
+        public override string ToString() => this.ToStringProperty();
     }
 }

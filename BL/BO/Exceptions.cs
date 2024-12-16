@@ -68,3 +68,7 @@ public class MaxDistanceDoesNotcoretct : Exception
 {
     public MaxDistanceDoesNotcoretct(string? message) : base(message) { }
 }
+public class CantDeleteCallException : Exception
+{
+    public CantDeleteCallException(string? message) : base(message) { }
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,8 +26,7 @@ namespace BO
         public int numCallsExpired { get; set; }
         public BO.CallInProgress? callProgress { get; set; }
 
-        public override string ToString() => this.ToStringProperty();// in 7ג
-
+        public override string ToString() => this.ToStringProperty();
 
 
     }

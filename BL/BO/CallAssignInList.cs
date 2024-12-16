@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,6 @@ namespace BO
         public DateTime? finishTreatment { get; init; }
         public FinishType? finishT { get; init; }
 
-         public override string ToString() => this.ToStringProperty();// in 7ג
+         public override string ToString() => this.ToStringProperty();
     }
 }
