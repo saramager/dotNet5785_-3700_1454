@@ -146,36 +146,6 @@ internal class CallImplementation : ICall
     {
         throw new NotImplementedException();
     }
-    internal class CallImplementation : ICall
-    {
-        private readonly IDal _dal; // Assumed data access layer interface.
-
-        public CallImplementation(IDal dal)
-        {
-            _dal = dal;
-        }
-
-        public void DeleteCall(int id)
-        {
-            // Fetch the call to check if it exists
-            var doCall = _dal.Call.Read(c => c.ID == id);
-
-            if (doCall == null)
-            {
-                throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
-            }
-
-            // Check if the call can be deleted (status should be 'open' and not yet assigned)
-            if (doCall.statusC != BO.CallStatus.Open || _dal.Assignment.ReadAll(a => a.CallId == id).Any())
-            {
-                throw new BO.CantDeleteCallException($"Call with ID {id} cannot be deleted as it is either assigned or not in an 'open' status.");
-            }
-
-            // Perform deletion
-            _dal.Call.Delete(id);
-        }
-    }
-
 
     void DeleteCall(int id)
     {
