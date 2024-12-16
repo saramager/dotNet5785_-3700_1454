@@ -43,7 +43,8 @@ namespace Helpers
                 throw new ArgumentException("Address cannot be empty or null.", nameof(address));
             }
 
-            string requestUrl = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}";
+            string apiKey = "67609238e7135923908907oxh46a576";
+            string requestUrl = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}&api_key={apiKey}";
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(requestUrl);
             webRequest.Method = "GET";
 
