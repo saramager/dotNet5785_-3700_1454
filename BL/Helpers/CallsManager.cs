@@ -75,7 +75,7 @@ namespace Helpers
             if (lastAssignment.finishT == null)
             {
                 if (IsInRisk(doCall!))
-                    return BO.Status.InRiskTreat;
+                    return BO.Status.TreatInRisk;
                 else return BO.Status.InTreat;
             }
             return BO.Status.Close;//default

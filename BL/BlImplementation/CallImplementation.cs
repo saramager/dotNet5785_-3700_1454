@@ -9,7 +9,7 @@ using DalApi;
 using Helpers;
 namespace BlImplementation;
 
-internal class CallImplementation : ICall
+internal class CallImplementation : BlApi.ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
@@ -149,7 +149,14 @@ internal class CallImplementation : ICall
 
     void DeleteCall(int id)
     {
-        throw new NotImplementedException();
+        var call = ReadCall(id);
+        if (!(call.statusC == BO.Status.Open && call.CallAssign == null))
+            throw new CantDeleteCallException($"can delete this call id: {id}");
+        try
+        {
+            _dal.Call.Delete(id);
+        }
+        catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
 
     void FinishTertment(int Vid, int AssignmentId)
@@ -164,9 +171,9 @@ internal class CallImplementation : ICall
         List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
 
         Calls.AddRange(from item in previousCalls
-                       let DataCall = Read(item.ID)
-                       where DataCall.Status == BO.Status.Close && DataCall.AssignmentsToCalls?.Any() == true
-                       let lastAssugnment = DataCall.AssignmentsToCalls.OrderBy(c => c.StartTreat).Last()
+                       let DataCall = ReadCall(item.ID)
+                       where DataCall.statusC == BO.Status.Close && DataCall.CallAssign?/*.AssignmentsToCalls?*/.Any() == true
+                       let lastAssugnment = DataCall.CallAssign.OrderBy(c => c.startTreatment).Last()
                        select CallsManager.ConvertDOCallToBOCloseCallInList(item, lastAssugnment));
 
         IEnumerable<BO.ClosedCallInList> closedCallInLists = Calls.Where(call => call.ID == id);
@@ -217,9 +224,9 @@ internal class CallImplementation : ICall
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
         Calls.AddRange(from item in previousCalls
-                       let DataCall = Read(item.ID)
-                       where DataCall.Status == BO.Status.Open || DataCall.Status == BO.Status.OpenInRisk
-                       let lastAssugnment = DataCall.AssignmentsToCalls.OrderBy(c => c.StartTreat).Last()
+                       let DataCall = ReadCall(item.ID)
+                       where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
+                       let lastAssugnment = DataCall.CallAssign.OrderBy(c => c.startTreatment).Last()
                        select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
 
         IEnumerable<BO.OpenCallInList> openCallInLists = Calls.Where(call => call.ID == id);
