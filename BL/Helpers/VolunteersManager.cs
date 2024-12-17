@@ -154,9 +154,9 @@ namespace Helpers
         internal static void  checkeVolunteerlogic(BO.Volunteer volunteer)
         {
             if (!(IsValidId(volunteer.Id)))
-                throw new BO.IdDoesNotVaildException("the id isnt vaild ");
+                throw new BO.IdDoesNotVaildException("the id isnt valid ");
             if (volunteer != null && !IsStrongPassword(volunteer.password!))
-                throw new BO.PaswordDoesNotstrongException($" this pasword :{volunteer.password!} doent have at least 6 characters, contains an uppercase letter and a digit");
+                throw new BO.PaswordDoesNotstrongException($" this password :{volunteer.password!} dont have at least 6 characters, contains an uppercase letter and a digit");
         }
         /// <summary>
         /// Validates an Israeli 9-digit ID using the Luhn algorithm.
