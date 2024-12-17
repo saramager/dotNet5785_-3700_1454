@@ -138,7 +138,7 @@ internal class VolunteerImplementation : IVolunteer
                 throw new CantUpdatevolunteer($"vlounteer with id {id} cant change to manager  ");
 
         if (vol.Id != vDo.ID)
-            throw new CantUpdatevolunteer($"vlounteer with id {id} can't chage his id  ");
+            throw new CantUpdatevolunteer($"vlounteer with id {id} can't change his id  ");
 
         try
         { _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));  } 

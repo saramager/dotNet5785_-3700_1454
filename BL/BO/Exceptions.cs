@@ -87,3 +87,7 @@ public class BlWrongInputException : Exception
 {
     public BlWrongInputException(string? message) : base(message) { }
 }
+public class BlValidationException : Exception
+{
+    public BlValidationException(string? message) : base(message) { }
+}

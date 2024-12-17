@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlApi;
 using BO;
 using DalApi;
+using DO;
 using Helpers;
 namespace BlImplementation;
 
@@ -142,20 +143,20 @@ internal class CallImplementation : BlApi.ICall
         return boCall;
     }
 
-    void UpdateCall(Call c)
+    public void UpdateCall(BO.Call c)
     {
-        throw new NotImplementedException();
+        CallsManager.CheckCallLogic(c);
+
+        try
+        {
+            _dal.Call.Update(Helpers.CallsManager.convertFormBOCallToDo(c));
+        }
+        catch (DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
+        }
     }
 
-   
-   
-   
-  
- 
-    void BlApi.ICall.UpdateCall(Call c)
-    {
-        throw new NotImplementedException();
-    }
 
     void BlApi.ICall.DeleteCall(int id)
     {
@@ -166,12 +167,17 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Call.Delete(id);
         }
-        catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
+        catch (DO.DalDoesNotExistException dEx)
+        { 
+            throw new BO.BlDoesNotExistException(dEx.Message, dEx); 
+        }
     }
 
-    public void CreateCall(Call c)
+    public void CreateCall(BO.Call c)
     {
-        throw new NotImplementedException();
+        CallsManager.CheckCallLogic(c);
+
+        _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
     }
 
     IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
