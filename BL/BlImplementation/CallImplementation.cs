@@ -147,7 +147,17 @@ internal class CallImplementation : BlApi.ICall
         throw new NotImplementedException();
     }
 
-    void DeleteCall(int id)
+   
+   
+   
+  
+ 
+    void BlApi.ICall.UpdateCall(Call c)
+    {
+        throw new NotImplementedException();
+    }
+
+    void BlApi.ICall.DeleteCall(int id)
     {
         var call = ReadCall(id);
         if (!(call.statusC == BO.Status.Open && call.CallAssign == null))
@@ -159,13 +169,12 @@ internal class CallImplementation : BlApi.ICall
         catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
 
-    void FinishTertment(int Vid, int AssignmentId)
+    public void CreateCall(Call c)
     {
         throw new NotImplementedException();
     }
 
- 
-    IEnumerable<ClosedCallInList> ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
+    IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
@@ -216,9 +225,8 @@ internal class CallImplementation : BlApi.ICall
 
         return closedCallInLists;
     }
-  
 
-    IEnumerable<OpenCallInList> ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
@@ -259,12 +267,19 @@ internal class CallImplementation : BlApi.ICall
                     openCallInLists = openCallInLists.OrderBy(item => item.verbalDescription);
                     break;
             }
+
         }
 
         return openCallInLists;
     }
+ 
 
-    void ToTreat(int Vid, int CId)
+    void BlApi.ICall.FinishTertment(int Vid, int AssignmentId)
+    {
+        throw new NotImplementedException();
+    }
+
+    void BlApi.ICall.ToTreat(int Vid, int CId)
     {
         throw new NotImplementedException();
     }

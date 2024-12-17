@@ -31,6 +31,8 @@ public class PaswordDoesNotstrongException : Exception
 {
     public PaswordDoesNotstrongException(string? message) : base(message) { }
 }
+[Serializable]
+
 public class PaswordDoesNotExistException : Exception
 {
     public PaswordDoesNotExistException(string? message) : base(message) { }
@@ -56,19 +58,32 @@ public class CantUpdatevolunteer : Exception
 {
     public CantUpdatevolunteer(string? message) : base(message) { }
 }
+[Serializable]
+
 public class EmailDoesNotcoretct : Exception
 {
     public EmailDoesNotcoretct(string? message) : base(message) { }
 }
+[Serializable]
+
 public class PhoneDoesNotcoretct : Exception
 {
     public PhoneDoesNotcoretct(string? message) : base(message) { }
 }
+[Serializable]
+
 public class MaxDistanceDoesNotcoretct : Exception
 {
     public MaxDistanceDoesNotcoretct(string? message) : base(message) { }
 }
+[Serializable]
+
 public class CantDeleteCallException : Exception
 {
     public CantDeleteCallException(string? message) : base(message) { }
+}
+[Serializable]
+public class BlWrongInputException : Exception
+{
+    public BlWrongInputException(string? message) : base(message) { }
 }

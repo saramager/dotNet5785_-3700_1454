@@ -103,12 +103,20 @@ namespace Helpers
                         maxTime = callTreat.maxTime,
                         startTreatment = assignmentTreat.startTreatment,
                         CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude),
-                        statusT = (callTreat.maxTime - ClockManager.Now <= s_dal.Config.RiskRange ? BO.Status.InRiskTreat : BO.Status.InTreat),
+                        statusT = (callTreat.maxTime - ClockManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
                     };}
             }
             return null;
         }
-      
+
+        
+        /// /// <summary>
+        /// This function checks the format of a volunteer's email, phone, and max distance.
+        /// It validates the email format (must be in a basic email format with '@' and domain),
+        /// checks if the phone number is numeric and within a certain length, and ensures 
+        /// that the maximum distance is a non-negative value.
+        /// </summary>
+        /// <param name="volunteer">The volunteer object containing the email, phone, and max distance fields to validate.</param>
         internal static void  checkeVolunteerFormat(BO.Volunteer volunteer)
         {
             if (string.IsNullOrEmpty(volunteer.email) || volunteer.email.Count(c => c == '@') != 1)
@@ -133,6 +141,13 @@ namespace Helpers
            
 
         }
+        /// <summary>
+        /// This function checks the validity of a volunteer's ID and password.
+        /// It ensures that the ID is valid (based on a custom validation function) and 
+        /// that the password meets the requirements: at least 6 characters long, 
+        /// contains an uppercase letter, and includes a digit.
+        /// </summary>
+        /// <param name="volunteer">The volunteer object that contains the ID and password to be validated.</param>
         internal static void  checkeVolunteerlogic(BO.Volunteer volunteer)
         {
             if (!(IsValidId(volunteer.Id)))
@@ -140,16 +155,17 @@ namespace Helpers
             if (volunteer != null && !IsStrongPassword(volunteer.password!))
                 throw new BO.PaswordDoesNotstrongException($" this pasword :{volunteer.password!} doent have at least 6 characters, contains an uppercase letter and a digit");
         }
+        /// <summary>
+        /// Validates an Israeli 9-digit ID using the Luhn algorithm.
+        /// </summary>
+        /// <param name="id">The ID number to validate.</param>
+        /// <returns>True if the ID is valid, false otherwise.</returns>
+        /// <remarks>
+        /// This code was written with the assistance of ChatGPT, a language model developed by OpenAI.
+        /// </remarks>
         internal static bool IsValidId(long id)
         {
-            /// <summary>
-            /// Validates an Israeli 9-digit ID using the Luhn algorithm.
-            /// </summary>
-            /// <param name="id">The ID number to validate.</param>
-            /// <returns>True if the ID is valid, false otherwise.</returns>
-            /// <remarks>
-            /// This code was written with the assistance of ChatGPT, a language model developed by OpenAI.
-            /// </remarks>
+           
 
             // Check if ID is exactly 9 digits.
             if (id < 100000000 || id > 999999999)
@@ -179,7 +195,15 @@ namespace Helpers
             int checkDigit = (10 - (sum % 10)) % 10;
             return checkDigit == (int)(id % 10);  // Valid if checksum matches.
         }
-
+        /// <summary>
+        /// Converts a BO.Volunteer object to a DO.Volunteer object.
+        /// This method performs the following operations:
+        /// - Converts coordinates based on the volunteer's current address.
+        /// - Maps the properties from BO.Volunteer to DO.Volunteer.
+        /// - Encrypts the password if present.
+        /// </summary>
+        /// <param name="BoVolunteer">The BO.Volunteer object that contains the volunteer data to be converted.</param>
+        /// <returns>A DO.Volunteer object populated with the data from the BO.Volunteer object.</returns>
         internal static DO.Volunteer convertFormBOVolunteerToDo(BO.Volunteer BoVolunteer)
         {
            

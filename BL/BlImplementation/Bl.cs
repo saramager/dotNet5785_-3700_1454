@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlImplementation
 {
-    internal class Bl : IBI
+    internal class Bl : IBl
     {
        
         public IVolunteer Volunteer { get; } =  new VolunteerImplementation();
