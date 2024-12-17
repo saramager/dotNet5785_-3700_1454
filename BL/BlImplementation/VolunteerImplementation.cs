@@ -42,7 +42,8 @@ internal class VolunteerImplementation : IVolunteer
             v = _dal.Volunteer.Read(v => v.ID == id)??throw new BO.BlDoesNotExistException($"there is no vlounteer with id : {id} ");
             if (v.password == null || v.password.Length == 0)
                 throw new PaswordDoesNotExistException("The passport is not Exist");
-            if (VolunteersManager.Decrypt(v.password!) != password)
+        string VpassWord = VolunteersManager.Decrypt(v.password!);
+            if (/*VolunteersManager.Decrypt(v.password!)*/ VpassWord != password)
                 throw new PasswordIsNotCorrectException($"for Id: {v.ID} the password {password} is not true");
             return (BO.RoleType)v.role;
        
@@ -58,44 +59,42 @@ internal class VolunteerImplementation : IVolunteer
             else
                 volunteers = _dal.Volunteer.ReadAll().Select(v => VolunteersManager.convertDOToBOInList(v));
             if (filedToSort == null)
-                volunteers.OrderBy(v => v.ID);
-            else switch (filedToSort)
-                {
-                    case FiledOfVolunteerInList.ID:
-                        volunteers.OrderBy(v => v.ID);
-                        break;
+            volunteers = volunteers.OrderBy(v => v.ID).ToList();
+        else switch (filedToSort)
+            {
+                case FiledOfVolunteerInList.ID:
+                    volunteers = volunteers.OrderBy(v => v.ID).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.fullName:
-                        volunteers.OrderBy(v => v.fullName);
-                        break;
+                case FiledOfVolunteerInList.fullName:
+                    volunteers = volunteers.OrderBy(v => v.fullName).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.active:
-                        volunteers.OrderBy(v => v.active);
-                        break;
+                case FiledOfVolunteerInList.active:
+                    volunteers = volunteers.OrderBy(v => v.active).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.numCallsHandled:
-                        volunteers.OrderBy(v => v.numCallsHandled);
-                        break;
+                case FiledOfVolunteerInList.numCallsHandled:
+                    volunteers = volunteers.OrderBy(v => v.numCallsHandled).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.numCallsCancelled:
-                        volunteers.OrderBy(v => v.numCallsCancelled);
-                        break;
+                case FiledOfVolunteerInList.numCallsCancelled:
+                    volunteers = volunteers.OrderBy(v => v.numCallsCancelled).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.numCallsExpired:
-                        volunteers.OrderBy(v => v.numCallsExpired);
-                        break;
+                case FiledOfVolunteerInList.numCallsExpired:
+                    volunteers = volunteers.OrderBy(v => v.numCallsExpired).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.CallId:
-                        volunteers.OrderBy(v => v.CallId);
-                        break;
+                case FiledOfVolunteerInList.CallId:
+                    volunteers = volunteers.OrderBy(v => v.CallId).ToList();
+                    break;
 
-                    case FiledOfVolunteerInList.callT:
-                        volunteers.OrderBy(v => v.callT);
-                        break;
-
-            
-                }
-            return volunteers;
+                case FiledOfVolunteerInList.callT:
+                    volunteers = volunteers.OrderBy(v => v.callT).ToList();
+                    break;
+            }
+        return volunteers;
 
  }
     

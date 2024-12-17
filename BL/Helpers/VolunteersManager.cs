@@ -23,11 +23,12 @@ namespace Helpers
         /// <returns> the BO vlounteerInList  </returns>
         internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
         {
-            var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
-            int sumCalls = call.Count(ass => ass.finishT == DO.FinishType.Treated);
-            int sumCanceld = call.Count(ass => ass.finishT == DO.FinishType.SelfCancel);
-            int sumExpired = call.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel);
-            int? idCall = call.Count(ass => ass.finishTreatment == null);
+            var calls = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
+            int sumCalls = calls.Count(ass => ass.finishT == DO.FinishType.Treated);
+            int sumCanceld = calls.Count(ass => ass.finishT == DO.FinishType.SelfCancel);
+            int sumExpired = calls.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel);
+            var call = calls.Find(ass => ass.finishT== null);
+            DO.Call? callD = call==null ? null :s_dal.Call.Read(c=> c.ID==call.ID);
             return new()
             {
                 ID = doVolunteer.ID,
@@ -36,7 +37,8 @@ namespace Helpers
                 numCallsHandled = sumCalls,
                 numCallsCancelled = sumCanceld,
                 numCallsExpired = sumExpired,
-                CallId = idCall,
+                CallId = call==null?null:call.ID,
+                callT= callD == null ? CallType.None :(BO.CallType)callD.callT 
             };
         }
         /// <summary>
@@ -50,7 +52,7 @@ namespace Helpers
             int sumCalls = call.Count(ass => ass.finishT == DO.FinishType.Treated);
             int sumCanceld = call.Count(ass => ass.finishT == DO.FinishType.SelfCancel);
             int sumExpired = call.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel);
-            int? idCall = call.Count(ass => ass.finishTreatment == null);
+            //int? idCall = call.Find(ass => ass.finishTreatment == null&&ass.finishT==null);
             CallInProgress? c = GetCallIn(doVolunteer);
             return new()
             {
@@ -82,7 +84,7 @@ namespace Helpers
         {
 
             var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
-            DO.Assignment? assignmentTreat = call.Find(ass => ass.finishTreatment == null);
+            DO.Assignment? assignmentTreat = call.Find(ass =>  ass.finishT==null);
             
             if (assignmentTreat != null)
             {
@@ -124,13 +126,14 @@ namespace Helpers
                 throw new BO.EmailDoesNotcoretct($"email :{volunteer.email} have problem with format ");
             }
 
-            string pattern = @"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+\.com$";
+            //string pattern = @"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+\.com$";
+            string pattern = @"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$";
 
             if (!Regex.IsMatch(volunteer.email, pattern))
             {
                 throw new BO.EmailDoesNotcoretct($"email :{volunteer.email} have problem with format ");
             }
-            if (string.IsNullOrEmpty(volunteer.phone) || volunteer.phone.Length < 8 || volunteer.phone.Length > 9 || !(volunteer.phone.All(char.IsDigit)))
+            if (string.IsNullOrEmpty(volunteer.phone) || volunteer.phone.Length < 9 || volunteer.phone.Length > 10 || !(volunteer.phone.All(char.IsDigit)))
                 throw new BO.PhoneDoesNotcoretct($"phone :{volunteer.phone} have problem with format ");
 
             if (volunteer.maxDistance < 0)

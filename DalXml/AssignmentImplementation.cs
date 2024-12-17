@@ -58,7 +58,9 @@ internal class AssignmentImplementation : IAssignment
     /// <returns>A collection of assignments that match the filter (if any).</returns>
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
-        return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml) ?? throw new DO.DalDoesNotExistException($"Student with   {filter} does not  exist"); ;
+        if(filter == null)
+            return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml) ;
+        return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml).Where(filter);
 
     }
     /// <summary>

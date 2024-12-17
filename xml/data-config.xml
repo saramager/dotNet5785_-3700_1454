@@ -2,13 +2,6 @@
 <config>
   <NextCallId>1060</NextCallId>
   <NextAssignmentId>1060</NextAssignmentId>
-  <Clock>04/12/2024 01:03:36</Clock>
-  <RiskRange>00-00-00 00:00:00</RiskRange>
-
-
-	int nextCId = Config.NextCallId;
-	int nextAId = Config.NextAssignmentId;
-	DateTime clock = Config.Clock;
-	TimeSpan Risk = Config.RiskRange;
-	
+  <Clock>17/12/2024 22:35:31</Clock>
+  <RiskRange>03:00:00</RiskRange>
 </config>
