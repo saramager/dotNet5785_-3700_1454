@@ -55,7 +55,7 @@ internal class CallImplementation : BlApi.ICall
                     break;
 
                 case FiledOfCallInList.callT:
-                    boCallsInList = boCallsInList.Where(item => item.callT == (CallType)sort);
+                    boCallsInList = boCallsInList.Where(item => item.callT == (BO.CallType)sort);
                     break;
 
                 case FiledOfCallInList.openTime:
@@ -180,7 +180,7 @@ internal class CallImplementation : BlApi.ICall
         _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
     }
 
-    IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
+    IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
@@ -232,7 +232,7 @@ internal class CallImplementation : BlApi.ICall
         return closedCallInLists;
     }
 
-    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();

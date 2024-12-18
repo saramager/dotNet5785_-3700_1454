@@ -108,7 +108,8 @@ public static class Initialization
                     case 0: finish = FinishType.Treated;
                         finishTime = s_dal!.Config.Clock;
                         break;
-                    case 1: finish = FinishType.SelfCancel; break;
+                    case 1: finish = FinishType.SelfCancel;
+                        break;
                     case 2: finish = FinishType.ManagerCancel; break;
                
 
