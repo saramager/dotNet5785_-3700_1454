@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+namespace BlImplementation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ using BO;
 using DalApi;
 using DO;
 using Helpers;
-namespace BlImplementation;
 
 internal class CallImplementation : BlApi.ICall
 {
@@ -180,7 +180,7 @@ internal class CallImplementation : BlApi.ICall
         _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
     }
 
-    IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, CallType? callT, FiledOfClosedCallInList? filedTosort)
+    IEnumerable<ClosedCallInList> ReadCloseCallsVolunteer(int id,BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
@@ -232,7 +232,7 @@ internal class CallImplementation : BlApi.ICall
         return closedCallInLists;
     }
 
-    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
