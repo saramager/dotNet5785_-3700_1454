@@ -10,6 +10,7 @@ namespace DO;
 /// <param name="startTreatment">Time (date and time) when the current call was processed.>
 /// <param name="finishTreatment">Time (date and time) when the current volunteer finished handling the current call.>
 /// <param name="finishT">The manner in which the treatment of the current reading was completed by the current volunteer.>
+
 public record Assignment
 (
   int ID,

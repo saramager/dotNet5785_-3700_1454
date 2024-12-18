@@ -12,6 +12,7 @@ namespace DO;
 /// <param name="openTime">Time (date and time) when the call was opened by the manager.>
 /// <param name="maxTime">Time (date and time) by which the reading should be closed.>
 /// <param name="verbalDescription">Description of the call>
+
 public record Call
 (
 
