@@ -145,7 +145,7 @@ internal class CallImplementation : BlApi.ICall
 
     public void UpdateCall(BO.Call c)
     {
-        CallsManager.CheckCallLogic(c);
+        CallsManager.CheckCallLogic(c);//לא טוב, צריך תנאי או בדיקת חריגות כל שהיא
 
         try
         {
@@ -175,7 +175,7 @@ internal class CallImplementation : BlApi.ICall
 
     public void CreateCall(BO.Call c)
     {
-        CallsManager.CheckCallLogic(c);
+        CallsManager.CheckCallLogic(c);//לא טוב, צריך תנאי או בדיקת חריגות כל שהיא
 
         _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
     }
@@ -278,15 +278,136 @@ internal class CallImplementation : BlApi.ICall
 
         return openCallInLists;
     }
- 
 
-    void BlApi.ICall.FinishTertment(int Vid, int AssignmentId)
+
+    void BlApi.ICall.FinishTreatment(int volunteerId, int assignmentId)
     {
-        throw new NotImplementedException();
+        DO.Assignment assignment;
+        try
+        {
+            assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
+                ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex);
+        }
+
+        if (assignment.VolunteerId != volunteerId)
+        {
+            throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to finish this assignment.");
+        }
+
+        if (assignment.finishTreatment != null || assignment.finishT != null)
+        {
+            throw new BO.AssignmentAlreadyClosedException($"Assignment with ID {assignmentId} is already closed.");
+        }
+
+        assignment = assignment with
+        {
+            finishTreatment = DateTime.Now,
+            finishT = DO.FinishType.Treated
+        };
+       
+        try
+        {
+            _dal.Assignment.Update(assignment);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"An error occurred while updating the assignment.", ex);
+        }
     }
 
-    void BlApi.ICall.ToTreat(int Vid, int CId)
+
+    public void CancelTreat(int volunteerId, int assignmentId)
     {
-        throw new NotImplementedException();
+        DO.Assignment assignment;
+        DO.Call call;
+
+        try
+        {
+            assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
+                ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex);
+        }
+
+        try
+        {
+            call = _dal.Call.Read(c => c.ID == assignment.CallId)
+                ?? throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.");
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.", ex);
+        }
+
+        if (call.maxTime.HasValue && DateTime.Now > call.maxTime.Value)
+        {
+            throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
+        }
+
+            !_dal.Volunteer.Read(v => v.ID == volunteerId)?.role.Equals(DO.RoleType.Manager) == true)
+        {
+            throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to cancel this assignment.");
+        }
+
+        if (assignment.finishTreatment != null || assignment.finishT != null)
+        {
+            throw new BO.CantUpdatevolunteer($"Assignment with ID {assignmentId} is already closed or cancelled.");
+        }
+
+        assignment = assignment with
+        {
+            finishTreatment = DateTime.Now,
+            finishT = (assignment.VolunteerId == volunteerId) ? DO.FinishType.SelfCancel : DO.FinishType.ManagerCancel
+        };
+
+        try
+        {
+            _dal.Assignment.Update(assignment);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"An error occurred while updating the assignment.", ex);
+        }
     }
+
+    public void ChooseCallTreat(int volunteerId, int CallId)
+    {
+        var assignment = _dal.Assignment.Read(a => a.CallId == CallId);
+        var call = _dal.Call.Read(c => c.ID == CallId);
+
+        if (assignment != null || call == null || (call.maxTime.HasValue && DateTime.Now > call.maxTime))
+        {
+            throw new BO.BlValidationException($"Call with ID {CallId} is not valid for treatment.");
+        }
+
+        if (assignment != null && (assignment.finishTreatment == null || assignment.finishT == null))
+        {
+            throw new BO.BlValidationException($"Call with ID {CallId} is already in treatment or open.");
+        }
+
+        var newAssignment = new DO.Assignment
+        {
+            CallId = CallId,
+            VolunteerId = volunteerId,
+            startTreatment = DateTime.Now,
+            finishTreatment = null,
+            finishT = null 
+        };
+
+        try
+        {
+            _dal.Assignment.Create(newAssignment);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"An error occurred while creating the assignment.", ex);
+        }
+    }
+
 }

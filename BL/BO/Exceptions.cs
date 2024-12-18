@@ -91,3 +91,7 @@ public class BlValidationException : Exception
 {
     public BlValidationException(string? message) : base(message) { }
 }
+public class AssignmentAlreadyClosedException : Exception
+{
+    public AssignmentAlreadyClosedException(string? message) : base(message) { }
+}
