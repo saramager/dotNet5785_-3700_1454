@@ -78,10 +78,10 @@ namespace Helpers
             {
                 throw new Exception("Error sending web request: " + ex.Message);
             }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred: " + ex.Message);
-            }
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("An error occurred: " + ex.Message);
+            //}
         }
 
         /// <summary>

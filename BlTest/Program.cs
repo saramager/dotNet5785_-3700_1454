@@ -69,7 +69,7 @@ internal class Program
                         handleVolunteerOptions();
                         break;
                     case OPTION.CALL_MENUE:
-                        //handleCallOptions();
+                        handleCallOptions();
                         break;
                 }
                 option = showMainMenu();
@@ -615,11 +615,11 @@ private static void handleCallOptions()
             case ICall.CREATE:
                 {
                     //s_bl.Calls.Create(getCall());
-                    Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
+                    Console.WriteLine("Enter call type (BabyGift,MomGift,HouseholdHelp,MealPreparation):");
                     string callTypeInput = Console.ReadLine();
                     if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
                     {
-                        throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
+                        throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (BabyGift,MomGift,HouseholdHelp,MealPreparation):");
                     }
 
                     Console.WriteLine("Enter description:");
@@ -676,7 +676,7 @@ private static void handleCallOptions()
                     }
 
                     // Ask the user for the call type
-                    Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                    Console.Write("Enter call type or null ( BabyGift, MomGift, HouseholdHelp, MealPreparation or leave blank): ");
                     string callTypeInput = Console.ReadLine();
                     BO.CallType? callType = null;
                     if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
@@ -725,7 +725,7 @@ private static void handleCallOptions()
                     }
 
                     // Ask the user for the call type
-                    Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                    Console.Write("Enter call type or null ( BabyGift,  MomGift, HouseholdHelp, MealPreparation or leave blank): ");
                     string callTypeInput = Console.ReadLine();
                     BO.CallType? callType = null;
                     if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
@@ -853,11 +853,11 @@ private static BO.Call getCall()
     {
         throw new BO.BlWrongInputException("Invalid input. Please enter a valid integer for the ID:");
     }
-    Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
+    Console.WriteLine("Enter call type ( BabyGift,MomGift,HouseholdHelp,MealPreparation):");
     string callTypeInput = Console.ReadLine();
     if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
     {
-        throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
+        throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (BabyGift,MomGift,HouseholdHelp,MealPreparation ):" );
     }
 
     Console.WriteLine("Enter description:");

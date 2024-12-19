@@ -114,10 +114,10 @@ namespace Helpers
             {
                 throw new BlUpdateCallException("Invalid address: " + ex.Message);
             }
-            catch (Exception ex)
-            {
-                throw new BlUpdateCallException("An unexpected error occurred while validating the call.");
-            }
+            //catch (Exception ex)
+            //{
+            //    throw new BlUpdateCallException("An unexpected error occurred while validating the call.");
+            //}
 
             return true;
         }
