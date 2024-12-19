@@ -118,7 +118,7 @@ internal class VolunteerImplementation : IVolunteer
        {
 
             if (_dal.Volunteer.Read(vol => vol.ID == id)?.role != 0)
-                throw new BO.VolunteerCantUpadeOtherVolunteerException("volunteer can't upduet other volunteer ");
+                throw new BO.VolunteerCantUpadeOtherVolunteerException("volunteer can't update other volunteer ");
         }
        VolunteersManager.checkeVolunteerFormat(vol);
         VolunteersManager.checkeVolunteerlogic(vol);

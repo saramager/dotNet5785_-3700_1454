@@ -81,32 +81,48 @@ namespace Helpers
             }
             return BO.Status.Close;//default
         }
-        internal static void CheckCallLogic(BO.Call call)
+        internal static bool CheckCallLogic(BO.Call call)
         {
             if (call == null)
-                throw new ArgumentNullException(nameof(call), "Call object cannot be null.");
+            {
+                throw new BlValidationException(nameof(call), "Call object cannot be null.");
+            }
 
             if (string.IsNullOrWhiteSpace(call.address))
-                throw new ArgumentException("Address cannot be null or empty.", nameof(call.address));
+            {
+                throw new BlValidationException(nameof(call.address), "Address cannot be null or empty.");
+            }
 
             if (call.openTime == default)
-                throw new ArgumentException("Opening time must be a valid date.", nameof(call.openTime));
+            {
+                throw new BlValidationException(nameof(call.openTime), "Opening time must be a valid date.");
+            }
 
             if (call.maxTime <= call.openTime)
-                throw new ArgumentException("Max completion time must be later than the opening time.", nameof(call.maxTime));
+            {
+                throw new BlValidationException(nameof(call.maxTime), "Max completion time must be later than the opening time.");
+            }
 
-            // Validate address existence and update latitude/longitude
             try
             {
+                // Validate address and update geolocation data
                 double[] coordinates = Tools.GetGeolocationCoordinates(call.address);
                 call.latitude = coordinates[0];
                 call.longitude = coordinates[1];
             }
             catch (AdressDoesNotExistException ex)
             {
-                throw new ArgumentException("Invalid address: " + ex.Message, nameof(call.address));
+                throw new BlValidationException(nameof(call.address), $"Invalid address: {ex.Message}");
             }
+            catch (Exception ex)
+            {
+                throw new BlValidationException("An unexpected error occurred while validating the call.", ex);
+            }
+
+            return true;
         }
+
+
 
         internal static BO.Call ConvertDOCallWithAssignments(DO.Call doCall, IEnumerable<DO.Assignment> assignmentsForCall)
         {

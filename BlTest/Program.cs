@@ -1,5 +1,6 @@
 ﻿namespace BlTest;
 using BlApi;
+using BO;
 using System;
 using System.Linq.Expressions;
 
@@ -540,12 +541,10 @@ private static void handleCallOptions()
             case ICall.COUNT_CALL:
                 //Console.WriteLine(s_bl.Calls.CountCall());
                 //   Console.WriteLine(string.Join(", ", s_bl.Calls.CountCall()));
-                int[] counts = s_bl.Calls.CountCall();
+                int[] counts = s_bl.Call.SumOfCalls();
 
-                // מקבל את כל שמות הסטטוסים מה-Enum
-                string[] statusNames = Enum.GetNames(typeof(StatusTreat));
+                string[] statusNames = Enum.GetNames(typeof(Status));
 
-                // לולאה להדפסת שמות הסטטוסים עם הכמויות
                 for (int i = 0; i < statusNames.Length; i++)
                 {
                     Console.WriteLine($"{statusNames[i]}: {counts[i]}");
@@ -557,8 +556,8 @@ private static void handleCallOptions()
                 string? filterInput = Console.ReadLine();
 
                 // Try to parse the filter input
-                BO.ECallInList? filter = null;
-                if (!string.IsNullOrEmpty(filterInput) && Enum.TryParse(filterInput, out BO.ECallInList parsedFilter))
+                BO.FiledOfCallInList? filter = null;
+                if (!string.IsNullOrEmpty(filterInput) && Enum.TryParse(filterInput, out BO.FiledOfCallInList parsedFilter))
                 {
                     filter = parsedFilter;
                 }
@@ -567,7 +566,7 @@ private static void handleCallOptions()
                 object? filterValue = string.IsNullOrEmpty(filterValueInput) ? null : filterValueInput;
 
                 Console.WriteLine("Please choose a sorting field from the following list (or leave blank for default sorting):");
-                foreach (var field in Enum.GetNames(typeof(BO.ECallInList)))
+                foreach (var field in Enum.GetNames(typeof(BO.FiledOfCallInList)))
                 {
                     Console.WriteLine($"- {field}");
                 }
@@ -575,14 +574,14 @@ private static void handleCallOptions()
                 string? sortInput = Console.ReadLine();
 
                 // Try to parse the sorting input
-                BO.ECallInList? sortBy = null;
-                if (!string.IsNullOrEmpty(sortInput) && Enum.TryParse(sortInput, out BO.ECallInList parsedSort))
+                BO.FiledOfCallInList? sortBy = null;
+                if (!string.IsNullOrEmpty(sortInput) && Enum.TryParse(sortInput, out BO.FiledOfCallInList parsedSort))
                 {
                     sortBy = parsedSort;
                 }
 
                 // Step 4: Call the method and display the results
-                var callInLists = s_bl.Calls.GetCallInLists(filter, filterValue, sortBy);
+                var callInLists = s_bl.Call.GetCallInList(filter, filterValue, sortBy);
 
                 Console.WriteLine("Filtered and sorted call-in list:");
                 foreach (var call in callInLists)
@@ -598,10 +597,10 @@ private static void handleCallOptions()
                 {
                     throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
                 }
-                Console.WriteLine(s_bl.Calls.Read(id));
+                Console.WriteLine(s_bl.Call.ReadCall(id));
                 break;
             case ICall.UPDATE:
-                s_bl.Calls.Update(getCall());
+                s_bl.Call.UpdateCall(getCall());
                 break;
             case ICall.DELETE:
                 Console.WriteLine("Please enter the ID of the call:");
@@ -611,7 +610,7 @@ private static void handleCallOptions()
                 {
                     throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // זורקים חריגה אם המזהה לא תקני
                 }
-                s_bl.Calls.Delete(idd);
+                s_bl.Call.DeleteCall(idd);
                 break;
             case ICall.CREATE:
                 {
@@ -652,17 +651,17 @@ private static void handleCallOptions()
                     //}
                     BO.Call callToCreate = new BO.Call
                     {
-                        Id = 0,
-                        Type = callType,
-                        Description = description,
-                        FullAddress = fullAddress,
-                        Latitude = 0,
-                        Longitude = 0,
-                        TimeOpened = timeOpened,
-                        MaxTimeToClose = maxTimeToClose,
-                        Status = 0,
+                        ID = 0,
+                        callT = callType,
+                        verbalDescription = description,
+                        address = fullAddress,
+                        latitude = 0,
+                        longitude = 0,
+                        openTime = timeOpened,
+                        maxTime = maxTimeToClose,
+                        statusC = 0,
                     };
-                    s_bl.Calls.Create(callToCreate);
+                    s_bl.Call.CreateCall(callToCreate);
 
                 }
                 break;
@@ -688,14 +687,14 @@ private static void handleCallOptions()
                     // Ask the user for the sorting field
                     Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
                     string sortByInput = Console.ReadLine();
-                    BO.EClosedCallInList? sortByClose = null;
-                    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                    BO.FiledOfClosedCallInList? sortByClose = null;
+                    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.FiledOfClosedCallInList parsedSortBy))
                     {
                         sortBy = null;
                     }
 
                     // Call the method to get the filtered and sorted closed calls
-                    var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
+                    var closedCalls = s_bl.Call.ReadCloseCallsVolunteer(volunteerId, callType, sortByClose);
 
                     // Display the result
                     Console.WriteLine("Closed Calls:");
@@ -737,17 +736,16 @@ private static void handleCallOptions()
                     // Ask the user for the sorting field
                     Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
                     string sortByInput = Console.ReadLine();
-                    BO.EClosedCallInList? sortByClose = null;
-                    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
-                    {
-                        sortBy = null;
-                    }
+                        BO.FiledOfOpenCallInList? sortByOpen = null;
+                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.FiledOfOpenCallInList parsedSortBy))
+                        {
+                            sortByOpen = parsedSortBy;
+                        }
 
-                    // Call the method to get the filtered and sorted closed calls
-                    var closedCalls = s_bl.Calls.GetOpenCall(volunteerId, callType, sortByClose);
+                        var closedCalls = s_bl.Call.ReadOpenCallsVolunteer(volunteerId, callType, sortByOpen);
 
-                    // Display the result
-                    Console.WriteLine("Open Calls:");
+                        // Display the result
+                        Console.WriteLine("Open Calls:");
                     foreach (var call in closedCalls)
                     {
                         Console.WriteLine(call);
@@ -769,7 +767,7 @@ private static void handleCallOptions()
                     if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
                     {
                         // If the parsing succeeded, call the CloseTreat function
-                        s_bl.Calls.CloseTreat(idVol, idAssig);
+                        s_bl.Call.FinishTreat(idVol, idAssig);
                     }
                     else
                     {
@@ -793,7 +791,7 @@ private static void handleCallOptions()
                     if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
                     {
                         // If the parsing succeeded, call the CloseTreat function
-                        s_bl.Calls.CancelTreat(idVol, idAssig);
+                        s_bl.Call.cancelTreat(idVol, idAssig);
                     }
                     else
                     {
@@ -817,7 +815,7 @@ private static void handleCallOptions()
                     if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
                     {
                         // If the parsing succeeded, call the CloseTreat function
-                        s_bl.Calls.ChoseForTreat(idVol, idAssig);
+                        s_bl.Call.ChooseCallTreat(idVol, idAssig);
                     }
                     else
                     {
@@ -906,15 +904,15 @@ private static BO.Call getCall()
 
     return new BO.Call
     {
-        Id = id,
-        Type = callType,
-        Description = description,
-        FullAddress = fullAddress,
-        Latitude = 0,
-        Longitude = 0,
-        TimeOpened = timeOpened,
-        MaxTimeToClose = maxTimeToClose,
-        Status = 0
+        ID = id,
+        callT = callType,
+        verbalDescription = description,
+        address = fullAddress,
+        latitude = 0,
+        longitude = 0,
+        openTime = timeOpened,
+        maxTime = maxTimeToClose,
+        statusC = 0
     };
 
 }

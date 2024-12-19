@@ -84,7 +84,7 @@ public interface ICall
     /// <exception cref="BO.BlDoesNotExistException">Thrown if the assignment does not exist or cannot be updated.</exception>
     /// <exception cref="BO.VolunteerCantUpadeOtherVolunteerException">Thrown if the volunteer does not have permission to update this assignment.</exception>
     /// <exception cref="BO.AssignmentAlreadyClosedException">Thrown if the assignment is already closed.</exception>
-     void FinishTreatment(int volunteerId, int AssignmentId );
+     void FinishTreat(int volunteerId, int AssignmentId );
 
     /// <summary>
     /// Cancels a treatment for a volunteer.

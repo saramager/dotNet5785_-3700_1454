@@ -12,7 +12,7 @@ internal class CallImplementation : ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
-   
+
     public int[] SumOfCalls()
     {
         IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
@@ -144,17 +144,39 @@ internal class CallImplementation : ICall
 
     public void UpdateCall(BO.Call c)
     {
-        CallsManager.CheckCallLogic(c);//לא טוב, צריך תנאי או בדיקת חריגות כל שהיא
-
         try
         {
+            // Run validation before updating
+            bool isValid = CallsManager.CheckCallLogic(c);
+
+            if (!isValid)
+            {
+                throw new BO.BlValidationException("Validation failed for the call object.");
+            }
+
+            // Update the call in the DAL
             _dal.Call.Update(Helpers.CallsManager.convertFormBOCallToDo(c));
+        }
+        catch (ArgumentException ex)
+        {
+            throw new BO.BlValidationException("Validation failed for the call object.", ex);
+        }
+        catch (ArgumentNullException ex)
+        {
+            throw new BO.BlValidationException("Call object cannot be null.", ex);
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
+            throw new BO.BlDoesNotExistException("The call does not exist.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new BO.BlGeneralException("An unexpected error occurred during the update process.", ex);
         }
     }
+
+
+
 
 
     public void DeleteCall(int id)
@@ -279,7 +301,7 @@ internal class CallImplementation : ICall
     }
 
 
-    public void FinishTreatment(int volunteerId, int assignmentId)
+    public void FinishTreat(int volunteerId, int assignmentId)
     {
         DO.Assignment assignment;
         try
@@ -319,7 +341,7 @@ internal class CallImplementation : ICall
     }
 
 
-    public  void cancelTreat(int volunteerId, int assignmentId)
+    public void cancelTreat(int volunteerId, int assignmentId)
 
     {
         DO.Assignment assignment;
@@ -408,15 +430,5 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlDoesNotExistException($"An error occurred while creating the assignment.", ex);
         }
-    }
-
-    public void FinishTertment(int Vid, int AssignmentId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ToTreat(int Vid, int CId)
-    {
-        throw new NotImplementedException();
     }
 }
