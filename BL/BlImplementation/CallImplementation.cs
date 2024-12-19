@@ -6,14 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
-using DalApi;
-using DO;
 using Helpers;
 
-internal class CallImplementation : BlApi.ICall
+internal class CallImplementation : ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
+   
     public int[] SumOfCalls()
     {
         IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
@@ -151,14 +150,14 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Call.Update(Helpers.CallsManager.convertFormBOCallToDo(c));
         }
-        catch (DalDoesNotExistException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
             throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
         }
     }
 
 
-    void BlApi.ICall.DeleteCall(int id)
+    public void DeleteCall(int id)
     {
         var call = ReadCall(id);
         if (!(call.statusC == BO.Status.Open && call.CallAssign == null))
@@ -168,8 +167,8 @@ internal class CallImplementation : BlApi.ICall
             _dal.Call.Delete(id);
         }
         catch (DO.DalDoesNotExistException dEx)
-        { 
-            throw new BO.BlDoesNotExistException(dEx.Message, dEx); 
+        {
+            throw new BO.BlDoesNotExistException(dEx.Message, dEx);
         }
     }
 
@@ -180,7 +179,7 @@ internal class CallImplementation : BlApi.ICall
         _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
     }
 
-    IEnumerable<ClosedCallInList> ReadCloseCallsVolunteer(int id,BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
+    IEnumerable<ClosedCallInList> ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
@@ -232,7 +231,7 @@ internal class CallImplementation : BlApi.ICall
         return closedCallInLists;
     }
 
-    IEnumerable<OpenCallInList> ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
@@ -280,7 +279,7 @@ internal class CallImplementation : BlApi.ICall
     }
 
 
-    void BlApi.ICall.FinishTreatment(int volunteerId, int assignmentId)
+    public void FinishTreatment(int volunteerId, int assignmentId)
     {
         DO.Assignment assignment;
         try
@@ -308,7 +307,7 @@ internal class CallImplementation : BlApi.ICall
             finishTreatment = DateTime.Now,
             finishT = DO.FinishType.Treated
         };
-       
+
         try
         {
             _dal.Assignment.Update(assignment);
@@ -320,7 +319,8 @@ internal class CallImplementation : BlApi.ICall
     }
 
 
-    public void CancelTreat(int volunteerId, int assignmentId)
+    public  void cancelTreat(int volunteerId, int assignmentId)
+
     {
         DO.Assignment assignment;
         DO.Call call;
@@ -350,7 +350,7 @@ internal class CallImplementation : BlApi.ICall
             throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
         }
 
-            !_dal.Volunteer.Read(v => v.ID == volunteerId)?.role.Equals(DO.RoleType.Manager) == true)
+        if (!_dal.Volunteer.Read(v => v.ID == volunteerId)?.role.Equals(DO.RoleType.Manager) == true)
         {
             throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to cancel this assignment.");
         }
@@ -397,7 +397,7 @@ internal class CallImplementation : BlApi.ICall
             VolunteerId = volunteerId,
             startTreatment = DateTime.Now,
             finishTreatment = null,
-            finishT = null 
+            finishT = null
         };
 
         try
@@ -410,4 +410,13 @@ internal class CallImplementation : BlApi.ICall
         }
     }
 
+    public void FinishTertment(int Vid, int AssignmentId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ToTreat(int Vid, int CId)
+    {
+        throw new NotImplementedException();
+    }
 }

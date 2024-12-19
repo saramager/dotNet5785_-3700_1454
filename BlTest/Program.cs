@@ -506,354 +506,416 @@ OPTION Options:
         }
 
     }
-    //    private static ICall showCallMenu()
-    //    {
-    //        int choice;
-    //        do
-    //        {
-    //            Console.WriteLine(@"
-    //Call Options:
-    //0 - Exit
-    //1 - CountCall
-    //2 - Get CallInLists
-    //3 - Read
-    //4 - update
-    //5 - Delete
-    //6 - Create
-    //7 - Get ClosedCall
-    //8 - Get OpenCall
-    //9 - CloseTreat
-    //10 - CancelTreat
-    //11- ChoseForTreat");
 
-    //        }
-    //        while (!int.TryParse(Console.ReadLine(), out choice));
-    //        return (ICall)choice;
-    //    }
-    //    private static void handleCallOptions()
-    //    {
-    //        try
-    //        {
-    //            switch (showCallMenu())
-    //            {
-    //                case ICall.COUNT_CALL:
-    //                    Console.WriteLine(s_bl.Calls.CountCall());
-    //                    break;
-    //                case ICall.GET_CALLINLIST:
-    //                    Console.Write("Enter filter field: ");
-    //                    string? filterInput = Console.ReadLine();
+    private static ICall showCallMenu()
+{
+    int choice;
+    do
+    {
+        Console.WriteLine(@"
+Call Options:
+0 - Exit
+1 - CountCall
+2 - Get CallInLists
+3 - Read
+4 - update
+5 - Delete
+6 - Create
+7 - Get ClosedCall
+8 - Get OpenCall
+9 - CloseTreat
+10 - CancelTreat
+11- ChoseForTreat");
 
-    //                    // Try to parse the filter input
-    //                    BO.ECallInList? filter = null;
-    //                    if (!string.IsNullOrEmpty(filterInput) && Enum.TryParse(filterInput, out BO.ECallInList parsedFilter))
-    //                    {
-    //                        filter = parsedFilter;
-    //                    }
-    //                    Console.Write("Enter value for the filter field (or leave blank for no value): ");
-    //                    string? filterValueInput = Console.ReadLine();
-    //                    object? filterValue = string.IsNullOrEmpty(filterValueInput) ? null : filterValueInput;
+    }
+    while (!int.TryParse(Console.ReadLine(), out choice));
+    return (ICall)choice;
+}
+private static void handleCallOptions()
+{
+    try
+    {
+        switch (showCallMenu())
+        {
+            case ICall.COUNT_CALL:
+                //Console.WriteLine(s_bl.Calls.CountCall());
+                //   Console.WriteLine(string.Join(", ", s_bl.Calls.CountCall()));
+                int[] counts = s_bl.Calls.CountCall();
 
-    //                    Console.WriteLine("Please choose a sorting field from the following list (or leave blank for default sorting):");
-    //                    foreach (var field in Enum.GetNames(typeof(BO.ECallInList)))
-    //                    {
-    //                        Console.WriteLine($"- {field}");
-    //                    }
-    //                    Console.Write("Enter sorting field: ");
-    //                    string? sortInput = Console.ReadLine();
+                // מקבל את כל שמות הסטטוסים מה-Enum
+                string[] statusNames = Enum.GetNames(typeof(StatusTreat));
 
-    //                    // Try to parse the sorting input
-    //                    BO.ECallInList? sortBy = null;
-    //                    if (!string.IsNullOrEmpty(sortInput) && Enum.TryParse(sortInput, out BO.ECallInList parsedSort))
-    //                    {
-    //                        sortBy = parsedSort;
-    //                    }
+                // לולאה להדפסת שמות הסטטוסים עם הכמויות
+                for (int i = 0; i < statusNames.Length; i++)
+                {
+                    Console.WriteLine($"{statusNames[i]}: {counts[i]}");
+                }
 
-    //                    // Step 4: Call the method and display the results
-    //                    var callInLists = s_bl.Calls.GetCallInLists(filter, filterValue, sortBy);
+                break;
+            case ICall.GET_CALLINLIST:
+                Console.Write("Enter filter field: ");
+                string? filterInput = Console.ReadLine();
 
-    //                    Console.WriteLine("Filtered and sorted call-in list:");
-    //                    foreach (var call in callInLists)
-    //                    {
-    //                        Console.WriteLine(call); // Assuming BO.CallInList has a meaningful ToString() implementation
-    //                    }
-    //                    break;
-    //                case ICall.READ:
-    //                    Console.WriteLine("Please enter the ID of the call:");
-    //                    string idInput = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+                // Try to parse the filter input
+                BO.ECallInList? filter = null;
+                if (!string.IsNullOrEmpty(filterInput) && Enum.TryParse(filterInput, out BO.ECallInList parsedFilter))
+                {
+                    filter = parsedFilter;
+                }
+                Console.Write("Enter value for the filter field (or leave blank for no value): ");
+                string? filterValueInput = Console.ReadLine();
+                object? filterValue = string.IsNullOrEmpty(filterValueInput) ? null : filterValueInput;
 
-    //                    if (!int.TryParse(idInput, out int id))  // מנסים להמיר את הקלט למספר
-    //                    {
-    //                        throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
-    //                    }
-    //                    Console.WriteLine(s_bl.Calls.Read(id));
-    //                    break;
-    //                case ICall.UPDATE:
-    //                    s_bl.Calls.Update(getCall());
-    //                    break;
-    //                case ICall.DELETE:
-    //                    Console.WriteLine("Please enter the ID of the call:");
-    //                    string idDel = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+                Console.WriteLine("Please choose a sorting field from the following list (or leave blank for default sorting):");
+                foreach (var field in Enum.GetNames(typeof(BO.ECallInList)))
+                {
+                    Console.WriteLine($"- {field}");
+                }
+                Console.Write("Enter sorting field: ");
+                string? sortInput = Console.ReadLine();
 
-    //                    if (!int.TryParse(idDel, out int idd))  // מנסים להמיר את הקלט למספר
-    //                    {
-    //                        throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // זורקים חריגה אם המזהה לא תקני
-    //                    }
-    //                    s_bl.Calls.Delete(idd);
-    //                    break;
-    //                case ICall.CREATE:
-    //                    s_bl.Calls.Create(getCall());
-    //                    break;
-    //                case ICall.GET_CLOSED_CALL:
-    //                    {
-    //                        // Ask the user for the volunteer's ID
-    //                        Console.Write("Enter volunteer ID: ");
-    //                        if (!int.TryParse(Console.ReadLine(), out int volunteerId))
-    //                        {
-    //                            throw new BO.BlWrongInputException("Invalid ID format.");
+                // Try to parse the sorting input
+                BO.ECallInList? sortBy = null;
+                if (!string.IsNullOrEmpty(sortInput) && Enum.TryParse(sortInput, out BO.ECallInList parsedSort))
+                {
+                    sortBy = parsedSort;
+                }
 
-    //                        }
+                // Step 4: Call the method and display the results
+                var callInLists = s_bl.Calls.GetCallInLists(filter, filterValue, sortBy);
 
-    //                        // Ask the user for the call type
-    //                        Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
-    //                        string callTypeInput = Console.ReadLine();
-    //                        BO.CallType? callType = null;
-    //                        if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
-    //                        {
-    //                            callType = null;
-    //                        }
+                Console.WriteLine("Filtered and sorted call-in list:");
+                foreach (var call in callInLists)
+                {
+                    Console.WriteLine(call); // Assuming BO.CallInList has a meaningful ToString() implementation
+                }
+                break;
+            case ICall.READ:
+                Console.WriteLine("Please enter the ID of the call:");
+                string idInput = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
 
-    //                        // Ask the user for the sorting field
-    //                        Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
-    //                        string sortByInput = Console.ReadLine();
-    //                        BO.EClosedCallInList? sortByClose = null;
-    //                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
-    //                        {
-    //                            sortBy = null;
-    //                        }
+                if (!int.TryParse(idInput, out int id))  // מנסים להמיר את הקלט למספר
+                {
+                    throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
+                }
+                Console.WriteLine(s_bl.Calls.Read(id));
+                break;
+            case ICall.UPDATE:
+                s_bl.Calls.Update(getCall());
+                break;
+            case ICall.DELETE:
+                Console.WriteLine("Please enter the ID of the call:");
+                string idDel = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
 
-    //                        // Call the method to get the filtered and sorted closed calls
-    //                        var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
+                if (!int.TryParse(idDel, out int idd))  // מנסים להמיר את הקלט למספר
+                {
+                    throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // זורקים חריגה אם המזהה לא תקני
+                }
+                s_bl.Calls.Delete(idd);
+                break;
+            case ICall.CREATE:
+                {
+                    //s_bl.Calls.Create(getCall());
+                    Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
+                    string callTypeInput = Console.ReadLine();
+                    if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
+                    {
+                        throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
+                    }
 
-    //                        // Display the result
-    //                        Console.WriteLine("Closed Calls:");
-    //                        foreach (var call in closedCalls)
-    //                        {
-    //                            Console.WriteLine(call);
-    //                        }
-    //                        break;
-    //                    }
+                    Console.WriteLine("Enter description:");
+                    string description = Console.ReadLine();
 
-    //                case ICall.GET_OPEN_CALL:
-    //                    {
+                    Console.WriteLine("Enter full address:");
+                    string fullAddress = Console.ReadLine();
 
-    //                        // Ask the user for the volunteer's ID
-    //                        Console.Write("Enter volunteer ID: ");
-    //                        if (!int.TryParse(Console.ReadLine(), out int volunteerId))
-    //                        {
-    //                            Console.WriteLine("Invalid ID format.");
-    //                            break;
-    //                        }
+                    DateTime timeOpened;
+                    Console.WriteLine("Enter time opened (YYYY-MM-DD HH:mm:ss):");
+                    if (!DateTime.TryParse(Console.ReadLine(), out timeOpened))
+                    {
+                        throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time (YYYY-MM-DD HH:mm:ss):");
+                    }
 
-    //                        // Ask the user for the volunteer's ID
-    //                        Console.Write("Enter volunteer ID: ");
-    //                        if (!int.TryParse(Console.ReadLine(), out int volunteerID))
-    //                        {
-    //                            throw new BO.BlWrongInputException("Invalid ID format.");
+                    DateTime? maxTimeToClose = null;
+                    Console.WriteLine("Enter max time to close (or leave empty):");
+                    string maxTimeInput = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(maxTimeInput) && !DateTime.TryParse(maxTimeInput, out DateTime parsedMaxTime))
+                    {
+                        throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
+                    }
 
-    //                        }
+                    //BO.StatusTreat status;
+                    //Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
+                    //while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
+                    //{
+                    //    Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
+                    //}
+                    BO.Call callToCreate = new BO.Call
+                    {
+                        Id = 0,
+                        Type = callType,
+                        Description = description,
+                        FullAddress = fullAddress,
+                        Latitude = 0,
+                        Longitude = 0,
+                        TimeOpened = timeOpened,
+                        MaxTimeToClose = maxTimeToClose,
+                        Status = 0,
+                    };
+                    s_bl.Calls.Create(callToCreate);
 
-    //                        // Ask the user for the call type
-    //                        Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
-    //                        string callTypeInput = Console.ReadLine();
-    //                        BO.CallType? callType = null;
-    //                        if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
-    //                        {
-    //                            callType = null;
-    //                        }
+                }
+                break;
+            case ICall.GET_CLOSED_CALL:
+                {
+                    // Ask the user for the volunteer's ID
+                    Console.Write("Enter volunteer ID: ");
+                    if (!int.TryParse(Console.ReadLine(), out int volunteerId))
+                    {
+                        throw new BO.BlWrongInputException("Invalid ID format.");
 
-    //                        // Ask the user for the sorting field
-    //                        Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
-    //                        string sortByInput = Console.ReadLine();
-    //                        BO.EClosedCallInList? sortByClose = null;
-    //                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
-    //                        {
-    //                            sortBy = null;
-    //                        }
+                    }
 
-    //                        // Call the method to get the filtered and sorted closed calls
-    //                        var closedCalls = s_bl.Calls.GetOpenCall(volunteerId, callType, sortByClose);
+                    // Ask the user for the call type
+                    Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                    string callTypeInput = Console.ReadLine();
+                    BO.CallType? callType = null;
+                    if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+                    {
+                        callType = null;
+                    }
 
-    //                        // Display the result
-    //                        Console.WriteLine("Open Calls:");
-    //                        foreach (var call in closedCalls)
-    //                        {
-    //                            Console.WriteLine(call);
-    //                        }
-    //                        break;
-    //                    }
-    //                case ICall.CLOSE_TREAT:
-    //                    {
-    //                        // Requesting the user to enter the values
-    //                        Console.WriteLine("Enter the volunteer ID:");
-    //                        string volInput = Console.ReadLine();
-    //                        Console.WriteLine("Enter the task ID:");
-    //                        string assigInput = Console.ReadLine();
+                    // Ask the user for the sorting field
+                    Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
+                    string sortByInput = Console.ReadLine();
+                    BO.EClosedCallInList? sortByClose = null;
+                    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                    {
+                        sortBy = null;
+                    }
 
-    //                        // Variables to store the values entered by the user
-    //                        int idVol, idAssig;
+                    // Call the method to get the filtered and sorted closed calls
+                    var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
 
-    //                        // Checking if it's possible to parse the input into integers
-    //                        if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
-    //                        {
-    //                            // If the parsing succeeded, call the CloseTreat function
-    //                            s_bl.Calls.CloseTreat(idVol, idAssig);
-    //                        }
-    //                        else
-    //                        {
-    //                            // If parsing failed, display an error message
-    //                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
-    //                        }
-    //                        break;
-    //                    }
-    //                case ICall.CANCEL_TREAT:
-    //                    {
-    //                        // Requesting the user to enter the values
-    //                        Console.WriteLine("Enter the volunteer ID:");
-    //                        string volInput = Console.ReadLine();
-    //                        Console.WriteLine("Enter the task ID:");
-    //                        string assigInput = Console.ReadLine();
+                    // Display the result
+                    Console.WriteLine("Closed Calls:");
+                    foreach (var call in closedCalls)
+                    {
+                        Console.WriteLine(call);
+                    }
+                    break;
+                }
 
-    //                        // Variables to store the values entered by the user
-    //                        int idVol, idAssig;
+            case ICall.GET_OPEN_CALL:
+                {
 
-    //                        // Checking if it's possible to parse the input into integers
-    //                        if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
-    //                        {
-    //                            // If the parsing succeeded, call the CloseTreat function
-    //                            s_bl.Calls.CancelTreat(idVol, idAssig);
-    //                        }
-    //                        else
-    //                        {
-    //                            // If parsing failed, display an error message
-    //                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
-    //                        }
-    //                        break;
-    //                    }
-    //                case ICall.CHOSE_TOR_TREAT:
-    //                    {
-    //                        // Requesting the user to enter the values
-    //                        Console.WriteLine("Enter the volunteer ID:");
-    //                        string volInput = Console.ReadLine();
-    //                        Console.WriteLine("Enter the task ID:");
-    //                        string assigInput = Console.ReadLine();
+                    // Ask the user for the volunteer's ID
+                    Console.Write("Enter volunteer ID: ");
+                    if (!int.TryParse(Console.ReadLine(), out int volunteerId))
+                    {
+                        Console.WriteLine("Invalid ID format.");
+                        break;
+                    }
 
-    //                        // Variables to store the values entered by the user
-    //                        int idVol, idAssig;
+                    // Ask the user for the volunteer's ID
+                    Console.Write("Enter volunteer ID: ");
+                    if (!int.TryParse(Console.ReadLine(), out int volunteerID))
+                    {
+                        throw new BO.BlWrongInputException("Invalid ID format.");
 
-    //                        // Checking if it's possible to parse the input into integers
-    //                        if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
-    //                        {
-    //                            // If the parsing succeeded, call the CloseTreat function
-    //                            s_bl.Calls.ChoseForTreat(idVol, idAssig);
-    //                        }
-    //                        else
-    //                        {
-    //                            // If parsing failed, display an error message
-    //                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
-    //                        }
-    //                        break;
-    //                    }
-    //                default: break;
-    //            }
+                    }
 
-    //        }
-    //        catch (BO.BlWrongInputException ex)
-    //        {
-    //            // Handle the case where the password does not match
-    //            Console.WriteLine($"Error: {ex.Message}");
-    //        }
-    //        catch (BO.BlWrongItemException ex)
-    //        {
-    //            // Handle the case where the password does not match
-    //            Console.WriteLine($"Error: {ex.Message}");
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            // Handle any other unexpected errors
-    //            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
-    //        }
+                    // Ask the user for the call type
+                    Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                    string callTypeInput = Console.ReadLine();
+                    BO.CallType? callType = null;
+                    if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+                    {
+                        callType = null;
+                    }
 
-    //    }
-    //    private static BO.Call getCall()
-    //    {
-    //        int id;
-    //        Console.WriteLine("Enter call ID to update:");
-    //        if (!int.TryParse(Console.ReadLine(), out id))
-    //        {
-    //            throw new BO.BlWrongInputException("Invalid input. Please enter a valid integer for the ID:");
-    //        }
+                    // Ask the user for the sorting field
+                    Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
+                    string sortByInput = Console.ReadLine();
+                    BO.EClosedCallInList? sortByClose = null;
+                    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                    {
+                        sortBy = null;
+                    }
 
-    //        Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
-    //        string callTypeInput = Console.ReadLine();
-    //        if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
-    //        {
-    //            throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
-    //        }
+                    // Call the method to get the filtered and sorted closed calls
+                    var closedCalls = s_bl.Calls.GetOpenCall(volunteerId, callType, sortByClose);
 
-    //        Console.WriteLine("Enter description:");
-    //        string description = Console.ReadLine();
+                    // Display the result
+                    Console.WriteLine("Open Calls:");
+                    foreach (var call in closedCalls)
+                    {
+                        Console.WriteLine(call);
+                    }
+                    break;
+                }
+            case ICall.CLOSE_TREAT:
+                {
+                    // Requesting the user to enter the values
+                    Console.WriteLine("Enter the volunteer ID:");
+                    string volInput = Console.ReadLine();
+                    Console.WriteLine("Enter the task ID:");
+                    string assigInput = Console.ReadLine();
 
-    //        Console.WriteLine("Enter full address:");
-    //        string fullAddress = Console.ReadLine();
+                    // Variables to store the values entered by the user
+                    int idVol, idAssig;
 
-    //        //double latitude;
-    //        //Console.WriteLine("Enter latitude:");
-    //        //while (!double.TryParse(Console.ReadLine(), out latitude))
-    //        //{
-    //        //    Console.WriteLine("Invalid input. Please enter a valid latitude:");
-    //        //}
+                    // Checking if it's possible to parse the input into integers
+                    if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                    {
+                        // If the parsing succeeded, call the CloseTreat function
+                        s_bl.Calls.CloseTreat(idVol, idAssig);
+                    }
+                    else
+                    {
+                        // If parsing failed, display an error message
+                        throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                    }
+                    break;
+                }
+            case ICall.CANCEL_TREAT:
+                {
+                    // Requesting the user to enter the values
+                    Console.WriteLine("Enter the volunteer ID:");
+                    string volInput = Console.ReadLine();
+                    Console.WriteLine("Enter the task ID:");
+                    string assigInput = Console.ReadLine();
 
-    //        //double longitude;
-    //        //Console.WriteLine("Enter longitude:");
-    //        //while (!double.TryParse(Console.ReadLine(), out longitude))
-    //        //{
-    //        //    Console.WriteLine("Invalid input. Please enter a valid longitude:");
-    //        //}
+                    // Variables to store the values entered by the user
+                    int idVol, idAssig;
 
-    //        DateTime timeOpened;
-    //        Console.WriteLine("Enter time opened (YYYY-MM-DD HH:mm:ss):");
-    //        if (!DateTime.TryParse(Console.ReadLine(), out timeOpened))
-    //        {
-    //            throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time (YYYY-MM-DD HH:mm:ss):");
-    //        }
+                    // Checking if it's possible to parse the input into integers
+                    if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                    {
+                        // If the parsing succeeded, call the CloseTreat function
+                        s_bl.Calls.CancelTreat(idVol, idAssig);
+                    }
+                    else
+                    {
+                        // If parsing failed, display an error message
+                        throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                    }
+                    break;
+                }
+            case ICall.CHOSE_TOR_TREAT:
+                {
+                    // Requesting the user to enter the values
+                    Console.WriteLine("Enter the volunteer ID:");
+                    string volInput = Console.ReadLine();
+                    Console.WriteLine("Enter the task ID:");
+                    string assigInput = Console.ReadLine();
 
-    //        DateTime? maxTimeToClose = null;
-    //        Console.WriteLine("Enter max time to close (or leave empty):");
-    //        string maxTimeInput = Console.ReadLine();
-    //        if (!string.IsNullOrEmpty(maxTimeInput) && !DateTime.TryParse(maxTimeInput, out DateTime parsedMaxTime))
-    //        {
-    //            throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
-    //        }
+                    // Variables to store the values entered by the user
+                    int idVol, idAssig;
 
-    //        BO.StatusTreat status;
-    //        Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
-    //        while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
-    //        {
-    //            Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
-    //        }
+                    // Checking if it's possible to parse the input into integers
+                    if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                    {
+                        // If the parsing succeeded, call the CloseTreat function
+                        s_bl.Calls.ChoseForTreat(idVol, idAssig);
+                    }
+                    else
+                    {
+                        // If parsing failed, display an error message
+                        throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                    }
+                    break;
+                }
+            default: break;
+        }
 
-    //        return new BO.Call
-    //        {
-    //          ID = id,
-    //            callT = callType,
-    //           verbalDescription = description,
-    //           address = fullAddress,
-    //           latitude = 0,
-    //            longitude = 0,
-    //           openTime = timeOpened,
-    //          maxTime = maxTimeToClose,
-    //           statusC= status
-    //        };
+    }
+    catch (BO.BlWrongInputException ex)
+    {
+        // Handle the case where the password does not match
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+    catch (BO.BlWrongItemException ex)
+    {
+        // Handle the case where the password does not match
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        // Handle any other unexpected errors
+        Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+    }
 
-    //    }
+}
+private static BO.Call getCall()
+{
+    int id;
+    Console.WriteLine("Enter call ID:");
+    if (!int.TryParse(Console.ReadLine(), out id))
+    {
+        throw new BO.BlWrongInputException("Invalid input. Please enter a valid integer for the ID:");
+    }
+    Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
+    string callTypeInput = Console.ReadLine();
+    if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
+    {
+        throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
+    }
+
+    Console.WriteLine("Enter description:");
+    string description = Console.ReadLine();
+
+    Console.WriteLine("Enter full address:");
+    string fullAddress = Console.ReadLine();
+
+    //double latitude;
+    //Console.WriteLine("Enter latitude:");
+    //while (!double.TryParse(Console.ReadLine(), out latitude))
+    //{
+    //    Console.WriteLine("Invalid input. Please enter a valid latitude:");
+    //}
+
+    //double longitude;
+    //Console.WriteLine("Enter longitude:");
+    //while (!double.TryParse(Console.ReadLine(), out longitude))
+    //{
+    //    Console.WriteLine("Invalid input. Please enter a valid longitude:");
+    //}
+
+    DateTime timeOpened;
+    Console.WriteLine("Enter time opened (YYYY-MM-DD HH:mm:ss):");
+    if (!DateTime.TryParse(Console.ReadLine(), out timeOpened))
+    {
+        throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time (YYYY-MM-DD HH:mm:ss):");
+    }
+
+    DateTime? maxTimeToClose = null;
+    Console.WriteLine("Enter max time to close (or leave empty):");
+    string maxTimeInput = Console.ReadLine();
+    if (!string.IsNullOrEmpty(maxTimeInput) && !DateTime.TryParse(maxTimeInput, out DateTime parsedMaxTime))
+    {
+        throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
+    }
+
+    //BO.StatusTreat status;
+    ////Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
+    //while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
+    //{
+    //    Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
+    //}
+
+    return new BO.Call
+    {
+        Id = id,
+        Type = callType,
+        Description = description,
+        FullAddress = fullAddress,
+        Latitude = 0,
+        Longitude = 0,
+        TimeOpened = timeOpened,
+        MaxTimeToClose = maxTimeToClose,
+        Status = 0
+    };
+
+}
 }

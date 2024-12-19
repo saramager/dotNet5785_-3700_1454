@@ -87,10 +87,14 @@ public class BlWrongInputException : Exception
 {
     public BlWrongInputException(string? message) : base(message) { }
 }
+[Serializable]
+
 public class BlValidationException : Exception
 {
     public BlValidationException(string? message) : base(message) { }
 }
+[Serializable]
+
 public class AssignmentAlreadyClosedException : Exception
 {
     public AssignmentAlreadyClosedException(string? message) : base(message) { }
