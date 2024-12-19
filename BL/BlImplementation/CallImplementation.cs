@@ -144,39 +144,21 @@ internal class CallImplementation : ICall
 
     public void UpdateCall(BO.Call c)
     {
+
         try
         {
-            // Run validation before updating
-            bool isValid = CallsManager.CheckCallLogic(c);
-
-            if (!isValid)
-            {
-                throw new BO.BlValidationException("Validation failed for the call object.");
-            }
-
-            // Update the call in the DAL
+            CallsManager.CheckCallLogic(c);
             _dal.Call.Update(Helpers.CallsManager.convertFormBOCallToDo(c));
         }
-        catch (ArgumentException ex)
+        catch (BO.BlValidationException ex)
         {
-            throw new BO.BlValidationException("Validation failed for the call object.", ex);
-        }
-        catch (ArgumentNullException ex)
-        {
-            throw new BO.BlValidationException("Call object cannot be null.", ex);
+            throw new BlValidationException("An error occurred while updating the call.");
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException("The call does not exist.", ex);
-        }
-        catch (Exception ex)
-        {
-            throw new BO.BlGeneralException("An unexpected error occurred during the update process.", ex);
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
         }
     }
-
-
-
 
 
     public void DeleteCall(int id)
@@ -196,9 +178,16 @@ internal class CallImplementation : ICall
 
     public void CreateCall(BO.Call c)
     {
-        CallsManager.CheckCallLogic(c);//לא טוב, צריך תנאי או בדיקת חריגות כל שהיא
+        try
+        {
+            CallsManager.CheckCallLogic(c);
 
-        _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
+            _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
+        }
+        catch (BO.BlValidationException ex)
+        {
+            throw new BlValidationException("An error occurred while updating the call.");
+        }
     }
 
     IEnumerable<ClosedCallInList> ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)

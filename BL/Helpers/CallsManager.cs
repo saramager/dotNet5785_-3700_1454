@@ -85,22 +85,22 @@ namespace Helpers
         {
             if (call == null)
             {
-                throw new BlValidationException(nameof(call), "Call object cannot be null.");
+                throw new BlUpdateCallException( "Call object cannot be null.");
             }
 
             if (string.IsNullOrWhiteSpace(call.address))
             {
-                throw new BlValidationException(nameof(call.address), "Address cannot be null or empty.");
+                throw new BlUpdateCallException( "Address cannot be null or empty.");
             }
 
             if (call.openTime == default)
             {
-                throw new BlValidationException(nameof(call.openTime), "Opening time must be a valid date.");
+                throw new BlUpdateCallException("Opening time must be a valid date.");
             }
 
             if (call.maxTime <= call.openTime)
             {
-                throw new BlValidationException(nameof(call.maxTime), "Max completion time must be later than the opening time.");
+                throw new BlUpdateCallException( "Max completion time must be later than the opening time.");
             }
 
             try
@@ -112,11 +112,11 @@ namespace Helpers
             }
             catch (AdressDoesNotExistException ex)
             {
-                throw new BlValidationException(nameof(call.address), $"Invalid address: {ex.Message}");
+                throw new BlUpdateCallException("Invalid address: " + ex.Message);
             }
             catch (Exception ex)
             {
-                throw new BlValidationException("An unexpected error occurred while validating the call.", ex);
+                throw new BlUpdateCallException("An unexpected error occurred while validating the call.");
             }
 
             return true;

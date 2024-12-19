@@ -89,6 +89,10 @@ public class BlWrongInputException : Exception
 }
 [Serializable]
 
+public class BlWrongItemException : Exception
+{
+    public BlWrongItemException(string? message) : base(message) { }
+}
 public class BlValidationException : Exception
 {
     public BlValidationException(string? message) : base(message) { }
@@ -98,4 +102,10 @@ public class BlValidationException : Exception
 public class AssignmentAlreadyClosedException : Exception
 {
     public AssignmentAlreadyClosedException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BlUpdateCallException : Exception
+{
+    public BlUpdateCallException(string message) : base(message) { }
 }
