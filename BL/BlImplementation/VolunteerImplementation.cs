@@ -25,9 +25,9 @@ internal class VolunteerImplementation : IVolunteer
     public void DeleteVolunteer(int id)
     {
         var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
-        if (assForVol == null) {}
-       else if (assForVol!.Count(ass => ass.finishT == null) > 0)
-            throw new Exception();
+        if (assForVol == null) { }
+        else if (assForVol!.Count(ass => ass.finishT == null) > 0)
+            throw new BO.volunteerHandleCallException("vlounteer hase open call");
         try{
             _dal.Volunteer.Delete(id); }
         catch(DO.DalDoesNotExistException dEx ) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }

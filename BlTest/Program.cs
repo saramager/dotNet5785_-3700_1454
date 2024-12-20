@@ -485,6 +485,10 @@ OPTION Options:
                     }
             }
         }
+        catch (BO.volunteerHandleCallException ex)
+        {
+            Console.WriteLine($"cant delete because : {ex.Message}");
+        }
         catch (BO.BlNullPropertyException ex)
         {
             // Handle the case where the volunteer does not exist

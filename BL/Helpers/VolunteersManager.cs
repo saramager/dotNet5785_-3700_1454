@@ -37,7 +37,7 @@ namespace Helpers
                 numCallsHandled = sumCalls,
                 numCallsCancelled = sumCanceld,
                 numCallsExpired = sumExpired,
-                CallId = call==null?null:call.ID,
+                CallId = call==null?null:call.CallId,
                 callT= callD == null ? CallType.None :(BO.CallType)callD.callT 
             };
         }

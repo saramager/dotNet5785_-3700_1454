@@ -5,8 +5,51 @@ using DO;
 /// <summary>
 /// initializon the database with values 
 /// </summary>
+/// 
 public static class Initialization
 {
+    /// <summary>
+    /// Generates a valid Israeli ID number by calculating the checksum digit.
+    /// </summary>
+    public static int GenerateValidIsraeliId()
+    {
+        Random s_rand = new Random();
+        int baseId = s_rand.Next(10000000, 99999999);
+
+        int checksum = 0;
+        string idStr = baseId.ToString();
+
+        for (int i = 0; i < 8; i++)
+        {
+            int digit;
+            if (!int.TryParse(idStr[i].ToString(), out digit))
+            {
+                // Handle the case where parsing fails
+                throw new InvalidOperationException("Failed to parse digit from ID string.");
+            }
+
+            if ((i + 1) % 2 == 0)
+            {
+                digit *= 2;
+                if (digit > 9)
+                    digit = digit - 9;
+            }
+            checksum += digit;
+        }
+
+        int lastDigit = (10 - (checksum % 10)) % 10;
+
+        // Try to parse the full ID with the checksum
+        int fullId;
+        if (!int.TryParse(idStr + lastDigit, out fullId))
+        {
+            // Handle the case where parsing the full ID fails
+            throw new InvalidOperationException("Failed to parse the full ID with the checksum.");
+        }
+
+        return fullId;
+    }
+
     //private static IVolunteer? s_dalVolunteer; //stage 1
     //private static IAssignment? s_dalAssignment; //stage 1
     //private static ICall? s_dalCall; //stage 1
@@ -66,7 +109,7 @@ public static class Initialization
             string name = names[i];
             string email = emails[i];
             string phone = phoneNumbers[i];
-            int VId = s_rand.Next(200000000, 400000000);//randonID
+            int VId = GenerateValidIsraeliId();//randonID
             bool active = !(i % 7 == 0);
             double DisMax = s_rand.NextDouble() * 5.0;//randondistance 
             int randAddress = s_rand.Next(addresses.Length);
@@ -74,7 +117,7 @@ public static class Initialization
             {
                  VId = s_rand.Next(200000000, 400000001);
             }
-            s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance, "password321", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
+            s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance,/*"m^pptloa0/" /*/ "password321", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
         }
     }
     private static void createAssignment()
@@ -99,6 +142,7 @@ public static class Initialization
             if (callToAssig.maxTime!=null&& callToAssig.maxTime>= s_dal!.Config.Clock)
             {
                 finish = FinishType.ExpiredCancel;//if the time over the assigment is cancelld 
+
             }
             else
             {

@@ -47,38 +47,43 @@ namespace Helpers
             return new()
             {
                 ID = lastAssignmentsForCall != null ? lastAssignmentsForCall.ID : null,
-                CallId = lastAssignmentsForCall!.CallId,//לבדוק 
+                CallId = doCall.ID,//לבדוק 
                 callT = (BO.CallType)doCall.callT,
                 openTime = doCall.openTime,
                 timeEndCall = doCall.maxTime != null ? doCall.maxTime - s_dal.Config.Clock : null,
                 volunteerLast = lastAssignmentsForCall != null ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)!.fullName : null,
-                TimeEndTreat = lastAssignmentsForCall.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - lastAssignmentsForCall.finishTreatment : null,
+                TimeEndTreat = lastAssignmentsForCall==null? null: (lastAssignmentsForCall.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - lastAssignmentsForCall.finishTreatment : null),
                 status = GetCallStatus(doCall),
                 numOfAssignments = assignmentsForCall.Count()
             };
         }
         internal static BO.Status GetCallStatus(DO.Call doCall)
         {
-            if (doCall.maxTime < s_dal.Config.Clock)
-                return BO.Status.Expired;
+            
             var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.startTreatment).FirstOrDefault();
 
             if (lastAssignment == null)
             {
+                
                 if (IsInRisk(doCall!))
                     return BO.Status.OpenInRisk;
                 else return BO.Status.Open;
             }
+           
             if (lastAssignment.finishT == DO.FinishType.Treated)
             {
                 return BO.Status.Close;
             }
+            if (doCall.maxTime < s_dal.Config.Clock)
+                return BO.Status.Expired;
+
             if (lastAssignment.finishT == null)
             {
                 if (IsInRisk(doCall!))
                     return BO.Status.TreatInRisk;
                 else return BO.Status.InTreat;
             }
+           
             return BO.Status.Close;//default
         }
         internal static bool CheckCallLogic(BO.Call call)
@@ -148,7 +153,7 @@ namespace Helpers
             };
         }
         public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;
-        internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, CallAssignInList lastAssignment)
+        internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, DO.Assignment lastAssignment)
         {
             return new BO.ClosedCallInList
             {
@@ -158,7 +163,7 @@ namespace Helpers
                 openTime = doCall.openTime,
                 startTreatment = lastAssignment.startTreatment,
                 finishTreatment = lastAssignment.finishTreatment,
-                finishT = lastAssignment.finishT,
+                finishT = lastAssignment.finishT ==null ? throw new Exception("problm there is now finish type "): (BO.FinishType)lastAssignment.finishT,
             };
         }
         internal static BO.OpenCallInList ConvertDOCallToBOOpenCallInList(DO.Call doCall, int id)

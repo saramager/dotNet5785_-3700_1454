@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 namespace BlImplementation;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
@@ -192,20 +193,26 @@ internal class CallImplementation : ICall
 
     IEnumerable<ClosedCallInList> ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
-        IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
-        List<BO.ClosedCallInList> Calls = new List<BO.ClosedCallInList>();
+        IEnumerable<DO.Assignment> assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
+       List < BO.ClosedCallInList >  closedCallInLists = new List<BO.ClosedCallInList>();
 
-        Calls.AddRange(from item in previousCalls
-                       let DataCall = ReadCall(item.ID)
-                       where DataCall.statusC == BO.Status.Close && DataCall.CallAssign?/*.AssignmentsToCalls?*/.Any() == true
-                       let lastAssugnment = DataCall.CallAssign.OrderBy(c => c.startTreatment).Last()
-                       select CallsManager.ConvertDOCallToBOCloseCallInList(item, lastAssugnment));
+         closedCallInLists.AddRange(from assig in assignments
+                       where assig.finishT != null
+                       let listForCall = ReadCall(assig.CallId).CallAssign
+                       let assinmetNotTothisvlounteer = listForCall.Count(assForCall => assForCall.VolunteerId != id)
+                       where assinmetNotTothisvlounteer == 0
+                       select CallsManager.ConvertDOCallToBOCloseCallInList(_dal.Call.Read(c => c.ID == assig.CallId), assig)
 
-        IEnumerable<BO.ClosedCallInList> closedCallInLists = Calls.Where(call => call.ID == id);
+
+            );
+        closedCallInLists = closedCallInLists
+   .OrderByDescending(closeCall => closeCall.openTime)  // סדר את השיחות לפי openTime
+   .DistinctBy(closeCall => closeCall.callT)  // דאג לכך שכל callT יהיה ייחודי
+   .ToList();  // המרה לרשימה
 
         if (callT != null)
         {
-            closedCallInLists = closedCallInLists.Where(c => c.callT == callT);
+            closedCallInLists = closedCallInLists.Where(c => c.callT == callT).ToList();
         }
 
         if (filedTosort != null)
@@ -213,28 +220,28 @@ internal class CallImplementation : ICall
             switch (filedTosort)
             {
                 case BO.FiledOfClosedCallInList.ID:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.ID);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.ID).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.address:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.address);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.address).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.callT:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.callT);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.callT).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.openTime:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.openTime);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.openTime).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.startTreatment:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.startTreatment);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.startTreatment).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.finishTreatment:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.finishTreatment);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.finishTreatment).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.finishT:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.finishT);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.finishT).ToList();
                     break;
                 case BO.FiledOfClosedCallInList.CallDistance:
-                    closedCallInLists = closedCallInLists.OrderBy(item => item.CallDistance);
+                    closedCallInLists = closedCallInLists.OrderBy(item => item.CallDistance).ToList();
                     break;
             }
         }
@@ -244,16 +251,17 @@ internal class CallImplementation : ICall
 
     IEnumerable<OpenCallInList> ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
+      
+
         IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
         List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
         Calls.AddRange(from item in previousCalls
                        let DataCall = ReadCall(item.ID)
                        where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
-                       let lastAssugnment = DataCall.CallAssign.OrderBy(c => c.startTreatment).Last()
                        select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
 
-        IEnumerable<BO.OpenCallInList> openCallInLists = Calls.Where(call => call.ID == id);
+        IEnumerable<BO.OpenCallInList> openCallInLists = Calls;
 
         if (callT != null)
         {

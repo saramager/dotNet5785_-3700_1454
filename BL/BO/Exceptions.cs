@@ -109,3 +109,10 @@ public class BlUpdateCallException : Exception
 {
     public BlUpdateCallException(string message) : base(message) { }
 }
+
+    [Serializable]
+    public class volunteerHandleCallException : Exception
+    {
+        public volunteerHandleCallException(string message) : base(message) { }
+    }
+
