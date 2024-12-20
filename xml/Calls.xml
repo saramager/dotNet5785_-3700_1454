@@ -591,7 +591,7 @@
     <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
   </Call>
   <Call>
-    <ID>1060</ID>
+    <ID>1008</ID>
     <address>Najara 14, Jerusalem, Israel</address>
     <callT>BabyGift</callT>
     <latitude>31.7904718</latitude>
@@ -601,13 +601,13 @@
     <verbalDescription>neomy</verbalDescription>
   </Call>
   <Call>
-    <ID>1008</ID>
+    <ID>1061</ID>
     <address>Najara 14, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
+    <callT>MomGift</callT>
     <latitude>31.7904718</latitude>
     <longitude>35.1914956</longitude>
-    <openTime>2024-12-20T10:10:00</openTime>
+    <openTime>2024-12-19T01:50:00</openTime>
     <maxTime xsi:nil="true" />
-    <verbalDescription>neomy</verbalDescription>
+    <verbalDescription>ch</verbalDescription>
   </Call>
 </ArrayOfCall>

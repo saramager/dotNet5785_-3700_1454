@@ -517,7 +517,8 @@ OPTION Options:
     int choice;
     do
     {
-        Console.WriteLine(@"
+        
+                Console.WriteLine(@"
 Call Options:
 0 - Exit
 1 - CountCall
@@ -761,7 +762,7 @@ private static void handleCallOptions()
                     // Requesting the user to enter the values
                     Console.WriteLine("Enter the volunteer ID:");
                     string volInput = Console.ReadLine();
-                    Console.WriteLine("Enter the task ID:");
+                    Console.WriteLine("Enter the assignment ID:");
                     string assigInput = Console.ReadLine();
 
                     // Variables to store the values entered by the user
@@ -785,7 +786,7 @@ private static void handleCallOptions()
                     // Requesting the user to enter the values
                     Console.WriteLine("Enter the volunteer ID:");
                     string volInput = Console.ReadLine();
-                    Console.WriteLine("Enter the task ID:");
+                    Console.WriteLine("Enter the assignment ID:");
                     string assigInput = Console.ReadLine();
 
                     // Variables to store the values entered by the user
@@ -804,31 +805,33 @@ private static void handleCallOptions()
                     }
                     break;
                 }
-            case ICall.CHOSE_TOR_TREAT:
-                {
-                    // Requesting the user to enter the values
-                    Console.WriteLine("Enter the volunteer ID:");
-                    string volInput = Console.ReadLine();
-                    Console.WriteLine("Enter the task ID:");
-                    string assigInput = Console.ReadLine();
-
-                    // Variables to store the values entered by the user
-                    int idVol, idAssig;
-
-                    // Checking if it's possible to parse the input into integers
-                    if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                case ICall.CHOSE_TOR_TREAT:
                     {
-                        // If the parsing succeeded, call the CloseTreat function
-                        s_bl.Call.ChooseCallTreat(idVol, idAssig);
+                        // Prompt the user to enter values
+                        Console.WriteLine("Enter the volunteer ID:");
+                        string volInput = Console.ReadLine();
+                        Console.WriteLine("Enter the call ID:");
+                        string callInput = Console.ReadLine();
+
+                        // Variables to store the values entered by the user
+                        int idVol, callId;
+
+                        // Check if it is possible to parse the input into integers
+                        if (int.TryParse(volInput, out idVol) && int.TryParse(callInput, out callId))
+                        {
+                            // If parsing succeeded, call the `ChooseCallTreat` function
+                            s_bl.Call.ChooseCallTreat(idVol, callId);
+                        }
+                        else
+                        {
+                            // If parsing failed, display an error message
+                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                        }
+                        break;
                     }
-                    else
-                    {
-                        // If parsing failed, display an error message
-                        throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
-                    }
-                    break;
-                }
-            default: break;
+
+
+                default: break;
         }
 
     }

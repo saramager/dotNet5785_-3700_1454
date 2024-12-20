@@ -41,7 +41,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns></returns>
     static XElement createVolunteerElement(Volunteer volunteer)
     {
-        XElement studentXml = new XElement("Volunteer",
+        XElement volunteerXml = new XElement("Volunteer",
         new XElement("ID", volunteer.ID),
                               new XElement("fullName", volunteer.fullName),
                               new XElement("phone", volunteer.phone),
@@ -57,7 +57,7 @@ internal class VolunteerImplementation : IVolunteer
 
 
                               );
-            return studentXml;
+            return volunteerXml;
                             
                           
     }
@@ -71,7 +71,7 @@ internal class VolunteerImplementation : IVolunteer
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
 
         if ((volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.ID)) != null)
-            throw new DO.DalAlreadyExistsException($"Student with ID={item.ID} already  exist");
+            throw new DO.DalAlreadyExistsException($"volunteer with ID={item.ID} already  exist");
 
         volunteerRootElem.Add(new XElement( createVolunteerElement(item)));
 
@@ -87,7 +87,7 @@ internal class VolunteerImplementation : IVolunteer
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
 
         if ((volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == id)) == null)
-            throw new DO.DalDoesNotExistException($"Student with ID={id} does not  exist");
+            throw new DO.DalDoesNotExistException($"volunteer with ID={id} does not  exist");
         XElement volunteerElem = (from stu in volunteerRootElem.Elements()
                           where int.Parse(stu.Element("ID")!.Value) == id
                           select stu).FirstOrDefault()!;
@@ -117,7 +117,7 @@ internal class VolunteerImplementation : IVolunteer
 
     }
     /// <summary>
-    /// return all the students 
+    /// return all the volunteers 
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
@@ -136,7 +136,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
 
-        (volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.ID)?? throw new DO.DalDoesNotExistException($"Student with ID={item.ID} does Not exist")).Remove();
+        (volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.ID)?? throw new DO.DalDoesNotExistException($"volunteer with ID={item.ID} does Not exist")).Remove();
 
         volunteerRootElem.Add(new XElement(createVolunteerElement(item)));
 

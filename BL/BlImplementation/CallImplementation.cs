@@ -411,35 +411,35 @@ internal class CallImplementation : ICall
 
     public void ChooseCallTreat(int volunteerId, int CallId)
     {
-        var assignment = _dal.Assignment.Read(a => a.CallId == CallId);
-        var call = _dal.Call.Read(c => c.ID == CallId);
-
-        if (assignment != null || call == null || (call.maxTime.HasValue && DateTime.Now > call.maxTime))
-        {
-            throw new BO.BlValidationException($"Call with ID {CallId} is not valid for treatment.");
-        }
-
-        if (assignment != null && (assignment.finishTreatment == null || assignment.finishT == null))
-        {
-            throw new BO.BlValidationException($"Call with ID {CallId} is already in treatment or open.");
-        }
-
-        var newAssignment = new DO.Assignment
-        {
-            CallId = CallId,
-            VolunteerId = volunteerId,
-            startTreatment = DateTime.Now,
-            finishTreatment = null,
-            finishT = null
-        };
-
         try
         {
+            var assignment = _dal.Assignment.Read(a => a.CallId == CallId);
+            var call = _dal.Call.Read(c => c.ID == CallId);
+
+            if (assignment != null || call == null || (call.maxTime.HasValue && DateTime.Now > call.maxTime))
+            {
+                throw new BO.BlValidationException($"Call with ID {CallId} is not valid for treatment.");
+            }
+
+            if (assignment != null && (assignment.finishTreatment == null || assignment.finishT == null) && assignment.startTreatment == default(DateTime))
+            {
+                throw new BO.BlValidationException($"Call with ID {CallId} is already in treatment or open.");
+            }
+
+            var newAssignment = new DO.Assignment
+            {
+                CallId = CallId,
+                VolunteerId = volunteerId,
+                startTreatment = DateTime.Now,
+                finishTreatment = null,
+                finishT = null
+            };
+
             _dal.Assignment.Create(newAssignment);
         }
-        catch (DO.DalDoesNotExistException ex)
+        catch(DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"An error occurred while creating the assignment.", ex);
+            throw new BO.BlDoesNotExistException($"An error occurred while reading or creating the assignment.", ex);
         }
     }
 }
