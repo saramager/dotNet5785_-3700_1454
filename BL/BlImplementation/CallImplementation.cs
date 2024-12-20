@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DO;
 using Helpers;
 
 internal class CallImplementation : ICall
@@ -162,20 +163,33 @@ internal class CallImplementation : ICall
     }
 
 
+
     public void DeleteCall(int id)
     {
-        var call = ReadCall(id);
-        if (!(call.statusC == BO.Status.Open && call.CallAssign == null))
-            throw new CantDeleteCallException($"can delete this call id: {id}");
         try
         {
+            var doCall = _dal.Call.Read(c => c.ID == id);
+
+            if (doCall != null)
+            {
+
+                BO.Status callStatus = CallsManager.GetCallStatus(doCall);
+
+                var hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == id).Any();
+
+                if (hasAssignments || callStatus != BO.Status.Open)
+                {
+                    throw new InvalidOperationException($"Cannot delete call with ID {id} as it is not in an open status or has been assigned.");
+                }
+            }
             _dal.Call.Delete(id);
         }
-        catch (DO.DalDoesNotExistException dEx)
-        {
-            throw new BO.BlDoesNotExistException(dEx.Message, dEx);
-        }
+       catch(DO.DalDoesNotExistException ex)
+       {
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
+       }
     }
+
 
     public void CreateCall(BO.Call c)
     {
