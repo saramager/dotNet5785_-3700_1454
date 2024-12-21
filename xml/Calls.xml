@@ -81,16 +81,6 @@
     <verbalDescription>The new mom is in need of items that will help her feel better after a difficult delivery. A thoughtful care package with postpartum essentials like breast pads, bath salts, and chocolate would be a great gift.</verbalDescription>
   </Call>
   <Call>
-    <ID>1008</ID>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.79003</latitude>
-    <longitude>35.195</longitude>
-    <openTime>2024-12-01T00:00:00</openTime>
-    <maxTime>2024-12-07T09:00:00</maxTime>
-    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
-  </Call>
-  <Call>
     <ID>1009</ID>
     <address>HaIlui 9, Jerusalem, Israel</address>
     <callT>MomGift</callT>
@@ -599,5 +589,25 @@
     <openTime>2024-12-01T00:00:00</openTime>
     <maxTime xsi:nil="true" />
     <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1008</ID>
+    <address>Najara 14, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.7904718</latitude>
+    <longitude>35.1914956</longitude>
+    <openTime>2024-12-20T10:10:00</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>neomy</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1061</ID>
+    <address>Najara 14, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.7904718</latitude>
+    <longitude>35.1914956</longitude>
+    <openTime>2024-12-19T01:50:00</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>ch</verbalDescription>
   </Call>
 </ArrayOfCall>

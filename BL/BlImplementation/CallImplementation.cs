@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DO;
 using Helpers;
 
 internal class CallImplementation : ICall
@@ -162,20 +163,33 @@ internal class CallImplementation : ICall
     }
 
 
+
     public void DeleteCall(int id)
     {
-        var call = ReadCall(id);
-        if (!(call.statusC == BO.Status.Open && call.CallAssign == null))
-            throw new CantDeleteCallException($"can delete this call id: {id}");
         try
         {
+            var doCall = _dal.Call.Read(c => c.ID == id);
+
+            if (doCall != null)
+            {
+
+                BO.Status callStatus = CallsManager.GetCallStatus(doCall);
+
+                var hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == id).Any();
+
+                if (hasAssignments || callStatus != BO.Status.Open)
+                {
+                    throw new InvalidOperationException($"Cannot delete call with ID {id} as it is not in an open status or has been assigned.");
+                }
+            }
             _dal.Call.Delete(id);
         }
-        catch (DO.DalDoesNotExistException dEx)
-        {
-            throw new BO.BlDoesNotExistException(dEx.Message, dEx);
-        }
+       catch(DO.DalDoesNotExistException ex)
+       {
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
+       }
     }
+
 
     public void CreateCall(BO.Call c)
     {
@@ -399,35 +413,35 @@ internal class CallImplementation : ICall
 
     public void ChooseCallTreat(int volunteerId, int CallId)
     {
-        var assignment = _dal.Assignment.Read(a => a.CallId == CallId);
-        var call = _dal.Call.Read(c => c.ID == CallId);
-
-        if (assignment != null || call == null || (call.maxTime.HasValue && DateTime.Now > call.maxTime))
-        {
-            throw new BO.BlValidationException($"Call with ID {CallId} is not valid for treatment.");
-        }
-
-        if (assignment != null && (assignment.finishTreatment == null || assignment.finishT == null))
-        {
-            throw new BO.BlValidationException($"Call with ID {CallId} is already in treatment or open.");
-        }
-
-        var newAssignment = new DO.Assignment
-        {
-            CallId = CallId,
-            VolunteerId = volunteerId,
-            startTreatment = DateTime.Now,
-            finishTreatment = null,
-            finishT = null
-        };
-
         try
         {
+            var assignment = _dal.Assignment.Read(a => a.CallId == CallId);
+            var call = _dal.Call.Read(c => c.ID == CallId);
+
+            if (assignment != null || call == null || (call.maxTime.HasValue && DateTime.Now > call.maxTime))
+            {
+                throw new BO.BlValidationException($"Call with ID {CallId} is not valid for treatment.");
+            }
+
+            if (assignment != null && (assignment.finishTreatment == null || assignment.finishT == null) && assignment.startTreatment == default(DateTime))
+            {
+                throw new BO.BlValidationException($"Call with ID {CallId} is already in treatment or open.");
+            }
+
+            var newAssignment = new DO.Assignment
+            {
+                CallId = CallId,
+                VolunteerId = volunteerId,
+                startTreatment = DateTime.Now,
+                finishTreatment = null,
+                finishT = null
+            };
+
             _dal.Assignment.Create(newAssignment);
         }
-        catch (DO.DalDoesNotExistException ex)
+        catch(DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"An error occurred while creating the assignment.", ex);
+            throw new BO.BlDoesNotExistException($"An error occurred while reading or creating the assignment.", ex);
         }
     }
 }

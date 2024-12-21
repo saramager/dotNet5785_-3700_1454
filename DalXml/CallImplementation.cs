@@ -35,7 +35,7 @@ internal class CallImplementation : ICall
     public Call? Read(Func<Call, bool> filter)
     {
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_Calls_xml);
-        return Calls.FirstOrDefault(filter) ?? throw new DO.DalDoesNotExistException($"Student with  {filter} does not  exist"); ;
+        return Calls.FirstOrDefault(filter) ?? throw new DO.DalDoesNotExistException($"volunteer with  {filter} does not  exist"); ;
     }
 
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
