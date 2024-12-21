@@ -610,4 +610,14 @@
     <maxTime xsi:nil="true" />
     <verbalDescription>ch</verbalDescription>
   </Call>
+  <Call>
+    <ID>1062</ID>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.792438</latitude>
+    <longitude>35.1909027</longitude>
+    <openTime>2024-12-21T21:50:00</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>check</verbalDescription>
+  </Call>
 </ArrayOfCall>

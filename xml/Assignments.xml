@@ -480,4 +480,20 @@
     <finishTreatment>2024-12-20T12:09:16.0268174+02:00</finishTreatment>
     <finishT>Treated</finishT>
   </Assignment>
+  <Assignment>
+    <ID>1060</ID>
+    <CallId>1061</CallId>
+    <VolunteerId>524069176</VolunteerId>
+    <startTreatment>2024-12-21T21:43:33.7877095+02:00</startTreatment>
+    <finishTreatment>2024-12-21T21:55:53.5772319+02:00</finishTreatment>
+    <finishT>SelfCancel</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1061</ID>
+    <CallId>1062</CallId>
+    <VolunteerId>188706782</VolunteerId>
+    <startTreatment>2024-12-21T22:00:45.1762059+02:00</startTreatment>
+    <finishTreatment>2024-12-21T22:01:32.7934681+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
 </ArrayOfAssignment>

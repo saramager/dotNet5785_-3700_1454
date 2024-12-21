@@ -1,6 +1,6 @@
-﻿using System;
+﻿namespace BlImplementation;
+using System;
 using System.Collections.Generic;
-namespace BlImplementation;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,7 +11,7 @@ using DalApi;
 using DO;
 using Helpers;
 
-internal class CallImplementation : ICall
+internal class CallImplementation : BlApi.ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
@@ -208,7 +208,7 @@ internal class CallImplementation : ICall
         }
     }
 
-    IEnumerable<ClosedCallInList> ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
+    IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
         IEnumerable<DO.Assignment> assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
        List < BO.ClosedCallInList >  closedCallInLists = new List<BO.ClosedCallInList>();
@@ -266,7 +266,7 @@ internal class CallImplementation : ICall
         return closedCallInLists;
     }
 
-    IEnumerable<OpenCallInList> ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
     {
       
 
@@ -388,10 +388,12 @@ internal class CallImplementation : ICall
             throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
         }
 
-        if (!_dal.Volunteer.Read(v => v.ID == volunteerId)?.role.Equals(DO.RoleType.Manager) == true)
+        if (!_dal.Volunteer.Read(v => v.ID == volunteerId)?.role.Equals(DO.RoleType.Manager) == true &&
+    _dal.Volunteer.Read(v => v.ID == volunteerId)?.ID != assignment.VolunteerId)
         {
             throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to cancel this assignment.");
         }
+
 
         if (assignment.finishTreatment != null || assignment.finishT != null)
         {
