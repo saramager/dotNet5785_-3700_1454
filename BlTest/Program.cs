@@ -720,13 +720,13 @@ private static void handleCallOptions()
                         break;
                     }
 
-                    // Ask the user for the volunteer's ID
-                    Console.Write("Enter volunteer ID: ");
-                    if (!int.TryParse(Console.ReadLine(), out int volunteerID))
-                    {
-                        throw new BO.BlWrongInputException("Invalid ID format.");
+                    //// Ask the user for the volunteer's ID
+                    //Console.Write("Enter volunteer ID: ");
+                    //if (!int.TryParse(Console.ReadLine(), out int volunteerID))
+                    //{
+                    //    throw new BO.BlWrongInputException("Invalid ID format.");
 
-                    }
+                    //}
 
                     // Ask the user for the call type
                     Console.Write("Enter call type or null ( BabyGift,  MomGift, HouseholdHelp, MealPreparation or leave blank): ");

@@ -52,50 +52,52 @@ namespace Helpers
                 openTime = doCall.openTime,
                 timeEndCall = doCall.maxTime != null ? doCall.maxTime - s_dal.Config.Clock : null,
                 volunteerLast = lastAssignmentsForCall != null ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)!.fullName : null,
-                TimeEndTreat = lastAssignmentsForCall==null? null: (lastAssignmentsForCall.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - lastAssignmentsForCall.finishTreatment : null),
+                TimeEndTreat = lastAssignmentsForCall == null ? null : (lastAssignmentsForCall.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - lastAssignmentsForCall.finishTreatment : null),
                 status = GetCallStatus(doCall),
                 numOfAssignments = assignmentsForCall.Count()
             };
         }
         internal static BO.Status GetCallStatus(DO.Call doCall)
         {
-            
+
             var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.startTreatment).FirstOrDefault();
 
             if (lastAssignment == null)
             {
-                
+                if (doCall.maxTime != null && doCall.maxTime < s_dal.Config.Clock)
+                    return BO.Status.Expired;
                 if (IsInRisk(doCall!))
                     return BO.Status.OpenInRisk;
                 else return BO.Status.Open;
             }
-           
             if (lastAssignment.finishT == DO.FinishType.Treated)
             {
                 return BO.Status.Close;
             }
-            if (doCall.maxTime < s_dal.Config.Clock)
-                return BO.Status.Expired;
-
+            if (doCall.maxTime != null && doCall.maxTime < s_dal.Config.Clock)
+            {
+                return Status.Expired;
+            }
             if (lastAssignment.finishT == null)
             {
                 if (IsInRisk(doCall!))
                     return BO.Status.TreatInRisk;
                 else return BO.Status.InTreat;
             }
-           
-            return BO.Status.Close;//default
+            if (IsInRisk(doCall!))
+                return BO.Status.OpenInRisk;
+            return BO.Status.Open;//default
         }
         internal static bool CheckCallLogic(BO.Call call)
         {
             if (call == null)
             {
-                throw new BlUpdateCallException( "Call object cannot be null.");
+                throw new BlUpdateCallException("Call object cannot be null.");
             }
 
             if (string.IsNullOrWhiteSpace(call.address))
             {
-                throw new BlUpdateCallException( "Address cannot be null or empty.");
+                throw new BlUpdateCallException("Address cannot be null or empty.");
             }
 
             if (call.openTime == default)
@@ -105,7 +107,7 @@ namespace Helpers
 
             if (call.maxTime <= call.openTime)
             {
-                throw new BlUpdateCallException( "Max completion time must be later than the opening time.");
+                throw new BlUpdateCallException("Max completion time must be later than the opening time.");
             }
 
             try
@@ -163,7 +165,7 @@ namespace Helpers
                 openTime = doCall.openTime,
                 startTreatment = lastAssignment.startTreatment,
                 finishTreatment = lastAssignment.finishTreatment,
-                finishT = lastAssignment.finishT ==null ? throw new Exception("problm there is now finish type "): (BO.FinishType)lastAssignment.finishT,
+                finishT = lastAssignment.finishT == null ? throw new Exception("problm there is now finish type ") : (BO.FinishType)lastAssignment.finishT,
             };
         }
         internal static BO.OpenCallInList ConvertDOCallToBOOpenCallInList(DO.Call doCall, int id)
@@ -192,12 +194,40 @@ namespace Helpers
              openTime: boCall.openTime,
              maxTime: boCall.maxTime,
              verbalDescription: boCall.verbalDescription
-            
+
              );
             return doCall;
         }
+        /// <summary>
+        /// This function checks if a call has expired based on its max time and whether it has been assigned.
+        /// If the call is expired, it handles the assignment status accordingly.
+        /// </summary>
+        internal static void checkIfExpiredCall()
+        {
+            IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
+            IEnumerable<BO.Call> boCalls = from dCall in calls
+                                           where (dCall.maxTime == null ? true : dCall.maxTime < s_dal.Config.Clock)
+                                           select (ConvertDOCallToBOCall(dCall));
+            foreach (BO.Call call in boCalls)
+            {
+                if (call.CallAssign == null)
+                    s_dal.Assignment.Create(new DO.Assignment(0, call.ID, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
+                else
+                {
+                    var lastAss = call.CallAssign.OrderByDescending(a => a.startTreatment).First();
+                    if (lastAss.finishT == null)
+                    {
+                        var assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
+                        s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
+                    }
 
 
+                }
+
+
+            }
+
+        }
     }
 
 }

@@ -259,6 +259,8 @@ internal class CallImplementation : ICall
         Calls.AddRange(from item in previousCalls
                        let DataCall = ReadCall(item.ID)
                        where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
+                       let volunteerData = _dal.Volunteer.Read(v=>v.ID == id)
+                       where volunteerData.maxDistance==null ?true : volunteerData.maxDistance<=Tools.CalculateDistance(volunteerData.Latitude?? DataCall.latitude, volunteerData.Longitude?? DataCall.longitude, DataCall.latitude,DataCall.longitude)
                        select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
 
         IEnumerable<BO.OpenCallInList> openCallInLists = Calls;
