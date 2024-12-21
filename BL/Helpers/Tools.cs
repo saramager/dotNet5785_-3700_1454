@@ -1,7 +1,13 @@
 ﻿using BO;
+using System.Diagnostics;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
+using System;
+using System.Net.Http;
+using Newtonsoft.Json;
+
 
 namespace Helpers
 {
@@ -62,7 +68,8 @@ namespace Helpers
                     {
                         string jsonResponse = responseReader.ReadToEnd();
                         var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                        var locationData = JsonSerializer.Deserialize<LocationResult[]>(jsonResponse, jsonOptions);
+                        var locationData = System.Text.Json.JsonSerializer.Deserialize<LocationResult[]>(jsonResponse, jsonOptions);
+                        
 
                         if (locationData == null || locationData.Length == 0)
                         {
@@ -115,9 +122,11 @@ namespace Helpers
         /// <remarks>
         /// Code by ChatGPT (OpenAI).
         /// </remarks>
-        public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2, BO.Distance distanceType)
         {
-            const double R = 6371; // Radius of the Earth in kilometers
+            double distance = 0; 
+            switch (distanceType)
+   { case BO.Distance.AirDistance: const double R = 6371; // Radius of the Earth in kilometers
 
             double lat1Rad = ToRadians(lat1);
             double lon1Rad = ToRadians(lon1);
@@ -133,7 +142,17 @@ namespace Helpers
 
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-            return R * c; // Distance in kilometers
+            distance= R * c; // Distance in kilometers}
+                    break;
+                case BO.Distance.walkingDistance:
+                    distance = GetDistance(lat1, lon1, lat2, lon2, "foot-walking");
+                    break;
+                case BO.Distance.DrivingDistance:
+                    distance = GetDistance(lat1, lon1, lat2, lon2, "driving-car");
+                    break;
+            }
+
+                return distance;
         }
 
         /// <summary>
@@ -145,38 +164,70 @@ namespace Helpers
         {
             return degrees * (Math.PI / 180);
         }
-        /// <summary>
-        /// Determines the type of distance based on the given distance in kilometers.
-        /// </summary>
-        /// <param name="distanceInKm">Distance in kilometers.</param>
-        /// <returns>Distance type: WalkingDistance, DrivingDistance, or AirDistance.</returns>
-        /// <author>ChatGPT, OpenAI</author>
-        public static DO.Distance GetDistanceType(double distanceInKm)
-        {
-            // Thresholds for categorizing distances
-            const double walkingDistanceThreshold = 3.0;  // <= 3 km for WalkingDistance
-            const double drivingDistanceThreshold = 50.0; // <= 50 km for DrivingDistance
-            const double airDistanceThreshold = 1000.0;   // <= 1000 km for AirDistance
 
-            if (distanceInKm <= walkingDistanceThreshold)
+
+        /// <summary>
+        /// Sends a request to the OpenRouteService API and retrieves the distance 
+        /// between two points based on the selected transportation mode.
+        /// </summary>
+        /// <param name="lat1">Latitude of the starting point.</param>
+        /// <param name="lon1">Longitude of the starting point.</param>
+        /// <param name="lat2">Latitude of the destination point.</param>
+        /// <param name="lon2">Longitude of the destination point.</param>
+        /// <param name="profile">The transportation mode (e.g., "driving-car" or "foot-walking").</param>
+        /// <returns>The distance in kilometers between the two points, or -1 if an error occurs.</returns>
+        /// <exception cref="Exception">Thrown when there is an issue with the API request or response.</exception>
+        public static double GetDistance(double lat1, double lon1, double lat2, double lon2, string profile)
+        {
+            string apiKey = "5b3ce3597851110001cf6248286b64adfd1844dfb35eaf5e58e0da1e";
+
+            using (HttpClient client = new HttpClient())
             {
-                return DO.Distance.walkingDistance; // Walking distance for <= 3 km
-            }
-            else if (distanceInKm <= drivingDistanceThreshold)
-            {
-                return DO.Distance.DrivingDistance; // Driving distance for <= 50 km
-            }
-            else if (distanceInKm <= airDistanceThreshold)
-            {
-                return DO.Distance.AirDistance; // Air distance for <= 1000 km
-            }
-            else
-            {
-                return DO.Distance.AirDistance; // Default to AirDistance for greater than 1000 km
+                try
+                {
+                    string url = $"https://api.openrouteservice.org/v2/directions/{profile}/json";
+                    var body = new
+                    {
+                        coordinates = new[]
+                        {
+                        new[] { lon1, lat1 },
+                        new[] { lon2, lat2 }
+                    }
+                    };
+
+                    string jsonBody = JsonConvert.SerializeObject(body);
+                    client.DefaultRequestHeaders.Add("Authorization", apiKey);
+
+                    var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new Exception($"Error: {response.StatusCode}");
+                    }
+
+                    string responseBody = response.Content.ReadAsStringAsync().Result;
+                    dynamic responseData = JsonConvert.DeserializeObject(responseBody);
+
+                    if (responseData.routes != null && responseData.routes.Count > 0)
+                    {
+                        var route = responseData.routes[0];
+                        return route.summary.distance / 1000.0;
+                    }
+                    else
+                    {
+                        throw new Exception("No route found.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred: " + ex.Message);
+                }
             }
         }
-
     }
+
 }
+   
 
 

@@ -136,11 +136,12 @@ public static class Initialization
             bool active = !(i % 7 == 0);
             double DisMax = s_rand.NextDouble() * 5.0;//randondistance 
             int randAddress = s_rand.Next(addresses.Length);
+            DO.Distance disType = (DO.Distance)s_rand.Next(4);
             while (s_dal!.Volunteer.Read(VItem=> VItem.ID==VId) != null)// create new id is the id is found already.
             {
                  VId = s_rand.Next(200000000, 400000001);
             }
-            s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, Distance.AirDistance,/*"m^pptloa0/" /*/ "password321", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
+            s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, disType,/*"m^pptloa0/" /*/ "password321", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
         }
     }
     private static void createAssignment()
