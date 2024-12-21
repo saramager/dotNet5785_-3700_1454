@@ -11,6 +11,29 @@ public static class Initialization
     /// <summary>
     /// Generates a valid Israeli ID number by calculating the checksum digit.
     /// </summary>
+
+    /// <summary>
+    /// Generates a random date and time between two given dates.
+    /// </summary>
+    /// <param name="start">The start date and time.</param>
+    /// <param name="end">The end date and time.</param>
+    /// <returns>A randomly generated DateTime between the specified start and end dates.</returns>
+    static DateTime GenerateRandomDate(DateTime start, DateTime end)
+    {
+        Random random = new Random();
+
+        // Get the total time span between the two dates
+        TimeSpan timeSpan = end - start;
+
+        // Randomly choose a time span (in ticks) between the start and end dates
+        long randomTicks = (long)(random.NextDouble() * timeSpan.Ticks);
+
+        // Generate a random date by adding the random ticks to the start date
+        DateTime randomDate = start.AddTicks(randomTicks);
+
+        return randomDate;
+    }
+
     public static int GenerateValidIsraeliId()
     {
         Random s_rand = new Random();
@@ -128,7 +151,6 @@ public static class Initialization
             //We made adjustments for rule sets and not just a List
             int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
             Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll().ElementAt(randVolunteer);
-
             int randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
             Call callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
 
@@ -137,31 +159,65 @@ public static class Initialization
                 randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
                 callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
             }
+            DO.Assignment lastass = s_dal.Assignment.ReadAll(ass=>ass.CallId==callToAssig.ID).OrderByDescending(ass=>ass.startTreatment).FirstOrDefault();
+            while( (lastass!=null && lastass.finishT== FinishType.Treated )|| (lastass!=null&&lastass.finishTreatment==null&& lastass.finishT==null))
+            {
+                randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
+                callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+                lastass = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.ID).OrderByDescending(ass => ass.startTreatment).FirstOrDefault();
+
+            }
+            DateTime startTime= s_dal.Config.Clock;
+
             FinishType? finish= null;
             DateTime? finishTime= null;
-            if (callToAssig.maxTime!=null&& callToAssig.maxTime>= s_dal!.Config.Clock)
+  
+            if (callToAssig.maxTime!=null&& callToAssig.maxTime <= s_dal!.Config.Clock)
             {
-                finish = FinishType.ExpiredCancel;//if the time over the assigment is cancelld 
+                if (lastass == null)
+                {
+                    finish = FinishType.ExpiredCancel;
+                    startTime = GenerateRandomDate(callToAssig.openTime, callToAssig.maxTime ?? s_dal!.Config.Clock);
+                    finishTime = GenerateRandomDate(startTime, callToAssig.maxTime?? s_dal!.Config.Clock);
+
+                }
+                else
+                {
+                    var lastAss = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.ID)
+                             .OrderByDescending(ass => ass.startTreatment)
+                             .LastOrDefault();
+                    startTime = GenerateRandomDate(callToAssig.openTime, lastAss.startTreatment);
+                    finishTime = GenerateRandomDate(startTime, lastass.startTreatment);
+
+                   int rand = s_rand.Next(2);
+                   finish = rand == 0 ? FinishType.SelfCancel : FinishType.ManagerCancel;
+
+
+                }
 
             }
             else
             {
-                int randFinish = s_rand.Next(0,4);//randonly cose finish type 
+                int randFinish = s_rand.Next(0, 4);
+                startTime = GenerateRandomDate(lastass == null ? callToAssig.openTime : lastass.finishTreatment ?? s_dal.Config.Clock, s_dal.Config.Clock);
+
+
+
                 switch (randFinish)
                 {
                     case 0: finish = FinishType.Treated;
-                        finishTime = s_dal!.Config.Clock;
+                        finishTime = GenerateRandomDate(startTime,s_dal.Config.Clock);
                         break;
                     case 1: finish = FinishType.SelfCancel;
+                        finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
+
                         break;
-                    case 2: finish = FinishType.ManagerCancel; break;
-               
-
-
-
+                    case 2: finish = FinishType.ManagerCancel; 
+                        finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
+                        break ;
                 }
             }
-            s_dal!.Assignment.Create(new Assignment(0,callToAssig.ID,volunteerToAssig.ID, s_dal!.Config.Clock, finishTime,finish));  
+            s_dal!.Assignment.Create(new Assignment(0,callToAssig.ID,volunteerToAssig.ID, startTime, finishTime,finish));  
 
 
         }
@@ -221,14 +277,14 @@ public static class Initialization
             int randAddress = s_rand.Next(addresses.Length);// Randomly selsct adrees of call
             string CallDescription = VolunteerDescriptions[(int)TypeOfCall][s_rand.Next(0, VolunteerDescriptions[(int)TypeOfCall].Length)];
 
-            DateTime startCall = startRange.AddHours(s_rand.Next(range));
+            DateTime startCall = GenerateRandomDate(startRange, s_dal.Config.Clock);
             DateTime? finishCall = null;
             int CallTime = (s_dal!.Config.Clock - startCall).Hours; //num fo hours forn the start 
             if (i % 10 == 0)
-            { finishCall = startCall.AddHours(CallTime - 1); }
+            { finishCall = GenerateRandomDate(startCall, s_dal.Config.Clock); }
             else if (s_rand.Next(0, 2) == 1)
             {
-                finishCall = startCall.AddHours(CallTime + s_rand.Next(200));
+                finishCall = GenerateRandomDate(s_dal.Config.Clock,s_dal.Config.Clock.AddMonths(1));
             }
             s_dal!.Call.Create(new Call(0,addresses[randAddress], TypeOfCall, latitudes[randAddress], longitudes[randAddress], startCall, finishCall, CallDescription));
 
