@@ -104,7 +104,7 @@ namespace Helpers
                         openTime = callTreat.openTime,
                         maxTime = callTreat.maxTime,
                         startTreatment = assignmentTreat.startTreatment,
-                        CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude),
+                        CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
                         statusT = (callTreat.maxTime - ClockManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
                     };}
             }

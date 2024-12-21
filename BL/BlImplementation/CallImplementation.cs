@@ -7,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
-using DalApi;
-using DO;
 using Helpers;
 
 internal class CallImplementation : BlApi.ICall
@@ -277,7 +275,7 @@ internal class CallImplementation : BlApi.ICall
                        let DataCall = ReadCall(item.ID)
                        where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
                        let volunteerData = _dal.Volunteer.Read(v=>v.ID == id)
-                       where volunteerData.maxDistance==null ?true : volunteerData.maxDistance<=Tools.CalculateDistance(volunteerData.Latitude?? DataCall.latitude, volunteerData.Longitude?? DataCall.longitude, DataCall.latitude,DataCall.longitude)
+                       where volunteerData.maxDistance==null ?true : volunteerData.maxDistance<=Tools.CalculateDistance(volunteerData.Latitude?? DataCall.latitude, volunteerData.Longitude?? DataCall.longitude, DataCall.latitude,DataCall.longitude,(BO.Distance)volunteerData.distanceType)
                        select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
 
         IEnumerable<BO.OpenCallInList> openCallInLists = Calls;

@@ -197,7 +197,7 @@ namespace Helpers
                 verbalDescription = doCall.address,
                 openTime = doCall.openTime,
                 maxTime = doCall.maxTime,
-                distance = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat, idLon),
+                distance = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat, idLon,(BO.Distance)vol.distanceType),
             };
         }
         internal static DO.Call convertFormBOCallToDo(BO.Call boCall)
