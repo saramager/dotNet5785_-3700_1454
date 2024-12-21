@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Helpers
@@ -88,7 +89,7 @@ namespace Helpers
                 return BO.Status.OpenInRisk;
             return BO.Status.Open;//default
         }
-        internal static bool CheckCallLogic(BO.Call call)
+        internal static void CheckCallLogic(BO.Call call)
         {
             if (call == null)
             {
@@ -121,12 +122,28 @@ namespace Helpers
             {
                 throw new BlUpdateCallException("Invalid address: " + ex.Message);
             }
-            //catch (Exception ex)
-            //{
-            //    throw new BlUpdateCallException("An unexpected error occurred while validating the call.");
-            //}
+           
+        }
+        internal static void CheckCallFormat(BO.Call call)
+        {
+            if (call == null)
+            {
+                throw new BlUpdateCallException("Call object cannot be null.");
+            }
 
-            return true;
+            if (string.IsNullOrWhiteSpace(call.address))
+            {
+                throw new BlUpdateCallException("Address cannot be null, empty, or consist only of whitespace.");
+            }
+
+            // Regex for address format: street (optional number), city, country
+            string addressPattern = @"^\s*[\p{L}\s]+(?:\s+\d{1,5})?,\s*[\p{L}\s]+,\s*[\p{L}\s]+$";
+            Regex regex = new Regex(addressPattern);
+
+            if (!regex.IsMatch(call.address))
+            {
+                throw new BlUpdateCallException("Invalid address format. The address must follow the format: street (optional number), city, country.");
+            }
         }
 
 
