@@ -30,7 +30,7 @@ internal static class ClockManager //stage 4
     {
         var oldClock = _dal.Config.Clock; //stage 4
         _dal.Config.Clock = newClock; //stage 4
-
+         
         //TO_DO:
         //Add calls here to any logic method that should be called periodically,
         //after each clock update

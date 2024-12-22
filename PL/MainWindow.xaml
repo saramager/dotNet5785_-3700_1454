@@ -1,0 +1,47 @@
+﻿<Window x:Class="PL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="640" Width="800"
+         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!--clock value-->
+        <Label Grid.Column="1" Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="25,30,0,0" VerticalAlignment="Top" Height="82" Width="324"/>
+        <!--add minutes-->
+        <Button Grid.Column="1" Content="add one mintue" Click="clickAddOneMinute" HorizontalAlignment="Left" Margin="92,135,0,0" VerticalAlignment="Top" Height="25" Width="190" RenderTransformOrigin="0.482,2.501" Click="Button_Click_1"/>
+        <!--add hours-->
+        <Button Grid.Column="1" Content="add one hour "  Click ="clickAddOnehour" HorizontalAlignment="Left" Height="25" Margin="92,172,0,0" VerticalAlignment="Top" Width="190"/>
+        <!--add days-->
+        <Button Grid.Column="1" Content="add one Day" Click="clickAddOneDay" HorizontalAlignment="Left" Height="25" Margin="92,209,0,0" VerticalAlignment="Top" Width="190"/>
+        <!--add month-->
+        <Button Grid.Column="1" Content="add one mouth " Click="clickAddOneMonth" HorizontalAlignment="Left" Height="25" Margin="92,239,0,0" VerticalAlignment="Top" Width="190"/>
+        <!--add year-->
+
+        <Button Grid.Column="1" Content="add one year " Click="clickAddOneYear"  HorizontalAlignment="Left" Height="25" Margin="92,269,0,0" VerticalAlignment="Top" Width="190"/>
+        <TextBox TextWrapping="Wrap" Text="TextBox" Width="120" Margin="280,10,0,105"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="82" Margin="280,212,0,0" VerticalAlignment="Top" Width="110"/>
+        <TextBox HorizontalAlignment="Left" Height="197" Margin="147,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="128"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="80" Margin="147,214,0,0" VerticalAlignment="Top" Width="128"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="81" Margin="10,212,0,0" VerticalAlignment="Top" Width="132"/>
+        <TextBox HorizontalAlignment="Left" Height="187" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="132"/>
+        <!--listof clounteers--> 
+        <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Height="77" Margin="140,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159"/>
+        <!--restertDB-->
+        <Button Content="Button" HorizontalAlignment="Left" Height="78" Margin="226,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <!--instzition--> 
+        <Button Content="Button" HorizontalAlignment="Left" Height="78" Margin="42,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="138" Click="Button_Click"/>
+
+
+    </Grid>
+</Window>
