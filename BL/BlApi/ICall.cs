@@ -11,7 +11,7 @@ namespace BlApi;
 /// <summary>
 /// 
 /// </summary>
-public interface ICall
+public interface ICall: IObservable
 {
     /// <summary>
     /// Calculates the sum of calls for each status.

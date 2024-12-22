@@ -596,11 +596,11 @@ private static void handleCallOptions()
                 break;
             case ICall.READ:
                 Console.WriteLine("Please enter the ID of the call:");
-                string idInput = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+                string idInput = Console.ReadLine();  
 
-                if (!int.TryParse(idInput, out int id))  // מנסים להמיר את הקלט למספר
+                if (!int.TryParse(idInput, out int id))  
                 {
-                    throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
+                    throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  
                 }
                 Console.WriteLine(s_bl.Call.ReadCall(id));
                 break;
@@ -609,11 +609,11 @@ private static void handleCallOptions()
                 break;
             case ICall.DELETE:
                 Console.WriteLine("Please enter the ID of the call:");
-                string idDel = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+                string idDel = Console.ReadLine();  
 
-                if (!int.TryParse(idDel, out int idd))  // מנסים להמיר את הקלט למספר
+                if (!int.TryParse(idDel, out int idd))  
                 {
-                    throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // זורקים חריגה אם המזהה לא תקני
+                    throw new BO.BlWrongInputException($"Invalid ID{idDel} format"); 
                 }
                 s_bl.Call.DeleteCall(idd);
                 break;

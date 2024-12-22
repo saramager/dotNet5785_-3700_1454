@@ -10,7 +10,7 @@ namespace BlApi;
 /// <summary>
 /// intterface for Vlounteer 
 /// </summary>
-public interface IVolunteer
+public interface IVolunteer: IObservable
 {
 
     /// <summary>Validates the user login by username and password, and returns the user's role.</summary>

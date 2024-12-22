@@ -12,7 +12,14 @@ using Helpers;
 internal class CallImplementation : BlApi.ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-
+    public void AddObserver(Action listObserver) =>
+CallsManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+CallsManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+CallsManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public int[] SumOfCalls()
     {
@@ -151,6 +158,9 @@ internal class CallImplementation : BlApi.ICall
             CallsManager.CheckCallFormat(c);
             CallsManager.CheckCallLogic(c);
             _dal.Call.Update(Helpers.CallsManager.convertFormBOCallToDo(c));
+            CallsManager.Observers.NotifyItemUpdated(Helpers.CallsManager.convertFormBOCallToDo(c).ID);  //stage 5
+            CallsManager.Observers.NotifyListUpdated();  //stage 5
+
         }
         catch (BO.BlValidationException ex)
         {
@@ -183,8 +193,10 @@ internal class CallImplementation : BlApi.ICall
                 }
             }
             _dal.Call.Delete(id);
+            CallsManager.Observers.NotifyListUpdated();  //stage 5  	
+
         }
-       catch(DO.DalDoesNotExistException ex)
+        catch (DO.DalDoesNotExistException ex)
        {
             throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
        }
@@ -199,6 +211,7 @@ internal class CallImplementation : BlApi.ICall
             CallsManager.CheckCallLogic(c);
 
             _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
+            CallsManager.Observers.NotifyListUpdated(); //stage 5               
         }
         catch (BO.BlValidationException ex)
         {
@@ -347,6 +360,8 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Assignment.Update(assignment);
+
+            // משקיפים?????
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -407,6 +422,8 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Assignment.Update(assignment);
+
+            // משקיפים?????
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -454,6 +471,8 @@ internal class CallImplementation : BlApi.ICall
 
         // Attempt to add the new assignment to the data layer
         _dal.Assignment.Create(newAssignment);
+
+        // משקיפים?????
     }
 
 }

@@ -7,17 +7,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 
-internal class VolunteerImplementation : IVolunteer
-
+internal class VolunteerImplementation :  IVolunteer
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+
+    public void AddObserver(Action listObserver) =>
+VolunteersManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+VolunteersManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+VolunteersManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
+
     public void CreateVolunteer(BO.Volunteer volToAdd)
     {
        VolunteersManager.checkeVolunteerFormat(volToAdd);
         VolunteersManager.checkeVolunteerlogic(volToAdd);
         DO.Volunteer  DoVlo = VolunteersManager.convertFormBOVolunteerToDo(volToAdd);
         try 
-       { _dal.Volunteer.Create(DoVlo); }
+        {
+            _dal.Volunteer.Create(DoVlo);
+            VolunteersManager.Observers.NotifyListUpdated(); // stage 5
+        }
         catch(DO.DalAlreadyExistsException dEx) { throw new BO.BlDoesAlreadyExistException(dEx.Message, dEx); }
 
     }
@@ -28,8 +40,11 @@ internal class VolunteerImplementation : IVolunteer
         if (assForVol == null) { }
         else if (assForVol!.Count(ass => ass.finishT == null) > 0)
             throw new BO.volunteerHandleCallException("vlounteer hase open call");
-        try{
-            _dal.Volunteer.Delete(id); }
+        try
+        {
+            _dal.Volunteer.Delete(id);
+            VolunteersManager.Observers.NotifyListUpdated(); // stage 5
+        }
         catch(DO.DalDoesNotExistException dEx ) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
 
     }
@@ -140,7 +155,11 @@ internal class VolunteerImplementation : IVolunteer
             throw new CantUpdatevolunteer($"vlounteer with id {id} can't change his id  ");
 
         try
-        { _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));  } 
+        { 
+            _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));
+            VolunteersManager.Observers.NotifyListUpdated(); // stage 5
+            VolunteersManager.Observers.NotifyItemUpdated(vol.Id); // stage 5
+        } 
         catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
 }

@@ -13,6 +13,8 @@ namespace Helpers
 {
     internal static class CallsManager
     {
+        internal static ObserverManager Observers = new(); //stage 5 
+
         private static IDal s_dal = Factory.Get; //stage 4
 
         internal static BO.Call ConvertDOCallToBOCall(DO.Call doCall)
