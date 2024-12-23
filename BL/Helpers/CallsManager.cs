@@ -119,6 +119,8 @@ namespace Helpers
                 double[] coordinates = Tools.GetGeolocationCoordinates(call.address);
                 call.latitude = coordinates[0];
                 call.longitude = coordinates[1];
+                Observers.NotifyItemUpdated(call.ID);
+
             }
             catch (AdressDoesNotExistException ex)
             {
@@ -230,7 +232,11 @@ namespace Helpers
             foreach (BO.Call call in boCalls)
             {
                 if (call.CallAssign == null)
+                {
                     s_dal.Assignment.Create(new DO.Assignment(0, call.ID, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
+                    
+
+                }
                 else
                 {
                     var lastAss = call.CallAssign.OrderByDescending(a => a.startTreatment).First();
@@ -238,6 +244,7 @@ namespace Helpers
                     {
                         var assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
                         s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
+                        
                     }
 
 

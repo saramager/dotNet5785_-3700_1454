@@ -14,55 +14,66 @@ internal class AdminImplementation : IAdmin
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
+    public void AddClockObserver(Action clockObserver) =>
+    AdminManager.ClockUpdatedObservers += clockObserver;
+    public void RemoveClockObserver(Action clockObserver) =>
+    AdminManager.ClockUpdatedObservers -= clockObserver;
+    public void AddConfigObserver(Action configObserver) =>
+   AdminManager.ConfigUpdatedObservers += configObserver;
+    public void RemoveConfigObserver(Action configObserver) =>
+    AdminManager.ConfigUpdatedObservers -= configObserver;
+
     public void AddToClock(TimeUnit unit)
     {
         switch (unit)
         {
             case TimeUnit.Minute:
-                ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddMinutes(1));
                 break;
             case TimeUnit.Hour:
-                ClockManager.UpdateClock(ClockManager.Now.AddHours(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddHours(1));
                 break;
             case TimeUnit.Day:
-                ClockManager.UpdateClock(ClockManager.Now.AddDays(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddDays(1));
                 break;
             case TimeUnit.Month:
-                ClockManager.UpdateClock(ClockManager.Now.AddMonths(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddMonths(1));
                 break;
             case TimeUnit.Year:
-                ClockManager.UpdateClock(ClockManager.Now.AddYears(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddYears(1));
                 break;
         }
      }
 
     public DateTime GetClock()
     {
-        return ClockManager.Now;
+        return AdminManager.Now;
     }
 
     public TimeSpan GetRiskRange()
     {
-        return _dal.Config.RiskRange;
+        return AdminManager.RiskRange;
     }
 
     public void RestartDB()
     {
-       _dal.ResetDB();  
+       _dal.ResetDB();
+        AdminManager.UpdateClock(AdminManager.Now);
+        AdminManager.RiskRange = AdminManager.RiskRange;
     }
 
     public void SetRiskRange(TimeSpan range)
     {
 
-       _dal.Config.RiskRange = range;
+        AdminManager.RiskRange = range;
     }
 
     public void UpdateDB()
     {
-      
-       Initialization.Do();//do RESET DB and INSTATion 
-       
 
+        DalTest.Initialization.Do();
+        AdminManager.UpdateClock(AdminManager.Now);
+        AdminManager.RiskRange = AdminManager.RiskRange;
 
     }
 }

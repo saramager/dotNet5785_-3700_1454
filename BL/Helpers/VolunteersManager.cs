@@ -107,7 +107,7 @@ namespace Helpers
                         maxTime = callTreat.maxTime,
                         startTreatment = assignmentTreat.startTreatment,
                         CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
-                        statusT = (callTreat.maxTime - ClockManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
+                        statusT = (callTreat.maxTime - AdminManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
                     };}
             }
             return null;
@@ -241,6 +241,9 @@ namespace Helpers
              maxDistance: BoVolunteer.maxDistance
 
                         );
+            Observers.NotifyItemUpdated(doVl.ID);//stage 5
+            Observers.NotifyListUpdated(); //stage 5
+
             return doVl;
         }
         // A constant shift value for encryption and decryption (simple Caesar Cipher)
