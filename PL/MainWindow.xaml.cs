@@ -17,6 +17,7 @@ namespace PL
     public partial class MainWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         public DateTime CurrentTime
         {
             get { return (DateTime)GetValue(CurrentTimeProperty); }
@@ -25,23 +26,42 @@ namespace PL
         public static readonly DependencyProperty CurrentTimeProperty =
             DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
-        public int MaxYears
+        public TimeSpan RiskRange
         {
-            get { return (int)GetValue(MaxYearsProperty); }
-            set { SetValue(MaxYearsProperty, value); }
+            get { return (TimeSpan)GetValue(RiskRangeProperty); }
+            set { SetValue(RiskRangeProperty, value); }
         }
 
-        public static readonly DependencyProperty MaxYearsProperty =
-            DependencyProperty.Register(
-                "MaxYears",
-                typeof(int),
-                typeof(MainWindow),
-                new PropertyMetadata(default(int)));
+        public static readonly DependencyProperty RiskRangeProperty =
+            DependencyProperty.Register("RiskRange", typeof(TimeSpan), typeof(MainWindow));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ClockObserver()
+        {
+            CurrentTime = s_bl.Admin.GetClock();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ConfigObserver()
+        {
+            RiskRange = s_bl.Admin.GetRiskRange();
+        }
+
+        private void UpdateRiskRangeButton_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.Admin.SetRiskRange(RiskRange);
+        }
+
+        
         public MainWindow()
         {
-            
             InitializeComponent();
+            ObserverManager.AddListObserver(ClockObserver);
+            ObserverManager.AddListObserver(ConfigObserver);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
