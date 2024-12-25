@@ -18,6 +18,19 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            s_bl.Admin.AddClockObserver(clockObserver);
+            s_bl.Admin.AddConfigObserver(configObserver);
+
+            this.Closed += OnWindowClosed;
+
+            this.Loaded += OnWindowLoaded;
+        }
+
+
         public DateTime CurrentTime
         {
             get { return (DateTime)GetValue(CurrentTimeProperty); }
@@ -49,18 +62,17 @@ namespace PL
             RiskRange = s_bl.Admin.GetRiskRange();
         }
 
+        private void OnWindowClosed(object? sender, EventArgs e)
+        {
+            s_bl.Admin.RemoveClockObserver(clockObserver);
+            s_bl.Admin.RemoveConfigObserver(configObserver);
+        }
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             CurrentTime = s_bl.Admin.GetClock();
             RiskRange = s_bl.Admin.GetRiskRange();
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
-        }
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Loaded += OnWindowLoaded;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
