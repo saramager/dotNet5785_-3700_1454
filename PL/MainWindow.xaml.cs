@@ -40,11 +40,11 @@ namespace PL
             s_bl.Admin.SetRiskRange(RiskRange);
         }
 
-        private void ClockObserver()
+        private void clockObserver()
         {
             CurrentTime = s_bl.Admin.GetClock(); 
         }
-        private void ConfigObserver()
+        private void configObserver()
         {
             RiskRange = s_bl.Admin.GetRiskRange();
         }
@@ -53,8 +53,8 @@ namespace PL
         {
             CurrentTime = s_bl.Admin.GetClock();
             RiskRange = s_bl.Admin.GetRiskRange();
-            s_bl.Admin.AddClockObserver(ClockObserver);
-            s_bl.Admin.AddConfigObserver(ConfigObserver);
+            s_bl.Admin.AddClockObserver(clockObserver);
+            s_bl.Admin.AddConfigObserver(configObserver);
         }
 
         public MainWindow()
