@@ -19,7 +19,7 @@
         <!--clock value-->
         <Label Grid.Column="1" Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="25,30,0,0" VerticalAlignment="Top" Height="82" Width="324"/>
         <!--add minutes-->
-        <Button Grid.Column="1" Content="add one mintue" Click="clickAddOneMinute" HorizontalAlignment="Left" Margin="92,135,0,0" VerticalAlignment="Top" Height="25" Width="190" RenderTransformOrigin="0.482,2.501" Click="Button_Click_1"/>
+        <Button Grid.Column="1" Content="add one mintue" Click="clickAddOneMinute" HorizontalAlignment="Left" Margin="92,135,0,0" VerticalAlignment="Top" Height="25" Width="190" RenderTransformOrigin="0.482,2.501"/>
         <!--add hours-->
         <Button Grid.Column="1" Content="add one hour "  Click ="clickAddOnehour" HorizontalAlignment="Left" Height="25" Margin="92,172,0,0" VerticalAlignment="Top" Width="190"/>
         <!--add days-->
@@ -35,13 +35,19 @@
         <Button Content="Button" HorizontalAlignment="Left" Height="80" Margin="147,214,0,0" VerticalAlignment="Top" Width="128"/>
         <Button Content="Button" HorizontalAlignment="Left" Height="81" Margin="10,212,0,0" VerticalAlignment="Top" Width="132"/>
         <TextBox HorizontalAlignment="Left" Height="187" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="132"/>
-        <!--listof clounteers--> 
+        <!--list of volunteers--> 
         <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Height="77" Margin="140,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159"/>
-        <!--restertDB-->
+        <!--resetDB-->
         <Button Content="Button" HorizontalAlignment="Left" Height="78" Margin="226,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
-        <!--instzition--> 
+        <!--Initializtion--> 
         <Button Content="Button" HorizontalAlignment="Left" Height="78" Margin="42,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="138" Click="Button_Click"/>
 
+        <TextBox Grid.Column="1" Grid.Row="1" 
+         Text="{Binding MaxYears, Mode=TwoWay}" 
+         HorizontalAlignment="Left" 
+         VerticalAlignment="Top" 
+         Margin="92,10,0,0" 
+         Width="200"/>
 
     </Grid>
 </Window>

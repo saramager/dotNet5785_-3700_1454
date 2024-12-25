@@ -25,6 +25,18 @@ namespace PL
         public static readonly DependencyProperty CurrentTimeProperty =
             DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
+        public int MaxYears
+        {
+            get { return (int)GetValue(MaxYearsProperty); }
+            set { SetValue(MaxYearsProperty, value); }
+        }
+
+        public static readonly DependencyProperty MaxYearsProperty =
+            DependencyProperty.Register(
+                "MaxYears",
+                typeof(int),
+                typeof(MainWindow),
+                new PropertyMetadata(default(int)));
 
         public MainWindow()
         {
