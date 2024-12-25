@@ -35,33 +35,32 @@ namespace PL
         public static readonly DependencyProperty RiskRangeProperty =
             DependencyProperty.Register("RiskRange", typeof(TimeSpan), typeof(MainWindow));
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void ClockObserver()
+        private void SetRiskRangeButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentTime = s_bl.Admin.GetClock();
+            s_bl.Admin.SetRiskRange(RiskRange);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        private void ClockObserver()
+        {
+            CurrentTime = s_bl.Admin.GetClock(); 
+        }
         private void ConfigObserver()
         {
             RiskRange = s_bl.Admin.GetRiskRange();
         }
 
-        private void UpdateRiskRangeButton_Click(object sender, RoutedEventArgs e)
+        private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            s_bl.Admin.SetRiskRange(RiskRange);
+            CurrentTime = s_bl.Admin.GetClock();
+            RiskRange = s_bl.Admin.GetRiskRange();
+            s_bl.Admin.AddClockObserver(ClockObserver);
+            s_bl.Admin.AddConfigObserver(ConfigObserver);
         }
 
-        
         public MainWindow()
         {
             InitializeComponent();
-            ObserverManager.AddListObserver(ClockObserver);
-            ObserverManager.AddListObserver(ConfigObserver);
+            this.Loaded += OnWindowLoaded;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
