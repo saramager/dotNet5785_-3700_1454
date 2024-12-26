@@ -76,7 +76,7 @@ internal static class AdminManager //stage 4
         //Go through all students to update properties that are affected by the clock update
         //(students becomes not active after 5 years etc.)
 
-        VolunteersManager.PeriodicVolunteersUpdates(oldClock, newClock); //stage 4
+        //VolunteersManager.PeriodicVolunteersUpdates(oldClock, newClock); //stage 4
         //etc ...
 
         //Calling all the observers of clock update
@@ -124,7 +124,7 @@ internal static class AdminManager //stage 4
             //TO_DO:
             //Add calls here to any logic simulation that was required in stage 7
             //for example: course registration simulation
-            StudentManager.SimulateCourseRegistrationAndGrade(); //stage 7
+            //StudentManager.SimulateCourseRegistrationAndGrade(); //stage 7
 
             //etc...
             #endregion Stage 7

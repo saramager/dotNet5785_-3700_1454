@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using BlApi;
+using PL.Volunteer;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -105,5 +107,72 @@ namespace PL
         {
             s_bl.Admin.AddToClock(BO.TimeUnit.Year);
         }
+
+        private void ButtonVolunteerList_Click(object sender, RoutedEventArgs e)
+        {
+            new VolunteerListWindow().Show();
+        }
+        
+
+            private void Initialize_Click(object sender, RoutedEventArgs e)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to initialize the database?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    InitializeDatabase();
+                }
+            }
+
+            private void InitializeDatabase()
+            {
+                try
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    CloseAllWindowsExceptMain();
+                    s_bl.Admin.UpdateDB();
+                }
+                finally
+                {
+                    Mouse.OverrideCursor = null;
+                }
+            }
+
+            private void ButtonReset_Click(object sender, RoutedEventArgs e)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to reset the database?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    ResetDatabase();
+                }
+            }
+
+            private void ResetDatabase()
+            {
+                try
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    CloseAllWindowsExceptMain();
+                    s_bl.Admin.RestartDB();
+                }
+                finally
+                {
+                    Mouse.OverrideCursor = null;
+                }
+            }
+
+            private void CloseAllWindowsExceptMain()
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window != this)
+                    {
+                        window.Close();
+                    }
+                }
+            }
+
+       
     }
-}
+    }
+
+
