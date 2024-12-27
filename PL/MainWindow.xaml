@@ -33,19 +33,19 @@
         <!--<TextBox TextWrapping="Wrap" Text="TextBox" Width="120" Margin="280,10,0,105"/>
         <Button Content="Button" HorizontalAlignment="Left" Height="82" Margin="280,212,0,0" VerticalAlignment="Top" Width="110"/>-->
         <TextBox HorizontalAlignment="Left" Height="197" Margin="147,10,0,0" TextWrapping="Wrap" 
-         Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="128"/>
+         Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="128" />
         <Button Content="Update Risk Range" HorizontalAlignment="Left" Height="80" Margin="147,214,0,0" 
-        VerticalAlignment="Top" Width="128" Click="UpdateRiskRangeButton_Click"/>
+        VerticalAlignment="Top" Width="128" Click="SetRiskRangeButton_Click"/>
 
         <!--<TextBox HorizontalAlignment="Left" Height="187" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="132"/>
         <Button Content="Button" HorizontalAlignment="Left" Height="81" Margin="10,212,0,0" VerticalAlignment="Top" Width="132"/>-->
         
-        <!--list of volunteers--> 
-        <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Height="77" Margin="140,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159"/>
+        <!--list of volunteers-->
+        <Button Grid.Column="1" Content="Handle Volunteers" HorizontalAlignment="Left" Height="77" Margin="140,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="ButtonVolunteerList_Click"/>
         <!--resetDB-->
-        <Button Content="Button" HorizontalAlignment="Left" Height="78" Margin="226,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
-        <!--Initializtion--> 
-        <Button Content="Button" HorizontalAlignment="Left" Height="78" Margin="42,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="138" Click="Button_Click"/>
+        <Button Content="instlastion" HorizontalAlignment="Left" Height="78" Margin="226,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130" Click="ButtonReset_Click"/>
+        <!--Initializtion-->
+        <Button Content="Restet DB" HorizontalAlignment="Left" Height="78" Margin="42,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="138" Click="Initialize_Click"/>
 
         
     </Grid>

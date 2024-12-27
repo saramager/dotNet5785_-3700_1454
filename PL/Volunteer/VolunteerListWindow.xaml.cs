@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,17 @@ namespace PL.Volunteer
     /// </summary>
     public partial class VolunteerListWindow : Window
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        public IEnumerable<BO.VolunteerInList> VolunteerList
+        {
+            get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
+            set { SetValue(VolunteerListProperty, value); }
+        }
+
+        public static readonly DependencyProperty VolunteerListProperty =
+            DependencyProperty.Register("VlounteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
+        public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
         public VolunteerListWindow()
         {
             InitializeComponent();
@@ -26,6 +38,14 @@ namespace PL.Volunteer
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+        }
+
+        private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
+        {
+           filedToFilter =(BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
+
+            VolunteerList= s_bl?. Volunteer.GetVolunteerInList(null,filedToFilter)!;
 
         }
     }
