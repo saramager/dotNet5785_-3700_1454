@@ -315,6 +315,8 @@ namespace Helpers
             // Must contain at least one uppercase letter and one digit
             return password.Any(char.IsUpper) && password.Any(char.IsDigit);
         }
+
+
         
     
     }
