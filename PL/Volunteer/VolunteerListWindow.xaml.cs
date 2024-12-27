@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -43,10 +44,28 @@ namespace PL.Volunteer
 
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
-           filedToFilter =(BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
+            filedToFilter = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
 
-            VolunteerList= s_bl?. Volunteer.GetVolunteerInList(null,filedToFilter)!;
+            VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
 
         }
+        //{
+        //?????
+        // 8 ג 1
+        //}
+
+        private void queryVolunteerList()
+    => VolunteerList = (Semester == BO.SemesterNames.None) ?
+        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerFieldFilter.SemesterName, Semester)!;
+
+        private void VolunteerListObserver()
+            => queryVolunteerList());
+ 
+private void Window_Loaded(object sender, RoutedEventArgs e)
+    => s_bl.Volunteer.AddObserver(VolunteerListObserver);
+
+        private void Window_Closed(object sender, EventArgs e)
+            => s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
+
     }
 }
