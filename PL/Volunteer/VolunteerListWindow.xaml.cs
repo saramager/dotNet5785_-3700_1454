@@ -30,11 +30,13 @@ namespace PL.Volunteer
         }
 
         public static readonly DependencyProperty VolunteerListProperty =
-            DependencyProperty.Register("VlounteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
         public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
         public VolunteerListWindow()
         {
             InitializeComponent();
+            queryVolunteerList();
+
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -55,17 +57,86 @@ namespace PL.Volunteer
         //}
 
         private void queryVolunteerList()
-    => VolunteerList = (Semester == BO.SemesterNames.None) ?
-        s_bl?.Volunteer.ReadAll()! : s_bl?.Volunteer.ReadAll(null, BO.VolunteerFieldFilter.SemesterName, Semester)!;
+    => VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID) ?
+        s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
 
         private void VolunteerListObserver()
-            => queryVolunteerList());
- 
-private void Window_Loaded(object sender, RoutedEventArgs e)
-    => s_bl.Volunteer.AddObserver(VolunteerListObserver);
+            => queryVolunteerList();
+
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //=> s_bl.Volunteer.AddObserver(VolunteerListObserver);
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            s_bl.Volunteer.AddObserver(VolunteerListObserver);
+            queryVolunteerList(); // טוען מחדש את הרשימה עם פתיחת החלון
+        }
+
 
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
 
     }
 }
+
+
+
+
+
+//using BlApi;
+//using System;
+//using System.Collections.Generic;
+//using System.Windows;
+//using System.Windows.Controls;
+
+//namespace PL.Volunteer
+//{
+//    public partial class VolunteerListWindow : Window
+//    {
+//        static readonly IBl s_bl = Factory.Get();
+
+//        public IEnumerable<BO.VolunteerInList> VolunteerList
+//        {
+//            get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
+//            set { SetValue(VolunteerListProperty, value); }
+//        }
+
+//        public static readonly DependencyProperty VolunteerListProperty =
+//            DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
+
+//        public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
+
+//        public VolunteerListWindow()
+//        {
+//            InitializeComponent();
+//            queryVolunteerList(); // טוען את הנתונים עם פתיחת החלון
+//        }
+
+//        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+
+//        private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
+//        {
+//            filedToFilter = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
+//            queryVolunteerList(); // מעדכן את הרשימה על פי הפילטר
+//        }
+
+//        private void queryVolunteerList()
+//        {
+//            VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID)
+//                ? s_bl.Volunteer.GetVolunteerInList(null, null)
+//                : s_bl.Volunteer.GetVolunteerInList(null, filedToFilter);
+//        }
+
+//        private void VolunteerListObserver() => queryVolunteerList();
+
+//        private void Window_Loaded(object sender, RoutedEventArgs e)
+//        {
+//            s_bl.Volunteer.AddObserver(VolunteerListObserver);
+//            queryVolunteerList(); // טוען מחדש את הרשימה עם פתיחת החלון
+//        }
+
+//        private void Window_Closed(object sender, EventArgs e)
+//        {
+//            s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
+//        }
+//    }
+//}

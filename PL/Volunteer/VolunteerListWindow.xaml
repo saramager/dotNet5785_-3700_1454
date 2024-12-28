@@ -10,25 +10,47 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40*" />
+            <RowDefinition Height="500*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+
+        <!-- Internal, Upper Grid -->
+        <Grid HorizontalAlignment="Stretch" Height="Auto" Grid.Row="0" VerticalAlignment="Stretch" Width="Auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center"/>
-            <ComboBox    SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
-             ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="1"/>
-            <!--SelectionChanged="VolunteerFilter"-->
-             
+            <Label Content="Label" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
+            <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
+                      ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" 
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="VolunteerFilter"/>
         </Grid>
-        <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding CourseList}"/>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
 
+        <!-- DataGrid -->
+        <!--MouseDoubleClick="dgStudentList_MouseDoubleClick" SelectedItem="{Binding SelectedVolunteer}"-->
 
+        <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" IsReadOnly="True" AutoGenerateColumns="False"
+                  EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding fullName}" Header="Name" Width="Auto" />
+                <DataGridTemplateColumn Header="Is Active" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsEnabled="False" IsChecked="{Binding Path=active}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding numCallsHandled}" Header="Handled Calls" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding numCallsCancelled}" Header="Cancelled Calls" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding numCallsExpired}" Header="Expired Calls" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding CallId}" Header="Call ID" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="Auto" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Button -->
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" />
     </Grid>
 </Window>

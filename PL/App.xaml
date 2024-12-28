@@ -5,6 +5,8 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:FiledToFilterVlounteerColecthion x:Key="FiledToFilterVlounteerColecthionKey" />
+        <local:VolunteerRolesColecthion x:Key="VolunteerRolesKey" />
+        <local:DistanceTypeColecthion x:Key="DistanceTypeKey" />
 
     </Application.Resources>
 </Application>
