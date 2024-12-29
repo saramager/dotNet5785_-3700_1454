@@ -116,7 +116,7 @@ namespace Helpers
             try
             {
                 // Validate address and update geolocation data
-                double[] coordinates = Tools.GetDistance(call.address);
+                double[] coordinates = Tools.GetGeolocationCoordinates(call.address);
                 call.latitude = coordinates[0];
                 call.longitude = coordinates[1];
                 Observers.NotifyItemUpdated(call.ID);
