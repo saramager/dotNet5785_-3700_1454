@@ -8,28 +8,47 @@
         Title="VolunteerWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
+        <!-- Volunteer ID field -->
         <Label Content="ID" HorizontalAlignment="Left" Height="30" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="252"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
+
+        <!-- Volunteer name field -->
         <Label Content="Name" HorizontalAlignment="Left" Height="30" Margin="24,56,0,0" VerticalAlignment="Top" Width="109"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="227,56,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="252"/>
+
+        <!-- Volunteer email field -->
         <Label Content="Email" HorizontalAlignment="Left" Height="29" Margin="24,101,0,0" VerticalAlignment="Top" Width="65"/>
         <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263"/>
-        <Label Content="password" HorizontalAlignment="Left" Margin="24,181,0,0" VerticalAlignment="Top"/>
+
+        <!-- Volunteer password field -->
+        <Label Content="Password" HorizontalAlignment="Left" Margin="24,181,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="25" Margin="227,181,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" />
-        <Label Content="phone number" HorizontalAlignment="Left" Height="31" Margin="24,145,0,0" VerticalAlignment="Top" Width="109"/>
+
+        <!-- Volunteer phone number field -->
+        <Label Content="Phone Number" HorizontalAlignment="Left" Height="31" Margin="24,145,0,0" VerticalAlignment="Top" Width="109"/>
         <TextBox HorizontalAlignment="Left" Height="31" Margin="227,145,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263"/>
-        <Label Content="full adress" HorizontalAlignment="Left" Height="32" Margin="33,226,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="role" HorizontalAlignment="Left" Height="27" Margin="24,273,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}"  />
-        <Label Content="active " HorizontalAlignment="Left" Height="22" Margin="24,316,0,0" VerticalAlignment="Top" Width="109"/>
-        <Label Content="max distance for call" HorizontalAlignment="Left" Height="33" Margin="18,352,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="distance type" HorizontalAlignment="Left" Height="24" Margin="24,390,0,0" VerticalAlignment="Top" Width="141"/>
-        <CheckBox  IsChecked="{Binding Path=CurrentVolunteer.active}" Content="active volunteer" HorizontalAlignment="Left" Height="11" Margin="227,327,0,0" VerticalAlignment="Top" Width="102"/>
+
+        <!-- Volunteer full address field -->
+        <Label Content="Full Address" HorizontalAlignment="Left" Height="32" Margin="33,226,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="32" Margin="227,226,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427"/>
+
+        <!-- Volunteer role field -->
+        <Label Content="Role" HorizontalAlignment="Left" Height="27" Margin="24,273,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" />
+
+        <!-- Volunteer activity status -->
+        <Label Content="Active" HorizontalAlignment="Left" Height="22" Margin="24,316,0,0" VerticalAlignment="Top" Width="109"/>
+        <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}" Content="Active Volunteer" HorizontalAlignment="Left" Height="11" Margin="227,327,0,0" VerticalAlignment="Top" Width="102"/>
+
+        <!-- Volunteer maximum distance for calls -->
+        <Label Content="Max Distance for Call" HorizontalAlignment="Left" Height="33" Margin="18,352,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Height="18" Margin="197,352,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="236"/>
+
+        <!-- Distance type field -->
+        <Label Content="Distance Type" HorizontalAlignment="Left" Height="24" Margin="24,390,0,0" VerticalAlignment="Top" Width="141"/>
         <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" />
+
+        <!-- Add or update button -->
         <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="625,337,0,0" VerticalAlignment="Top" Width="165"/>
-        <TextBox HorizontalAlignment="Left" Height="32" Margin="227,226,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427" />
-
-
     </Grid>
 </Window>

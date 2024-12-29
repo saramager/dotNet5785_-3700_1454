@@ -19,19 +19,35 @@ namespace PL.Volunteer
     /// </summary>
     public partial class VolunteerWindow : Window
     {
+        /// <summary>
+        /// Instance of the BL layer
+        /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        /// <summary>
+        /// Text for the add/update button
+        /// </summary>
         private string ButtonText { get; set; }
+
+        /// <summary>
+        /// Current volunteer being managed
+        /// </summary>
         public BO.Volunteer? CurrentVolunteer
         {
             get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
             set { SetValue(CurrentVolunteerProperty, value); }
         }
 
-
+        /// <summary>
+        /// Dependency property for CurrentVolunteer
+        /// </summary>
         public static readonly DependencyProperty CurrentVolunteerProperty =
             DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
 
-
+        /// <summary>
+        /// Constructor for the VolunteerWindow
+        /// </summary>
+        /// <param name="id">ID of the volunteer (0 for new volunteer)</param>
         public VolunteerWindow(int id = 0)
         {
             CurrentVolunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
@@ -39,45 +55,58 @@ namespace PL.Volunteer
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handles the Add/Update button click
+        /// </summary>
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
-            try { if (ButtonText == "Add")
+            try
+            {
+                if (ButtonText == "Add")
                 {
                     s_bl.Volunteer.CreateVolunteer(CurrentVolunteer);
-                    MessageBox.Show("secssful add");
+                    MessageBox.Show("Successful add");
                 }
                 else
                 {
                     s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer.Id, CurrentVolunteer);
-                    MessageBox.Show("secssful update ");
-
+                    MessageBox.Show("Successful update");
                 }
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-        private void queryVolunteer(){
+
+        /// <summary>
+        /// Queries the current volunteer details
+        /// </summary>
+        private void queryVolunteer()
+        {
             int id = CurrentVolunteer?.Id ?? 0;
-
-            CurrentVolunteer =id != 0? s_bl.Volunteer.ReadVolunteer(id): null;
-
-
-
+            CurrentVolunteer = id != 0 ? s_bl.Volunteer.ReadVolunteer(id) : null;
         }
+
+        /// <summary>
+        /// Observer for volunteer changes
+        /// </summary>
         private void volunteerObserver()
             => queryVolunteer();
- 
-private void Window_Loaded(object sender, RoutedEventArgs e)
-    => s_bl.Volunteer.AddObserver(volunteerObserver);
 
+        /// <summary>
+        /// Adds the observer when the window is loaded
+        /// </summary>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+            => s_bl.Volunteer.AddObserver(volunteerObserver);
+
+        /// <summary>
+        /// Removes the observer when the window is closed
+        /// </summary>
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteer.RemoveObserver(volunteerObserver);
-
     }
 }
 
-       
-    
+
+

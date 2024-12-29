@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
+            <Label Content=" File to sort:" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
                       ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" 
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="VolunteerFilter"/>

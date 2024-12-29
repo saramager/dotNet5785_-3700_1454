@@ -21,10 +21,20 @@ namespace PL.Volunteer
     /// </summary>
     public partial class VolunteerListWindow : Window
     {
+        /// <summary>
+        /// Static reference to the BL instance.
+        /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        /// <summary>
+        /// Selected volunteer from the list.
+        /// </summary>
         public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
+        /// <summary>
+        /// Handles double-clicking on a volunteer in the list.
+        /// Opens a detailed volunteer window.
+        /// </summary>
         private void lsvVolunteersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedVolunteer != null)
@@ -33,12 +43,18 @@ namespace PL.Volunteer
             }
         }
 
+        /// <summary>
+        /// Handles the "Add" button click to open the add volunteer window.
+        /// </summary>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var volunteerWindow = new VolunteerWindow();
             volunteerWindow.Show();
         }
 
+        /// <summary>
+        /// Handles the "Delete" button click to delete a selected volunteer.
+        /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -63,56 +79,81 @@ namespace PL.Volunteer
             }
         }
 
+        /// <summary>
+        /// List of volunteers displayed in the UI.
+        /// </summary>
         public IEnumerable<BO.VolunteerInList> VolunteerList
         {
             get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
             set { SetValue(VolunteerListProperty, value); }
         }
 
+        /// <summary>
+        /// Dependency property for VolunteerList.
+        /// </summary>
         public static readonly DependencyProperty VolunteerListProperty =
             DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Current filter field for volunteers.
+        /// </summary>
         public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
+
+        /// <summary>
+        /// Initializes the VolunteerListWindow and loads the volunteer list.
+        /// </summary>
         public VolunteerListWindow()
         {
             InitializeComponent();
             queryVolunteerList();
-
         }
 
+        /// <summary>
+        /// Handles selection changes in the data grid.
+        /// </summary>
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Handles filtering volunteers based on the selected field.
+        /// </summary>
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
             filedToFilter = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
 
             VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
-
         }
 
+        /// <summary>
+        /// Queries the volunteer list based on the current filter.
+        /// </summary>
         private void queryVolunteerList()
-    => VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID) ?
-        s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
+            => VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID) ?
+                s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
 
+        /// <summary>
+        /// Observer function to update the volunteer list.
+        /// </summary>
         private void VolunteerListObserver()
             => queryVolunteerList();
 
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //=> s_bl.Volunteer.AddObserver(VolunteerListObserver);
+        /// <summary>
+        /// Handles the window loaded event to add the observer and load the list.
+        /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             s_bl.Volunteer.AddObserver(VolunteerListObserver);
             queryVolunteerList(); // טוען מחדש את הרשימה עם פתיחת החלון
         }
 
-
+        /// <summary>
+        /// Handles the window closed event to remove the observer.
+        /// </summary>
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
-
     }
-
 }
 
 
