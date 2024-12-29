@@ -23,6 +23,46 @@ namespace PL.Volunteer
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        public BO.VolunteerInList? SelectedVolunteer { get; set; }
+
+        private void lsvVolunteersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedVolunteer != null)
+            {
+                new VolunteerWindow(SelectedVolunteer.ID).Show();
+            }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            var volunteerWindow = new VolunteerWindow();
+            volunteerWindow.Show();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var volunteer = button?.DataContext as BO.VolunteerInList;
+
+            if (volunteer == null)
+                return;
+
+            var result = MessageBox.Show("Are you sure you want to delete this volunteer?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    s_bl.Volunteer.DeleteVolunteer(volunteer.ID);
+                    VolunteerList = s_bl.Volunteer.GetVolunteerInList(null, filedToFilter);
+                }
+                catch (BO.BlDoesNotExistException ex)
+                {
+                    MessageBox.Show($"Failed to delete volunteer: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
         public IEnumerable<BO.VolunteerInList> VolunteerList
         {
             get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
@@ -51,10 +91,6 @@ namespace PL.Volunteer
             VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
 
         }
-        //{
-        //?????
-        // 8 ג 1
-        //}
 
         private void queryVolunteerList()
     => VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID) ?
@@ -76,6 +112,7 @@ namespace PL.Volunteer
             => s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
 
     }
+
 }
 
 

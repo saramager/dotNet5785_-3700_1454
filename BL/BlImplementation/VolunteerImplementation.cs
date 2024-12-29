@@ -39,7 +39,7 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
         if (assForVol == null) { }
         else if (assForVol!.Count(ass => ass.finishT == null) > 0)
-            throw new BO.volunteerHandleCallException("vlounteer hase open call");
+            throw new BO.volunteerHandleCallException("volunteer has open call");
         try
         {
             _dal.Volunteer.Delete(id);
@@ -119,11 +119,8 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         
             v = _dal.Volunteer.Read(v => v.ID == id);
             if (v == null)
-                throw new BO.BlDoesNotExistException("($\"there is no vlounteer with id : {id} \"");
+                throw new BO.BlDoesNotExistException("($\"there is no Volunteer with id : {id} \"");
             return Helpers.VolunteersManager.convertDOToBOVolunteer(v);
-
-      
-
     }
    
     public void UpdateVolunteer(int id, BO.Volunteer vol)

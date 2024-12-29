@@ -71,20 +71,6 @@
     <maxDistance>0.8065836928883752</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>351910096</ID>
-    <fullName>Chana Rosen</fullName>
-    <phone>0596789012</phone>
-    <email>chana.rosen@icloud.com</email>
-    <isActive>true</isActive>
-    <role>TVolunteer</role>
-    <distance>3</distance>
-    <password>password321</password>
-    <address>Amram Gaon 6, Jerusalem, Israel</address>
-    <longitude>35.19285</longitude>
-    <latitude>31.79141</latitude>
-    <maxDistance>4.576432233226227</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>627399470</ID>
     <fullName>Aharon Azulay</fullName>
     <phone>0577890123</phone>
@@ -223,5 +209,19 @@
     <longitude>35.19622</longitude>
     <latitude>31.78776</latitude>
     <maxDistance>4.327667180579879</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>351910096</ID>
+    <fullName>Chana Rosen</fullName>
+    <phone>0596789012</phone>
+    <email>chana.rosen@icloud.com</email>
+    <isActive>true</isActive>
+    <role>TVolunteer</role>
+    <distance>3</distance>
+    <password>password321D</password>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <longitude>35.1929374</longitude>
+    <latitude>31.7913918</latitude>
+    <maxDistance>4.576432233226227</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

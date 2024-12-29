@@ -26,7 +26,7 @@
         <Label Content="distance type" HorizontalAlignment="Left" Height="24" Margin="24,390,0,0" VerticalAlignment="Top" Width="141"/>
         <CheckBox  IsChecked="{Binding Path=CurrentVolunteer.active}" Content="active volunteer" HorizontalAlignment="Left" Height="11" Margin="227,327,0,0" VerticalAlignment="Top" Width="102"/>
         <TextBox HorizontalAlignment="Left" Height="18" Margin="197,352,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="236"/>
-        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" />
+        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" />
         <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="625,337,0,0" VerticalAlignment="Top" Width="165"/>
         <TextBox HorizontalAlignment="Left" Height="32" Margin="227,226,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427" />
 

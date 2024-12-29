@@ -29,12 +29,11 @@ namespace PL.Volunteer
 
 
         public static readonly DependencyProperty CurrentVolunteerProperty =
-            DependencyProperty.Register("CurrentCourse", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
 
 
-        public VolunteerWindow()
+        public VolunteerWindow(int id = 0)
         {
-            int id = 0;
             CurrentVolunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
             ButtonText = id == 0 ? "Add" : "Update";
             InitializeComponent();
