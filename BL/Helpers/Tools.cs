@@ -1,4 +1,5 @@
-﻿using BO;
+﻿
+using BO;
 using System.Diagnostics;
 using System.Net;
 using System.Reflection;
@@ -11,9 +12,9 @@ using Newtonsoft.Json;
 
 namespace Helpers
 {
-    internal static  class Tools
+    internal static class Tools
     {
-  
+
 
         // The generic method works for any object, returning a string of its properties
         public static string ToStringProperty<T>(this T t)
@@ -69,7 +70,7 @@ namespace Helpers
                         string jsonResponse = responseReader.ReadToEnd();
                         var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                         var locationData = System.Text.Json.JsonSerializer.Deserialize<LocationResult[]>(jsonResponse, jsonOptions);
-                        
+
 
                         if (locationData == null || locationData.Length == 0)
                         {
@@ -124,25 +125,27 @@ namespace Helpers
         /// </remarks>
         public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2, BO.Distance distanceType)
         {
-            double distance = 0; 
+            double distance = 0;
             switch (distanceType)
-   { case BO.Distance.AirDistance: const double R = 6371; // Radius of the Earth in kilometers
+            {
+                case BO.Distance.AirDistance:
+                    const double R = 6371; // Radius of the Earth in kilometers
 
-            double lat1Rad = ToRadians(lat1);
-            double lon1Rad = ToRadians(lon1);
-            double lat2Rad = ToRadians(lat2);
-            double lon2Rad = ToRadians(lon2);
+                    double lat1Rad = ToRadians(lat1);
+                    double lon1Rad = ToRadians(lon1);
+                    double lat2Rad = ToRadians(lat2);
+                    double lon2Rad = ToRadians(lon2);
 
-            double dLat = lat2Rad - lat1Rad;
-            double dLon = lon2Rad - lon1Rad;
+                    double dLat = lat2Rad - lat1Rad;
+                    double dLon = lon2Rad - lon1Rad;
 
-            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                       Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
-                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+                    double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                               Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+                               Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+                    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-            distance= R * c; // Distance in kilometers}
+                    distance = R * c; // Distance in kilometers}
                     break;
                 case BO.Distance.walkingDistance:
                     distance = GetDistance(lat1, lon1, lat2, lon2, "foot-walking");
@@ -152,7 +155,7 @@ namespace Helpers
                     break;
             }
 
-                return distance;
+            return distance;
         }
 
         /// <summary>
@@ -228,6 +231,6 @@ namespace Helpers
     }
 
 }
-   
+
 
 
