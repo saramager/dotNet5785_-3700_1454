@@ -27,7 +27,7 @@ namespace PL.Volunteer
         /// <summary>
         /// Text for the add/update button
         /// </summary>
-        private string ButtonText { get; set; }
+        public string ButtonText { get; set; }
 
         /// <summary>
         /// Current volunteer being managed

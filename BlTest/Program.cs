@@ -58,11 +58,10 @@ internal class Program
 
     //static async Task Main(string[] args)
     //{
-    //    var res =  await Tools.GetDistance(31.78827,  35.19383, 31.78776, 35.19622, "driving-car");
+    //    string p = VolunteersManager.Encrypt("password123");
+    //    Console.WriteLine(  p);
+    //    Console.WriteLine(VolunteersManager.Decrypt(p));
 
-    //    Console.WriteLine(res.ToString());
-
-    //    Console.WriteLine("kuku was here !!!");
     //}
     static void Main(string[] args)
     {

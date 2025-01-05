@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Helpers
 {
-    public  static class Tools
+    internal  static class Tools
     {
         static string apiKey = "5b3ce3597851110001cf6248286b64adfd1844dfb35eaf5e58e0da1e";
 

@@ -10,7 +10,8 @@
     <Grid>
         <!-- Volunteer ID field -->
         <Label Content="ID" HorizontalAlignment="Left" Height="30" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"
+                 IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"/>
 
         <!-- Volunteer name field -->
         <Label Content="Name" HorizontalAlignment="Left" Height="30" Margin="24,56,0,0" VerticalAlignment="Top" Width="109"/>
@@ -34,7 +35,7 @@
 
         <!-- Volunteer role field -->
         <Label Content="Role" HorizontalAlignment="Left" Height="27" Margin="24,273,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" />
+        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" />
 
         <!-- Volunteer activity status -->
         <Label Content="Active" HorizontalAlignment="Left" Height="22" Margin="24,316,0,0" VerticalAlignment="Top" Width="109"/>
@@ -46,9 +47,9 @@
 
         <!-- Distance type field -->
         <Label Content="Distance Type" HorizontalAlignment="Left" Height="24" Margin="24,390,0,0" VerticalAlignment="Top" Width="141"/>
-        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" />
+        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326"   SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" />
 
         <!-- Add or update button -->
-        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="625,337,0,0" VerticalAlignment="Top" Width="165"/>
+        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="625,337,0,0" VerticalAlignment="Top" Width="165" FontSize="14"/>
     </Grid>
 </Window>

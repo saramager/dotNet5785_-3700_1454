@@ -30,7 +30,6 @@ namespace PL.Volunteer
         /// Selected volunteer from the list.
         /// </summary>
         public BO.VolunteerInList? SelectedVolunteer { get; set; }
-        //לשנות לפרופרטי 
         /// <summary>
         /// Handles double-clicking on a volunteer in the list.
         /// Opens a detailed volunteer window.

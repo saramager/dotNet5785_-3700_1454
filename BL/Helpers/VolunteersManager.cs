@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Helpers
 {
-    internal static class VolunteersManager
+    /*internal*/  public static class VolunteersManager
     {
         internal static ObserverManager Observers = new(); //stage 5 
 
