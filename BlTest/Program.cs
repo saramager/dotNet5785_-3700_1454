@@ -3,6 +3,8 @@ using BlApi;
 using BO;
 using System;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+using Helpers;
 
 public enum OPTION
 {
@@ -53,6 +55,15 @@ internal class Program
 
 
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    //static async Task Main(string[] args)
+    //{
+    //    var res =  await Tools.GetDistance(31.78827,  35.19383, 31.78776, 35.19622, "driving-car");
+
+    //    Console.WriteLine(res.ToString());
+
+    //    Console.WriteLine("kuku was here !!!");
+    //}
     static void Main(string[] args)
     {
         try //If there are any exceptions

@@ -96,6 +96,8 @@ namespace Helpers
                    {
                     double latitude = doVolunteer.Latitude ?? callTreat.latitude;
                     double longitude = doVolunteer.Longitude ?? callTreat.longitude;
+                    var val = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude, (BO.Distance)doVolunteer.distanceType);
+
                     return new()
                     {
                         ID = assignmentTreat.ID,
@@ -106,7 +108,8 @@ namespace Helpers
                         openTime = callTreat.openTime,
                         maxTime = callTreat.maxTime,
                         startTreatment = assignmentTreat.startTreatment,
-                        CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
+                        CallDistance=val,
+                        //CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
                         statusT = (callTreat.maxTime - AdminManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
                     };}
             }

@@ -30,13 +30,14 @@ namespace PL.Volunteer
         /// Selected volunteer from the list.
         /// </summary>
         public BO.VolunteerInList? SelectedVolunteer { get; set; }
-
+        //לשנות לפרופרטי 
         /// <summary>
         /// Handles double-clicking on a volunteer in the list.
         /// Opens a detailed volunteer window.
         /// </summary>
         private void lsvVolunteersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+           
             if (SelectedVolunteer != null)
             {
                 new VolunteerWindow(SelectedVolunteer.ID).Show();
