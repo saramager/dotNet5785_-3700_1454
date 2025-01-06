@@ -39,7 +39,7 @@ namespace PL.Volunteer
         {
             if (SelectedVolunteer != null)
             {
-                new VolunteerWindow(SelectedVolunteer.ID).Show();
+                new VolunteerWindow(SelectedVolunteer.ID).ShowDialog();
             }
         }
 
@@ -49,7 +49,7 @@ namespace PL.Volunteer
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var volunteerWindow = new VolunteerWindow();
-            volunteerWindow.Show();
+            volunteerWindow.ShowDialog();
         }
 
         /// <summary>

@@ -155,20 +155,6 @@
     <maxDistance>3.538307555770638</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>214274235</ID>
-    <fullName>Rivka Dayan</fullName>
-    <phone>0552345678</phone>
-    <email>rivka.dayan@fastmail.com</email>
-    <isActive>true</isActive>
-    <role>TVolunteer</role>
-    <distance>walkingDistance</distance>
-    <password>password321</password>
-    <address>Amram Gaon 6, Jerusalem, Israel</address>
-    <longitude>35.19285</longitude>
-    <latitude>31.79141</latitude>
-    <maxDistance>1.4689639313358527</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>709740914</ID>
     <fullName>Yitzhak Azulay</fullName>
     <phone>0583456789</phone>
@@ -223,5 +209,19 @@
     <longitude>35.19285</longitude>
     <latitude>31.79141</latitude>
     <maxDistance>1.1795030960499049</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>214274235</ID>
+    <fullName>Rivka Dayan</fullName>
+    <phone>0552345678</phone>
+    <email>rivka.dayan@fastmail.com</email>
+    <isActive>true</isActive>
+    <role>TVolunteer</role>
+    <distance>walkingDistance</distance>
+    <password>pa45Word321</password>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <longitude>35.1929374</longitude>
+    <latitude>31.7913918</latitude>
+    <maxDistance>1.4689639313358527</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
