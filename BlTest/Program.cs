@@ -3,6 +3,8 @@ using BlApi;
 using BO;
 using System;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+using Helpers;
 
 public enum OPTION
 {
@@ -53,6 +55,14 @@ internal class Program
 
 
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    //static async Task Main(string[] args)
+    //{
+    //    string p = VolunteersManager.Encrypt("password123");
+    //    Console.WriteLine(  p);
+    //    Console.WriteLine(VolunteersManager.Decrypt(p));
+
+    //}
     static void Main(string[] args)
     {
         try //If there are any exceptions

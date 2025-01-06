@@ -2,11 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PL"
-             StartupUri="MainWindow.xaml">
+             StartupUri="EnterToSystemWindow.xaml">
     <Application.Resources>
+        <!--Enums--> 
         <local:FiledToFilterVlounteerColecthion x:Key="FiledToFilterVlounteerColecthionKey" />
         <local:VolunteerRolesColecthion x:Key="VolunteerRolesKey" />
         <local:DistanceTypeColecthion x:Key="DistanceTypeKey" />
+        <!--converters-->
+        <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
+        <!--color pallte-->
+        <SolidColorBrush x:Key="litePurple" Color="#dcc6e0"/>
+        <SolidColorBrush x:Key="cream" Color="#fff5e1"/>
+        <SolidColorBrush x:Key="tile" Color="#98c8b9"/>
+        <SolidColorBrush x:Key="liteBrowne" Color="#ba9884"/>
+
+
+
 
     </Application.Resources>
 </Application>

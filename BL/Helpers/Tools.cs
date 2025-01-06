@@ -12,8 +12,9 @@ using Newtonsoft.Json;
 
 namespace Helpers
 {
-    internal static class Tools
+    internal  static class Tools
     {
+        static string apiKey = "5b3ce3597851110001cf6248286b64adfd1844dfb35eaf5e58e0da1e";
 
 
         // The generic method works for any object, returning a string of its properties
@@ -145,16 +146,16 @@ namespace Helpers
 
                     double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-                    distance = R * c; // Distance in kilometers}
+                    distance = R * c; // Distance in kilometers
                     break;
                 case BO.Distance.walkingDistance:
-                    distance = GetDistance(lat1, lon1, lat2, lon2, "foot-walking");
+                    distance =  GetDistanceAsync(lat1, lon1, lat2, lon2, "foot-walking").Result;
                     break;
                 case BO.Distance.DrivingDistance:
-                    distance = GetDistance(lat1, lon1, lat2, lon2, "driving-car");
+                    distance =  GetDistanceAsync(lat1, lon1, lat2, lon2, "driving-car").Result;
                     break;
             }
-
+            
             return distance;
         }
 
@@ -180,9 +181,8 @@ namespace Helpers
         /// <param name="profile">The transportation mode (e.g., "driving-car" or "foot-walking").</param>
         /// <returns>The distance in kilometers between the two points, or -1 if an error occurs.</returns>
         /// <exception cref="Exception">Thrown when there is an issue with the API request or response.</exception>
-        public static double GetDistance(double lat1, double lon1, double lat2, double lon2, string profile)
+        public static async Task<double> GetDistanceAsync(double lat1, double lon1, double lat2, double lon2, string profile)
         {
-            string apiKey = "5b3ce3597851110001cf6248286b64adfd1844dfb35eaf5e58e0da1e";
 
             using (HttpClient client = new HttpClient())
             {
@@ -202,7 +202,7 @@ namespace Helpers
                     client.DefaultRequestHeaders.Add("Authorization", apiKey);
 
                     var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = client.PostAsync(url, content).Result;
+                    HttpResponseMessage response = await client.PostAsync(url, content);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -210,7 +210,11 @@ namespace Helpers
                     }
 
                     string responseBody = response.Content.ReadAsStringAsync().Result;
-                    dynamic responseData = JsonConvert.DeserializeObject(responseBody);
+                    dynamic? responseData = JsonConvert.DeserializeObject(responseBody);
+                    if (responseData == null)
+                    {
+                        throw new Exception("Deserialization returned null.");
+                    }
 
                     if (responseData.routes != null && responseData.routes.Count > 0)
                     {
