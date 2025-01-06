@@ -1,5 +1,6 @@
 ﻿using BO;
 using Newtonsoft.Json.Linq;
+using PL.VolunteerScreens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace PL
             {
                 Role = s_bl.Volunteer.EnterToSystem(Id, Password);
                 if (Role == RoleType.TVolunteer)
-                    MessageBox.Show("vlounteer");
+                    new VolnteerMainWindow(Id).Show();
                 else
                     MessageBox.Show("manger");
             }

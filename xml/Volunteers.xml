@@ -21,7 +21,7 @@
     <email>miriamCohen@gmail.com</email>
     <isActive>true</isActive>
     <role>TVolunteer</role>
-    <distance>3</distance>
+    <distance>AirDistance</distance>
     <password>sdvvzrug456</password>
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.18556</longitude>
@@ -91,7 +91,7 @@
     <email>aharonAzulay@mail.com</email>
     <isActive>true</isActive>
     <role>TVolunteer</role>
-    <distance>3</distance>
+    <distance>AirDistance</distance>
     <password>sdvvzrug456</password>
     <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
     <longitude>35.19252</longitude>
@@ -133,7 +133,7 @@
     <email>esther.bar@aol.com</email>
     <isActive>true</isActive>
     <role>TVolunteer</role>
-    <distance>3</distance>
+    <distance>AirDistance</distance>
     <password>sdvvzrug456</password>
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.18556</longitude>
@@ -217,7 +217,7 @@
     <email>moshe342@gmail.co.il</email>
     <isActive>true</isActive>
     <role>Manager</role>
-    <distance>3</distance>
+    <distance>AirDistance</distance>
     <password>sdvvzrug456</password>
     <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
     <longitude>35.18392</longitude>

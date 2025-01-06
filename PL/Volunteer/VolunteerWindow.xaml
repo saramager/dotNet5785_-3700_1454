@@ -9,8 +9,8 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="287*"/>
-            <ColumnDefinition Width="513*"/>
+            <ColumnDefinition Width="281*"/>
+            <ColumnDefinition Width="519*"/>
         </Grid.ColumnDefinitions>
         <!-- Volunteer ID field -->
         <Label Content="ID" HorizontalAlignment="Left" Height="23" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
@@ -19,39 +19,39 @@
 
         <!-- Volunteer name field -->
         <Label Content="Name" HorizontalAlignment="Left" Height="23" Margin="24,56,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="227,56,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="252"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="227,56,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="252" Grid.ColumnSpan="2"/>
 
         <!-- Volunteer email field -->
         <Label Content="Email" HorizontalAlignment="Left" Height="23" Margin="24,101,0,0" VerticalAlignment="Top" Width="65"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="2"/>
 
         <!-- Volunteer password field -->
-        <Label Content="Password" HorizontalAlignment="Left" Height="23" Margin="24,190,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="25" Margin="227,190,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" />
+        <Label Content="Password" HorizontalAlignment="Left" Height="23" Margin="24,190,0,0" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="25" Margin="227,190,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="2" />
 
         <!-- Volunteer phone number field -->
         <Label Content="Phone Number" HorizontalAlignment="Left" Height="23" Margin="24,145,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox HorizontalAlignment="Left" Height="31" Margin="227,145,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263"/>
+        <TextBox HorizontalAlignment="Left" Height="31" Margin="227,145,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="2"/>
 
         <!-- Volunteer full address field -->
         <Label Content="Full Address" HorizontalAlignment="Left" Height="23" Margin="24,226,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="32" Margin="227,226,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427"/>
+        <TextBox HorizontalAlignment="Left" Height="32" Margin="227,226,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="2"/>
 
         <!-- Volunteer role field -->
         <Label Content="Role" HorizontalAlignment="Left" Height="23" Margin="24,273,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" />
+        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" Grid.ColumnSpan="2" />
 
         <!-- Volunteer activity status -->
         <Label Content="Active" HorizontalAlignment="Left" Height="23" Margin="24,310,0,0" VerticalAlignment="Top" Width="109"/>
-        <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}" Content="Active Volunteer" HorizontalAlignment="Left" Height="25" Margin="227,320,0,0" VerticalAlignment="Top" Width="110"/>
+        <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}" Content="Active Volunteer" HorizontalAlignment="Left" Height="25" Margin="227,320,0,0" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2"/>
 
         <!-- Volunteer maximum distance for calls -->
         <Label Content="Max Distance for Call" HorizontalAlignment="Left" Height="23" Margin="18,352,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="18" Margin="197,352,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="236"/>
+        <TextBox HorizontalAlignment="Left" Height="18" Margin="197,352,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="236" Grid.ColumnSpan="2"/>
 
         <!-- Distance type field -->
         <Label Content="Distance Type" HorizontalAlignment="Left" Height="26" Margin="24,390,0,0" VerticalAlignment="Top" Width="141"/>
-        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326"   SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" />
+        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326"   SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" Grid.ColumnSpan="2" />
 
         <!-- Add or update button -->
         <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="338,337,0,0" VerticalAlignment="Top" Width="165" FontSize="14" Grid.Column="1"/>
