@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Volunteer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Volunteer
+namespace PL.Call
 {
     /// <summary>
-    /// Interaction logic for VolunteerWindow.xaml
+    /// Interaction logic for CallWindow.xaml
     /// </summary>
-    public partial class VolunteerWindow : Window
+    public partial class CallWindow : Window
     {
+
         /// <summary>
         /// Instance of the BL layer
         /// </summary>
@@ -31,27 +33,27 @@ namespace PL.Volunteer
         public string ButtonText { get; set; }
 
         /// <summary>
-        /// Current volunteer being managed
+        /// Current Call being managed
         /// </summary>
-        public BO.Volunteer? CurrentVolunteer
+        public BO.Call? CurrentCall
         {
-            get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
-            set { SetValue(CurrentVolunteerProperty, value); }
+            get { return (BO.Call?)GetValue(CurrentCallProperty); }
+            set { SetValue(CurrentCallProperty, value); }
         }
 
         /// <summary>
-        /// Dependency property for CurrentVolunteer
+        /// Dependency property for CurrentCall
         /// </summary>
-        public static readonly DependencyProperty CurrentVolunteerProperty =
-            DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentCallProperty =
+            DependencyProperty.Register("CurrentCall", typeof(BO.Call), typeof(CallWindow), new PropertyMetadata(null));
 
         /// <summary>
-        /// Constructor for the VolunteerWindow
+        /// Constructor for the CallWindow
         /// </summary>
-        /// <param name="id">ID of the volunteer (0 for new volunteer)</param>
-        public VolunteerWindow(int id = 0)
+        /// <param name="id">ID of the Call (0 for new Call)</param>
+        public CallWindow(int id = 0)
         {
-            CurrentVolunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
+            CurrentCall = (id != 0) ? s_bl.Call.ReadCall(id)! : new BO.Call() { ID = 0 };
             ButtonText = id == 0 ? "Add" : "Update";
             InitializeComponent();
         }
@@ -63,16 +65,16 @@ namespace PL.Volunteer
         {
             try
             {
-                if(CurrentVolunteer!=null)
+                if (CurrentCall != null)
                 {
                     if (ButtonText == "Add")
                     {
-                        s_bl.Volunteer.CreateVolunteer(CurrentVolunteer);
+                        s_bl.Call.CreateCall(CurrentCall);
                         MessageBox.Show("Successful add");
                     }
                     else
                     {
-                        s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer.Id, CurrentVolunteer);
+                        s_bl.Call.UpdateCall(CurrentCall);
                         MessageBox.Show("Successful update");
                     }
                     this.Close();
@@ -89,33 +91,30 @@ namespace PL.Volunteer
         }
 
         /// <summary>
-        /// Queries the current volunteer details
+        /// Queries the current Call details
         /// </summary>
         private void queryVolunteer()
         {
-            int id = CurrentVolunteer?.Id ?? 0;
-            CurrentVolunteer = id != 0 ? s_bl.Volunteer.ReadVolunteer(id) : null;
+            int id = CurrentCall?.ID ?? 0;
+            CurrentCall = id != 0 ? s_bl.Call.ReadCall(id) : null;
         }
 
         /// <summary>
-        /// Observer for volunteer changes
+        /// Observer for Call changes
         /// </summary>
-        private void volunteerObserver()
-            => queryVolunteer();
+        private void callObserver()
+            => queryCall();
 
         /// <summary>
         /// Adds the observer when the window is loaded
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
-            => s_bl.Volunteer.AddObserver(volunteerObserver);
+            => s_bl.Call.AddObserver(callObserver);
 
         /// <summary>
         /// Removes the observer when the window is closed
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Volunteer.RemoveObserver(volunteerObserver);
+            => s_bl.Volunteer.RemoveObserver(callObserver);
     }
 }
-
-
-

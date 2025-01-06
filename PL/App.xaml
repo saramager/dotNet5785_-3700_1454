@@ -8,6 +8,8 @@
         <local:FiledToFilterVlounteerColecthion x:Key="FiledToFilterVlounteerColecthionKey" />
         <local:VolunteerRolesColecthion x:Key="VolunteerRolesKey" />
         <local:DistanceTypeColecthion x:Key="DistanceTypeKey" />
+        <local:callTypeColecthion x:Key="callTypeKey" />
+        <local:statusCColecthion x:Key="statusCKey" />
         <!--converters-->
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
         <!--color pallte-->
