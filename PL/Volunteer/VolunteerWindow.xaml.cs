@@ -1,7 +1,6 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace PL.Volunteer
     /// <summary>
     /// Interaction logic for VolunteerWindow.xaml
     /// </summary>
-    public partial class VolunteerWindow : Window , INotifyPropertyChanged
+    public partial class VolunteerWindow : Window
     {
         /// <summary>
         /// Instance of the BL layer
@@ -54,14 +53,8 @@ namespace PL.Volunteer
         {
             CurrentVolunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
             ButtonText = id == 0 ? "Add" : "Update";
-            DataContext = this;
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Indicates whether the operation (Add/Update) was successfully completed
-        /// </summary>
-        public bool IsOperationCompleted { get; private set; } = false;
 
         /// <summary>
         /// Handles the Add/Update button click
