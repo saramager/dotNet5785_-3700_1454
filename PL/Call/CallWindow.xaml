@@ -1,0 +1,71 @@
+﻿<Window x:Class="PL.Call.CallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Call"
+        mc:Ignorable="d"
+        Title="CallWindow" Height="450" Width="800">
+    <!--DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">-->
+    <Grid>
+        <!-- Call ID field -->
+        <Label Content="ID" HorizontalAlignment="Left" Height="30" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
+        <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"
+        IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"/>
+        
+        <!-- Call type field -->
+        <Label Content="call type" HorizontalAlignment="Left" Height="27" Margin="24,56,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Height="27" Margin="227,56,0,0" VerticalAlignment="Top" Width="307" SelectedItem="{Binding CurrentCall.callT, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource callTypeKey}}" />
+
+
+        <!--Call verbalDescription field-->
+        <Label Content="verbalDescription" HorizontalAlignment="Left" Height="29" Margin="24,101,0,0" VerticalAlignment="Top" Width="110"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.verbalDescription, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" />
+
+        <!--Call Address field-->
+        <Label Content="Address" HorizontalAlignment="Left" Margin="24,150,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,150,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.address, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427" />
+
+        <!-- Call openTime field -->
+        <Label Content="Open time" HorizontalAlignment="Left" Height="29" Margin="33,200,0,0" VerticalAlignment="Top" Width="120"/>
+        <DatePicker HorizontalAlignment="Left" Height="29" Margin="227,200,0,0"
+            SelectedDate="{Binding CurrentCall.openTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+            VerticalAlignment="Top" Width="263"/>
+
+        <!-- Call maxTime field -->
+        <Label Content="Max time" HorizontalAlignment="Left" Height="22" Margin="24,250,0,0" VerticalAlignment="Top" Width="109"/>
+        <DatePicker HorizontalAlignment="Left" Height="29" Margin="227,250,0,0"
+            SelectedDate="{Binding CurrentCall.maxTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+            VerticalAlignment="Top" Width="263"/>
+
+
+        <!-- Call status field -->
+        <Label Content="Call status" HorizontalAlignment="Left" Height="29" Margin="24,300,0,0" VerticalAlignment="Top" Width="109"/>
+        <ComboBox HorizontalAlignment="Left" Height="29" Margin="197,300,0,0" VerticalAlignment="Top" Width="326"   SelectedItem="{Binding CurrentCall.statusC, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource statusCKey}}" />
+
+        <!-- Call assignment in the list field --><!--
+        <Label Content="CallAssignInList" HorizontalAlignment="Left" Height="31" Margin="24,350,0,0" VerticalAlignment="Top" Width="110"/>
+        <DataGrid HorizontalAlignment="Left" Height="70" Margin="227,350,0,0" VerticalAlignment="Top" Width="400"
+          ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+          AutoGenerateColumns="True" />-->
+        <!-- Call assignment in the list field -->
+        <Label Content="CallAssignInList" HorizontalAlignment="Left" Height="31" Margin="24,350,0,0" VerticalAlignment="Top" Width="110"/>
+        <ListBox HorizontalAlignment="Left" Height="80" Margin="227,340,0,0" VerticalAlignment="Top" Width="380"
+         ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding VolunteerId}" />
+                        <TextBlock Text="{Binding fullName}" />
+                        <TextBlock Text="{Binding startTreatment}" />
+                        <TextBlock Text="{Binding finishTreatment}" />
+                        <TextBlock Text="{Binding finishT}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Add or update button -->
+        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="625,337,0,0" VerticalAlignment="Top" Width="165" FontSize="14"/>
+    </Grid>
+</Window>

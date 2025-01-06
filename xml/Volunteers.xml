@@ -224,4 +224,18 @@
     <latitude>31.78792</latitude>
     <maxDistance>1.5036253744762484</maxDistance>
   </Volunteer>
+  <Volunteer>
+    <ID>214274235</ID>
+    <fullName>Rivka Dayan</fullName>
+    <phone>0552345678</phone>
+    <email>rivka.dayan@fastmail.com</email>
+    <isActive>true</isActive>
+    <role>TVolunteer</role>
+    <distance>walkingDistance</distance>
+    <password>pa45Word321</password>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <longitude>35.1929374</longitude>
+    <latitude>31.7913918</latitude>
+    <maxDistance>1.4689639313358527</maxDistance>
+  </Volunteer>
 </ArrayOfVolunteer>
