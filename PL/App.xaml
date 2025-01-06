@@ -4,8 +4,8 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="EnterToSystemWindow.xaml">
     <Application.Resources>
-        <!--Enums--> 
-        <local:FiledToFilterVlounteerColecthion x:Key="FiledToFilterVlounteerColecthionKey" />
+        <!--Enums-->
+        <local:FiledToFilterVolunteerColecthion x:Key="FiledToFilterVlounteerColecthionKey" />
         <local:VolunteerRolesColecthion x:Key="VolunteerRolesKey" />
         <local:DistanceTypeColecthion x:Key="DistanceTypeKey" />
         <local:callTypeColecthion x:Key="callTypeKey" />
