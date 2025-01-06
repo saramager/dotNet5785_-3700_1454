@@ -93,7 +93,7 @@ namespace PL.Call
         /// <summary>
         /// Queries the current Call details
         /// </summary>
-        private void queryVolunteer()
+        private void queryCall()
         {
             int id = CurrentCall?.ID ?? 0;
             CurrentCall = id != 0 ? s_bl.Call.ReadCall(id) : null;
