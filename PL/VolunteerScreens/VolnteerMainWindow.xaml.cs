@@ -1,4 +1,6 @@
-﻿using PL.Volunteer;
+﻿using BO;
+using DO;
+using PL.Volunteer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace PL.VolunteerScreens
     public partial class VolnteerMainWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        
+
         public BO.Volunteer? CurrentVolunteer
         {
             get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
@@ -48,7 +50,7 @@ namespace PL.VolunteerScreens
 
         public VolnteerMainWindow(int id)
         {
-            
+
 
             CurrentVolunteer = s_bl.Volunteer.ReadVolunteer(id);
             Call = null;
@@ -64,7 +66,7 @@ namespace PL.VolunteerScreens
         private void queryVolunteer()
         {
             int id = CurrentVolunteer!.Id;
-            CurrentVolunteer = s_bl.Volunteer.ReadVolunteer(id) ;
+            CurrentVolunteer = s_bl.Volunteer.ReadVolunteer(id);
         }
 
         /// <summary>
@@ -74,15 +76,106 @@ namespace PL.VolunteerScreens
             => queryVolunteer();
 
         /// <summary>
+        /// Observer for Call changes
+        /// </summary>
+        private void callObserver()
+            => queryCall();
+
+        private void queryCall()
+        {
+            queryVolunteer();
+            Call = null;
+            if (CurrentVolunteer.callProgress != null)
+            {
+
+                Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
+            }
+        }
+        /// <summary>
         /// Adds the observer when the window is loaded
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
-            => s_bl.Volunteer.AddObserver(volunteerObserver);
+            { s_bl.Volunteer.AddObserver(volunteerObserver);
+            s_bl.Call.AddObserver(callObserver);}
 
         /// <summary>
         /// Removes the observer when the window is closed
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Volunteer.RemoveObserver(volunteerObserver);
+        {
+            s_bl.Volunteer.RemoveObserver(volunteerObserver);
+            s_bl.Call.RemoveObserver(callObserver);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.Id, CurrentVolunteer);
+                MessageBox.Show("Successful update");
+            }
+            
+            catch (BlDoesAlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void EndCall_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                s_bl.Call.FinishTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.VolunteerCantUpadeOtherVolunteerException ex)
+            {
+                MessageBox.Show(ex.Message, "Unauthorized Access", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (BO.AssignmentAlreadyClosedException ex)
+            {
+                MessageBox.Show(ex.Message, "Assignment Closed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex) // Catch all other exceptions
+            {
+                MessageBox.Show(ex.Message, "Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+
+        }
+
+        private void CancelCall_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                s_bl.Call.cancelTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Not Found Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.CantUpdatevolunteer ex)
+            {
+                MessageBox.Show(ex.Message, "Update Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (BO.VolunteerCantUpadeOtherVolunteerException ex)
+            {
+                MessageBox.Show(ex.Message, "Unauthorized Action", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex) // Catch all other exceptions
+            {
+                MessageBox.Show(ex.Message, "Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+        }
     }
 }

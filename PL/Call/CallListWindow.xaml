@@ -7,15 +7,14 @@
         mc:Ignorable="d"
         Title="CallListWindow" Height="450" Width="800">
     DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
-    <Grid>
+    <!-- <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*" />
             <RowDefinition Height="500*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Internal, Upper Grid -->
+        --><!-- Internal, Upper Grid --><!--
         <Grid HorizontalAlignment="Stretch" Height="Auto" Grid.Row="0" VerticalAlignment="Stretch" Width="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -46,11 +45,11 @@
                 <DataGridTextColumn Binding="{Binding CallId}" Header="Call ID" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="Auto" />
 
-                <!-- "Delete" button column -->
+                --><!-- "Delete" button column --><!--
                 <DataGridTemplateColumn Header="Actions" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!-- "Delete" button -->
+                            --><!-- "Delete" button --><!--
                             <Button Content="Delete" Click="DeleteButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -59,7 +58,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Button to add new volunteer -->
+        --><!-- Button to add new volunteer --><!--
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddButton_Click"/>
-    </Grid>
+    </Grid>-->
 </Window>

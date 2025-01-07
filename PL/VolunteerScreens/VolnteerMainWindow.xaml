@@ -14,7 +14,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <!-- Left Stack Panel - Volunteer Details -->
@@ -104,7 +103,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Active" HorizontalAlignment="Left" Width="90" Margin="0,0,0,5"/>
-                    <CheckBox Grid.Column="1" IsChecked="{Binding Path=CurrentVolunteer.active}" Content="Active Volunteer" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="110"/>
+                    <CheckBox Grid.Column="1" IsChecked="{Binding Path=CurrentVolunteer.active}" Content="Active Volunteer" 
+                             IsEnabled="{Binding Call, Converter={StaticResource ConvertNullToTrueKey}}"   HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="110"/>
                 </Grid>
 
                 <!-- Volunteer maximum distance for calls -->
@@ -155,16 +155,16 @@
                     <Label Content="Calls Expired" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
                     <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.numCallsExpired}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsReadOnly="True"/>
                 </Grid>
-                
+
 
                 <!-- New Button for Left Panel -->
-                <Button Content="Update Volunteer Info" Margin="0,10,0,0" Height="30" Width="150" HorizontalAlignment="Left"/>
+                <Button Content="Update Volunteer Info" Margin="0,10,0,0" Height="30" Width="150" HorizontalAlignment="Left" Click="Button_Click"/>
             </StackPanel>
         </ScrollViewer>
 
         <!-- Right Stack Panel - Call Details -->
         <ScrollViewer Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <StackPanel Visibility="{Binding Call, Converter={StaticResource ConvertNullToVisibilityKey}}">
                 <!-- Original call details content stays exactly the same -->
                 <!-- ... (all call details fields remain unchanged) ... -->
                 <Label>Content="call Diteails "</Label>
@@ -176,7 +176,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Call ID" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <TextBox Grid.Column="1" Text="{Binding Call.ID}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25" IsReadOnly="True"/>
+                    <TextBox Grid.Column="1" Text="{Binding Call.ID}" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="200" Height="25" IsReadOnly="True"/>
                 </Grid>
 
                 <!-- Call Type -->
@@ -186,7 +186,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Call Type" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <ComboBox Grid.Column="1" SelectedItem="{Binding Call.callT}"  ItemsSource="{Binding Source={StaticResource callTypeKey}}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <ComboBox Grid.Column="1" IsEnabled="False" SelectedItem="{Binding Call.callT}"  ItemsSource="{Binding Source={StaticResource callTypeKey}}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Verbal Description -->
@@ -196,7 +196,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Description" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <TextBox Grid.Column="1" Text="{Binding Call.verbalDescription}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <TextBox Grid.Column="1" Text="{Binding Call.verbalDescription}" HorizontalAlignment="Right"   IsReadOnly="True" VerticalAlignment="Top" Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Address -->
@@ -206,7 +206,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Address" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <TextBox Grid.Column="1" Text="{Binding Call.address}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <TextBox Grid.Column="1" Text="{Binding Call.address}" HorizontalAlignment="Right"   IsReadOnly="True" VerticalAlignment="Top" Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Open Time -->
@@ -216,7 +216,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Open Time" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <DatePicker Grid.Column="1" SelectedDate="{Binding Call.openTime}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <DatePicker Grid.Column="1" SelectedDate="{Binding Call.openTime}" HorizontalAlignment="Right" IsEnabled="False" VerticalAlignment="Top" Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Max Time -->
@@ -226,7 +226,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Max Time" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <DatePicker Grid.Column="1" SelectedDate="{Binding Call.maxTime}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <DatePicker Grid.Column="1" SelectedDate="{Binding Call.maxTime}" HorizontalAlignment="Right" IsEnabled="False" VerticalAlignment="Top" Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Status -->
@@ -236,7 +236,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Status" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <ComboBox Grid.Column="1" SelectedItem="{Binding Call.statusC}"  ItemsSource="{Binding Source={StaticResource statusCKey}}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" Margin="50,0,0,0"/>
+                    <ComboBox Grid.Column="1" SelectedItem="{Binding Call.statusC}" IsEnabled="False"  ItemsSource="{Binding Source={StaticResource statusCKey}}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" Margin="50,0,0,0"/>
                 </Grid>
 
                 <!-- Call Assignments -->
@@ -254,7 +254,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Assignments" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130" />
-                    <ListBox Grid.Column="1" ItemsSource="{Binding Call.CallAssign}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="300" Height="200">
+                    <ListBox Grid.Column="1" ItemsSource="{Binding Call.CallAssign}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="300"  IsEnabled="False" Height="200">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
@@ -297,15 +297,15 @@
 
                 <!-- Two New Buttons for Right Panel -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    <Button Content="End Call" Height="30" Width="120" Margin="0,0,10,0"/>
-                    <Button Content="Cancel Call" Height="30" Width="120"/>
+                    <Button Content="End Call" Height="30" Width="120" Margin="0,0,10,0" Click="EndCall_Click" />
+                    <Button Content="Cancel Call" Height="30" Width="120" Click="CancelCall_Click"  />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
         <!-- Bottom Buttons Row -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="New Call" Height="47" Width="188" Margin="0,0,20,0"/>
+            <Button Content="New Call" Height="47" Width="188" Margin="0,0,20,0" IsEnabled="{Binding Call, Converter={StaticResource ConvertNullToTrueKey}}" Visibility="{Binding CurrentVolunteer.active, Converter={StaticResource ConvertFalseToHiddenKey}}" />
             <Button Content="My Calls History" Height="47" Width="219"/>
         </StackPanel>
     </Grid>

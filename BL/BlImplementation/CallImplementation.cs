@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DO;
 using Helpers;
 
 internal class CallImplementation : BlApi.ICall
@@ -360,7 +361,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         try
         {
             _dal.Assignment.Update(assignment);
-
+            CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
+            CallsManager.Observers.NotifyListUpdated();  //stage 5
             // משקיפים?????
         }
         catch (DO.DalDoesNotExistException ex)
@@ -422,8 +424,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         try
         {
             _dal.Assignment.Update(assignment);
+            CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
+            CallsManager.Observers.NotifyListUpdated();  //stage 5
 
-            // משקיפים?????
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -471,8 +474,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         // Attempt to add the new assignment to the data layer
         _dal.Assignment.Create(newAssignment);
-
-        // משקיפים?????
+        CallsManager.Observers.NotifyItemUpdated(newAssignment.CallId);  //stage 5
+        CallsManager.Observers.NotifyListUpdated();  //stage 5
     }
 
 }

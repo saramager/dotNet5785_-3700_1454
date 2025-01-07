@@ -297,14 +297,6 @@
     <finishT>ManagerCancel</finishT>
   </Assignment>
   <Assignment>
-    <ID>1037</ID>
-    <CallId>1015</CallId>
-    <VolunteerId>783356942</VolunteerId>
-    <startTreatment>2025-01-05T04:25:35.5670498</startTreatment>
-    <finishTreatment xsi:nil="true" />
-    <finishT xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <ID>1038</ID>
     <CallId>1005</CallId>
     <VolunteerId>646418160</VolunteerId>
@@ -478,6 +470,14 @@
     <VolunteerId>914760988</VolunteerId>
     <startTreatment>2025-01-04T15:56:51.8710138</startTreatment>
     <finishTreatment>2025-01-04T20:13:44.9917602</finishTreatment>
+    <finishT>SelfCancel</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1037</ID>
+    <CallId>1015</CallId>
+    <VolunteerId>783356942</VolunteerId>
+    <startTreatment>2025-01-05T04:25:35.5670498</startTreatment>
+    <finishTreatment>2025-01-08T00:57:22.6922622+02:00</finishTreatment>
     <finishT>SelfCancel</finishT>
   </Assignment>
 </ArrayOfAssignment>

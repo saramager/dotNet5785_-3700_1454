@@ -1,20 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>914760988</ID>
-    <fullName>David Levy</fullName>
-    <phone>0521234567</phone>
-    <email>levy.david@email.com</email>
-    <isActive>false</isActive>
-    <role>TVolunteer</role>
-    <distance>AirDistance</distance>
-    <password>sdvvzrug456</password>
-    <address>Beit Shearim 4, Jerusalem, Israel</address>
-    <longitude>35.19624</longitude>
-    <latitude>31.79032</latitude>
-    <maxDistance>0.8582157881251673</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>238220404</ID>
     <fullName>Miriam Cohen</fullName>
     <phone>0532345678</phone>
@@ -237,5 +223,19 @@
     <longitude>35.1929374</longitude>
     <latitude>31.7913918</latitude>
     <maxDistance>1.4689639313358527</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>914760988</ID>
+    <fullName>David Lev</fullName>
+    <phone>0521234567</phone>
+    <email>levy.david@email.com</email>
+    <isActive>false</isActive>
+    <role>TVolunteer</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug456</password>
+    <address>Beit Shearim 4, Jerusalem, Israel</address>
+    <longitude>35.1963795</longitude>
+    <latitude>31.7903273</latitude>
+    <maxDistance>0.858215788125167</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

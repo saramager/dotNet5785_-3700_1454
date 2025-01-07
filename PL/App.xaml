@@ -12,6 +12,11 @@
         <local:statusCColecthion x:Key="statusCKey" />
         <!--converters-->
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
+        <local:ConvertNullToTrue x:Key="ConvertNullToTrueKey"/>
+        <local:ConvertNullToVisibility x:Key="ConvertNullToVisibilityKey"/>
+        <local:ConvertFalseToHidden x:Key="ConvertFalseToHiddenKey"/>
+
+
         <!--color pallte-->
         <SolidColorBrush x:Key="litePurple" Color="#dcc6e0"/>
         <SolidColorBrush x:Key="cream" Color="#fff5e1"/>
