@@ -305,8 +305,8 @@
 
         <!-- Bottom Buttons Row -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="New Call" Height="47" Width="188" Margin="0,0,20,0" IsEnabled="{Binding Call, Converter={StaticResource ConvertNullToTrueKey}}" Visibility="{Binding CurrentVolunteer.active, Converter={StaticResource ConvertFalseToHiddenKey}}" />
-            <Button Content="My Calls History" Height="47" Width="219"/>
+            <Button Content="New Call" Height="47" Width="188" Margin="0,0,20,0" IsEnabled="{Binding Call, Converter={StaticResource ConvertNullToTrueKey}}" Visibility="{Binding CurrentVolunteer.active, Converter={StaticResource ConvertFalseToHiddenKey}}" Click="NewCall_Click" />
+            <Button Content="My Calls History" Height="47" Width="219"  Click="CallHistory_Click"/>
         </StackPanel>
     </Grid>
 </Window>

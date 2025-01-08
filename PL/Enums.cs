@@ -43,4 +43,11 @@ internal class statusCColecthion : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+internal class FiledOFCloseListColecthion : IEnumerable
+{
+    static readonly IEnumerable<BO.FiledOfClosedCallInList> s_enums =
+(Enum.GetValues(typeof(BO.FiledOfClosedCallInList)) as IEnumerable<BO.FiledOfClosedCallInList>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
 

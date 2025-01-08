@@ -59,6 +59,9 @@ namespace PL.VolunteerScreens
 
                 Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
             }
+            s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
+            if (Call != null)
+                s_bl.Call.AddObserver(Call.ID, callObserver);
             DataContext = this; // הגדרת DataContext
             InitializeComponent();
 
@@ -95,16 +98,18 @@ namespace PL.VolunteerScreens
         /// Adds the observer when the window is loaded
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
-            { s_bl.Volunteer.AddObserver(volunteerObserver);
-            s_bl.Call.AddObserver(callObserver);}
+            { s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
+            if (Call != null)
+            s_bl.Call.AddObserver(Call.ID ,callObserver);}
 
         /// <summary>
         /// Removes the observer when the window is closed
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
         {
-            s_bl.Volunteer.RemoveObserver(volunteerObserver);
-            s_bl.Call.RemoveObserver(callObserver);
+            s_bl.Volunteer.RemoveObserver( CurrentVolunteer.Id,volunteerObserver);
+            if (Call != null)
+                s_bl.Call.RemoveObserver(Call.ID,callObserver);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -157,6 +162,7 @@ namespace PL.VolunteerScreens
             try
             {
                 s_bl.Call.cancelTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
+                DataContext = this;
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -176,6 +182,15 @@ namespace PL.VolunteerScreens
             }
 
 
+        }
+
+        private void NewCall_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void CallHistory_Click(object sender, RoutedEventArgs e)
+        {
+            new VolunteerCallHistoryWindow(CurrentVolunteer.Id).Show();
         }
     }
 }

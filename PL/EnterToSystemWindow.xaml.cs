@@ -56,7 +56,16 @@ namespace PL
             {
                 Role = s_bl.Volunteer.EnterToSystem(Id, Password);
                 if (Role == RoleType.TVolunteer)
-                    new VolnteerMainWindow(Id).Show();
+
+                {
+                    MessageBoxResult result = MessageBox.Show("Are you  want to open vlounteer window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        new VolnteerMainWindow(Id).Show();
+                    }
+                 
+                }
+              
                 else
                     MessageBox.Show("manger");
             }

@@ -106,6 +106,7 @@ namespace PL.Volunteer
         {
             InitializeComponent();
             queryVolunteerList();
+            s_bl.Volunteer.AddObserver(VolunteerListObserver);
         }
 
         /// <summary>

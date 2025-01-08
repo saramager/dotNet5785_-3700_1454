@@ -10,6 +10,8 @@
         <local:DistanceTypeColecthion x:Key="DistanceTypeKey" />
         <local:callTypeColecthion x:Key="callTypeKey" />
         <local:statusCColecthion x:Key="statusCKey" />
+        <local:FiledOFCloseListColecthion x:Key="FiledOFCloseListColecthionKey" />
+
         <!--converters-->
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
         <local:ConvertNullToTrue x:Key="ConvertNullToTrueKey"/>
