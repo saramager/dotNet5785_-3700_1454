@@ -162,7 +162,7 @@
     <isActive>true</isActive>
     <role>Manager</role>
     <distance>DrivingDistance</distance>
-    <password>Sdvvzrug45</password>
+    <password>Sdvvzrug44</password>
     <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
     <longitude>35.18392</longitude>
     <latitude>31.78792</latitude>
@@ -176,7 +176,7 @@
     <isActive>false</isActive>
     <role>TVolunteer</role>
     <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
+    <password>Sdvvzrug46</password>
     <address>Najara 3, Jerusalem, Israel</address>
     <longitude>35.1910069</longitude>
     <latitude>31.7883819</latitude>

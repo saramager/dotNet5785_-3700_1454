@@ -5,13 +5,14 @@
              StartupUri="EnterToSystemWindow.xaml">
     <Application.Resources>
         <!--Enums-->
-        <local:FiledToFilterVolunteerColecthion x:Key="FiledToFilterVlounteerColecthionKey" />
-        <local:VolunteerRolesColecthion x:Key="VolunteerRolesKey" />
-        <local:DistanceTypeColecthion x:Key="DistanceTypeKey" />
-        <local:callTypeColecthion x:Key="callTypeKey" />
-        <local:statusCColecthion x:Key="statusCKey" />
-        <local:FiledOFCloseListColecthion x:Key="FiledOFCloseListColecthionKey" />
-        <local:FiledOfOpenListColecthion x:Key="FiledOfOpenListColecthionKey" />
+        <local:FiledToFilterVolunteerColection x:Key="FiledToFilterVlounteerColecthionKey" />
+        <local:FiledToFilterCallColection x:Key="FiledToFilterCallColecthionKey" />
+        <local:VolunteerRolesColection x:Key="VolunteerRolesKey" />
+        <local:DistanceTypeColection x:Key="DistanceTypeKey" />
+        <local:callTypeColection x:Key="callTypeKey" />
+        <local:statusCColection x:Key="statusCKey" />
+        <local:FiledOFCloseListColection x:Key="FiledOFCloseListColecthionKey" />
+        <local:FiledOfOpenListColection x:Key="FiledOfOpenListColecthionKey" />
 
 
         <!--converters-->

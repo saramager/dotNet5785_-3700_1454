@@ -41,7 +41,9 @@
         <Button Content="Button" HorizontalAlignment="Left" Height="81" Margin="10,212,0,0" VerticalAlignment="Top" Width="132"/>-->
         
         <!--list of volunteers-->
-        <Button Grid.Column="1" Content="Handle Volunteers" HorizontalAlignment="Left" Height="77" Margin="140,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="ButtonVolunteerList_Click"/>
+        <Button Grid.Column="1" Content="Handle Volunteers" HorizontalAlignment="Left" Height="77" Margin="140,50,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="ButtonVolunteerList_Click"/>
+        <!--list of calls-->
+        <Button Grid.Column="1" Content="Handle Calls" HorizontalAlignment="Left" Height="77" Margin="140,170,0,0" Grid.Row="1" VerticalAlignment="Top" Width="159" Click="ButtonCallList_Click"/>
         <!--resetDB-->
         <Button Content="Restet DB" HorizontalAlignment="Left" Height="78" Margin="226,156,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130" Click="ButtonReset_Click"/>
         <!--Initializtion-->

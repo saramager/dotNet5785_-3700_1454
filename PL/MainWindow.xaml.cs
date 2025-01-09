@@ -160,6 +160,14 @@ namespace PL
         }
 
         /// <summary>
+        /// Opens the Call List window
+        /// </summary>
+        private void ButtonCallList_Click(object sender, RoutedEventArgs e)
+        {
+            new CallListWindow().Show();
+        }
+
+        /// <summary>
         /// Initializes the database with confirmation
         /// </summary>
         private void Initialize_Click(object sender, RoutedEventArgs e)
