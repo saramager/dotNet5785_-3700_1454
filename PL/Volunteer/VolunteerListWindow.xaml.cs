@@ -97,8 +97,14 @@ namespace PL.Volunteer
         /// <summary>
         /// Current filter field for volunteers.
         /// </summary>
+        ///  צריך לבדוק אם לשנות את GetCallInList כי הוא כרגע לא מקבל ערך לסינון אלא רק למיון
         public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
 
+
+        /// <summary>
+        /// Current sort field for volunteers.
+        /// </summary>
+        public BO.FiledOfVolunteerInList filedToSort { get; set; } = BO.FiledOfVolunteerInList.ID;
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
@@ -122,9 +128,9 @@ namespace PL.Volunteer
         /// </summary>
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
-            filedToFilter = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
+            filedToSort = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
 
-            VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
+            VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToSort)!;
         }
 
         /// <summary>
@@ -132,7 +138,7 @@ namespace PL.Volunteer
         /// </summary>
         private void queryVolunteerList()
             => VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID) ?
-                s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
+                s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToSort)!;
 
         /// <summary>
         /// Observer function to update the volunteer list.

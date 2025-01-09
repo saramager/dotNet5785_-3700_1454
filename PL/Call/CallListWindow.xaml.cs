@@ -68,7 +68,7 @@ namespace PL.Call
                 try
                 {
                     s_bl.Call.DeleteCall(call.CallId);
-                    CallList = s_bl.Call.GetCallInList(filedToFilter, , );
+                    CallList = s_bl.Call.GetCallInList(filedToFilter,null , filedToSort);
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
@@ -96,6 +96,7 @@ namespace PL.Call
         /// Current filter field for Calls.
         /// </summary>
         public BO.FiledOfCallInList filedToFilter { get; set; } = BO.FiledOfCallInList.ID;
+        public BO.FiledOfCallInList filedToSort{ get; set; } = BO.FiledOfCallInList.ID;
 
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
@@ -122,7 +123,7 @@ namespace PL.Call
         {
             filedToFilter = (BO.FiledOfCallInList)(((ComboBox)sender).SelectedItem);
 
-            CallList = s_bl?.Call.GetCallInList(filedToFilter, , )!;
+            CallList = s_bl?.Call.GetCallInList(filedToFilter,null , filedToSort)!;
         }
 
         /// <summary>
@@ -130,7 +131,7 @@ namespace PL.Call
         /// </summary>
         private void queryCallList()
             => CallList = (filedToFilter == BO.FiledOfCallInList.ID) ?
-                s_bl?.Call.GetCallInList(null, null, null)! : s_bl?.Call.GetCallInList(filedToFilter, , )!;
+                s_bl?.Call.GetCallInList(null, null, null)! : s_bl?.Call.GetCallInList(filedToFilter, null, filedToSort)!;
 
         /// <summary>
         /// Observer function to update the Call list.
