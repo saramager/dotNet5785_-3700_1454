@@ -76,7 +76,7 @@ namespace PL.VolunteerScreens
         /// Observer for volunteer changes
         /// </summary>
         private void volunteerObserver()
-            => queryVolunteer();
+            => queryCall();
 
         /// <summary>
         /// Observer for Call changes
@@ -87,10 +87,27 @@ namespace PL.VolunteerScreens
         private void queryCall()
         {
             queryVolunteer();
-            Call = null;
+            if (Call != null)
+            {
+                if (CurrentVolunteer.callProgress == null|| CurrentVolunteer.callProgress.CallId!= Call.ID)
+                {
+                    s_bl.Call.RemoveObserver(Call.ID, callObserver);
+                    
+                }
+             
+            }
+            if (CurrentVolunteer.callProgress != null && Call!= null && CurrentVolunteer.callProgress.CallId != Call.ID)
+            {
+                s_bl.Call.AddObserver(CurrentVolunteer.callProgress.CallId, callObserver);
+            }
+            else
+
+
+
+                Call = null;
             if (CurrentVolunteer.callProgress != null)
             {
-
+                
                 Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
             }
         }
@@ -107,7 +124,7 @@ namespace PL.VolunteerScreens
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
         {
-            s_bl.Volunteer.RemoveObserver( CurrentVolunteer.Id,volunteerObserver);
+            s_bl.Volunteer.RemoveObserver(CurrentVolunteer.Id,volunteerObserver);
             if (Call != null)
                 s_bl.Call.RemoveObserver(Call.ID,callObserver);
         }
@@ -119,12 +136,40 @@ namespace PL.VolunteerScreens
                 s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.Id, CurrentVolunteer);
                 MessageBox.Show("Successful update");
             }
-            
+
             catch (BlDoesAlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message);
             }
             catch (BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (PaswordDoesNotstrongException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (PaswordDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (IdDoesNotVaildException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (PasswordIsNotCorrectException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (VolunteerCantUpadeOtherVolunteerException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (CantUpdatevolunteer ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -135,6 +180,9 @@ namespace PL.VolunteerScreens
             try
             {
                 s_bl.Call.FinishTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
+                MessageBox.Show("finish Call ");
+                DataContext = this;
+
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -162,6 +210,7 @@ namespace PL.VolunteerScreens
             try
             {
                 s_bl.Call.cancelTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
+                MessageBox.Show("cancel Call ");
                 DataContext = this;
             }
             catch (BO.BlDoesNotExistException ex)
@@ -186,11 +235,25 @@ namespace PL.VolunteerScreens
 
         private void NewCall_Click(object sender, RoutedEventArgs e)
         {
+            if (CurrentVolunteer != null)
+                
+            {
+          
+                new NewCallWindow(CurrentVolunteer.Id).Show();
+            }
+            else
+            {
+                MessageBox.Show("Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
         private void CallHistory_Click(object sender, RoutedEventArgs e)
         {
-            new VolunteerCallHistoryWindow(CurrentVolunteer.Id).Show();
+            if (CurrentVolunteer != null)   
+                new VolunteerCallHistoryWindow(CurrentVolunteer.Id).Show();
+            else
+                MessageBox.Show("Error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
     }
 }

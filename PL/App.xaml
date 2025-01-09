@@ -11,6 +11,8 @@
         <local:callTypeColecthion x:Key="callTypeKey" />
         <local:statusCColecthion x:Key="statusCKey" />
         <local:FiledOFCloseListColecthion x:Key="FiledOFCloseListColecthionKey" />
+        <local:FiledOfOpenListColecthion x:Key="FiledOfOpenListColecthionKey" />
+
 
         <!--converters-->
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>

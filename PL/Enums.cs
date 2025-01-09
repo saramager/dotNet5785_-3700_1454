@@ -50,4 +50,11 @@ internal class FiledOFCloseListColecthion : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+internal class FiledOfOpenListColecthion : IEnumerable
+{
+    static readonly IEnumerable<BO.FiledOfOpenCallInList> s_enums =
+(Enum.GetValues(typeof(BO.FiledOfOpenCallInList)) as IEnumerable<BO.FiledOfOpenCallInList>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
 

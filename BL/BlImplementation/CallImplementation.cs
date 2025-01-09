@@ -289,7 +289,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
                        let DataCall = ReadCall(item.ID)
                        where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
                        let volunteerData = _dal.Volunteer.Read(v=>v.ID == id)
-                       where volunteerData.maxDistance==null ?true : volunteerData.maxDistance<=Tools.CalculateDistance(volunteerData.Latitude?? DataCall.latitude, volunteerData.Longitude?? DataCall.longitude, DataCall.latitude,DataCall.longitude,(BO.Distance)volunteerData.distanceType)
+                       where volunteerData.maxDistance==null ?true : volunteerData.maxDistance>=Tools.CalculateDistance(volunteerData.Latitude?? DataCall.latitude, volunteerData.Longitude?? DataCall.longitude, DataCall.latitude,DataCall.longitude,(BO.Distance)volunteerData.distanceType)
                        select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
 
         IEnumerable<BO.OpenCallInList> openCallInLists = Calls;
@@ -361,6 +361,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         try
         {
             _dal.Assignment.Update(assignment);
+            VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
             CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
             CallsManager.Observers.NotifyListUpdated();  //stage 5
             // משקיפים?????
@@ -424,6 +425,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         try
         {
             _dal.Assignment.Update(assignment);
+            VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
             CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
             CallsManager.Observers.NotifyListUpdated();  //stage 5
 
@@ -474,6 +476,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         // Attempt to add the new assignment to the data layer
         _dal.Assignment.Create(newAssignment);
+        VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
         CallsManager.Observers.NotifyItemUpdated(newAssignment.CallId);  //stage 5
         CallsManager.Observers.NotifyListUpdated();  //stage 5
     }

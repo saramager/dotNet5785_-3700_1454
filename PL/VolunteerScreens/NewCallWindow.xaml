@@ -1,0 +1,86 @@
+﻿<Window x:Class="PL.VolunteerScreens.NewCallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.VolunteerScreens"
+        mc:Ignorable="d"
+            Title="Open Calls Selection" Height="600" Width="1000">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Open Calls Selection" 
+                  Grid.Row="0"
+                  FontSize="24" 
+                  FontWeight="Bold" 
+                  HorizontalAlignment="Center"
+                  Margin="0,0,0,20"/>
+
+        <!-- Filters -->
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    Margin="0,0,0,10">
+            <Label Content="Sort By:" 
+                   VerticalAlignment="Center"/>
+            <ComboBox Width="150" 
+                      Margin="5,0,20,0"
+                      ItemsSource="{StaticResource FiledOfOpenListColecthionKey}"
+                      SelectedItem="{Binding sortOpenCalls}"
+                      SelectionChanged="ComboBox_SelectionChanged"/>
+
+            <Label Content="Call Type:" 
+                   VerticalAlignment="Center"/>
+            <ComboBox Width="150" 
+                      Margin="5,0,20,0"
+                      ItemsSource="{StaticResource callTypeKey}"
+                      SelectedItem="{Binding filterOpenCalls}"
+                SelectionChanged="ComboBox_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- Calls DataGrid -->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding OpenCallsList}"
+                  SelectedItem="{Binding SelectedCall}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" 
+                                  Binding="{Binding ID}" 
+                                  Width="Auto"/>
+                <DataGridTextColumn Header="Type" 
+                                  Binding="{Binding callT}" 
+                                  Width="Auto"/>
+                <DataGridTextColumn Header="Address" 
+                                  Binding="{Binding address}" 
+                                  Width="*"/>
+                <DataGridTextColumn Header="Open Time" 
+                                  Binding="{Binding openTime, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
+                                  Width="Auto"/>
+                <DataGridTextColumn Header="Max Time" 
+                                  Binding="{Binding maxTime, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
+                                  Width="Auto"/>
+                <DataGridTextColumn Header="Distance (km)" 
+                                  Binding="{Binding distance, StringFormat={}{0:F2}}" 
+                                  Width="Auto"/>
+                <DataGridTemplateColumn Header="Action" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Take Call"
+                                Click="addCall_Click"
+                                    Padding="5,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+       
+    </Grid>
+</Window>

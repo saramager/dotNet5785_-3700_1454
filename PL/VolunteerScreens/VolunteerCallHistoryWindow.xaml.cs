@@ -46,7 +46,7 @@ namespace PL.VolunteerScreens
         {
             Id = id;
             queryCloseCallsList();
-            s_bl.Volunteer.AddObserver(CallsListObserver);
+            s_bl.Volunteer.AddObserver(Id,CallsListObserver);
             DataContext = this;
             InitializeComponent();
         }
@@ -63,7 +63,7 @@ namespace PL.VolunteerScreens
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            s_bl.Volunteer.AddObserver(CallsListObserver);
+            s_bl.Volunteer.AddObserver(Id,CallsListObserver);
             queryCloseCallsList(); // טוען מחדש את הרשימה עם פתיחת החלון
         }
 
@@ -71,7 +71,7 @@ namespace PL.VolunteerScreens
         /// Handles the window closed event to remove the observer.
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Volunteer.RemoveObserver(CallsListObserver);
+            => s_bl.Volunteer.RemoveObserver(Id,CallsListObserver);
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -43,20 +43,6 @@
     <maxDistance>0.7666911326774345</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>276323144</ID>
-    <fullName>Shlomo Klein</fullName>
-    <phone>0585678901</phone>
-    <email>shlomo.klein@live.com</email>
-    <isActive>true</isActive>
-    <role>TVolunteer</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
-    <longitude>35.19136</longitude>
-    <latitude>31.78878</latitude>
-    <maxDistance>1.9523796563544105</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>612256685</ID>
     <fullName>Chana Rosen</fullName>
     <phone>0596789012</phone>
@@ -141,20 +127,6 @@
     <maxDistance>200</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>354288680</ID>
-    <fullName>Yitzhak Azulay</fullName>
-    <phone>0583456789</phone>
-    <email>yitzhak.azulay@protonmail.com</email>
-    <isActive>true</isActive>
-    <role>TVolunteer</role>
-    <distance>walkingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 9, Jerusalem, Israel</address>
-    <longitude>35.18921</longitude>
-    <latitude>31.7857</latitude>
-    <maxDistance>3.4400479810034525</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>882749922</ID>
     <fullName>Malkah Shalom</fullName>
     <phone>0574567890</phone>
@@ -223,5 +195,33 @@
     <longitude>35.1963795</longitude>
     <latitude>31.7903273</latitude>
     <maxDistance>0.34675378365993215</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>276323144</ID>
+    <fullName>Shlomo Klein</fullName>
+    <phone>0585678901</phone>
+    <email>shlomo.klein@live.com</email>
+    <isActive>true</isActive>
+    <role>TVolunteer</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Najara 3, Jerusalem, Israel</address>
+    <longitude>35.1910069</longitude>
+    <latitude>31.7883819</latitude>
+    <maxDistance>40</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>354288680</ID>
+    <fullName>Yitzhak Haim</fullName>
+    <phone>058123142</phone>
+    <email>yitzhak.azulay@protonmail.com</email>
+    <isActive>true</isActive>
+    <role>TVolunteer</role>
+    <distance>AirDistance</distance>
+    <password>45678D</password>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <longitude>35.189277</longitude>
+    <latitude>31.7857175</latitude>
+    <maxDistance>10000</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

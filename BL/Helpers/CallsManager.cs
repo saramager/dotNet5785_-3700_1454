@@ -198,7 +198,8 @@ namespace Helpers
             {
                 ID = doCall.ID,
                 callT = (BO.CallType)doCall.callT,
-                verbalDescription = doCall.address,
+                verbalDescription = doCall.verbalDescription,
+                address= doCall.address,
                 openTime = doCall.openTime,
                 maxTime = doCall.maxTime,
                 distance = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat, idLon,(BO.Distance)vol.distanceType),
