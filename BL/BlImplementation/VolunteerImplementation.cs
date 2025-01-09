@@ -2,6 +2,7 @@
 namespace BlImplementation;
 using BlApi;
 using BO;
+using DO;
 using Helpers;
 using System.Collections;
 using System.Collections.Generic;
@@ -159,4 +160,4 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         } 
         catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
-}
+  }

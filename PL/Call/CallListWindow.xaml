@@ -30,9 +30,7 @@
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
                   SelectedItem="{Binding SelectedCall}" MouseDoubleClick="lsvCallsList_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding CallId}" Header="Call Id" Width="Auto" />
-
                 <DataGridTextColumn Binding="{Binding callT}" Header="call type" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding openTime}" Header="openTime" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding timeEndCall}" Header="timeEndCall" Width="Auto" />
@@ -40,12 +38,22 @@
                 <DataGridTextColumn Binding="{Binding TimeEndTreat}" Header="TimeEndTreat" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding status}" Header="Call status" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding numOfAssignments}" Header="num of assignments" Width="Auto" />
+                
                 <!--"Delete" button column--> 
                 <DataGridTemplateColumn Header="Actions" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                              <!--"Delete" button--> 
                             <Button Content="Delete" Click="DeleteButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--"Cancel" button column-->
+                <DataGridTemplateColumn Header="Actions" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--"Cancel" button-->
+                            <Button Content="Cancel" Click="CancelButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -373,7 +373,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     }
 
 
-    public void cancelTreat(int volunteerId, int assignmentId)
+    public void cancelTreat(int volunteerId, int? assignmentId)
 
     {
         DO.Assignment assignment;

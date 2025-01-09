@@ -94,7 +94,7 @@ public interface ICall: IObservable
     /// <exception cref="BO.BlDoesNotExistException">Thrown if the assignment or call does not exist.</exception>
     /// <exception cref="BO.CantUpdatevolunteer">Thrown if the call is expired or already closed/cancelled.</exception>
     /// <exception cref="BO.VolunteerCantUpadeOtherVolunteerException">Thrown if the volunteer does not have permission to cancel this assignment.</exception>
-    void cancelTreat(int volunteerId, int assignmentId);
+    void cancelTreat(int volunteerId, int? assignmentId);
 
     /// <summary>
     /// Choose a call for treatment by a volunteer.

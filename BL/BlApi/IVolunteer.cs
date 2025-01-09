@@ -74,6 +74,5 @@ public interface IVolunteer: IObservable
     /// Thrown if a volunteer with the same ID already exists in the system.
     /// </exception>
 
-    void CreateVolunteer (BO.Volunteer volToAdd);
-
+    void CreateVolunteer(BO.Volunteer volToAdd);
 }

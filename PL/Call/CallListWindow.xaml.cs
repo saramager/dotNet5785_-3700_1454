@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BO;
+using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace PL.Call
         /// Static reference to the BL instance.
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+       // static readonly DalApi.IDal s_dal = DalApi.Factory.Get;
 
         /// <summary>
         /// Selected call from the list.
@@ -76,7 +79,32 @@ namespace PL.Call
                 }
             }
         }
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var call = button?.DataContext as BO.CallInList;
 
+            if (call == null)
+                return;
+
+            var result = MessageBox.Show("Are you sure you want to cancel this call?", "cancel Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                   // int managerID = (int)(s_bl.Volunteer.findVolunteer(v => v.role == BO.role.Manager)?.Id ?? throw new InvalidOperationException("No manager found"));
+                    int? callID = call.ID;
+                    s_bl.Call.cancelTreat(managerID, callID);
+                    CallList = s_bl.Call.GetCallInList(filedToFilter, null, filedToSort);
+                }
+                catch (BO.BlDoesNotExistException ex)
+                {
+                    MessageBox.Show($"Failed to cancel call: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        
         /// <summary>
         /// List of calls displayed in the UI.
         /// </summary>
