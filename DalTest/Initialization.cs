@@ -147,7 +147,7 @@ public static class Initialization
             {
                  VId = s_rand.Next(200000000, 400000001);
             }
-            s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, disType,/*"m^pptloa0/" /*/ /*"password321"*/ "Sdvvzrug45", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
+            s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.Volunteer:RoleType.Manager, disType,/*"m^pptloa0/" /*/ /*"password321"*/ "Sdvvzrug45", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
         }
 
     }

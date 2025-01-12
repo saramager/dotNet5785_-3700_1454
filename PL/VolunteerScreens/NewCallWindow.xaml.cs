@@ -41,7 +41,6 @@ namespace PL.VolunteerScreens
             Id = id;
             queryOpenCallsList();
             s_bl.Call.AddObserver(CallsListObserver);
-            DataContext = this;
             InitializeComponent();
         }
         private void queryOpenCallsList()

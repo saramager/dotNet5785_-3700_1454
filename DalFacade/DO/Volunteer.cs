@@ -32,5 +32,5 @@ public record Volunteer
  )
 
 {
-    public Volunteer() : this(0,"","","",default, RoleType.TVolunteer, Distance.AirDistance) { } // empty ctor for stage 3 
+    public Volunteer() : this(0,"","","",default, RoleType.Volunteer, Distance.AirDistance) { } // empty ctor for stage 3 
 }

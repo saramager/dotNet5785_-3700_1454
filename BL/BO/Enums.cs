@@ -16,7 +16,7 @@ public enum RoleType
 {
 
     Manager,
-    TVolunteer
+    Volunteer
 }
 /// <summary>
 ///  for Call class - this enum represent the  different types of distance: Air distance, walking distance, Driving distance.

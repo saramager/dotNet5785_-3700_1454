@@ -62,7 +62,6 @@ namespace PL.VolunteerScreens
             s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
             if (Call != null)
                 s_bl.Call.AddObserver(Call.ID, callObserver);
-            DataContext = this; // הגדרת DataContext
             InitializeComponent();
 
         }
@@ -181,7 +180,6 @@ namespace PL.VolunteerScreens
             {
                 s_bl.Call.FinishTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
                 MessageBox.Show("finish Call ");
-                DataContext = this;
 
             }
             catch (BO.BlDoesNotExistException ex)
@@ -211,7 +209,7 @@ namespace PL.VolunteerScreens
             {
                 s_bl.Call.cancelTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
                 MessageBox.Show("cancel Call ");
-                DataContext = this;
+                
             }
             catch (BO.BlDoesNotExistException ex)
             {

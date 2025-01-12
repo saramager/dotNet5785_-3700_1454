@@ -146,8 +146,8 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
                     throw new  CantUpdatevolunteer($"vlounteer with id {id} have open assigments ");
             }
          }
-       if (role == DO.RoleType.TVolunteer )
-            if (vol.role ==0 && vDo.role == DO.RoleType.TVolunteer)
+       if (role == DO.RoleType.Volunteer )
+            if (vol.role ==0 && vDo.role == DO.RoleType.Volunteer)
                 throw new CantUpdatevolunteer($"vlounteer with id {id} cant change to manager  ");
 
         if (vol.Id != vDo.ID)

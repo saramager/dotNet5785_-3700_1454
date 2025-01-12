@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.VolunteerScreens"
         mc:Ignorable="d"
-        Title="VolunteerCallHistoryWindow" Height="450" Width="800">
+        Title="VolunteerCallHistoryWindow" Height="450" Width="800"
+           DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

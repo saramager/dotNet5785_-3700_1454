@@ -46,7 +46,6 @@ namespace PL
         public EnterToSystemWindow()
         {
             InitializeComponent();
-            DataContext = this;
         
         }
 
@@ -55,7 +54,7 @@ namespace PL
             try
             {
                 Role = s_bl.Volunteer.EnterToSystem(Id, Password);
-                if (Role == RoleType.TVolunteer)
+                if (Role == RoleType.Volunteer)
 
                 {
                     MessageBoxResult result = MessageBox.Show("Are you  want to open vlounteer window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
