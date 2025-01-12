@@ -127,20 +127,6 @@
     <maxDistance>4.485685916827166</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>643244296</ID>
-    <fullName>Esther Bar</fullName>
-    <phone>0530123456</phone>
-    <email>esther.bar@aol.com</email>
-    <isActive>true</isActive>
-    <role>TVolunteer</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-    <maxDistance>4.595236165621673</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>190707083</ID>
     <fullName>Dov Cohen</fullName>
     <phone>0541234567</phone>
@@ -225,6 +211,20 @@
     <maxDistance>4.905967641119128</maxDistance>
   </Volunteer>
   <Volunteer>
+    <ID>643244296</ID>
+    <fullName>Esther Bar</fullName>
+    <phone>0530123456</phone>
+    <email>esther.bar@aol.com</email>
+    <isActive>true</isActive>
+    <role>TVolunteer</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
+    <maxDistance>4.595236165621673</maxDistance>
+  </Volunteer>
+  <Volunteer>
     <ID>326301454</ID>
     <fullName>sara</fullName>
     <phone>0552708855</phone>
@@ -232,7 +232,7 @@
     <isActive>true</isActive>
     <role>Manager</role>
     <distance>AirDistance</distance>
-    <password>Vdud4567</password>
+    <password>Vdud787</password>
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.185592</longitude>
     <latitude>31.7864039</latitude>

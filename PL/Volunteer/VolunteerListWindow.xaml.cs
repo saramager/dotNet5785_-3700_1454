@@ -57,10 +57,10 @@ namespace PL.Volunteer
         /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var volunteer = button?.DataContext as BO.VolunteerInList;
+            //var button = sender as Button;
+            //var volunteer = button?.DataContext as BO.VolunteerInList;
 
-            if (volunteer == null)
+            if (SelectedVolunteer == null)
                 return;
 
             var result = MessageBox.Show("Are you sure you want to delete this volunteer?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -69,10 +69,14 @@ namespace PL.Volunteer
             {
                 try
                 {
-                    s_bl.Volunteer.DeleteVolunteer(volunteer.ID);
-                    VolunteerList = s_bl.Volunteer.GetVolunteerInList(null, filedToFilter);
+                    s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer.ID);
+                    VolunteerList = s_bl.Volunteer.GetVolunteerInList(null, filedToSort);
                 }
                 catch (BO.BlDoesNotExistException ex)
+                {
+                    MessageBox.Show($"Failed to delete volunteer: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (BO.volunteerHandleCallException ex)
                 {
                     MessageBox.Show($"Failed to delete volunteer: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -98,7 +102,6 @@ namespace PL.Volunteer
         /// Current filter field for volunteers.
         /// </summary>
         ///  צריך לבדוק אם לשנות את GetCallInList כי הוא כרגע לא מקבל ערך לסינון אלא רק למיון
-        public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
 
 
         /// <summary>
@@ -128,7 +131,6 @@ namespace PL.Volunteer
         /// </summary>
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
-            filedToSort = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
 
             VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToSort)!;
         }
@@ -137,7 +139,7 @@ namespace PL.Volunteer
         /// Queries the volunteer list based on the current filter.
         /// </summary>
         private void queryVolunteerList()
-            => VolunteerList = (filedToFilter == BO.FiledOfVolunteerInList.ID) ?
+            => VolunteerList = (filedToSort == BO.FiledOfVolunteerInList.ID) ?
                 s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToSort)!;
 
         /// <summary>

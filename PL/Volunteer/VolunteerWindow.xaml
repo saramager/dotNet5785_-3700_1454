@@ -18,68 +18,68 @@
 
         <!-- Left Side - Volunteer Information -->
         <DockPanel Grid.Column="0" Margin="10">
-            <Button DockPanel.Dock="Bottom" Content="{Binding ButtonText}" 
-                    Click="btnAddUpdate_Click" Height="40" Margin="0,10,0,0" 
-                    FontSize="14"/>
-
-            <StackPanel Margin="0,0,0,10">
-                <GroupBox Header="Volunteer Information" Padding="5">
-                    <StackPanel>
+            <GroupBox Header="Volunteer Information" DockPanel.Dock="Top">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="500">
+                    <StackPanel Margin="5">
                         <!-- ID -->
-                        <Label Content="ID"/>
+                        <Label Content="ID" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"
-                                 IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"/>
+                         Height="25" Margin="0,0,0,10"
+                         IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"/>
 
                         <!-- Name -->
-                        <Label Content="Name"/>
+                        <Label Content="Name" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"/>
+                         Height="25" Margin="0,0,0,10"/>
 
                         <!-- Email -->
-                        <Label Content="Email"/>
+                        <Label Content="Email" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"/>
+                         Height="25" Margin="0,0,0,10"/>
 
                         <!-- Phone -->
-                        <Label Content="Phone Number"/>
+                        <Label Content="Phone Number" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"/>
+                         Height="25" Margin="0,0,0,10"/>
 
                         <!-- Password -->
-                        <Label Content="Password"/>
+                        <Label Content="Password" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"/>
+                         Height="25" Margin="0,0,0,10"/>
 
                         <!-- Address -->
-                        <Label Content="Full Address"/>
+                        <Label Content="Full Address" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"/>
+                         Height="25" Margin="0,0,0,10"/>
 
                         <!-- Role -->
-                        <Label Content="Role"/>
+                        <Label Content="Role" Margin="0,5,0,0"/>
                         <ComboBox Height="25" Margin="0,0,0,10"
-                                  SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                  ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}"/>
+                          SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}"/>
 
                         <!-- Active Status -->
                         <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}"
-                                  Content="Active Volunteer"
-                                  Margin="0,0,0,10"/>
+                          Content="Active Volunteer"
+                          Margin="0,5,0,10"/>
 
                         <!-- Max Distance -->
-                        <Label Content="Max Distance for Call"/>
+                        <Label Content="Max Distance for Call" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                 Height="25" Margin="0,0,0,10"/>
+                         Height="25" Margin="0,0,0,10"/>
 
                         <!-- Distance Type -->
-                        <Label Content="Distance Type"/>
+                        <Label Content="Distance Type" Margin="0,5,0,0"/>
                         <ComboBox Height="25" Margin="0,0,0,10"
-                                  SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                  ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}"/>
+                          SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}"/>
                     </StackPanel>
-                </GroupBox>
-            </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+
+            <Button DockPanel.Dock="Bottom" Content="{Binding ButtonText}" 
+            Click="btnAddUpdate_Click" Height="40" Margin="0,10,0,0" 
+            FontSize="14"/>
         </DockPanel>
 
         <!-- Right Side - Current Call Information -->

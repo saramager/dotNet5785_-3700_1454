@@ -39,14 +39,15 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
     {
         var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
         if (assForVol == null) { }
-        else if (assForVol!.Count(ass => ass.finishT == null) > 0)
-            throw new BO.volunteerHandleCallException("volunteer has open call");
+        else if (assForVol!.Count() > 0)
+            throw new BO.volunteerHandleCallException($"volunteer with id={id} has assigments in his name");
         try
         {
             _dal.Volunteer.Delete(id);
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
         }
         catch(DO.DalDoesNotExistException dEx ) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
+
 
     }
 

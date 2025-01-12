@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Content=" File to sort:" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
-            <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
+            <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 
                       ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" 
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="VolunteerFilter"/>
         </Grid>
