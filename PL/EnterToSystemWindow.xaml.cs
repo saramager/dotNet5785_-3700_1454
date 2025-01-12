@@ -63,15 +63,15 @@ namespace PL
                     {
                         new VolnteerMainWindow(Id).Show();
                     }
-                 
+
                 }
-              
+
                 else
                     MessageBox.Show("manger");
             }
             catch (BO.BlDoesNotExistException blEx)
             {
-                MessageBox.Show("there is nw vlounteer with sucj Id");
+                MessageBox.Show("there is no vlounteer with such Id");
             }
             catch (PaswordDoesNotExistException PasEx)
             {
@@ -81,6 +81,7 @@ namespace PL
             {
                 MessageBox.Show(PasEx.Message);
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

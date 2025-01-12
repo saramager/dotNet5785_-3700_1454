@@ -5,55 +5,108 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="450" Width="800"
+        Title="VolunteerWindow" Height="600" Width="1200"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="281*"/>
-            <ColumnDefinition Width="519*"/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <!-- Volunteer ID field -->
-        <Label Content="ID" HorizontalAlignment="Left" Height="23" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252"
-                 IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" Grid.ColumnSpan="2"/>
 
-        <!-- Volunteer name field -->
-        <Label Content="Name" HorizontalAlignment="Left" Height="23" Margin="24,56,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="227,56,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="252" Grid.ColumnSpan="2"/>
+        <!-- Left Side - Volunteer Information -->
+        <DockPanel Grid.Column="0" Margin="10">
+            <Button DockPanel.Dock="Bottom" Content="{Binding ButtonText}" 
+                    Click="btnAddUpdate_Click" Height="40" Margin="0,10,0,0" 
+                    FontSize="14"/>
 
-        <!-- Volunteer email field -->
-        <Label Content="Email" HorizontalAlignment="Left" Height="23" Margin="24,101,0,0" VerticalAlignment="Top" Width="65"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="2"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="0,0,0,10">
+                    <GroupBox Header="Volunteer Information" Padding="5">
+                        <StackPanel>
+                            <!-- ID -->
+                            <Label Content="ID"/>
+                            <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"
+                                     IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"/>
 
-        <!-- Volunteer password field -->
-        <Label Content="Password" HorizontalAlignment="Left" Height="23" Margin="24,190,0,0" VerticalAlignment="Top" Width="60"/>
-        <TextBox HorizontalAlignment="Left" Height="25" Margin="227,190,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="2" />
+                            <!-- Name -->
+                            <Label Content="Name"/>
+                            <TextBox Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"/>
 
-        <!-- Volunteer phone number field -->
-        <Label Content="Phone Number" HorizontalAlignment="Left" Height="23" Margin="24,145,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox HorizontalAlignment="Left" Height="31" Margin="227,145,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="263" Grid.ColumnSpan="2"/>
+                            <!-- Email -->
+                            <Label Content="Email"/>
+                            <TextBox Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"/>
 
-        <!-- Volunteer full address field -->
-        <Label Content="Full Address" HorizontalAlignment="Left" Height="23" Margin="24,226,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="32" Margin="227,226,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="2"/>
+                            <!-- Phone -->
+                            <Label Content="Phone Number"/>
+                            <TextBox Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"/>
 
-        <!-- Volunteer role field -->
-        <Label Content="Role" HorizontalAlignment="Left" Height="23" Margin="24,273,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Height="27" Margin="216,273,0,0" VerticalAlignment="Top" Width="307" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" Grid.ColumnSpan="2" />
+                            <!-- Password -->
+                            <Label Content="Password"/>
+                            <TextBox Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"/>
 
-        <!-- Volunteer activity status -->
-        <Label Content="Active" HorizontalAlignment="Left" Height="23" Margin="24,310,0,0" VerticalAlignment="Top" Width="109"/>
-        <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}" Content="Active Volunteer" HorizontalAlignment="Left" Height="25" Margin="227,320,0,0" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2"/>
+                            <!-- Address -->
+                            <Label Content="Full Address"/>
+                            <TextBox Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"/>
 
-        <!-- Volunteer maximum distance for calls -->
-        <Label Content="Max Distance for Call" HorizontalAlignment="Left" Height="23" Margin="18,352,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="18" Margin="197,352,0,0" TextWrapping="Wrap" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="236" Grid.ColumnSpan="2"/>
+                            <!-- Role -->
+                            <Label Content="Role"/>
+                            <ComboBox Height="25" Margin="0,0,0,10"
+                                      SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                      ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}"/>
 
-        <!-- Distance type field -->
-        <Label Content="Distance Type" HorizontalAlignment="Left" Height="26" Margin="24,390,0,0" VerticalAlignment="Top" Width="141"/>
-        <ComboBox HorizontalAlignment="Left" Height="24" Margin="197,390,0,0" VerticalAlignment="Top" Width="326"   SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" Grid.ColumnSpan="2" />
+                            <!-- Active Status -->
+                            <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}"
+                                      Content="Active Volunteer"
+                                      Margin="0,0,0,10"/>
 
-        <!-- Add or update button -->
-        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="338,337,0,0" VerticalAlignment="Top" Width="165" FontSize="14" Grid.Column="1"/>
+                            <!-- Max Distance -->
+                            <Label Content="Max Distance for Call"/>
+                            <TextBox Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                     Height="25" Margin="0,0,0,10"/>
+
+                            <!-- Distance Type -->
+                            <Label Content="Distance Type"/>
+                            <ComboBox Height="25" Margin="0,0,0,10"
+                                      SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                      ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+
+        <!-- Right Side - Calls In Progress -->
+        <DockPanel Grid.Column="1" Margin="10">
+            <Label DockPanel.Dock="Top" Content="Current Calls" FontSize="16" FontWeight="Bold"/>
+            <DataGrid ItemsSource="{Binding callProgress}" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="True"
+                      CanUserResizeColumns="True"
+                      CanUserSortColumns="True"
+                      AlternatingRowBackground="LightGray"
+                      GridLinesVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="Auto"/>
+                    <DataGridTextColumn Header="Call ID" Binding="{Binding CallId}" Width="Auto"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding callT}" Width="Auto"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding verbalDescription}" Width="*"/>
+                    <DataGridTextColumn Header="Address" Binding="{Binding address}" Width="*"/>
+                    <DataGridTextColumn Header="Open Time" Binding="{Binding openTime, StringFormat='dd/MM/yyyy HH:mm'}" Width="Auto"/>
+                    <DataGridTextColumn Header="Max Time" Binding="{Binding maxTime, StringFormat='dd/MM/yyyy HH:mm'}" Width="Auto"/>
+                    <DataGridTextColumn Header="Start Treatment" Binding="{Binding startTreatment, StringFormat='dd/MM/yyyy HH:mm'}" Width="Auto"/>
+                    <DataGridTextColumn Header="Distance" Binding="{Binding CallDistance}" Width="Auto"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding statusT}" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
     </Grid>
 </Window>

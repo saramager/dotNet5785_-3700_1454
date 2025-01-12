@@ -26,7 +26,7 @@ namespace PL.Call
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
        // static readonly DalApi.IDal s_dal = DalApi.Factory.Get;
-
+       public int managerID { get; set; }
         /// <summary>
         /// Selected call from the list.
         /// </summary>
@@ -129,11 +129,12 @@ namespace PL.Call
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
-        public CallListWindow()
+        public CallListWindow(int managerID)
         {
             InitializeComponent();
             queryCallList();
             s_bl.Call.AddObserver(CallListObserver);
+            this.managerID = managerID;
         }
 
         /// <summary>

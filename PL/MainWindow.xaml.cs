@@ -22,11 +22,11 @@ namespace PL
         /// Instance of the BL layer
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
+        public int managerID { get; set; }  
         /// <summary>
         /// Constructor for the MainWindow
         /// </summary>
-        public MainWindow()
+        public MainWindow(int MId)
         {
             InitializeComponent();
 
@@ -35,6 +35,7 @@ namespace PL
 
             this.Closed += OnWindowClosed;
             this.Loaded += OnWindowLoaded;
+            managerID = MId;
         }
 
         /// <summary>
@@ -164,7 +165,7 @@ namespace PL
         /// </summary>
         private void ButtonCallList_Click(object sender, RoutedEventArgs e)
         {
-            new CallListWindow().Show();
+            new Call.CallListWindow(managerID).Show();
         }
 
         /// <summary>
