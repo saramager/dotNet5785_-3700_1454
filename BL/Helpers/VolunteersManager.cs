@@ -30,7 +30,7 @@ namespace Helpers
             int sumCanceld = calls.Count(ass => ass.finishT == DO.FinishType.SelfCancel);
             int sumExpired = calls.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel);
             var call = calls.Find(ass => ass.finishT== null);
-            DO.Call? callD = call==null ? null :s_dal.Call.Read(c=> c.ID==call.ID);
+            DO.Call? callD = call==null ? null :s_dal.Call.Read(c=> c.ID==call.CallId);
             return new()
             {
                 ID = doVolunteer.ID,

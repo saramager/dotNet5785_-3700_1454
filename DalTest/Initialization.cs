@@ -2,6 +2,11 @@
 namespace DalTest;
 using DalApi;
 using DO;
+using System.Numerics;
+using System.Xml.Linq;
+
+using System;
+
 /// <summary>
 /// initializon the database with values 
 /// </summary>
@@ -127,6 +132,7 @@ public static class Initialization
         string[] names = { "David Levy", "Miriam Cohen", "Yosef Katz", "Sarah Gold", "Shlomo Klein", "Chana Rosen", "Aharon Azulay", "Tova Benita", "Yaakov Pinto", "Esther Bar", "Dov Cohen", "Rivka Dayan", "Yitzhak Azulay", "Malkah Shalom", "Avraham Segal" ,"Moshe Chaim"};
         string[] emails = { "levy.david@email.com", "miriamCohen@gmail.com", "yosef.katz@outlook.com", "sarahGold789@yahoo.com", "shlomo.klein@live.com", "chana.rosen@icloud.com", "aharonAzulay@mail.com", "tova.benita@webmail.com", "yaakov.pinto@zoho.com", "esther.bar@aol.com", "dov.cohen@ymail.com", "rivka.dayan@fastmail.com", "yitzhak.azulay@protonmail.com", "malkah.shalom@gmx.com", "avraham.segal@tutanota.com","moshe342@gmail.co.il" };
         string[] phoneNumbers = { "0521234567", "0532345678", "0543456789", "0554567890", "0585678901", "0596789012", "0577890123", "0588901234", "0529012345", "0530123456", "0541234567", "0552345678", "0583456789", "0574567890", "0595678901", "050897463" };
+        s_dal!.Volunteer.Create(new Volunteer(326301454, "sara", "0552708855", "sarahaya454@gmail.com", true, RoleType.Manager,Distance.AirDistance, "Sdvvzrug45", "Beit Hadfus 22, Jerusalem, Israel", 31.78659, 35.18556,null));
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];
@@ -143,6 +149,7 @@ public static class Initialization
             }
             s_dal!.Volunteer.Create(new Volunteer(VId, name, phone, email, active, (i!= names.Length-1)?RoleType.TVolunteer:RoleType.Manager, disType,/*"m^pptloa0/" /*/ /*"password321"*/ "Sdvvzrug45", addresses[randAddress],latitudes[randAddress],longitudes[randAddress] ,DisMax));
         }
+
     }
     private static void createAssignment()
     { 

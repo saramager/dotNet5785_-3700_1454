@@ -78,7 +78,7 @@ internal static class AdminManager //stage 4
 
         //VolunteersManager.PeriodicVolunteersUpdates(oldClock, newClock); //stage 4
         //etc ...
-
+        CallsManager.checkIfExpiredCall();
         //Calling all the observers of clock update
         ClockUpdatedObservers?.Invoke(); //prepared for stage 5
     }

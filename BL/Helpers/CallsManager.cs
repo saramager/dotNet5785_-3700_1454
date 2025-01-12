@@ -1,5 +1,6 @@
 ﻿using BO;
 using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -232,9 +233,10 @@ namespace Helpers
                                            select (ConvertDOCallToBOCall(dCall));
             foreach (BO.Call call in boCalls)
             {
-                if (call.CallAssign == null)
+                if (call.CallAssign == null|| call.CallAssign.Count==0)
                 {
                     s_dal.Assignment.Create(new DO.Assignment(0, call.ID, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
+
                     
 
                 }
@@ -245,11 +247,15 @@ namespace Helpers
                     {
                         var assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
                         s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
-                        
+                        VolunteersManager.Observers.NotifyItemUpdated(assing.VolunteerId);
+                        VolunteersManager.Observers.NotifyListUpdated();
+
                     }
 
 
                 }
+                CallsManager.Observers.NotifyItemUpdated(call.ID);  //stage 5
+                CallsManager.Observers.NotifyListUpdated();
 
 
             }

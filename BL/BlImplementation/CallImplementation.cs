@@ -362,6 +362,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             _dal.Assignment.Update(assignment);
             VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
+            VolunteersManager.Observers.NotifyListUpdated();
             CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
             CallsManager.Observers.NotifyListUpdated();  //stage 5
             // משקיפים?????
@@ -426,6 +427,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             _dal.Assignment.Update(assignment);
             VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
+            VolunteersManager.Observers.NotifyListUpdated();
             CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
             CallsManager.Observers.NotifyListUpdated();  //stage 5
 
@@ -477,6 +479,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         // Attempt to add the new assignment to the data layer
         _dal.Assignment.Create(newAssignment);
         VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
+        VolunteersManager.Observers.NotifyListUpdated();
         CallsManager.Observers.NotifyItemUpdated(newAssignment.CallId);  //stage 5
         CallsManager.Observers.NotifyListUpdated();  //stage 5
     }
