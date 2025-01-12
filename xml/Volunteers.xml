@@ -182,20 +182,6 @@
     <maxDistance>1.3767067417687233</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>348432410</ID>
-    <fullName>Yitzhak Azulay</fullName>
-    <phone>0583456789</phone>
-    <email>yitzhak.azulay@protonmail.com</email>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>0.3481193172942332</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>797832391</ID>
     <fullName>Malkah Shalom</fullName>
     <phone>0574567890</phone>
@@ -236,5 +222,19 @@
     <longitude>35.19087</longitude>
     <latitude>31.79251</latitude>
     <maxDistance>2.3584938592150886</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>348432410</ID>
+    <fullName>Yitzhak Azulay</fullName>
+    <phone>0583456789</phone>
+    <email>yitzhak.azulay@protonmail.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>DrivingDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Amram Gaon 14, Jerusalem, Israel</address>
+    <longitude>35.1928275</longitude>
+    <latitude>31.7905996</latitude>
+    <maxDistance>0.3481193172942332</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

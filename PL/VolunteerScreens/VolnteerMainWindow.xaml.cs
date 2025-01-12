@@ -50,25 +50,45 @@ namespace PL.VolunteerScreens
 
         public VolnteerMainWindow(int id)
         {
-
-
-            CurrentVolunteer = s_bl.Volunteer.ReadVolunteer(id);
+            InitializeComponent();
             Call = null;
-            if (CurrentVolunteer.callProgress != null)
+
             {
 
-                Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
-            }
-            s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
-            if (Call != null)
-                s_bl.Call.AddObserver(Call.ID, callObserver);
-            InitializeComponent();
+                Task.Run(() =>
+            {
+                var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
 
+                Dispatcher.Invoke(() =>
+                {
+                    CurrentVolunteer = volunteer;
+                    if (CurrentVolunteer.callProgress != null)
+                    {
+
+                        Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
+                    }
+                    s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
+                    if (Call != null)
+                        s_bl.Call.AddObserver(Call.ID, callObserver);
+                });
+            });
+            }
         }
+
+
+
         private void queryVolunteer()
         {
             int id = CurrentVolunteer!.Id;
-            CurrentVolunteer = s_bl.Volunteer.ReadVolunteer(id);
+            Task.Run(() =>
+            {
+                var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
+
+                Dispatcher.Invoke(() =>
+                {
+                    CurrentVolunteer = volunteer;
+                });
+            });
         }
 
         /// <summary>

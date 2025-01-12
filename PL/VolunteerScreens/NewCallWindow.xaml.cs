@@ -44,7 +44,17 @@ namespace PL.VolunteerScreens
             InitializeComponent();
         }
         private void queryOpenCallsList()
-    => OpenCallsList = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls);
+        {
+            Task.Run(() =>
+            {
+                var openCalls = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls);
+
+                Dispatcher.Invoke(() =>
+                {
+                    OpenCallsList = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls);
+                });
+            });
+        }
         private void CallsListObserver()
            => queryOpenCallsList();
         private void Window_Loaded(object sender, RoutedEventArgs e)
