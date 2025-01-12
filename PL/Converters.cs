@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -73,4 +74,30 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    class ConvertISActive : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool booleanValue)
+            {
+                return booleanValue ? ISActive.Active : ISActive.NotActive;
+            }
+
+            return ISActive.Both;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+           switch((ISActive)value)
+            {
+                case ISActive.Active:
+                    return true;
+                case ISActive.NotActive:
+                    return false;
+                default:
+                    return null;
+            }
+        }
+    }
+
 }

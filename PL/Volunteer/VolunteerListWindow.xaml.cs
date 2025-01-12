@@ -107,6 +107,19 @@ namespace PL.Volunteer
         /// Current sort field for volunteers.
         /// </summary>
         public BO.FiledOfVolunteerInList filedToSort { get; set; } = BO.FiledOfVolunteerInList.ID;
+
+        public static readonly DependencyProperty FilterActiveProperty =
+            DependencyProperty.Register(
+                "FilterActive",
+                typeof(bool?),
+                typeof(VolunteerListWindow),
+                new PropertyMetadata(null));
+
+        public bool? FilterActive
+        {
+            get => (bool?)GetValue(FilterActiveProperty);
+            set => SetValue(FilterActiveProperty, value);
+        }
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
@@ -131,7 +144,7 @@ namespace PL.Volunteer
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
 
-            VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToSort)!;
+            VolunteerList = s_bl?.Volunteer.GetVolunteerInList(FilterActive, filedToSort)!;
         }
 
         /// <summary>
@@ -139,7 +152,7 @@ namespace PL.Volunteer
         /// </summary>
         private void queryVolunteerList()
             => VolunteerList = (filedToSort == BO.FiledOfVolunteerInList.ID) ?
-                s_bl?.Volunteer.GetVolunteerInList(null, null)! : s_bl?.Volunteer.GetVolunteerInList(null, filedToSort)!;
+                s_bl?.Volunteer.GetVolunteerInList(FilterActive, null)! : s_bl?.Volunteer.GetVolunteerInList(FilterActive, filedToSort)!;
 
         /// <summary>
         /// Observer function to update the volunteer list.

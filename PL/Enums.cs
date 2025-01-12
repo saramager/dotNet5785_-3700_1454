@@ -65,4 +65,17 @@ internal class FiledOfOpenListColection : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+enum ISActive
+{
+    Active,
+    NotActive,
+   Both     
 
+}
+internal class IsACtiveColection : IEnumerable
+{
+    static readonly IEnumerable<ISActive> s_enums =
+(Enum.GetValues(typeof(ISActive)) as IEnumerable<ISActive>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}

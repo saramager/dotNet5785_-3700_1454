@@ -13,6 +13,7 @@
         <local:statusCColection x:Key="statusCKey" />
         <local:FiledOFCloseListColection x:Key="FiledOFCloseListColecthionKey" />
         <local:FiledOfOpenListColection x:Key="FiledOfOpenListColecthionKey" />
+        <local:IsACtiveColection x:Key="IsActiveCollectionKey" />
 
 
         <!--converters-->
@@ -20,6 +21,7 @@
         <local:ConvertNullToTrue x:Key="ConvertNullToTrueKey"/>
         <local:ConvertNullToVisibility x:Key="ConvertNullToVisibilityKey"/>
         <local:ConvertFalseToHidden x:Key="ConvertFalseToHiddenKey"/>
+        <local:ConvertISActive x:Key="ConvertISActiveKey" />
 
 
         <!--color pallte-->

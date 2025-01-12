@@ -20,11 +20,17 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Content=" File to sort:" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
+            <Label Content="Is Active" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="0"/>
+            <ComboBox SelectedValue="{Binding FilterActive, Converter={StaticResource ConvertISActiveKey}}"
+          ItemsSource="{Binding Source={StaticResource IsActiveCollectionKey}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectionChanged="VolunteerFilter"/>
+            <Label Content=" File to sort:" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 
-                      ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" 
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="VolunteerFilter"/>
+           ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" 
+           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3"   SelectionChanged="VolunteerFilter"/>
+
         </Grid>
 
                 <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" IsReadOnly="True" AutoGenerateColumns="False"
