@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 
-internal class VolunteerImplementation :  IVolunteer
+internal class VolunteerImplementation : IVolunteer
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
@@ -161,4 +161,13 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         } 
         catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
-  }
+    public int ManagerID()
+    {
+       var manager= _dal.Volunteer.Read(v=>v.role==DO.RoleType.Manager);
+        if (manager!= null)
+            return manager.ID;
+        else
+           throw new BO.NoManagerException("there is no manger avilble ");
+    }
+
+}

@@ -75,4 +75,5 @@ public interface IVolunteer: IObservable
     /// </exception>
 
     void CreateVolunteer(BO.Volunteer volToAdd);
+    int ManagerID ();
 }
