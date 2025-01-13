@@ -32,9 +32,13 @@ namespace PL
 
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
+            s_bl.Call.AddObserver(callsListObserver);
 
             this.Closed += OnWindowClosed;
             this.Loaded += OnWindowLoaded;
+            CurrentTime = s_bl.Admin.GetClock();
+            RiskRange = s_bl.Admin.GetRiskRange();
+            CallSums = s_bl.Call.SumOfCalls();
             managerID = MId;
         }
 
@@ -67,7 +71,17 @@ namespace PL
         /// </summary>
         public static readonly DependencyProperty RiskRangeProperty =
             DependencyProperty.Register("RiskRange", typeof(TimeSpan), typeof(MainWindow));
+        public int[] CallSums 
+        {
+            get { return (int[])GetValue(CallSumsProperty); }
+            set { SetValue(CallSumsProperty, value); }
+        }
 
+        /// <summary>
+        /// Dependency property for RiskRange
+        /// </summary>
+        public static readonly DependencyProperty CallSumsProperty =
+            DependencyProperty.Register("CallSums", typeof(int[]), typeof(MainWindow));
         /// <summary>
         /// Updates the risk range value
         /// </summary>
@@ -82,6 +96,10 @@ namespace PL
         private void clockObserver()
         {
             CurrentTime = s_bl.Admin.GetClock();
+        }
+        private void callsListObserver()
+        {
+            CallSums= s_bl.Call.SumOfCalls();   
         }
 
         /// <summary>
@@ -108,6 +126,8 @@ namespace PL
         {
             CurrentTime = s_bl.Admin.GetClock();
             RiskRange = s_bl.Admin.GetRiskRange();
+            CallSums = s_bl.Call.SumOfCalls();
+
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
         }

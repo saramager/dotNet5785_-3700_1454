@@ -243,7 +243,7 @@
     <email>yitzhak.azulay@protonmail.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
+    <distance>AirDistance</distance>
     <password>Sdvvzrug45</password>
     <address>Amram Gaon 14, Jerusalem, Israel</address>
     <longitude>35.1928275</longitude>
