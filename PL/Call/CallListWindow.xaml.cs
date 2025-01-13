@@ -77,6 +77,11 @@ namespace PL.Call
                 {
                     MessageBox.Show($"Failed to delete call: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                catch (BO.CantDeleteCallException ex)
+                {
+                    MessageBox.Show($"Failed to delete call: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
             }
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -100,7 +105,11 @@ namespace PL.Call
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
-                    MessageBox.Show($"Failed to cancel call: {ex.Message}", "Deletion Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Failed to cancel call: {ex.Message}", "Cancel failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (BO.CantUpdatevolunteer ex)
+                {
+                    MessageBox.Show($"Failed to cancel call: {ex.Message}", "Cancel failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

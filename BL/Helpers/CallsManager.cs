@@ -151,8 +151,6 @@ namespace Helpers
             }
         }
 
-
-
         internal static BO.Call ConvertDOCallWithAssignments(DO.Call doCall, IEnumerable<DO.Assignment> assignmentsForCall)
         {
             return new BO.Call

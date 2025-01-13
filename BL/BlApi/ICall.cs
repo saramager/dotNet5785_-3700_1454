@@ -28,7 +28,7 @@ public interface ICall: IObservable
     /// <param name="filedToSort">The field by which to sort the calls (e.g., ID, CallId, callT, openTime, etc.).</param>
     /// <returns>An `IEnumerable<CallInList>` representing the filtered and/or sorted list of calls.</returns>
     /// <exception cref="BO.BlNullPropertyException">Thrown if there are no calls in the database.</exception>
-    IEnumerable< CallInList> GetCallInList (FiledOfCallInList? filedToFilter, object? sort , FiledOfCallInList? filedToSort) ;
+    IEnumerable< CallInList> GetCallInList (FiledOfCallInList? filedToFilter, object? filter, FiledOfCallInList? filedToSort) ;
 
     /// <summary>
     /// Reads a call by its ID.

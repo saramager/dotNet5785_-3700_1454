@@ -84,7 +84,7 @@ namespace PL.Call
             {
                 MessageBox.Show(ex.Message);
             }
-            catch (BlDoesNotExistException ex)
+            catch (BO.BlDoesNotExistException ex)
             {
                 MessageBox.Show(ex.Message);
             }

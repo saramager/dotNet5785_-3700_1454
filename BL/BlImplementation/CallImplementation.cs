@@ -45,49 +45,49 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     }
 
 
-    public IEnumerable<CallInList> GetCallInList(FiledOfCallInList? filedToFilter, object? sort, FiledOfCallInList? filedToSort)
+    public IEnumerable<CallInList> GetCallInList(FiledOfCallInList? filedToFilter, object? filter, FiledOfCallInList? filedToSort)
     {
         IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
         IEnumerable<CallInList> boCallsInList = _dal.Call.ReadAll().Select(call => CallsManager.ConvertDOCallToBOCallInList(call));
 
-        if (filedToFilter != null && sort != null)
+        if (filedToFilter != null && filter != null)
         {
             switch (filedToFilter)
             {
                 case FiledOfCallInList.ID:
-                    boCallsInList = boCallsInList.Where(item => item.ID == (int)sort);
+                    boCallsInList = boCallsInList.Where(item => item.ID == (int)filter);
                     break;
 
                 case FiledOfCallInList.CallId:
-                    boCallsInList = boCallsInList.Where(item => item.CallId == (int)sort);
+                    boCallsInList = boCallsInList.Where(item => item.CallId == (int)filter);
                     break;
 
                 case FiledOfCallInList.callT:
-                    boCallsInList = boCallsInList.Where(item => item.callT == (BO.CallType)sort);
+                    boCallsInList = boCallsInList.Where(item => item.callT == (BO.CallType)filter);
                     break;
 
                 case FiledOfCallInList.openTime:
-                    boCallsInList = boCallsInList.Where(item => item.openTime == (DateTime)sort);
+                    boCallsInList = boCallsInList.Where(item => item.openTime == (DateTime)filter);
                     break;
 
                 case FiledOfCallInList.timeEndCall:
-                    boCallsInList = boCallsInList.Where(item => item.timeEndCall == (TimeSpan)sort);
+                    boCallsInList = boCallsInList.Where(item => item.timeEndCall == (TimeSpan)filter);
                     break;
 
                 case FiledOfCallInList.volunteerLast:
-                    boCallsInList = boCallsInList.Where(item => item.volunteerLast == (string)sort);
+                    boCallsInList = boCallsInList.Where(item => item.volunteerLast == (string)filter);
                     break;
 
                 case FiledOfCallInList.TimeEndTreat:
-                    boCallsInList = boCallsInList.Where(item => item.TimeEndTreat == (TimeSpan)sort);
+                    boCallsInList = boCallsInList.Where(item => item.TimeEndTreat == (TimeSpan)filter);
                     break;
 
                 case FiledOfCallInList.status:
-                    boCallsInList = boCallsInList.Where(item => item.status == (Status)sort);
+                    boCallsInList = boCallsInList.Where(item => item.status == (Status)filter);
                     break;
 
                 case FiledOfCallInList.numOfAssignments:
-                    boCallsInList = boCallsInList.Where(item => item.numOfAssignments == (int)sort);
+                    boCallsInList = boCallsInList.Where(item => item.numOfAssignments == (int)filter);
                     break;
             }
         }
@@ -163,14 +163,19 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             CallsManager.Observers.NotifyListUpdated();  //stage 5
 
         }
+        catch (BO.BlUpdateCallException ex)
+        {
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call:", ex);
+        }
         catch (BO.BlValidationException ex)
         {
-            throw new BlValidationException("An error occurred while updating the call.");
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call:", ex);
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
+            throw new BO.BlDoesNotExistException("An error occurred while updating the call:", ex);
         }
+        
     }
 
 
@@ -190,7 +195,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
                 if (hasAssignments || callStatus != BO.Status.Open)
                 {
-                    throw new InvalidOperationException($"Cannot delete call with ID {id} as it is not in an open status or has been assigned.");
+                    throw new CantDeleteCallException($"Cannot delete call with ID {id} as it is not in an open status or has been assigned.");
                 }
             }
             _dal.Call.Delete(id);
@@ -218,7 +223,15 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         }
         catch (BO.BlValidationException ex)
         {
-            throw new BlValidationException("An error occurred while updating the call.");
+            throw new BO.BlDoesNotExistException("An error occurred while creating the call:.", ex);
+        }
+        catch (BO.BlUpdateCallException ex)
+        {
+            throw new BO.BlDoesNotExistException("An error occurred while creating the call:", ex);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException("An error occurred while creating the call:", ex);
         }
     }
 
