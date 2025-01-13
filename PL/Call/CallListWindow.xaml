@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="CallListWindow" Height="450" Width="800">
-    <!--DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">-->
-     <Grid>
+        Title="CallListWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*" />
             <RowDefinition Height="500*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Internal, Upper Grid -->
+        <!--Internal, Upper Grid-->
         <Grid HorizontalAlignment="Stretch" Height="Auto" Grid.Row="0" VerticalAlignment="Stretch" Width="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -22,12 +22,12 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <Label Content=" File to filter:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
          ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" 
          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="CallFilter"/>
-            
+
             <Label Content=" File to sort:" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 
          ItemsSource="{Binding Source={StaticResource FiledToSortCallColecthionKey}}" 
@@ -48,12 +48,12 @@
                 <DataGridTextColumn Binding="{Binding TimeEndTreat}" Header="TimeEndTreat" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding status}" Header="Call status" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding numOfAssignments}" Header="num of assignments" Width="Auto" />
-                
-                <!--"Delete" button column--> 
+
+                <!--"Delete" button column-->
                 <DataGridTemplateColumn Header="Actions" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                             <!--"Delete" button--> 
+                            <!--"Delete" button-->
                             <Button Content="Delete" Click="DeleteButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -63,7 +63,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--"Cancel" button-->
-                            <Button Content="Cancele" Click="CanceleButton_Click"/>
+                            <Button Content="Cancele" Click="CancelButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -71,7 +71,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-         <!--Button to add new Call--> 
+        <!--Button to add new Call-->
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddButton_Click"/>
     </Grid>
 </Window>

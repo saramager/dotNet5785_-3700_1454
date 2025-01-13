@@ -133,6 +133,7 @@ public static class Initialization
         string[] emails = { "levy.david@email.com", "miriamCohen@gmail.com", "yosef.katz@outlook.com", "sarahGold789@yahoo.com", "shlomo.klein@live.com", "chana.rosen@icloud.com", "aharonAzulay@mail.com", "tova.benita@webmail.com", "yaakov.pinto@zoho.com", "esther.bar@aol.com", "dov.cohen@ymail.com", "rivka.dayan@fastmail.com", "yitzhak.azulay@protonmail.com", "malkah.shalom@gmx.com", "avraham.segal@tutanota.com","moshe342@gmail.co.il" };
         string[] phoneNumbers = { "0521234567", "0532345678", "0543456789", "0554567890", "0585678901", "0596789012", "0577890123", "0588901234", "0529012345", "0530123456", "0541234567", "0552345678", "0583456789", "0574567890", "0595678901", "050897463" };
         s_dal!.Volunteer.Create(new Volunteer(326301454, "sara", "0552708855", "sarahaya454@gmail.com", true, RoleType.Manager,Distance.AirDistance, "Sdvvzrug45", "Beit Hadfus 22, Jerusalem, Israel", 31.78659, 35.18556,null));
+        s_dal!.Volunteer.Create(new Volunteer(214093700, "Neomy Ivgi", "0533121809", "Neomy053@gmail.com", true, RoleType.Manager, Distance.AirDistance, "Sdvvzrug45", "Beit Hadfus 22, Jerusalem, Israel", 31.78659, 35.18556, null));
         for (int i = 0; i < names.Length; i++)
         {
             string name = names[i];

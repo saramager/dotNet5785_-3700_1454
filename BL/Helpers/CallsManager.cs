@@ -48,15 +48,15 @@ namespace Helpers
         {
             var assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.ID);
             var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.startTreatment).FirstOrDefault();
-            return new()
+            return new BO.CallInList
             {
-                ID = lastAssignmentsForCall != null ? lastAssignmentsForCall.ID : null,
-                CallId = doCall.ID,//לבדוק 
+                ID = lastAssignmentsForCall?.ID,
+                CallId = doCall.ID,
                 callT = (BO.CallType)doCall.callT,
                 openTime = doCall.openTime,
                 timeEndCall = doCall.maxTime != null ? doCall.maxTime - s_dal.Config.Clock : null,
-                volunteerLast = lastAssignmentsForCall != null ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)!.fullName : null,
-                TimeEndTreat = lastAssignmentsForCall == null ? null : (lastAssignmentsForCall.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - lastAssignmentsForCall.finishTreatment : null),
+                volunteerLast = lastAssignmentsForCall != null ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)?.fullName : null,
+                TimeEndTreat = lastAssignmentsForCall?.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - lastAssignmentsForCall.startTreatment : null,
                 status = GetCallStatus(doCall),
                 numOfAssignments = assignmentsForCall.Count()
             };
