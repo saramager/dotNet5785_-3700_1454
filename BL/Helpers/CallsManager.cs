@@ -36,7 +36,7 @@ namespace Helpers
                 CallAssign = assignmentsForCall.Select(a => new BO.CallAssignInList
                 {
                     VolunteerId = a.VolunteerId,
-                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName,
+                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName ?? string.Empty,
                     startTreatment = a.startTreatment,
                     finishTreatment = a.finishTreatment,
                     finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null

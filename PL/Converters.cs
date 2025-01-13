@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -97,6 +98,77 @@ namespace PL
                 default:
                     return null;
             }
+        }
+    }
+
+    public class ConvertStatusEditableForIsEnabled : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return false;
+
+            var status = (Status)value;
+
+            // Depending on the status, decide if it is possible to edit
+            switch (status)
+            {
+                case Status.Open:
+                    return true;
+                case Status.OpenInRisk:
+                    return true;
+                case Status.InTreat:
+                    return parameter?.ToString() == "maxTime" ? true : false;
+                case Status.TreatInRisk:
+                    return parameter?.ToString() == "maxTime" ? true : false;
+                case Status.Close:
+                    return false;
+                case Status.Expired:
+                    return false;
+                default:
+                    return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // לא נדרשת המרה חזרה
+            return null;
+        }
+    }
+         public class ConvertStatusEditableForIsReadOnly : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return false;
+
+            var status = (Status)value;
+
+            // Depending on the status, decide if it is possible to edit
+            switch (status)
+            {
+                case Status.Open:
+                    return false;
+                case Status.OpenInRisk:
+                    return false;
+                case Status.InTreat:
+                    return parameter?.ToString() == "maxTime" ? false : true;
+                case Status.TreatInRisk:
+                    return parameter?.ToString() == "maxTime" ? false : true;
+                case Status.Close:
+                    return true;
+                case Status.Expired:
+                    return true;
+                default:
+                    return true;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // לא נדרשת המרה חזרה
+            return null;
         }
     }
 

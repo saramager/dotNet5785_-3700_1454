@@ -31,16 +31,6 @@
     <verbalDescription>After giving birth to twins, a mother could use a little pampering. A set of lotions, oils, and some comfortable pajamas or slippers would help her feel more comfortable while recovering at home.</verbalDescription>
   </Call>
   <Call>
-    <ID>1003</ID>
-    <address>Beit Shearim 4, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.79032</latitude>
-    <longitude>35.19624</longitude>
-    <openTime>2025-01-10T12:23:55.911337</openTime>
-    <maxTime>2025-02-05T15:02:38.5745449</maxTime>
-    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
-  </Call>
-  <Call>
     <ID>1004</ID>
     <address>Najara 14, Jerusalem, Israel</address>
     <callT>HouseholdHelp</callT>
@@ -79,16 +69,6 @@
     <openTime>2025-01-11T13:24:57.3389213</openTime>
     <maxTime xsi:nil="true" />
     <verbalDescription>The new mom is in need of items that will help her feel better after a difficult delivery. A thoughtful care package with postpartum essentials like breast pads, bath salts, and chocolate would be a great gift.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1008</ID>
-    <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78737</latitude>
-    <longitude>35.18475</longitude>
-    <openTime>2025-01-04T05:35:06.6471491</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family following strict kosher guidelines is in need of a meal. Prepare a kosher meal with BD”C certification, such as a kosher meat dish, rice, and a vegetable side dish, ensuring everything is compliant with their dietary needs.</verbalDescription>
   </Call>
   <Call>
     <ID>1009</ID>
@@ -589,5 +569,25 @@
     <openTime>2025-01-02T07:41:06.0202056</openTime>
     <maxTime>2025-02-10T22:30:56.2254194</maxTime>
     <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1003</ID>
+    <address>Beit Shearim 6, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.7900057</latitude>
+    <longitude>35.1960666</longitude>
+    <openTime>2025-01-10T12:23:55.911337</openTime>
+    <maxTime>2025-02-05T00:00:00</maxTime>
+    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1008</ID>
+    <address>Kanfei Nesharim 15, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.7873914</latitude>
+    <longitude>35.1837336</longitude>
+    <openTime>2025-01-04T05:35:06.6471491</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A family following strict kosher guidelines is in need of a meal. Prepare a kosher meal with BD”C certification, such as a kosher meat dish, rice, and a vegetable side dish, ensuring everything is compliant with their dietary needs.</verbalDescription>
   </Call>
 </ArrayOfCall>

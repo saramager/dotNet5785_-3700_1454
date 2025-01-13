@@ -55,43 +55,110 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             switch (filedToFilter)
             {
                 case FiledOfCallInList.ID:
-                    boCallsInList = boCallsInList.Where(item => item.ID == (int)filter);
+                    if (filter is string filterStr && int.TryParse(filterStr, out int idValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.ID == idValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for ID filter");
+                    }
                     break;
 
                 case FiledOfCallInList.CallId:
-                    boCallsInList = boCallsInList.Where(item => item.CallId == (int)filter);
+                    if (filter is string filterStrCallId && int.TryParse(filterStrCallId, out int callIdValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.CallId == callIdValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for CallId filter");
+                    }
                     break;
 
                 case FiledOfCallInList.callT:
-                    boCallsInList = boCallsInList.Where(item => item.callT == (BO.CallType)filter);
+                    if (filter is string filterStrCallType && Enum.TryParse<BO.CallType>(filterStrCallType, out BO.CallType callTypeValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.callT == callTypeValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for callT filter");
+                    }
                     break;
 
                 case FiledOfCallInList.openTime:
-                    boCallsInList = boCallsInList.Where(item => item.openTime == (DateTime)filter);
+                    if (filter is string filterStrDate && DateTime.TryParse(filterStrDate, out DateTime openTimeValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.openTime == openTimeValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for openTime filter");
+                    }
                     break;
 
                 case FiledOfCallInList.timeEndCall:
-                    boCallsInList = boCallsInList.Where(item => item.timeEndCall == (TimeSpan)filter);
+                    if (filter is string filterStrTimeSpan && TimeSpan.TryParse(filterStrTimeSpan, out TimeSpan timeEndCallValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.timeEndCall == timeEndCallValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for timeEndCall filter");
+                    }
                     break;
 
                 case FiledOfCallInList.volunteerLast:
-                    boCallsInList = boCallsInList.Where(item => item.volunteerLast == (string)filter);
+                    if (filter is string filterStrVolunteerLast)
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.volunteerLast == filterStrVolunteerLast);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for volunteerLast filter");
+                    }
                     break;
 
                 case FiledOfCallInList.TimeEndTreat:
-                    boCallsInList = boCallsInList.Where(item => item.TimeEndTreat == (TimeSpan)filter);
+                    if (filter is string filterStrTreatTime && TimeSpan.TryParse(filterStrTreatTime, out TimeSpan timeEndTreatValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.TimeEndTreat == timeEndTreatValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for TimeEndTreat filter");
+                    }
                     break;
 
                 case FiledOfCallInList.status:
-                    boCallsInList = boCallsInList.Where(item => item.status == (Status)filter);
+                    if (filter is string filterStrStatus && Enum.TryParse<Status>(filterStrStatus, out Status statusValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.status == statusValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for status filter");
+                    }
                     break;
 
                 case FiledOfCallInList.numOfAssignments:
-                    boCallsInList = boCallsInList.Where(item => item.numOfAssignments == (int)filter);
+                    if (filter is string filterStrAssignments && int.TryParse(filterStrAssignments, out int numAssignmentsValue))
+                    {
+                        boCallsInList = boCallsInList.Where(item => item.numOfAssignments == numAssignmentsValue);
+                    }
+                    else
+                    {
+                        throw new cantFilterCallException("Invalid value for numOfAssignments filter");
+                    }
                     break;
+
+                default:
+                    throw new ArgumentException("Invalid filter field");
             }
         }
 
+        // סינון לפי שדה למיון
         if (filedToSort == null)
             filedToSort = FiledOfCallInList.CallId;
 
@@ -136,6 +203,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         return boCallsInList;
     }
+
 
     public BO.Call ReadCall(int id)
     {

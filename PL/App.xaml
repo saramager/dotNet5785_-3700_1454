@@ -23,6 +23,10 @@
         <local:ConvertNullToVisibility x:Key="ConvertNullToVisibilityKey"/>
         <local:ConvertFalseToHidden x:Key="ConvertFalseToHiddenKey"/>
         <local:ConvertISActive x:Key="ConvertISActiveKey" />
+        <local:ConvertStatusEditableForIsEnabled x:Key="ConvertStatusEditableForIsEnabled" />
+        <local:ConvertStatusEditableForIsReadOnly x:Key="ConvertStatusEditableForIsReadOnlyKey" />
+        
+        
 
 
         <!--color pallte-->
