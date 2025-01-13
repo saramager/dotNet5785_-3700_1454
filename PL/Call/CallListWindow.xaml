@@ -21,12 +21,16 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Label Content=" File to filter:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
          ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" 
          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="CallFilter"/>
+
+            <Label Content="Value to filter:" HorizontalAlignment="Left" Grid.Column="4" VerticalAlignment="Center"  />
+            <TextBox Text= "{Binding Filter, Mode=TwoWay}" Grid.Column="4" HorizontalAlignment="Right" Height="20" Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Center" Width="70" />
 
             <Label Content=" File to sort:" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 

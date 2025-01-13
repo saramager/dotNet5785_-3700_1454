@@ -72,11 +72,11 @@ namespace PL
             }
             catch (BO.BlDoesNotExistException blEx)
             {
-                MessageBox.Show("there is n vlounteer with such Id");
+                MessageBox.Show("there is n volunteer with such Id");
             }
             catch (PaswordDoesNotExistException PasEx)
             {
-                MessageBox.Show("there is no password enterd");
+                MessageBox.Show("there is no password entered");
             }
             catch (PasswordIsNotCorrectException PasEx)
             {
