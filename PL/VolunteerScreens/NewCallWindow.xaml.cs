@@ -74,7 +74,7 @@ namespace PL.VolunteerScreens
         }
         private void addCall_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show(SelectedCall.verbalDescription, "Do you want to Take this Call", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show( "Do you want to Take this Call", $"call {SelectedCall.ID}", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -88,5 +88,17 @@ namespace PL.VolunteerScreens
                 catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR ", MessageBoxButton.OK, MessageBoxImage.Error); }
             }
         }
+        private void myDataGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // בדיקה שהפריט שנבחר אינו null
+            if (SelectedCall != null)
+            {
+                // קבלת האובייקט שנבחר
+
+                // הצגת הודעה או פעולה אחרת
+                MessageBox.Show(SelectedCall.verbalDescription, $"Description {SelectedCall.ID}", MessageBoxButton.OK);
+            }
+        }
+
     }
 }

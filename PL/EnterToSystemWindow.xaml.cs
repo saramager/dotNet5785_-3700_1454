@@ -67,8 +67,7 @@ namespace PL
 
                 else
                 {
-                    MessageBox.Show("manger");
-                    new MainWindow(Id).Show();
+                    new ChoseForManagerWindow(Id).Show();
                 }
             }
             catch (BO.BlDoesNotExistException blEx)

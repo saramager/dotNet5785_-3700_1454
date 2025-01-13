@@ -51,7 +51,8 @@
                   SelectedItem="{Binding SelectedCall}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
-                  SelectionMode="Single" >
+                  SelectionMode="Single"
+                   MouseLeftButtonUp="myDataGrid_MouseLeftButtonUp" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" 
                                   Binding="{Binding ID}" 
