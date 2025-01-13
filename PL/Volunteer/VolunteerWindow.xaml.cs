@@ -28,7 +28,7 @@ namespace PL.Volunteer
         /// <summary>
         /// Text for the add/update button
         /// </summary>
-        public string ButtonText { get; set; } = string.Empty;
+        public string ButtonText { get; set; }= "";
 
         /// <summary>
         /// Current volunteer being managed
@@ -51,16 +51,17 @@ namespace PL.Volunteer
         /// <param name="id">ID of the volunteer (0 for new volunteer)</param>
         public VolunteerWindow(int id = 0)
         {
-            InitializeComponent();
+            ButtonText = id == 0 ? "Add" : "Update";
             Task.Run(() =>
             {
                 var volunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
                 Dispatcher.Invoke(() =>
                 {
                     CurrentVolunteer = volunteer;
-                    ButtonText = id == 0 ? "Add" : "Update";
                 });
             });
+            InitializeComponent();
+
         }
 
         /// <summary>
