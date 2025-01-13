@@ -116,3 +116,8 @@ public class BlUpdateCallException : Exception
         public volunteerHandleCallException(string message) : base(message) { }
     }
 
+[Serializable]
+public class NoManagerException : Exception
+{
+    public NoManagerException(string message) : base(message) { }
+}

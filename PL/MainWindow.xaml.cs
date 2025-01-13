@@ -176,7 +176,9 @@ namespace PL
             MessageBoxResult result = MessageBox.Show("Are you sure you want to initialize the database?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
+                
                 InitializeDatabase();
+              
             }
         }
 
@@ -190,7 +192,12 @@ namespace PL
                 Mouse.OverrideCursor = Cursors.Wait;
                 CloseAllWindowsExceptMain();
                 s_bl.Admin.UpdateDB();
+                managerID= s_bl.Volunteer.ManagerID();   
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }   
             finally
             {
                 Mouse.OverrideCursor = null;
