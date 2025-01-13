@@ -194,6 +194,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
                 }
             }
             _dal.Call.Delete(id);
+            CallsManager.Observers.NotifyItemUpdated(id);
             CallsManager.Observers.NotifyListUpdated();  //stage 5  	
 
         }
@@ -212,6 +213,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             CallsManager.CheckCallLogic(c);
 
             _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
+            CallsManager.Observers.NotifyItemUpdated(c.ID);
             CallsManager.Observers.NotifyListUpdated(); //stage 5               
         }
         catch (BO.BlValidationException ex)

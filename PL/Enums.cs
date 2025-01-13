@@ -23,6 +23,14 @@ internal class FiledToFilterCallColection : IEnumerable
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
 
+internal class FiledToSortCallColection : IEnumerable
+{
+    static readonly IEnumerable<BO.FiledOfCallInList> s_enums =
+(Enum.GetValues(typeof(BO.FiledOfCallInList)) as IEnumerable<BO.FiledOfCallInList>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
+
 internal class VolunteerRolesColection : IEnumerable
 {
     static readonly IEnumerable<BO.RoleType> s_enums =
