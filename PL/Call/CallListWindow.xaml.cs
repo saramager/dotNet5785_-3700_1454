@@ -152,9 +152,18 @@ namespace PL.Call
         {
             filedToFilter = (BO.FiledOfCallInList)(((ComboBox)sender).SelectedItem);
 
-            CallList = s_bl?.Call.GetCallInList(filedToFilter,null , filedToSort)!;
+            CallList = s_bl?.Call.GetCallInList(filedToFilter,null , null)!;
         }
 
+        /// <summary>
+        /// Handles sorting calls based on the selected field.
+        /// </summary>
+        private void CallSort(object sender, SelectionChangedEventArgs e)
+        {
+            filedToSort = (BO.FiledOfCallInList)(((ComboBox)sender).SelectedItem);
+
+            CallList = s_bl?.Call.GetCallInList(null, null, filedToSort)!;
+        }
         /// <summary>
         /// Queries the call list based on the current filter.
         /// </summary>

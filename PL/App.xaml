@@ -7,6 +7,7 @@
         <!--Enums-->
         <local:FiledToFilterVolunteerColection x:Key="FiledToFilterVlounteerColecthionKey" />
         <local:FiledToFilterCallColection x:Key="FiledToFilterCallColecthionKey" />
+         <local:FiledToSortCallColection x:Key="FiledToSortCallColecthionKey" />
         <local:VolunteerRolesColection x:Key="VolunteerRolesKey" />
         <local:DistanceTypeColection x:Key="DistanceTypeKey" />
         <local:callTypeColection x:Key="callTypeKey" />

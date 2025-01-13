@@ -14,23 +14,33 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-         <!--Internal, Upper Grid--> 
+        <!-- Internal, Upper Grid -->
         <Grid HorizontalAlignment="Stretch" Height="Auto" Grid.Row="0" VerticalAlignment="Stretch" Width="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Content=" File to sort:" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" />
+            
+            <Label Content=" File to filter:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" />
             <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
-                      ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" 
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="CallFilter"/>
+         ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" 
+         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"   SelectionChanged="CallFilter"/>
+            
+            <Label Content=" File to sort:" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" />
+            <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 
+         ItemsSource="{Binding Source={StaticResource FiledToSortCallColecthionKey}}" 
+         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3"   SelectionChanged="CallSort"/>
         </Grid>
 
         <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Path=CallList}" IsReadOnly="True" AutoGenerateColumns="False"
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
                   SelectedItem="{Binding SelectedCall}" MouseDoubleClick="lsvCallsList_MouseDoubleClick">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding CallId}" Header="Call Id" Width="Auto" />
+
                 <DataGridTextColumn Binding="{Binding callT}" Header="call type" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding openTime}" Header="openTime" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding timeEndCall}" Header="timeEndCall" Width="Auto" />
@@ -53,7 +63,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--"Cancel" button-->
-                            <Button Content="Cancel" Click="CancelButton_Click"/>
+                            <Button Content="Cancele" Click="CanceleButton_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
