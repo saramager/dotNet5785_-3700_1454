@@ -135,6 +135,7 @@ namespace PL.Call
         public BO.FiledOfCallInList filedToFilter { get; set; } = BO.FiledOfCallInList.ID;
         public BO.FiledOfCallInList filedToSort{ get; set; } = BO.FiledOfCallInList.ID;
 
+        public object? Filter;
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
