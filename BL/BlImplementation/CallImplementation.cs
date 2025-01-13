@@ -276,7 +276,28 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
        }
     }
+    public bool CanDeleteCall(int callId)
+    {
+        try
+        {
+            var doCall = _dal.Call.Read(c => c.ID == callId);
 
+            if (doCall != null)
+            {
+                BO.Status callStatus = CallsManager.GetCallStatus(doCall);
+                var hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == callId).Any();
+
+                // אם הקריאה לא בסטטוס פתוח או הוקצתה למתנדב, לא ניתן למחוק
+                return !(hasAssignments || callStatus != BO.Status.Open);
+            }
+
+            return false; // אם הקריאה לא קיימת, לא ניתן למחוק
+        }
+        catch (Exception)
+        {
+            return false; // במקרה של שגיאה, לא ניתן למחוק
+        }
+    }
 
     public void CreateCall(BO.Call c)
     {

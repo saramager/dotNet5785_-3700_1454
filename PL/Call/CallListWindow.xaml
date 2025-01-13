@@ -59,10 +59,12 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--"Delete" button-->
-                            <Button Content="Delete" Click="DeleteButton_Click"/>
+                            <Button Content="Delete" Click="DeleteButton_Click"
+                    Visibility="{Binding IsDeleteAllowed, Converter={StaticResource ConvertBoolToVisibilityKey}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
                 <!--"Cancel" button column-->
                 <DataGridTemplateColumn Header="Actions" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
