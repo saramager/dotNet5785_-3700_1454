@@ -14,7 +14,7 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null && (string)value == "Add")
+            if (value != null &&( (string)value == "Add" || (string)value==""))
             {
                 return false;
             }
