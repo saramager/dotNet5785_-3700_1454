@@ -21,6 +21,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Label Content=" File to filter:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" />
@@ -33,6 +34,11 @@
          ItemsSource="{Binding Source={StaticResource FiledToSortCallColecthionKey}}" 
          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3"   SelectionChanged="CallSort"/>
         </Grid>
+
+        <Label Content="Value to filter:" HorizontalAlignment="Left" Grid.Column="4" VerticalAlignment="Top" Margin="638,0,0,0" />
+        <TextBox Text= "{Binding ?, Mode=TwoWay}" Grid.Column="4" HorizontalAlignment="Left" Height="20" Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Margin="730,4,0,0" />
+
+
 
         <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Path=CallList}" IsReadOnly="True" AutoGenerateColumns="False"
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
