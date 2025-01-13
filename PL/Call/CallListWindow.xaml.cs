@@ -135,7 +135,7 @@ namespace PL.Call
         public BO.FiledOfCallInList filedToFilter { get; set; } = BO.FiledOfCallInList.ID;
         public BO.FiledOfCallInList filedToSort{ get; set; } = BO.FiledOfCallInList.ID;
 
-        public object? Filter;
+        public string? Filter = null;
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
@@ -158,11 +158,33 @@ namespace PL.Call
         /// <summary>
         /// Handles filtering calls based on the selected field.
         /// </summary>
-        private void CallFilter(object sender, SelectionChangedEventArgs e)
+        private void CallFilter(object sender, EventArgs e)
         {
-            filedToFilter = (BO.FiledOfCallInList)(((ComboBox)sender).SelectedItem);
-
-            CallList = s_bl?.Call.GetCallInList(filedToFilter,null , null)!;
+            try
+            {
+                if (sender is ComboBox comboBox)
+                {
+                    // אם המשתמש בחר שדה חדש לסינון
+                    filedToFilter = (FiledOfCallInList)comboBox.SelectedItem;
+                }
+                else if (sender is TextBox textBox && e is KeyEventArgs keyEventArgs)
+                {
+                    // אם המשתמש לחץ Enter ב-TextBox
+                    if (keyEventArgs.Key == Key.Enter)
+                    {
+                        Filter = textBox.Text;
+                        CallList = s_bl?.Call.GetCallInList(filedToFilter, Filter, null);
+                    }
+                }
+            }
+            catch (cantFilterCallException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BlNullPropertyException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -171,7 +193,6 @@ namespace PL.Call
         private void CallSort(object sender, SelectionChangedEventArgs e)
         {
             filedToSort = (BO.FiledOfCallInList)(((ComboBox)sender).SelectedItem);
-
             CallList = s_bl?.Call.GetCallInList(null, null, filedToSort)!;
         }
         /// <summary>

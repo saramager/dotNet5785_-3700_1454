@@ -121,3 +121,7 @@ public class NoManagerException : Exception
 {
     public NoManagerException(string message) : base(message) { }
 }
+public class cantFilterCallException: Exception
+{
+    public cantFilterCallException(string message) : base(message) { }
+}

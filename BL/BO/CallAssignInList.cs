@@ -10,7 +10,7 @@ namespace BO
     public class CallAssignInList //init or set??????
     {
         public int VolunteerId { get; init; }
-        public string fullName { get; init; }
+        public required string fullName { get; init; }
         public DateTime startTreatment { get; init; }
         public DateTime? finishTreatment { get; init; }
         public FinishType? finishT { get; init; }
