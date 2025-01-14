@@ -1,20 +1,17 @@
 ﻿
 using BO;
-using System.Diagnostics;
+using Newtonsoft.Json;
 using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System;
-using System.Net.Http;
-using Newtonsoft.Json;
 
 
 namespace Helpers
 {
     internal  static class Tools
     {
-        static string apiKey = "5b3ce3597851110001cf6248fc840214514d46919ed8d8220701ecb5";
+        static string openRouteServiceApiKey = "5b3ce3597851110001cf62482999abdea2bf4cfd998ad34761d90c08";
 
 
         // The generic method works for any object, returning a string of its properties
@@ -199,7 +196,7 @@ namespace Helpers
                     };
 
                     string jsonBody = JsonConvert.SerializeObject(body);
-                    client.DefaultRequestHeaders.Add("Authorization", apiKey);
+                    client.DefaultRequestHeaders.Add("Authorization", openRouteServiceApiKey);
 
                     var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PostAsync(url, content);

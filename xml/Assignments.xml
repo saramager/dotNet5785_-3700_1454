@@ -581,7 +581,7 @@
     <CallId>1007</CallId>
     <VolunteerId>326301454</VolunteerId>
     <startTreatment>2025-01-13T18:44:41.9284247+02:00</startTreatment>
-    <finishTreatment xsi:nil="true" />
-    <finishT xsi:nil="true" />
+    <finishTreatment>2025-01-14T20:39:30.4717409+02:00</finishTreatment>
+    <finishT>Treated</finishT>
   </Assignment>
 </ArrayOfAssignment>

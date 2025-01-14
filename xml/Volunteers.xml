@@ -1,19 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>326301454</ID>
-    <fullName>sara</fullName>
-    <phone>0552708855</phone>
-    <email>sarahaya454@gmail.com</email>
-    <isActive>true</isActive>
-    <role>Manager</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-  </Volunteer>
-  <Volunteer>
     <ID>214093700</ID>
     <fullName>Neomy Ivgi</fullName>
     <phone>0533121809</phone>
@@ -25,20 +12,6 @@
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.18556</longitude>
     <latitude>31.78659</latitude>
-  </Volunteer>
-  <Volunteer>
-    <ID>358459618</ID>
-    <fullName>David Levy</fullName>
-    <phone>0521234567</phone>
-    <email>levy.david@email.com</email>
-    <isActive>false</isActive>
-    <role>Volunteer</role>
-    <distance>walkingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Shearim 4, Jerusalem, Israel</address>
-    <longitude>35.19624</longitude>
-    <latitude>31.79032</latitude>
-    <maxDistance>2.5191290040968886</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>262447055</ID>
@@ -249,5 +222,32 @@
     <longitude>35.1928275</longitude>
     <latitude>31.7905996</latitude>
     <maxDistance>0.3481193172942332</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>358459618</ID>
+    <fullName>David Levy</fullName>
+    <phone>0521234567</phone>
+    <email>levy.david@email.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>walkingDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Shearim 4, Jerusalem, Israel</address>
+    <longitude>35.1963795</longitude>
+    <latitude>31.7903273</latitude>
+    <maxDistance>2.5191290040968886</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>326301454</ID>
+    <fullName>sara</fullName>
+    <phone>0552708855</phone>
+    <email>sarahaya454@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
   </Volunteer>
 </ArrayOfVolunteer>
