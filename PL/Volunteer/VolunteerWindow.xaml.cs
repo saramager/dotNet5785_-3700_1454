@@ -102,7 +102,25 @@ namespace PL.Volunteer
         private void queryVolunteer()
         {
             int id = CurrentVolunteer?.Id ?? 0;
-            CurrentVolunteer = id != 0 ? s_bl.Volunteer.ReadVolunteer(id) : null;
+            if (id != 0)
+            {
+                try
+                {
+                    Task.Run(() =>
+                    {
+                        var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            CurrentVolunteer = volunteer;
+                        });
+                    });
+                }
+                catch (BlDoesNotExistException ex) { MessageBox.Show(ex.Message); }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+            }
+            else
+                CurrentVolunteer = null;
         }
 
         /// <summary>

@@ -146,10 +146,10 @@ namespace Helpers
                     distance = R * c; // Distance in kilometers
                     break;
                 case BO.Distance.walkingDistance:
-                    distance =  GetDistanceAsync(lat1, lon1, lat2, lon2, "foot-walking").Result;
+                    distance = GetDistanceAsync(lat1, lon1, lat2, lon2, "foot-walking").Result;
                     break;
                 case BO.Distance.DrivingDistance:
-                    distance =  GetDistanceAsync(lat1, lon1, lat2, lon2, "driving-car").Result;
+                    distance = GetDistanceAsync(lat1, lon1, lat2, lon2, "driving-car").Result;
                     break;
             }
             
@@ -190,9 +190,9 @@ namespace Helpers
                     {
                         coordinates = new[]
                         {
-                        new[] { lon1, lat1 },
-                        new[] { lon2, lat2 }
-                    }
+                            new[] { lon1, lat1 },
+                            new[] { lon2, lat2 }
+                        }
                     };
 
                     string jsonBody = JsonConvert.SerializeObject(body);
@@ -229,6 +229,7 @@ namespace Helpers
                 }
             }
         }
+
     }
 
 }
