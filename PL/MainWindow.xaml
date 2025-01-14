@@ -16,18 +16,17 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <!--clock value-->
-        <Label Grid.Column="1" Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="25,30,0,0" VerticalAlignment="Top" Height="82" Width="324"/>
-        <!--add minutes-->
-        <Button Grid.Column="1" Content="add one mintue" Click="clickAddOneMinute" HorizontalAlignment="Left" Margin="92,135,0,0" VerticalAlignment="Top" Height="25" Width="190" RenderTransformOrigin="0.482,2.501"/>
-        <!--add hours-->
-        <Button Grid.Column="1" Content="add one hour "  Click ="clickAddOnehour" HorizontalAlignment="Left" Height="25" Margin="92,172,0,0" VerticalAlignment="Top" Width="190"/>
-        <!--add days-->
-        <Button Grid.Column="1" Content="add one Day" Click="clickAddOneDay" HorizontalAlignment="Left" Height="25" Margin="92,209,0,0" VerticalAlignment="Top" Width="190"/>
-        <!--add month-->
-        <Button Grid.Column="1" Content="add one mouth " Click="clickAddOneMonth" HorizontalAlignment="Left" Height="25" Margin="92,239,0,0" VerticalAlignment="Top" Width="190"/>
-        <!--add year-->
-        <Button Grid.Column="1" Content="add one year " Click="clickAddOneYear"  HorizontalAlignment="Left" Height="25" Margin="92,269,0,0" VerticalAlignment="Top" Width="190"/>
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Margin="85,53,85,81" Width="230" Height="200">
+            <!-- Clock value -->
+            <Label Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="20" Width="190" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <!-- Buttons -->
+            <Button Content="Add One Minute" Click="clickAddOneMinute" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" />
+            <Button Content="Add One Hour" Click="clickAddOnehour" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" />
+            <Button Content="Add One Day" Click="clickAddOneDay" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" />
+            <Button Content="Add One Month" Click="clickAddOneMonth" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" />
+            <Button Content="Add One Year" Click="clickAddOneYear" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" />
+        </StackPanel>
+
         <TextBox HorizontalAlignment="Center" Height="47" Margin="0,28,0,0" TextWrapping="Wrap" Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="144" Grid.Row="1" />
         <Button Content="Update Risk Range" HorizontalAlignment="Center" Height="87" Margin="0,82,0,0" VerticalAlignment="Top" Width="144" Click="SetRiskRangeButton_Click" Grid.Row="1"/>
         <!--list of volunteers-->

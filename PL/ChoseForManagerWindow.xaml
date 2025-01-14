@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.ChoseForManagerWindow"
+﻿<!--<Window x:Class="PL.ChoseForManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,5 +15,45 @@
         <Button Content="open Volunteers windows" HorizontalAlignment="Center" Height="220" Grid.Column="0" VerticalAlignment="Center" Width="220" Click="Vlountter_Click" />
         <Button Content="open manager " Height="220" Grid.Column="1"  Width="220" VerticalAlignment="Center" HorizontalAlignment="Center" Click="manager_Click"/>
       
+    </Grid>
+</Window>-->
+
+
+                 
+    <!-- הסגנונות שיצרנו קודם צריכים להיות מוגדרים כאן -->
+  
+<!-- ChoseForManagerWindow.xaml -->
+<Window x:Class="PL.ChoseForManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ChoseForManagerWindow" Height="450" Width="800"
+        Background="{StaticResource cream}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button Content="open Volunteers windows" 
+                Style="{StaticResource MenuButton}"
+                Height="220" 
+                Width="220"
+                Grid.Column="0"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Click="Vlountter_Click" />
+
+        <Button Content="open manager"
+                Style="{StaticResource MenuButton}"
+                Height="220" 
+                Width="220"
+                Grid.Column="1"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Click="manager_Click"/>
     </Grid>
 </Window>

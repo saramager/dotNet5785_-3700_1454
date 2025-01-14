@@ -11,10 +11,15 @@
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+	  <ApplicationIcon>hellping_babays_4Mt_icon (1).ico</ApplicationIcon>
  </PropertyGroup>
 
   <ItemGroup>
     <None Remove="hellping babays.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="hellping_babays_4Mt_icon (1).ico" />
   </ItemGroup>
 
   <ItemGroup>

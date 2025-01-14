@@ -49,7 +49,8 @@
                   AutoGenerateColumns="False" 
                   IsReadOnly="True"
                   ItemsSource="{Binding CloseCallsList}"
-                  Margin="0,10,0,0">
+                  Margin="0,10,0,0"
+                >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="*"/>
                 <DataGridTextColumn Header="Address" Binding="{Binding address}" Width="*"/>
@@ -61,5 +62,6 @@
                 <DataGridTextColumn Header="Distance" Binding="{Binding CallDistance}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="770,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
     </Grid>
 </Window>
