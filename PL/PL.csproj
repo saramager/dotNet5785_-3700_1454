@@ -11,15 +11,17 @@
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
-	  <ApplicationIcon>hellping_babays_4Mt_icon (1).ico</ApplicationIcon>
+	  <ApplicationIcon>Pictures\Logo.ico</ApplicationIcon>
  </PropertyGroup>
 
   <ItemGroup>
     <None Remove="hellping babays.png" />
+    <None Remove="Pictures\helpingLogo.png" />
+    <None Remove="Pictures\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="hellping_babays_4Mt_icon (1).ico" />
+    <Content Include="Pictures\Logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,9 @@
 
   <ItemGroup>
     <Resource Include="hellping babays.png" />
+    <Resource Include="Pictures\helpingLogo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

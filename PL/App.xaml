@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="EnterToSystemWindow.xaml">
     <Application.Resources>
+        <!--picture-->
+        <!--<ImageBrush x:Key="Logo" ImageSource="\Pictures\helpingLogo.png"/>-->
         <!--Enums-->
         <local:FiledToFilterVolunteerColection x:Key="FiledToFilterVlounteerColecthionKey" />
         <local:FiledToFilterCallColection x:Key="FiledToFilterCallColecthionKey" />
