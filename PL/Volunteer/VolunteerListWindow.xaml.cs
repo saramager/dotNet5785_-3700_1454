@@ -25,7 +25,7 @@ namespace PL.Volunteer
         /// Static reference to the BL instance.
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
+        public static bool IsOpen { get; private set; } = false;
         /// <summary>
         /// Selected volunteer from the list.
         /// </summary>
@@ -36,7 +36,7 @@ namespace PL.Volunteer
         /// </summary>
         private void lsvVolunteersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-           
+
             if (SelectedVolunteer != null)
             {
                 new VolunteerWindow(SelectedVolunteer.ID).ShowDialog();
@@ -57,7 +57,7 @@ namespace PL.Volunteer
         /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-           
+
 
             if (SelectedVolunteer == null)
                 return;
@@ -125,6 +125,14 @@ namespace PL.Volunteer
         /// </summary>
         public VolunteerListWindow()
         {
+            if (IsOpen)
+            {
+                throw new Exception("The Volunteer Management window is already open");
+            }
+            else
+            {
+                IsOpen = true;
+            }
             InitializeComponent();
             queryVolunteerList();
             this.Closed += Window_Closed;
@@ -175,7 +183,10 @@ namespace PL.Volunteer
         /// Handles the window closed event to remove the observer.
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
+        {
+            s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
+            IsOpen = false;
+        }
     }
 }
 

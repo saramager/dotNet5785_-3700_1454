@@ -23,20 +23,13 @@ namespace PL
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public int managerID { get; set; }  
-       public static bool IsOpen { get; private set; }= false;
+      
         /// <summary>
         /// Constructor for the MainWindow
         /// </summary>
         public MainWindow(int MId)
         {
-            if (IsOpen == true)
-            {
-                throw new Exception("Main window is already open");
-            }
-            else
-            {
-                IsOpen = true;
-            }
+            
                 InitializeComponent();
 
             s_bl.Admin.AddClockObserver(clockObserver);
@@ -126,7 +119,6 @@ namespace PL
         {
             s_bl.Admin.RemoveClockObserver(clockObserver);
             s_bl.Admin.RemoveConfigObserver(configObserver);
-            IsOpen = false; 
         }
 
         /// <summary>
@@ -187,7 +179,15 @@ namespace PL
         /// </summary>
         private void ButtonVolunteerList_Click(object sender, RoutedEventArgs e)
         {
-            new VolunteerListWindow().Show();
+            try
+            {
+                new VolunteerListWindow().Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
 
         /// <summary>
