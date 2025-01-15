@@ -154,16 +154,27 @@ namespace PL.Call
         /// </summary>
         public BO.FiledOfCallInList filedToFilter { get; set; } = BO.FiledOfCallInList.ID;
         public BO.FiledOfCallInList filedToSort{ get; set; } = BO.FiledOfCallInList.ID;
-
+        static public bool IsOpen { get; set; }= false;
         public string? Filter = null;
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
         public CallListWindow(int managerID)
         {
+            if (IsOpen)
+            {
+               throw new Exception("The Call Management window is already open");
+               
+            }
+            else
+            {
+                IsOpen = true;
+            }   
             InitializeComponent();
             queryCallList();
             s_bl.Call.AddObserver(CallListObserver);
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             this.managerID = managerID;
         }
 
@@ -241,7 +252,10 @@ namespace PL.Call
         /// Handles the window closed event to remove the observer.
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Volunteer.RemoveObserver(CallListObserver);
+        {
+            s_bl.Volunteer.RemoveObserver(CallListObserver);
+            IsOpen = false;
+        }
     }
 }
 

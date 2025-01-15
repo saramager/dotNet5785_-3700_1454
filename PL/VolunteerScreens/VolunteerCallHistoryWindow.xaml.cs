@@ -47,7 +47,10 @@ namespace PL.VolunteerScreens
             Id = id;
             queryCloseCallsList();
             s_bl.Volunteer.AddObserver(Id,CallsListObserver);
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             InitializeComponent();
+
         }
         private void queryCloseCallsList()
            => CloseCallsList = s_bl.Call.ReadCloseCallsVolunteer(Id, filterCloseCalls, sortCloseCalls);

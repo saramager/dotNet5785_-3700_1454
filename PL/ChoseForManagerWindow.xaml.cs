@@ -34,17 +34,25 @@ namespace PL
             {
                 new VolnteerMainWindow(Id).Show();
             }
-            this.Close();   
+            this.Close();
         }
         private void manager_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you  want to open  manager window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                new MainWindow(Id).Show();  
-            }
-            this.Close();
+                try
+                {
+                    new MainWindow(Id).Show();
+                    this.Close();
 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
         }
     }
 }

@@ -41,6 +41,8 @@ namespace PL.VolunteerScreens
             Id = id;
             queryOpenCallsList();
             s_bl.Call.AddObserver(CallsListObserver);
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             InitializeComponent();
         }
         private void queryOpenCallsList()

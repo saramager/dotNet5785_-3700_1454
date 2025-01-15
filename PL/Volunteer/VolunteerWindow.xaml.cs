@@ -51,6 +51,8 @@ namespace PL.Volunteer
         /// <param name="id">ID of the volunteer (0 for new volunteer)</param>
         public VolunteerWindow(int id = 0)
         {
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             ButtonText = id == 0 ? "Add" : "Update";
             Task.Run(() =>
             {

@@ -51,6 +51,8 @@ namespace PL.VolunteerScreens
         public VolnteerMainWindow(int id)
         {
             InitializeComponent();
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             Call = null;
 
             {

@@ -54,6 +54,8 @@ namespace PL.Call
         public CallWindow(int id = 0)
         {
             CurrentCall = (id != 0) ? s_bl.Call.ReadCall(id)! : new BO.Call() { ID = 0 };
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             ButtonText = id == 0 ? "Add" : "Update";
             InitializeComponent();
         }

@@ -127,6 +127,8 @@ namespace PL.Volunteer
         {
             InitializeComponent();
             queryVolunteerList();
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             s_bl.Volunteer.AddObserver(VolunteerListObserver);
         }
 
