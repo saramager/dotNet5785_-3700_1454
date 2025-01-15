@@ -136,8 +136,11 @@ namespace PL.VolunteerScreens
         /// Adds the observer when the window is loaded
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
-            { 
-            s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
+            {
+            if (CurrentVolunteer != null)
+            {
+                s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
+            }
             if (Call != null)
             s_bl.Call.AddObserver(Call.ID ,callObserver);}
 

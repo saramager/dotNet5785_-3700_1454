@@ -584,4 +584,12 @@
     <finishTreatment>2025-01-14T20:39:30.4717409+02:00</finishTreatment>
     <finishT>Treated</finishT>
   </Assignment>
+  <Assignment>
+    <ID>1073</ID>
+    <CallId>1009</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-15T12:44:15.6164538+02:00</startTreatment>
+    <finishTreatment xsi:nil="true" />
+    <finishT xsi:nil="true" />
+  </Assignment>
 </ArrayOfAssignment>
