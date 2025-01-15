@@ -22,14 +22,24 @@ namespace PL
         /// Instance of the BL layer
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public int managerID { get; set; }  
-      
+        public int managerID { get; set; } 
+        public static  bool IsOpen { get; private set; } = false;
+
         /// <summary>
         /// Constructor for the MainWindow
         /// </summary>
         public MainWindow(int MId)
         {
             
+            if (IsOpen)
+            {
+                throw new Exception("Manager window is already open");
+
+            }
+            else
+            {
+                IsOpen = true;  
+            }
                 InitializeComponent();
 
             s_bl.Admin.AddClockObserver(clockObserver);
@@ -119,6 +129,7 @@ namespace PL
         {
             s_bl.Admin.RemoveClockObserver(clockObserver);
             s_bl.Admin.RemoveConfigObserver(configObserver);
+            IsOpen = false;
         }
 
         /// <summary>
