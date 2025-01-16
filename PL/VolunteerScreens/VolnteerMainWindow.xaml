@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <!-- Left Stack Panel - Volunteer Details -->
-       
+
         <ScrollViewer Grid.Column="0" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,10,0">
             <StackPanel>
                 <!-- Original volunteer fields content stays exactly the same -->
@@ -31,9 +31,9 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="ID" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90" />
+                    <Label Content="ID" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
                     <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.Id, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"
-                         IsReadOnly="True"/>
+                         IsReadOnly="True"  Style="{StaticResource ElegantTextBox}" />
                 </Grid>
 
                 <!-- Keep all other volunteer fields exactly as they were -->
@@ -44,8 +44,9 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Name" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Label Content="Name" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" 
+                             VerticalAlignment="Top" Width="200"  Style="{StaticResource ElegantTextBox}" />
                 </Grid>
 
                 <!-- Volunteer email field -->
@@ -54,8 +55,9 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Email" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Label Content="Email" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" 
+                             TextWrapping="Wrap" VerticalAlignment="Top" Width="200"  Style="{StaticResource ElegantTextBox}" />
                 </Grid>
 
                 <!-- Volunteer password field -->
@@ -64,8 +66,9 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Password" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Label Content="Password" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             HorizontalAlignment="Left" Height="25" TextWrapping="Wrap"  Style="{StaticResource ElegantTextBox}"  VerticalAlignment="Top" Width="200"/>
                 </Grid>
 
                 <!-- Volunteer phone number field -->
@@ -74,8 +77,9 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Phone Number" HorizontalAlignment="Left" Height="20" VerticalAlignment="Bottom" Width="90" Margin="0,0,0,5"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Label Content="Phone Number" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25"
+                             TextWrapping="Wrap" VerticalAlignment="Top" Width="200"  Style="{StaticResource ElegantTextBox}" />
                 </Grid>
 
                 <!-- Volunteer full address field -->
@@ -84,18 +88,20 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Full Address" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
+                    <Label Content="Full Address" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
+                             Height="25" TextWrapping="Wrap" VerticalAlignment="Center"   Style="{StaticResource ElegantTextBox}" Width="200"/>
                 </Grid>
 
                 <!-- Volunteer role field -->
                 <Grid Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="18.5" />
+                        <ColumnDefinition Width="101.5"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Role" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <ComboBox Grid.Column="1" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="200"
+                    <Label Content="Role" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90" Grid.ColumnSpan="2"/>
+                    <ComboBox Grid.Column="2" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="200"
                         IsEnabled="False"/>
                 </Grid>
 
@@ -116,27 +122,32 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Max Distance for Call" HorizontalAlignment="Left" Height="20" VerticalAlignment="Bottom" Width="90" Margin="0,0,0,5"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <Label Content="Max Distance for Call" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" 
+                             Height="25" TextWrapping="Wrap" VerticalAlignment="Top"  Style="{StaticResource ElegantTextBox}"  Width="200"/>
                 </Grid>
 
                 <!-- Distance type field -->
                 <Grid Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="21.5" />
+                        <ColumnDefinition Width="98.5"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Distance Type" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <ComboBox Grid.Column="1" SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="200"/>
+                    <Label Content="Distance Type" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90" Grid.ColumnSpan="2"/>
+                    <ComboBox Grid.Column="2" SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="200"/>
                 </Grid>
                 <!-- Number of calls handled -->
                 <Grid Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="23" />
+                        <ColumnDefinition Width="97"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Calls Handled" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.numCallsHandled}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsReadOnly="True"/>
+                    <Label Content="Calls Handled" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90" Grid.ColumnSpan="2"/>
+                    <TextBox Grid.Column="2" Text="{Binding CurrentVolunteer.numCallsHandled}" HorizontalAlignment="Left" Height="25"
+                             TextWrapping="Wrap" VerticalAlignment="Center" Width="200"  Style="{StaticResource ElegantTextBox}" 
+                             IsReadOnly="True"/>
                 </Grid>
 
                 <!-- Number of calls cancelled -->
@@ -145,23 +156,26 @@
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Calls Cancelled" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.numCallsCancelled}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsReadOnly="True"/>
+                    <Label Content="Calls Cancelled" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.numCallsCancelled}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap"
+                             VerticalAlignment="Top" Width="200" IsReadOnly="True"  Style="{StaticResource ElegantTextBox}" />
                 </Grid>
 
                 <!-- Number of calls expired -->
-                <Grid Margin="0,0,0,5">
+                <Grid Margin="0,0,0,5" Height="35">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Calls Expired" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="90"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.numCallsExpired}" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" IsReadOnly="True"/>
+                    <Label Content="Calls Expired" HorizontalAlignment="Left" Height="35" VerticalAlignment="Center" Width="90"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentVolunteer.numCallsExpired}" HorizontalAlignment="Left" Height="25"
+                             TextWrapping="Wrap" VerticalAlignment="Top" Width="200"  Style="{StaticResource ElegantTextBox}" 
+                             IsReadOnly="True"/>
                 </Grid>
 
 
                 <!-- New Button for Left Panel -->
-                <Button Content="Update Volunteer Info" Margin="0,10,0,0" Height="30" Width="150" HorizontalAlignment="Left" Click="Button_Click"/>
+                <Button Content="Update Volunteer Info" Margin="0,10,0,0" Height="30" Width="150" HorizontalAlignment="Left" Click="Button_Click"  Style="{StaticResource ResourceKey=PrimaryButton}" />
             </StackPanel>
         </ScrollViewer>
 
@@ -179,7 +193,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Call ID" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <TextBox Grid.Column="1" Text="{Binding Call.ID}" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="200" Height="25" IsReadOnly="True"/>
+                    <TextBox Grid.Column="1" Text="{Binding Call.ID}" HorizontalAlignment="Right"  VerticalAlignment="Top"  Style="{StaticResource ElegantTextBox}"  Width="200" Height="25" IsReadOnly="True"/>
                 </Grid>
 
                 <!-- Call Type -->
@@ -199,7 +213,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Description" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <TextBox Grid.Column="1" Text="{Binding Call.verbalDescription}" HorizontalAlignment="Right"   IsReadOnly="True" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <TextBox Grid.Column="1" Text="{Binding Call.verbalDescription}" HorizontalAlignment="Right" 
+                             IsReadOnly="True" VerticalAlignment="Top" Width="200" Height="25"  Style="{StaticResource ElegantTextBox}" />
                 </Grid>
 
                 <!-- Address -->
@@ -209,7 +224,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Address" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <TextBox Grid.Column="1" Text="{Binding Call.address}" HorizontalAlignment="Right"   IsReadOnly="True" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <TextBox Grid.Column="1" Text="{Binding Call.address}" HorizontalAlignment="Right"   IsReadOnly="True" VerticalAlignment="Top"
+                               Style="{StaticResource ElegantTextBox}"  Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Open Time -->
@@ -257,7 +273,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Assignments" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130" />
-                    <ListBox Grid.Column="1" ItemsSource="{Binding Call.CallAssign}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="300"  IsEnabled="True" Height="200">
+                    <ListBox Grid.Column="1" ItemsSource="{Binding Call.CallAssign}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="300"
+                              Style="{StaticResource CustomListBox}" IsEnabled="True" Height="200">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
@@ -300,16 +317,17 @@
 
                 <!-- Two New Buttons for Right Panel -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                    <Button Content="End Call" Height="30" Width="120" Margin="0,0,10,0" Click="EndCall_Click" />
-                    <Button Content="Cancel Call" Height="30" Width="120" Click="CancelCall_Click"  />
+                    <Button Content="End Call" Height="30" Width="120" Margin="0,0,10,0" Click="EndCall_Click"  Style="{StaticResource PrimaryButton}"  />
+                    <Button Content="Cancel Call" Height="30" Width="120" Click="CancelCall_Click"  Style="{StaticResource PrimaryButton}"  />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
         <!-- Bottom Buttons Row -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="New Call" Height="47" Width="188" Margin="0,0,20,0" IsEnabled="{Binding Call, Converter={StaticResource ConvertNullToTrueKey}}" Visibility="{Binding CurrentVolunteer.active, Converter={StaticResource ConvertFalseToHiddenKey}}" Click="NewCall_Click" />
-            <Button Content="My Calls History" Height="47" Width="219"  Click="CallHistory_Click"/>
+            <Button Content="New Call" Height="47" Width="188" Margin="0,0,20,0" IsEnabled="{Binding Call, Converter={StaticResource ConvertNullToTrueKey}}"
+                    Visibility="{Binding CurrentVolunteer.active, Converter={StaticResource ConvertFalseToHiddenKey}}" Click="NewCall_Click" Style="{StaticResource MenuButton}" />
+            <Button Content="My Calls History" Height="47" Width="219"  Click="CallHistory_Click"  Style="{StaticResource MenuButton}" />
         </StackPanel>
     </Grid>
 </Window>

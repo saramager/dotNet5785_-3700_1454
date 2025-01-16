@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
         Title="CallListWindow" Height="450" Width="800"
-         Background="{StaticResource cream}"
+
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -60,7 +60,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--"Delete" button-->
-                            <Button Content="Delete" Click="DeleteButton_Click"
+                            <Button Content="Delete" Click="DeleteButton_Click" Style="{StaticResource PrimaryButton}"
                     Visibility="{Binding CallId, Converter={StaticResource ConvertBoolToVisibilityKey}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

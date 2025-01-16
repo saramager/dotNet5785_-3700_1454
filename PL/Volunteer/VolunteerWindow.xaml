@@ -25,7 +25,7 @@
                         <!-- ID -->
                         <Label Content="ID" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Height="25" Margin="0,0,0,10"
+                         Height="25" Margin="0,0,0,10" 
                          IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"/>
 
                         <!-- Name -->
