@@ -58,11 +58,22 @@ internal class AssignmentImplementation : IAssignment
     /// <returns>A collection of assignments that match the filter (if any).</returns>
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
-        if(filter == null)
-            return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml) ;
-        return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml).Where(filter);
+        try
+        {
+            // אם אין פילטר, מחזירים את כל הרשומות
+            if (filter == null)
+                return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
 
+            // אם יש פילטר, מחזירים את הרשומות לאחר פילטור
+            return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml).Where(filter);
+        }
+        catch (DalXMLFileLoadCreateException ex)
+        {
+            // טיפול בשגיאה וזריקת חריגה חדשה עם פרטים נוספים
+            throw new ApplicationException($"Error while reading assignments from file {Config.s_Assignments_xml}: {ex.Message}", ex);
+        }
     }
+
     /// <summary>
     /// Updates an existing assignment by replacing it with the provided one.
     /// Throws an exception if the assignment does not exist.

@@ -1,4 +1,5 @@
 ﻿using BO;
+using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null &&( (string)value == "Add" || (string)value==""))
+            if (value != null && ((string)value == "Add" || (string)value == ""))
             {
                 return false;
             }
@@ -63,7 +64,7 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value== true)
+            if ((bool)value == true)
             {
                 return Visibility.Visible;
             }
@@ -89,7 +90,7 @@ namespace PL
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-           switch((ISActive)value)
+            switch ((ISActive)value)
             {
                 case ISActive.Active:
                     return true;
@@ -136,7 +137,7 @@ namespace PL
             return null;
         }
     }
-         public class ConvertStatusEditableForIsReadOnly : IValueConverter
+    public class ConvertStatusEditableForIsReadOnly : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -167,26 +168,42 @@ namespace PL
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // לא נדרשת המרה חזרה
-            return null;
+            throw new NotImplementedException();
         }
     }
-    public class ConvertBoolToVisibility : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public class ConvertBoolToVisibility : IValueConverter
         {
-            return (value is bool && (bool)value) ? Visibility.Visible : Visibility.Collapsed;
-        }
+            // הפניה לשכבת BL
+            static readonly BlApi.IBl _bl = BlApi.Factory.Get();
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is Visibility visibility)
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                return visibility == Visibility.Visible;
+                // בדיקה אם הערך הוא מזהה קריאה (callId)
+                if (value is int callId)
+                {
+                    try
+                    {
+                        // קריאה לפונקציה CanDeleteCall דרך BL
+                        bool canDelete = _bl.Call.CanDeleteCall(callId);
+
+                        // החזרת Visibility בהתאם לתוצאה
+                        return canDelete ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                    catch
+                    {
+                        // במקרה של חריגה, מחזיר Collapsed
+                        return Visibility.Collapsed;
+                    }
+                }
+
+                // במקרה של ערך לא תקין, מחזיר Collapsed
+                return Visibility.Collapsed;
             }
-            return false;
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 
-
-}

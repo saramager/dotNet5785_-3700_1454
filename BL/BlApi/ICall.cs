@@ -52,11 +52,11 @@ public interface ICall: IObservable
     /// <exception cref="CantDeleteCallException">Thrown when the call cannot be deleted due to its status or assignments.</exception>
     void DeleteCall(int id);
     /// <summary>
-    /// 
+    /// Checks if a call can be deleted.
     /// </summary>
     /// <param name="callId"></param>
     /// <returns></returns>
-    public bool CanDeleteCall(int callId);
+    bool CanDeleteCall(int callId);
     /// <summary>
     /// Creates a new call in the system.
     /// </summary>

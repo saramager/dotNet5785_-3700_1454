@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
         Title="CallWindow" Height="450" Width="800"
+         Background="{StaticResource cream}"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
         <!-- Call ID field -->
         <Label Content="ID" HorizontalAlignment="Left" Height="30" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox Text="{Binding CurrentCall.ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+        <TextBox Text="{Binding CurrentCall.ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Style="{StaticResource ElegantTextBox}"
                  HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" IsReadOnly="True" />
 
         <!-- Call type field -->
@@ -24,13 +25,13 @@
         <!-- Call verbalDescription field -->
         <Label Content="Verbal Description" HorizontalAlignment="Left" Height="29" Margin="24,101,0,0" VerticalAlignment="Top" Width="110"/>
         <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.verbalDescription, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Top" Width="263" 
+                 VerticalAlignment="Top" Width="263"  Style="{StaticResource ElegantTextBox}"
                  IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='verbalDescription'}"/>
 
         <!-- Call Address field -->
         <Label Content="Address" HorizontalAlignment="Left" Margin="24,150,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="29" Margin="227,150,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Top" Width="427" 
+                 VerticalAlignment="Top" Width="427"  Style="{StaticResource ElegantTextBox}"
                  IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='address'}"/>
 
         <!-- Call openTime field -->
@@ -56,13 +57,13 @@
         <!-- Call status field -->
         <Label Content="Call status" HorizontalAlignment="Left" Height="29" Margin="24,300,0,0" VerticalAlignment="Top" Width="109"/>
         <TextBox HorizontalAlignment="Left" Height="29" Margin="197,300,0,0" VerticalAlignment="Top" Width="326" 
-                 Text="{Binding CurrentCall.statusC, Mode=OneWay}" 
+                 Text="{Binding CurrentCall.statusC, Mode=OneWay}"  Style="{StaticResource ElegantTextBox}"
                  IsReadOnly="True" />
 
         <!-- Call assignment in the list field -->
         <Label Content="CallAssignInList" HorizontalAlignment="Left" Height="31" Margin="24,350,0,0" VerticalAlignment="Top" Width="110"/>
         <ListBox HorizontalAlignment="Left" Height="80" Margin="227,340,0,0" VerticalAlignment="Top" Width="380"
-                 ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
+                 ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">

@@ -52,27 +52,6 @@ namespace PL.Call
             var callWindow = new CallWindow();
             callWindow.ShowDialog();
         }
-
-
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            // גישה לקריאה מתוך ה-DataContext של השורה (שבה נמצא כפתור המחיקה)
-            var currentCall = (sender as Button).DataContext as DO.Call;
-
-            // בדוק אם ניתן למחוק את הקריאה
-            bool canDelete = s_bl.Call.CanDeleteCall(currentCall.ID);
-
-            // שינוי ה-Visibility של כפתור המחיקה
-            var deleteButton = sender as Button;
-            if (canDelete)
-            {
-                deleteButton.Visibility = Visibility.Visible; // אם מותר למחוק, הראה את הכפתור
-            }
-            else
-            {
-                deleteButton.Visibility = Visibility.Collapsed; // אם לא ניתן למחוק, הסתר את הכפתור
-            }
-        }
         /// <summary>
         /// Handles the "Delete" button click to delete a selected call.
         /// </summary>

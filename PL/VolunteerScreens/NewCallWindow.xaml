@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.VolunteerScreens"
         mc:Ignorable="d"
+          Background="{StaticResource cream}"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
 
-            Title="Open Calls Selection" Height="600" Width="1000">
+        Title="Open Calls Selection" Height="600" Width="1000">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,30 +20,45 @@
         <!-- Header -->
         <TextBlock Text="Open Calls Selection" 
                   Grid.Row="0"
-                  FontSize="24" 
+                  FontSize="26" 
                   FontWeight="Bold" 
                   HorizontalAlignment="Center"
-                  Margin="0,0,0,20"/>
+                  Margin="0,0,0,20"
+                  Foreground="#333333"/>
 
         <!-- Filters -->
         <StackPanel Grid.Row="1" 
                     Orientation="Horizontal" 
                     Margin="0,0,0,10">
             <Label Content="Sort By:" 
-                   VerticalAlignment="Center"/>
-            <ComboBox Width="150" 
+                   VerticalAlignment="Center" 
+                   FontSize="16" 
+                   Foreground="#333333"/>
+            <ComboBox Width="160" 
                       Margin="5,0,20,0"
                       ItemsSource="{StaticResource FiledOfOpenListColecthionKey}"
                       SelectedItem="{Binding sortOpenCalls}"
-                      SelectionChanged="ComboBox_SelectionChanged"/>
+                      SelectionChanged="ComboBox_SelectionChanged"
+                      FontSize="14" 
+                      Padding="5"
+                      Background="#f4f4f4"
+                      BorderBrush="#ccc"
+                      BorderThickness="1"/>
 
             <Label Content="Call Type:" 
-                   VerticalAlignment="Center"/>
-            <ComboBox Width="150" 
+                   VerticalAlignment="Center" 
+                   FontSize="16" 
+                   Foreground="#333333"/>
+            <ComboBox Width="160" 
                       Margin="5,0,20,0"
                       ItemsSource="{StaticResource callTypeKey}"
                       SelectedItem="{Binding filterOpenCalls}"
-                SelectionChanged="ComboBox_SelectionChanged"/>
+                      SelectionChanged="ComboBox_SelectionChanged"
+                      FontSize="14" 
+                      Padding="5"
+                      Background="#f4f4f4"
+                      BorderBrush="#ccc"
+                      BorderThickness="1"/>
         </StackPanel>
 
         <!-- Calls DataGrid -->
@@ -52,38 +68,51 @@
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
-                   MouseLeftButtonUp="myDataGrid_MouseLeftButtonUp" >
+                  MouseLeftButtonUp="myDataGrid_MouseLeftButtonUp"
+                  FontSize="14" 
+                  Background="#f4f4f4"
+                  BorderBrush="#ccc"
+                  BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" 
                                   Binding="{Binding ID}" 
-                                  Width="Auto"/>
+                                  Width="Auto" 
+                                  Foreground="#333333"/>
                 <DataGridTextColumn Header="Type" 
                                   Binding="{Binding callT}" 
-                                  Width="Auto"/>
+                                  Width="Auto" 
+                                  Foreground="#333333"/>
                 <DataGridTextColumn Header="Address" 
                                   Binding="{Binding address}" 
-                                  Width="*"/>
+                                  Width="*" 
+                                  Foreground="#333333"/>
                 <DataGridTextColumn Header="Open Time" 
                                   Binding="{Binding openTime, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
-                                  Width="Auto"/>
+                                  Width="Auto" 
+                                  Foreground="#333333"/>
                 <DataGridTextColumn Header="Max Time" 
                                   Binding="{Binding maxTime, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
-                                  Width="Auto"/>
+                                  Width="Auto" 
+                                  Foreground="#333333"/>
                 <DataGridTextColumn Header="Distance (km)" 
                                   Binding="{Binding distance, StringFormat={}{0:F2}}" 
-                                  Width="Auto"/>
+                                  Width="Auto" 
+                                  Foreground="#333333"/>
                 <DataGridTemplateColumn Header="Action" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Take Call"
-                                Click="addCall_Click"
-                                    Padding="5,2"/>
+                                    Click="addCall_Click"
+                                    Padding="5,2"
+                                    FontSize="14"
+                                    Background="#5c7dff"
+                                    Foreground="White"
+                                    BorderBrush="#4a66c1"
+                                    BorderThickness="1"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-       
     </Grid>
 </Window>
