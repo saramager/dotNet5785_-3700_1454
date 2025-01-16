@@ -281,7 +281,7 @@
 
         <!-- כותרת משנית -->
         <Style x:Key="SubHeaderLabel" TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource liteBrowne}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Margin" Value="0,10,0,5"/>
@@ -334,6 +334,7 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="{StaticResource brown}"/>
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Cooper Black"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">

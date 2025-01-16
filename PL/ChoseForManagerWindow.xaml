@@ -61,8 +61,9 @@
                 Grid.Column="1"
                 Click="Vlountter_Click" />
 
-        <Button Content="open manager"
+        <Button Content="open manager" 
                 Style="{StaticResource MenuButton}"
+                FontSize="30"
                 Height="300" 
                 Width="300"
                 Grid.Column="2"

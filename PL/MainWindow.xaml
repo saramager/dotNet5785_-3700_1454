@@ -31,7 +31,7 @@
 
         <!--Update Risk Range-->
         <TextBox HorizontalAlignment="Left" Height="47" Margin="142,73,0,0" TextWrapping="Wrap" Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="144" Style="{StaticResource ElegantTextBox}"/>
-        <Button Content="Update Risk Range" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="144" Click="SetRiskRangeButton_Click" Margin="142,153,0,0" Style="{StaticResource MenuButton}"/>
+        <Button Content="Update Risk Range" HorizontalAlignment="Left" Height="77" VerticalAlignment="Top" Width="160" Click="SetRiskRangeButton_Click" Margin="142,153,0,0" Style="{StaticResource MenuButton}"/>
 
         <!-- list of volunteers -->
         <Button Grid.Column="1" Content="Handle Volunteers" HorizontalAlignment="Left" Height="77" Margin="234,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="138" Click="ButtonVolunteerList_Click" Style="{StaticResource MenuButton}"/>
