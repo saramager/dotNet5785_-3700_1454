@@ -78,7 +78,7 @@
         </ListBox>
 
         <!-- Add or update button -->
-        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="625,337,0,0" VerticalAlignment="Top" Width="165" FontSize="14"
-                Style="{StaticResource PrimaryButton}"/>
+        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="665,337,0,0" VerticalAlignment="Top" Width="125" FontSize="14"
+                Style="{StaticResource SecondaryButton}"/>
     </Grid>
 </Window>

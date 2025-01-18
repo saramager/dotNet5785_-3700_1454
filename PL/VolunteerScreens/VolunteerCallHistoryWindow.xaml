@@ -45,7 +45,7 @@
         </StackPanel>
 
         <!-- DataGrid -->
-        <DataGrid Grid.Row="2" 
+        <DataGrid  Style="{StaticResource CustomDataGridStyle}" Grid.Row="2" 
                   AutoGenerateColumns="False" 
                   IsReadOnly="True"
                   ItemsSource="{Binding CloseCallsList}"

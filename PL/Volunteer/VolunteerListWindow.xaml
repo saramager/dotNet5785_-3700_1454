@@ -24,18 +24,18 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Content="Is Active" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="0"/>
-            <ComboBox SelectedValue="{Binding FilterActive, Converter={StaticResource ConvertISActiveKey}}"
-             ItemsSource="{Binding Source={StaticResource IsActiveCollectionKey}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectionChanged="VolunteerFilter"/>
-           
-            <Label Content=" File to sort:" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" />
+            <Label Content="Is Active" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.Column="0"  Style="{StaticResource SubHeaderLabel}" Height="37"/>
+            <ComboBox SelectedValue="{Binding FilterActive, Converter={StaticResource ConvertISActiveKey}}" 
+             ItemsSource="{Binding Source={StaticResource IsActiveCollectionKey}}"  Grid.Column="1"  SelectionChanged="VolunteerFilter"/>
+
+            <Label Content=" File to sort:" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center"  Style="{StaticResource SubHeaderLabel}" Height="37"/>
             <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 
            ItemsSource="{Binding Source={StaticResource FiledToFilterVlounteerColecthionKey}}" 
            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3"   SelectionChanged="VolunteerFilter"/>
 
         </Grid>
 
-                <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" IsReadOnly="True" AutoGenerateColumns="False"
+        <DataGrid Style="{StaticResource CustomDataGridStyle}"  Margin="5,0,5,5" Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}"  IsReadOnly="True" AutoGenerateColumns="False"
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
                   SelectedItem="{Binding SelectedVolunteer}"   MouseDoubleClick="lsvVolunteersList_MouseDoubleClick" SelectionChanged="DataGrid_SelectionChanged_1">
                     <DataGrid.Columns>
@@ -75,6 +75,7 @@
         </DataGrid>
 
         <!-- Button to add new volunteer -->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddButton_Click" Style="{StaticResource SecondaryButton}" />
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddButton_Click" 
+                Style="{StaticResource PrimaryBrownButton}" />
     </Grid>
 </Window>

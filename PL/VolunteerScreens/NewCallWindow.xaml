@@ -62,7 +62,7 @@
         </StackPanel>
 
         <!-- Calls DataGrid -->
-        <DataGrid Grid.Row="2"
+        <DataGrid  Style="{StaticResource CustomDataGridStyle}" Grid.Row="2"
                   ItemsSource="{Binding OpenCallsList}"
                   SelectedItem="{Binding SelectedCall}"
                   AutoGenerateColumns="False"
