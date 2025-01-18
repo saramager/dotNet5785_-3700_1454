@@ -142,6 +142,13 @@ namespace PL.Volunteer
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteer.RemoveObserver(volunteerObserver);
+
+        private void TextBox_TextChanged()
+        {
+
+        }
+
+       
     }
 }
 

@@ -5,80 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="CallWindow" Height="450" Width="800"
+        Title="CallWindow" Height="634" Width="912"
          Background="{StaticResource cream}"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-    <Grid>
-        <!-- Call ID field -->
-        <Label Content="ID" HorizontalAlignment="Left" Height="30" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox Text="{Binding CurrentCall.ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Style="{StaticResource ElegantTextBox}"
-                 HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="427" IsReadOnly="True" />
+    <DockPanel Margin="10">
+        <!-- GroupBox Header -->
+        <GroupBox Header="Call Information" DockPanel.Dock="Top" Height="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="600">
+                <StackPanel Margin="5">
+                    <!-- ID -->
+                    <Label Content="ID:" Margin="0,5,0,0"/>
+                    <TextBox Text="{Binding CurrentCall.ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Style="{StaticResource ElegantTextBox}" IsReadOnly="True" Height="35" Width="Auto"/>
 
-        <!-- Call type field -->
-        <Label Content="Call type" HorizontalAlignment="Left" Height="27" Margin="24,56,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Height="27" Margin="227,56,0,0" VerticalAlignment="Top" Width="427" 
-                  SelectedItem="{Binding CurrentCall.callT, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                  ItemsSource="{Binding Source={StaticResource callTypeKey}}"
-                  IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='callT'}" />
+                    <!-- Call Type -->
+                    <Label Content="Call Type:" Margin="0,5,0,0"/>
+                    <ComboBox SelectedItem="{Binding CurrentCall.callT, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                          ItemsSource="{Binding Source={StaticResource callTypeKey}}" 
+                          IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='callT'}" 
+                          Height="35" Width="Auto"/>
 
-        <!-- Call verbalDescription field -->
-        <Label Content="Verbal Description" HorizontalAlignment="Left" Height="29" Margin="24,101,0,0" VerticalAlignment="Top" Width="110"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.verbalDescription, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Top" Width="427"  Style="{StaticResource ElegantTextBox}"
-                 IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='verbalDescription'}"/>
+                    <!-- Verbal Description -->
+                    <Label Content="Verbal Description:" Margin="0,5,0,0"/>
+                    <TextBox Text="{Binding CurrentCall.verbalDescription, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Style="{StaticResource ElegantTextBox}" VerticalScrollBarVisibility="Auto" 
+                         HorizontalScrollBarVisibility="Auto" IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='verbalDescription'}" 
+                         Height="Auto" Width="Auto" MinHeight="70"/>
 
-        <!-- Call Address field -->
-        <Label Content="Address" HorizontalAlignment="Left" Margin="24,150,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,150,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Top" Width="427"  Style="{StaticResource ElegantTextBox}"
-                 IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='address'}"/>
+                    <!-- Address -->
+                    <Label Content="Address:" Margin="0,5,0,0"/>
+                    <TextBox Text="{Binding CurrentCall.address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Style="{StaticResource ElegantTextBox}" IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='address'}" 
+                         Height="35" Width="Auto"/>
 
-        <!-- Call openTime field -->
-        <Label Content="Open time" HorizontalAlignment="Left" Height="29" Margin="33,200,0,0" VerticalAlignment="Top" Width="120"/>
-        <DatePicker HorizontalAlignment="Left" Height="29" Margin="227,200,0,0"
-                    SelectedDate="{Binding CurrentCall.openTime, Mode=OneWay}" 
-                    VerticalAlignment="Top" Width="427" 
-                    IsHitTestVisible="False" Focusable="False">
-            <DatePicker.Resources>
-                <Style TargetType="DatePickerTextBox">
-                    <Setter Property="IsReadOnly" Value="True" />
-                </Style>
-            </DatePicker.Resources>
-        </DatePicker>
+                    <!-- Open Time -->
+                    <Label Content="Open Time:" Margin="0,5,0,0"/>
+                    <DatePicker SelectedDate="{Binding CurrentCall.openTime, Mode=OneWay}" 
+                            IsHitTestVisible="False" Focusable="False" Width="Auto">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="IsReadOnly" Value="True" />
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
 
-        <!-- Call maxTime field -->
-        <Label Content="Max time" HorizontalAlignment="Left" Height="29" Margin="24,250,0,0" VerticalAlignment="Top" Width="109"/>
-        <DatePicker HorizontalAlignment="Left" Height="29" Margin="227,250,0,0"
-                    SelectedDate="{Binding CurrentCall.maxTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                    VerticalAlignment="Top" Width="427" 
-                    IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='maxTime'}"/>
+                    <!-- Max Time -->
+                    <Label Content="Max Time:" Margin="0,5,0,0"/>
+                    <DatePicker SelectedDate="{Binding CurrentCall.maxTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                            IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='maxTime'}" 
+                            Height="35" Width="Auto"/>
 
-        <!-- Call status field -->
-        <Label Content="Call status" HorizontalAlignment="Left" Height="29" Margin="24,300,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,300,0,0" VerticalAlignment="Top" Width="427" 
-                 Text="{Binding CurrentCall.statusC, Mode=OneWay}"  Style="{StaticResource ElegantTextBox}"
-                 IsReadOnly="True" />
+                    <!-- Call Status -->
+                    <Label Content="Call Status:" Margin="0,5,0,0"/>
+                    <TextBox Text="{Binding CurrentCall.statusC, Mode=OneWay}" 
+                         Style="{StaticResource ElegantTextBox}" IsReadOnly="True" 
+                         Height="35" Width="Auto"/>
 
-        <!-- Call assignment in the list field -->
-        <Label Content="CallAssignInList" HorizontalAlignment="Left" Height="31" Margin="24,350,0,0" VerticalAlignment="Top" Width="110"/>
-        <ListBox HorizontalAlignment="Left" Height="80" Margin="227,340,0,0" VerticalAlignment="Top" Width="380" Style="{StaticResource CustomListBox}"
-                 ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding VolunteerId}" />
-                        <TextBlock Text="{Binding fullName}" />
-                        <TextBlock Text="{Binding startTreatment}" />
-                        <TextBlock Text="{Binding finishTreatment}" />
-                        <TextBlock Text="{Binding finishT}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                    <!-- Assignment List -->
+                    <Label Content="Call Assign In List:" Margin="0,5,0,0"/>
+                    <ListBox ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Style="{StaticResource CustomListBox}" Width="150" Height="100" HorizontalAlignment="Left">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding VolunteerId}" />
+                                    <TextBlock Text="{Binding fullName}" />
+                                    <TextBlock Text="{Binding startTreatment}" />
+                                    <TextBlock Text="{Binding finishTreatment}" />
+                                    <TextBlock Text="{Binding finishT}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
-        <!-- Add or update button -->
-        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="65" Margin="665,337,0,0" VerticalAlignment="Top" Width="125" FontSize="14"
-                Style="{StaticResource SecondaryButton}"/>
-    </Grid>
+                    <!-- Add or Update Button -->
+                    <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" Style="{StaticResource SecondaryButton}" 
+                        Height="70" Width="150" HorizontalAlignment="Right" Margin="0,-170,100,0"/>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+    </DockPanel>
 </Window>

@@ -37,17 +37,20 @@
         <!--color pallte-->
         <SolidColorBrush x:Key="litePurple" Color="#dcc6e0"/>
         <SolidColorBrush x:Key="cream" Color="#fff5e1"/>
+        <SolidColorBrush x:Key="darkCream" Color="#F5E1A4"/>
         <SolidColorBrush x:Key="tile" Color="#98c8b9"/>
         <SolidColorBrush x:Key="liteBrowne" Color="#ba9884"/>
         <SolidColorBrush x:Key="liteBlue" Color="#aee5ff"/>
+        <SolidColorBrush x:Key="liteBlueGrey" Color="#E0F7FA"/>
         <SolidColorBrush x:Key="litePink" Color="#f1c1cc"/>
         <SolidColorBrush x:Key="brown" Color="#573c2b"/>
         <SolidColorBrush x:Key="Turquoise" Color="#30D5C8"/>
         <SolidColorBrush x:Key="liteTurquoise" Color="#b3f0e9"/>
         <SolidColorBrush x:Key="Pink" Color="#FFC0CB"/>
+        <SolidColorBrush x:Key="pinkPurple" Color="#F1D0D6"/>
         <SolidColorBrush x:Key="DarkPink" Color="#FF1493"/>
 
-
+        
         <!-- Window Style -->
             <Style x:Key="MainWindow" TargetType="Window">
                 <Setter Property="Background" Value="{StaticResource cream}"/>
@@ -509,7 +512,7 @@
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter Property="Background" 
-                                            Value="{StaticResource litePurple}"/>
+                                            Value="{StaticResource tile}"/>
                                         </Trigger>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter Property="Background" 

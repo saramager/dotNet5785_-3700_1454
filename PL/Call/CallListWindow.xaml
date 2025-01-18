@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="CallListWindow" Height="450" Width="800"
+        Title="CallListWindow" Height="450" Width="869"
         Background="{StaticResource cream}"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
@@ -26,11 +26,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="File to filter:" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Top"  Style="{StaticResource SubHeaderLabel2}" Height="36" Margin="104,1,0,0" Width="101" Grid.ColumnSpan="2"/>
+            <Label Content="File to filter:" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Top"  Style="{StaticResource SubHeaderLabel2}" Height="36" Margin="118,3,0,0" Width="101" Grid.ColumnSpan="2"/>
             <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
                       ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" Grid.Column="2" SelectionChanged="CallFilter" Margin="111,0,89,-9" Grid.ColumnSpan="2" />
 
-            <Label Content="Value to filter:" HorizontalAlignment="Left" Grid.Column="3" VerticalAlignment="Top" Style="{StaticResource SubHeaderLabel2}" Height="33" Width="114" Margin="76,0,0,0" Grid.ColumnSpan="2" />
+            <Label Content="Value to filter:" HorizontalAlignment="Left" Grid.Column="3" VerticalAlignment="Top" Style="{StaticResource SubHeaderLabel2}" Height="33" Width="114" Margin="85,1,0,0" Grid.ColumnSpan="2" RenderTransformOrigin="0.733,0.456" />
             <TextBox Text="{Binding Filter, Mode=TwoWay}" Grid.Column="4" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" Width="126" KeyDown="CallFilter" Margin="34,0,0,0" />
 
             <Label Content="File to sort:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" Style="{StaticResource SubHeaderLabel2}" Height="31" />
@@ -43,10 +43,10 @@
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
                   SelectedItem="{Binding SelectedCall}" MouseDoubleClick="lsvCallsList_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding CallId}" Header="Call Id" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="auto" />
+                <DataGridTextColumn Binding="{Binding CallId}" Header="Call Id" Width="auto" />
 
-                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="Auto">
+                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="auto">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" 
@@ -55,12 +55,12 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding openTime}" Header="Open Time" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding timeEndCall}" Header="Time End Call" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding volunteerLast}" Header="Volunteer Last" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding TimeEndTreat}" Header="Time End Treat" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding openTime}" Header="Open Time" Width="auto" />
+                <DataGridTextColumn Binding="{Binding timeEndCall}" Header="Time End Call" Width="auto" />
+                <DataGridTextColumn Binding="{Binding volunteerLast}" Header="Volunteer Last" Width="auto" />
+                <DataGridTextColumn Binding="{Binding TimeEndTreat}" Header="Time End Treat" Width="auto" />
 
-                <DataGridTextColumn Binding="{Binding status}" Header="Call Status" Width="Auto">
+                <DataGridTextColumn Binding="{Binding status}" Header="Call Status" Width="auto">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" 
@@ -69,10 +69,10 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding numOfAssignments}" Header="Num of Assignments" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding numOfAssignments}" Header="Num of Assignments" Width="auto" />
 
                 <!--"Delete" button column-->
-                <DataGridTemplateColumn Header="Actions" Width="Auto">
+                <DataGridTemplateColumn Header="Actions" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Delete" Click="DeleteButton_Click" Style="{StaticResource DeleteButton}"
@@ -82,7 +82,7 @@
                 </DataGridTemplateColumn>
 
                 <!--"Cancel" button column-->
-                <DataGridTemplateColumn Header="Actions" Width="Auto">
+                <DataGridTemplateColumn Header="Actions" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Cancel" Click="CancelButton_Click" Style="{StaticResource CancelButton}"/>

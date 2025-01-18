@@ -39,20 +39,20 @@
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
                   SelectedItem="{Binding SelectedVolunteer}"   MouseDoubleClick="lsvVolunteersList_MouseDoubleClick" SelectionChanged="DataGrid_SelectionChanged_1">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding fullName}" Header="Name" Width="Auto" />
-                <DataGridTemplateColumn Header="Is Active" Width="Auto">
+                <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="*" />
+                <DataGridTextColumn Binding="{Binding fullName}" Header="Name" Width="auto" />
+                <DataGridTemplateColumn Header="Is Active" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsEnabled="False" IsChecked="{Binding Path=active}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding numCallsHandled}" Header="Handled Calls" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding numCallsCancelled}" Header="Cancelled Calls" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding numCallsExpired}" Header="Expired Calls" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding CallId}" Header="Call ID" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="Auto">
+                <DataGridTextColumn Binding="{Binding numCallsHandled}" Header="Handled Calls" Width="auto" />
+                <DataGridTextColumn Binding="{Binding numCallsCancelled}" Header="Cancelled Calls" Width="auto" />
+                <DataGridTextColumn Binding="{Binding numCallsExpired}" Header="Expired Calls" Width="auto" />
+                <DataGridTextColumn Binding="{Binding CallId}" Header="Call ID" Width="*" />
+                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" 
@@ -62,7 +62,7 @@
                 </DataGridTextColumn>
 
                 <!-- "Delete" button column -->
-                <DataGridTemplateColumn Header="Actions" Width="Auto">
+                <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!-- "Delete" button -->
