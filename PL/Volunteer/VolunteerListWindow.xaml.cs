@@ -187,6 +187,11 @@ namespace PL.Volunteer
             s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
             IsOpen = false;
         }
+
+        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 

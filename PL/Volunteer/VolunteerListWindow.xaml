@@ -37,7 +37,7 @@
 
                 <DataGrid Margin="5" Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" IsReadOnly="True" AutoGenerateColumns="False"
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
-                  SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="lsvVolunteersList_MouseDoubleClick">
+                  SelectedItem="{Binding SelectedVolunteer}"   MouseDoubleClick="lsvVolunteersList_MouseDoubleClick" SelectionChanged="DataGrid_SelectionChanged_1">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding fullName}" Header="Name" Width="Auto" />
@@ -52,14 +52,21 @@
                 <DataGridTextColumn Binding="{Binding numCallsCancelled}" Header="Cancelled Calls" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding numCallsExpired}" Header="Expired Calls" Width="Auto" />
                 <DataGridTextColumn Binding="{Binding CallId}" Header="Call ID" Width="Auto" />
-                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="Auto" />
+                <DataGridTextColumn Binding="{Binding callT}" Header="Call Type" Width="Auto">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" 
+                    Value="{Binding callT, Converter={StaticResource CallTypeToColorConverter}}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
 
                 <!-- "Delete" button column -->
                 <DataGridTemplateColumn Header="Actions" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!-- "Delete" button -->
-                            <Button Content="Delete" Click="DeleteButton_Click"/>
+                            <Button Content="Delete" Click="DeleteButton_Click" Style="{StaticResource DeleteButton}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -68,6 +75,6 @@
         </DataGrid>
 
         <!-- Button to add new volunteer -->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddButton_Click"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddButton_Click" Style="{StaticResource SecondaryButton}" />
     </Grid>
 </Window>

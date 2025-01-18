@@ -39,7 +39,7 @@ public enum FinishType
     ExpiredCancel
 }
 
-public enum Status //1 enum? or 3
+public enum Status
 {
     Open,
     InTreat,

@@ -13,11 +13,11 @@
         <!-- Call ID field -->
         <Label Content="ID" HorizontalAlignment="Left" Height="30" Margin="24,9,0,0" VerticalAlignment="Top" Width="109"/>
         <TextBox Text="{Binding CurrentCall.ID, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Style="{StaticResource ElegantTextBox}"
-                 HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" IsReadOnly="True" />
+                 HorizontalAlignment="Left" Height="30" Margin="227,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="427" IsReadOnly="True" />
 
         <!-- Call type field -->
         <Label Content="Call type" HorizontalAlignment="Left" Height="27" Margin="24,56,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Height="27" Margin="227,56,0,0" VerticalAlignment="Top" Width="307" 
+        <ComboBox HorizontalAlignment="Left" Height="27" Margin="227,56,0,0" VerticalAlignment="Top" Width="427" 
                   SelectedItem="{Binding CurrentCall.callT, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                   ItemsSource="{Binding Source={StaticResource callTypeKey}}"
                   IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='callT'}" />
@@ -25,7 +25,7 @@
         <!-- Call verbalDescription field -->
         <Label Content="Verbal Description" HorizontalAlignment="Left" Height="29" Margin="24,101,0,0" VerticalAlignment="Top" Width="110"/>
         <TextBox HorizontalAlignment="Left" Height="29" Margin="227,101,0,0" TextWrapping="Wrap" Text="{Binding CurrentCall.verbalDescription, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Top" Width="263"  Style="{StaticResource ElegantTextBox}"
+                 VerticalAlignment="Top" Width="427"  Style="{StaticResource ElegantTextBox}"
                  IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='verbalDescription'}"/>
 
         <!-- Call Address field -->
@@ -38,7 +38,7 @@
         <Label Content="Open time" HorizontalAlignment="Left" Height="29" Margin="33,200,0,0" VerticalAlignment="Top" Width="120"/>
         <DatePicker HorizontalAlignment="Left" Height="29" Margin="227,200,0,0"
                     SelectedDate="{Binding CurrentCall.openTime, Mode=OneWay}" 
-                    VerticalAlignment="Top" Width="263" 
+                    VerticalAlignment="Top" Width="427" 
                     IsHitTestVisible="False" Focusable="False">
             <DatePicker.Resources>
                 <Style TargetType="DatePickerTextBox">
@@ -51,12 +51,12 @@
         <Label Content="Max time" HorizontalAlignment="Left" Height="29" Margin="24,250,0,0" VerticalAlignment="Top" Width="109"/>
         <DatePicker HorizontalAlignment="Left" Height="29" Margin="227,250,0,0"
                     SelectedDate="{Binding CurrentCall.maxTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                    VerticalAlignment="Top" Width="263" 
+                    VerticalAlignment="Top" Width="427" 
                     IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='maxTime'}"/>
 
         <!-- Call status field -->
         <Label Content="Call status" HorizontalAlignment="Left" Height="29" Margin="24,300,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox HorizontalAlignment="Left" Height="29" Margin="197,300,0,0" VerticalAlignment="Top" Width="326" 
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="227,300,0,0" VerticalAlignment="Top" Width="427" 
                  Text="{Binding CurrentCall.statusC, Mode=OneWay}"  Style="{StaticResource ElegantTextBox}"
                  IsReadOnly="True" />
 

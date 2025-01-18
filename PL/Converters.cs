@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace PL
 {
@@ -205,5 +206,56 @@ namespace PL
                 throw new NotImplementedException();
             }
         }
+    public class StatusToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is Status status)
+            {
+                return status switch
+                {
+                    Status.Open => Brushes.Green,
+                    Status.InTreat => Brushes.Blue,
+                    Status.Close => Brushes.Gray,
+                    Status.Expired => Brushes.Red,
+                    Status.OpenInRisk => Brushes.Orange,
+                    Status.TreatInRisk => Brushes.Purple,
+                    _ => Brushes.Black
+                };
+            }
+            return Brushes.Black;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
+
+    public class CallTypeToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is CallType callType)
+            {
+                return callType switch
+                {
+                    CallType.BabyGift => Brushes.Pink,
+                    CallType.MomGift => Brushes.LightBlue,
+                    CallType.HouseholdHelp => Brushes.LightGreen,
+                    CallType.MealPreparation => Brushes.Gold,
+                    CallType.None => Brushes.DarkGray,
+                    _ => Brushes.Black
+                };
+            }
+            return Brushes.Black;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+}
 

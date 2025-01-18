@@ -28,8 +28,12 @@
         <local:ConvertStatusEditableForIsEnabled x:Key="ConvertStatusEditableForIsEnabled" />
         <local:ConvertStatusEditableForIsReadOnly x:Key="ConvertStatusEditableForIsReadOnlyKey" />
         <local:ConvertBoolToVisibility x:Key="ConvertBoolToVisibilityKey" />
-        
-        
+        <local:StatusToColorConverter x:Key="StatusToColorConverter" />
+        <local:CallTypeToColorConverter x:Key="CallTypeToColorConverter" />
+
+
+
+
 
 
         <!--color pallte-->
@@ -40,8 +44,16 @@
         <SolidColorBrush x:Key="liteBlue" Color="#aee5ff"/>
         <SolidColorBrush x:Key="litePink" Color="#f1c1cc"/>
         <SolidColorBrush x:Key="brown" Color="#573c2b"/>
-       
-            <!-- Window Style -->
+        <SolidColorBrush x:Key="Turquoise" Color="#30D5C8"/>
+        <SolidColorBrush x:Key="liteTurquoise" Color="#b3f0e9"/>
+        <SolidColorBrush x:Key="Pink" Color="#FFC0CB"/>
+        <SolidColorBrush x:Key="DarkPink" Color="#FF1493"/>
+
+
+
+
+
+        <!-- Window Style -->
             <Style x:Key="MainWindow" TargetType="Window">
                 <Setter Property="Background" Value="{StaticResource cream}"/>
                 <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -142,8 +154,60 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+        
+        <!--Delete Button-->
+        <Style x:Key="DeleteButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource liteTurquoise}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                        CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                     VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource Turquoise}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-            <!-- TextBox Style -->
+        <!--Cancel Button-->
+        <Style x:Key="CancelButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Pink}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                             VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource DarkPink}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+        <!-- Text Style -->
         <Style x:Key="ElegantTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="{StaticResource brown}"/>
