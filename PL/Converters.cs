@@ -240,15 +240,15 @@ namespace PL
             {
                 return callType switch
                 {
-                    CallType.BabyGift => Brushes.Pink,
+                    CallType.BabyGift => Brushes.DeepPink,
                     CallType.MomGift => Brushes.LightBlue,
                     CallType.HouseholdHelp => Brushes.LightGreen,
-                    CallType.MealPreparation => Brushes.Gold,
+                    CallType.MealPreparation => Brushes.DarkTurquoise,
                     CallType.None => Brushes.DarkGray,
-                    _ => Brushes.Black
+                    _ => Brushes.Brown
                 };
             }
-            return Brushes.Black;
+            return Brushes.Brown;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
