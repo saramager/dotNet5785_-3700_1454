@@ -103,12 +103,7 @@
                         <DataTemplate>
                             <Button Content="Take Call"
                                     Click="addCall_Click"
-                                    Padding="5,2"
-                                    FontSize="14"
-                                    Background="#5c7dff"
-                                    Foreground="White"
-                                    BorderBrush="#4a66c1"
-                                    BorderThickness="1"/>
+                                     Style="{StaticResource CancelButton}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
