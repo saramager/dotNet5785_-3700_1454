@@ -53,17 +53,18 @@
                 <ColumnDefinition Width="*" />
 
             </Grid.ColumnDefinitions>
-     
-        <Button Content="open Volunteers windows" 
-                Style="{StaticResource MenuButton}"
+
+            <Button Content="Windows volunteer" 
+                Style="{StaticResource MenuButton4}"
+                FontSize="25"
                 Height="300" 
                 Width="300"
                 Grid.Column="1"
                 Click="Vlountter_Click" />
 
-        <Button Content="open manager" 
-                Style="{StaticResource MenuButton}"
-                FontSize="30"
+            <Button Content="Windows manager" 
+                Style="{StaticResource MenuButton2}"
+                FontSize="25"
                 Height="300" 
                 Width="300"
                 Grid.Column="2"

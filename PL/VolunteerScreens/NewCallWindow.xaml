@@ -38,7 +38,7 @@
                    Foreground="{StaticResource brown}" Width="148"/>
             <ComboBox Width="314" 
                       Grid.Column="1"
-                      Style="{StaticResource CustomComboBox}" 
+                      Style="{StaticResource CustomComboBox2}" 
                       Margin="5,0,20,0"
                       ItemsSource="{StaticResource FiledOfOpenListColecthionKey}"
                       SelectedItem="{Binding sortOpenCalls}"
@@ -49,20 +49,13 @@
                    VerticalAlignment="Center" 
                    FontSize="16" 
                   Foreground="{StaticResource brown}" Width="168"/>
-            <ComboBox Width="401"
-                      Style="{StaticResource CustomComboBox}"
-                      ItemsSource="{StaticResource callTypeKey}"
-                      SelectedItem="{Binding filterOpenCalls}"
-                      SelectionChanged="ComboBox_SelectionChanged" RenderTransformOrigin="0.5,0.5">
-                <ComboBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </ComboBox.RenderTransform>
+            <ComboBox Width="325"
+          Style="{StaticResource CustomComboBox2}"
+          ItemsSource="{StaticResource callTypeKey}"
+          SelectedItem="{Binding filterOpenCalls}"
+          SelectionChanged="ComboBox_SelectionChanged">
             </ComboBox>
+
         </StackPanel>
 
         <!-- Calls DataGrid -->

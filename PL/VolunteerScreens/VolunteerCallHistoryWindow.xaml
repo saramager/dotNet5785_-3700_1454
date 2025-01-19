@@ -33,13 +33,13 @@
                    Margin="0,0,10,0"/>
             <ComboBox Width="150" 
                        SelectedValue="{Binding Path=sortCloseCalls, Mode=TwoWay}"   ItemsSource="{Binding Source={StaticResource FiledOFCloseListColecthionKey}}" 
-                      Margin="0,0,20,0" SelectionChanged="ComboBox_SelectionChanged" />
+                     Style="{StaticResource CustomComboBox2}" Margin="0,0,20,0" SelectionChanged="ComboBox_SelectionChanged" />
 
 
             <Label Content="Filter:" 
                    VerticalAlignment="Center" 
                    Margin="0,0,10,0"/>
-            <ComboBox Width="150"
+            <ComboBox Width="150" Style="{StaticResource CustomComboBox2}"
                SelectedValue="{Binding Path=filterCloseCalls, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Source={StaticResource callTypeKey}}" 
             />
         </StackPanel>
