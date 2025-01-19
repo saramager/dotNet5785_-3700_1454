@@ -80,7 +80,7 @@ public interface ICall: IObservable
     /// <param name="filedTosort">An optional field to sort the open calls.</param>
     /// <returns>An `IEnumerable<OpenCallInList>` representing the list of open calls.</returns>
     /// <exception cref="BO.BlNullPropertyException">Thrown if there are no open calls in the database.</exception>
-    IEnumerable<OpenCallInList> ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort);
+    IEnumerable<OpenCallInList> ReadOpenCallsVolunteer(int id, CallType? callT, FiledOfOpenCallInList? filedTosort, IEnumerable<OpenCallInList> openCallIns = null);
 
     /// <summary>
     /// Marks an assignment's treatment as finished.

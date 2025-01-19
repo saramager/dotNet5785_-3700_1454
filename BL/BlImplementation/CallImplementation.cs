@@ -382,22 +382,28 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         return closedCallInLists;
     }
 
-    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
+    IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort, IEnumerable<OpenCallInList> openCallIns = null)
     {
-      
+        IEnumerable<BO.OpenCallInList> openCallInLists;
 
-        IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
-        List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
-        Calls.AddRange(from item in previousCalls
-                       let DataCall = ReadCall(item.ID)
-                       where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
-                       let volunteerData = _dal.Volunteer.Read(v=>v.ID == id)
-                       let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
-                       where volunteerData.maxDistance==null ?true : volunteerData.maxDistance>= openCall.distance
-                       select openCall);
+        if (openCallIns == null)
+        {
+            IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
+            List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
-        IEnumerable < BO.OpenCallInList > openCallInLists = Calls;
+            Calls.AddRange(from item in previousCalls
+                           let DataCall = ReadCall(item.ID)
+                           where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
+                           let volunteerData = _dal.Volunteer.Read(v => v.ID == id)
+                           let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
+                           where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
+                           select openCall);
+
+            openCallInLists = Calls;
+        }
+        else
+            openCallInLists = openCallIns;
 
         if (callT != null)
         {

@@ -78,7 +78,11 @@ namespace PL.VolunteerScreens
             => s_bl.Call.RemoveObserver(CallsListObserver);
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            queryOpenCallsList();
+            if (filterOpenCalls == BO.CallType.None)
+                OpenCallsList = s_bl.Call.ReadOpenCallsVolunteer(Id, null, sortOpenCalls,OpenCallsList);
+            else
+                OpenCallsList = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls,OpenCallsList);
+
         }
         private void addCall_Click(object sender, RoutedEventArgs e)
         {
