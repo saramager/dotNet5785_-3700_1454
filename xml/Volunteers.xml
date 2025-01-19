@@ -1,19 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>326301454</ID>
-    <fullName>sara</fullName>
-    <phone>0552708855</phone>
-    <email>sarahaya454@gmail.com</email>
-    <isActive>true</isActive>
-    <role>Manager</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-  </Volunteer>
-  <Volunteer>
     <ID>214093700</ID>
     <fullName>Neomy Ivgi</fullName>
     <phone>0533121809</phone>
@@ -81,20 +68,6 @@
     <longitude>35.19622</longitude>
     <latitude>31.78776</latitude>
     <maxDistance>0.5212037089769173</maxDistance>
-  </Volunteer>
-  <Volunteer>
-    <ID>584812374</ID>
-    <fullName>Shlomo Klein</fullName>
-    <phone>0585678901</phone>
-    <email>shlomo.klein@live.com</email>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>walkingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Shearim 4, Jerusalem, Israel</address>
-    <longitude>35.19624</longitude>
-    <latitude>31.79032</latitude>
-    <maxDistance>3.5720232354023596</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>301192589</ID>
@@ -249,5 +222,29 @@
     <longitude>35.1867</longitude>
     <latitude>31.78813</latitude>
     <maxDistance>1.5096242214537443</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>584812374</ID>
+    <fullName>Shlomo Klein</fullName>
+    <phone>0585678901</phone>
+    <email>shlomo.klein@live.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>walkingDistance</distance>
+    <password>Sdvvzrug45</password>
+    <maxDistance>3.5720232354023596</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>326301454</ID>
+    <fullName>sara</fullName>
+    <phone>0552708855</phone>
+    <email>sarahaya454@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
   </Volunteer>
 </ArrayOfVolunteer>

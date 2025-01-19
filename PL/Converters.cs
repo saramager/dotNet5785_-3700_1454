@@ -258,17 +258,19 @@ namespace PL
     }
     public class DeleteVolunteerVisbilty : IValueConverter
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var v = (VolunteerInList)value;
-            if (value is VolunteerInList volunteerInList)
-            {
-                if (volunteerInList.numCallsCancelled == 0 && volunteerInList.numCallsExpired == 0 && volunteerInList.numCallsHandled == 0 && volunteerInList.callT== BO.CallType.None)
+            int id = (int)value;
+
+            if (s_bl.Volunteer.CanDeleteVoluenteer(id)) 
                 {
                     return Visibility.Visible;
                 }
-            }
-            return Visibility.Hidden;
+            
+           return Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using DO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -10,6 +11,7 @@ internal class AssignmentImplementation : IAssignment
     /// Creates a new assignment and adds it to the list of assignments stored in the XML file.
     /// </summary>
     /// <param name="item">The assignment object to be created.</param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
@@ -23,6 +25,7 @@ internal class AssignmentImplementation : IAssignment
     /// Deletes an assignment by its ID. Throws an exception if the assignment does not exist.
     /// </summary>
     /// <param name="id">The ID of the assignment to delete.</param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
@@ -36,6 +39,7 @@ internal class AssignmentImplementation : IAssignment
     /// <summary>
     /// Deletes all assignments in the system by clearing the XML file.
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_Assignments_xml);
@@ -46,6 +50,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="filter">A function that defines the filter criteria for the assignment.</param>
     /// <returns>The first assignment that matches the filter, or null if no match is found.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Assignment? Read(Func<Assignment, bool> filter)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
@@ -56,6 +61,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="filter">A function that defines the filter criteria for the assignments (optional).</param>
     /// <returns>A collection of assignments that match the filter (if any).</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
         try
@@ -79,6 +85,7 @@ internal class AssignmentImplementation : IAssignment
     /// Throws an exception if the assignment does not exist.
     /// </summary>
     /// <param name="item">The updated assignment object.</param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Assignment item)
     {
 

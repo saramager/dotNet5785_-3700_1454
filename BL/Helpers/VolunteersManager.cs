@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -94,10 +95,17 @@ namespace Helpers
               
                 if (callTreat != null)
                    {
-                    double latitude = doVolunteer.Latitude ?? callTreat.latitude;
-                    double longitude = doVolunteer.Longitude ?? callTreat.longitude;
-                    var val = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude, (BO.Distance)doVolunteer.distanceType);
-
+                    double distanceOfCall = 0;
+                    if (doVolunteer.Latitude != null && doVolunteer.Longitude != null)
+                    {
+                        distanceOfCall = Tools.CalculateDistance(
+                            callTreat.latitude,
+                            callTreat.longitude,
+                            doVolunteer.Latitude.Value,
+                            doVolunteer.Longitude.Value,
+                            (BO.Distance)doVolunteer.distanceType
+                        );
+                    }
                     return new()
                     {
                         ID = assignmentTreat.ID,
@@ -108,7 +116,7 @@ namespace Helpers
                         openTime = callTreat.openTime,
                         maxTime = callTreat.maxTime,
                         startTreatment = assignmentTreat.startTreatment,
-                        CallDistance=val,
+                        CallDistance=distanceOfCall,
                         //CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
                         statusT = (callTreat.maxTime - AdminManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
                     };}
@@ -215,7 +223,7 @@ namespace Helpers
         internal static DO.Volunteer convertFormBOVolunteerToDo(BO.Volunteer BoVolunteer)
         {
            
-            if (BoVolunteer.currentAddress !=null)
+            if (BoVolunteer.currentAddress !=null && BoVolunteer.currentAddress!= "")
             {
                
                
@@ -228,6 +236,7 @@ namespace Helpers
             {
                 BoVolunteer.Latitude = null;
                 BoVolunteer.Longitude = null;
+                BoVolunteer.currentAddress = null;
             }
             DO.Volunteer doVl = new(
                  ID: BoVolunteer.Id,

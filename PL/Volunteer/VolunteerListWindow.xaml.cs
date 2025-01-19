@@ -25,6 +25,7 @@ namespace PL.Volunteer
         /// Static reference to the BL instance.
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         public static bool IsOpen { get; private set; } = false;
         /// <summary>
         /// Selected volunteer from the list.

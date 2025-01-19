@@ -169,5 +169,14 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         else
            throw new BO.NoManagerException("there is no manger avilble ");
     }
+    public bool CanDeleteVoluenteer(int id)
+    {
+        var vol = _dal.Volunteer.Read(v=>v.ID==id);
+        if (vol == null)
+            return false;
+        BO.VolunteerInList volunteerInList= VolunteersManager.convertDOToBOInList(vol);
+        return (volunteerInList.callT== BO.CallType.None&&  volunteerInList.numCallsCancelled == 0 && volunteerInList.numCallsExpired == 0 && volunteerInList.numCallsHandled == 0);
+
+    }
 
 }

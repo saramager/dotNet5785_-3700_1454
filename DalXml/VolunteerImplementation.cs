@@ -1,6 +1,7 @@
 ﻿
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Dal;
@@ -15,9 +16,10 @@ internal class VolunteerImplementation : IVolunteer
     /// <param name="s">n XElement vatrible </param>
     /// <returns>  the volunteer  from the XElement</returns>
     /// <exception cref="FormatException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     static Volunteer getVolunteer(XElement vXml)
     {
-      Volunteer v  = new DO.Volunteer()
+        Volunteer v = new DO.Volunteer()
         {
             ID = int.TryParse((string?)vXml.Element("ID"), out var id) ? id : throw new FormatException("can't convert id"),
             fullName = (string?)vXml.Element("fullName") ?? "",
@@ -30,8 +32,8 @@ internal class VolunteerImplementation : IVolunteer
             currentAddress = (string?)vXml.Element("address") ?? null,
             Longitude = double.TryParse((string?)vXml.Element("longitude"), out double longitude) ? longitude : null,
             Latitude = double.TryParse((string?)vXml.Element("latitude"), out double latitude) ? latitude : null,
-            maxDistance=double.TryParse((string?)vXml.Element("maxDistance"),out double maxDis)?maxDis:null,
-           };
+            maxDistance = double.TryParse((string?)vXml.Element("maxDistance"), out double maxDis) ? maxDis : null,
+        };
         return v;
     }
     /// <summary>
@@ -39,6 +41,7 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="volunteer"> volunteer from the user </param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     static XElement createVolunteerElement(Volunteer volunteer)
     {
         XElement volunteerXml = new XElement("Volunteer",
@@ -57,15 +60,16 @@ internal class VolunteerImplementation : IVolunteer
 
 
                               );
-            return volunteerXml;
-                            
-                          
+        return volunteerXml;
+
+
     }
     /// <summary>
     /// add the volunteer to the Xml file 
     /// </summary>
     /// <param name="item"> volunteer to add to the </param>
     /// <exception cref="DO.DalAlreadyExistsException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
@@ -73,7 +77,7 @@ internal class VolunteerImplementation : IVolunteer
         if ((volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.ID)) != null)
             throw new DO.DalAlreadyExistsException($"volunteer with ID={item.ID} already  exist");
 
-        volunteerRootElem.Add(new XElement( createVolunteerElement(item)));
+        volunteerRootElem.Add(new XElement(createVolunteerElement(item)));
 
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_Volunteers_xml);
     }
@@ -82,6 +86,7 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="id"> the id for the volunteer to delete </param>
     /// <exception cref="DO.DalDoesNotExistException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
@@ -89,8 +94,8 @@ internal class VolunteerImplementation : IVolunteer
         if ((volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == id)) == null)
             throw new DO.DalDoesNotExistException($"volunteer with ID={id} does not  exist");
         XElement volunteerElem = (from stu in volunteerRootElem.Elements()
-                          where int.Parse(stu.Element("ID")!.Value) == id
-                          select stu).FirstOrDefault()!;
+                                  where int.Parse(stu.Element("ID")!.Value) == id
+                                  select stu).FirstOrDefault()!;
         volunteerElem.Remove();
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_Volunteers_xml);
 
@@ -98,6 +103,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <summary>
     /// delete all the volunteers form the XML file 
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
@@ -111,9 +117,10 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="filter">  func to help us chose the volunteer </param>
     /// <returns> lhe first volunteer to true for the filter </returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter)  ;
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(s => getVolunteer(s)).FirstOrDefault(filter);
 
     }
     /// <summary>
@@ -121,25 +128,29 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         if (filter == null)
             return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v));
-        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v)).Where(filter) ;
+        return XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml).Elements().Select(v => getVolunteer(v)).Where(filter);
     }
     /// <summary>
     /// get an voulntter item and update it to the new values.
     /// </summary>
     /// <param name="item"> the volunteer to update - </param>
     /// <exception cref="DO.DalDoesNotExistException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_Volunteers_xml);
 
-        (volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.ID)?? throw new DO.DalDoesNotExistException($"volunteer with ID={item.ID} does Not exist")).Remove();
+        (volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.ID) ?? throw new DO.DalDoesNotExistException($"volunteer with ID={item.ID} does Not exist")).Remove();
 
         volunteerRootElem.Add(new XElement(createVolunteerElement(item)));
 
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_Volunteers_xml);
     }
+  
+
 }

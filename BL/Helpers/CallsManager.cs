@@ -64,7 +64,7 @@ namespace Helpers
         internal static BO.Status GetCallStatus(DO.Call doCall)
         {
 
-            var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.startTreatment).FirstOrDefault();
+            var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.ID).FirstOrDefault();
 
             if (lastAssignment == null)
             {
@@ -191,8 +191,19 @@ namespace Helpers
         internal static BO.OpenCallInList ConvertDOCallToBOOpenCallInList(DO.Call doCall, int id)
         {
             var vol = s_dal.Volunteer.Read(v => v.ID == id);
-            double idLat = vol == null ? 0 : vol.Latitude ?? 0;
-            double idLon = vol == null ? 0 : vol.Longitude ?? 0;
+            double? idLat = vol?.Latitude;
+            double? idLon = vol?.Longitude;
+
+            double dis = 0;
+            if (idLat.HasValue && idLon.HasValue)
+                dis = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat.Value, idLon.Value, (BO.Distance)vol.distanceType);
+            //double? idLat = vol == null ? null : vol.Latitude ?? null;
+            //double? idLon = vol == null ? null : vol.Longitude ?? null;
+
+            //double dis=0;
+            //if (idLon != null && idLat != null)
+            //    dis = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat!, idLon!, (BO.Distance)vol.distanceType);
+
             return new BO.OpenCallInList
             {
                 ID = doCall.ID,
@@ -201,7 +212,7 @@ namespace Helpers
                 address= doCall.address,
                 openTime = doCall.openTime,
                 maxTime = doCall.maxTime,
-                distance = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat, idLon,(BO.Distance)vol.distanceType),
+                distance = dis,
             };
         }
         internal static DO.Call convertFormBOCallToDo(BO.Call boCall)

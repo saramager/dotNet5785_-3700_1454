@@ -76,4 +76,5 @@ public interface IVolunteer: IObservable
 
     void CreateVolunteer(BO.Volunteer volToAdd);
     int ManagerID ();
+    bool CanDeleteVoluenteer(int id);
 }

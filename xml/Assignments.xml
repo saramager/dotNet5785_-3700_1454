@@ -661,15 +661,71 @@
     <CallId>1001</CallId>
     <VolunteerId>326301454</VolunteerId>
     <startTreatment>2025-01-19T09:01:42.5837829+02:00</startTreatment>
-    <finishTreatment xsi:nil="true" />
-    <finishT xsi:nil="true" />
+    <finishTreatment>2025-01-19T17:59:20.8422384+02:00</finishTreatment>
+    <finishT>Treated</finishT>
   </Assignment>
   <Assignment>
     <ID>1083</ID>
     <CallId>1006</CallId>
     <VolunteerId>326301454</VolunteerId>
     <startTreatment>2025-01-19T09:06:07.6690569+02:00</startTreatment>
-    <finishTreatment xsi:nil="true" />
-    <finishT xsi:nil="true" />
+    <finishTreatment>2025-01-19T18:10:42.7531924+02:00</finishTreatment>
+    <finishT>SelfCancel</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1084</ID>
+    <CallId>1016</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T18:01:27.4816436+02:00</startTreatment>
+    <finishTreatment>2025-01-19T18:12:10.9374137+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1085</ID>
+    <CallId>1006</CallId>
+    <VolunteerId>584812374</VolunteerId>
+    <startTreatment>2025-01-19T18:38:16.508391+02:00</startTreatment>
+    <finishTreatment>2025-01-19T18:55:25.9672368+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1086</ID>
+    <CallId>1013</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T18:49:36.2750646+02:00</startTreatment>
+    <finishTreatment>2025-01-19T19:02:55.9592189+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1087</ID>
+    <CallId>1013</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T19:04:10.4779801+02:00</startTreatment>
+    <finishTreatment>2025-01-19T19:19:15.5496475+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1088</ID>
+    <CallId>1013</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T19:21:29.6068851+02:00</startTreatment>
+    <finishTreatment>2025-01-19T19:24:07.2657346+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1089</ID>
+    <CallId>1035</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T19:28:04.0008447+02:00</startTreatment>
+    <finishTreatment>2025-01-19T19:44:42.2546212+02:00</finishTreatment>
+    <finishT>Treated</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1091</ID>
+    <CallId>1018</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T20:00:52.4887272+02:00</startTreatment>
+    <finishTreatment>2025-01-19T20:02:12.1621607+02:00</finishTreatment>
+    <finishT>Treated</finishT>
   </Assignment>
 </ArrayOfAssignment>

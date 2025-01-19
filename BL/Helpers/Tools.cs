@@ -123,6 +123,7 @@ namespace Helpers
         /// </remarks>
         public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2, BO.Distance distanceType)
         {
+        
             double distance = 0;
             switch (distanceType)
             {
