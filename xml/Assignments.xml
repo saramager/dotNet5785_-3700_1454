@@ -568,4 +568,28 @@
     <finishTreatment>2025-01-19T14:44:02</finishTreatment>
     <finishT>ExpiredCancel</finishT>
   </Assignment>
+  <Assignment>
+    <ID>1081</ID>
+    <CallId>1038</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T08:53:17.3769904+02:00</startTreatment>
+    <finishTreatment>2025-01-19T08:59:39.1066644+02:00</finishTreatment>
+    <finishT>SelfCancel</finishT>
+  </Assignment>
+  <Assignment>
+    <ID>1082</ID>
+    <CallId>1001</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T09:01:42.5837829+02:00</startTreatment>
+    <finishTreatment xsi:nil="true" />
+    <finishT xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <ID>1083</ID>
+    <CallId>1006</CallId>
+    <VolunteerId>326301454</VolunteerId>
+    <startTreatment>2025-01-19T09:06:07.6690569+02:00</startTreatment>
+    <finishTreatment xsi:nil="true" />
+    <finishT xsi:nil="true" />
+  </Assignment>
 </ArrayOfAssignment>

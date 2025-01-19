@@ -31,6 +31,8 @@
         <local:ConvertBoolToVisibility x:Key="ConvertBoolToVisibilityKey" />
         <local:StatusToColorConverter x:Key="StatusToColorConverter" />
         <local:CallTypeToColorConverter x:Key="CallTypeToColorConverter" />
+        <local:DeleteVolunteerVisbilty x:Key="DeleteVolunteerVisbiltyKey" />
+
 
 
 

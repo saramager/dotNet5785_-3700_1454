@@ -65,12 +65,14 @@
                 <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!-- "Delete" button -->
-                            <Button Content="Delete" Click="DeleteButton_Click" Style="{StaticResource DeleteButton}"/>
+                         
+                                <Button Content="Delete" 
+                                    Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=SelectedItem, Converter={StaticResource DeleteVolunteerVisbiltyKey}}" />
+                       
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
             </DataGrid.Columns>
         </DataGrid>
 
