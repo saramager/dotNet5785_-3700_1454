@@ -256,6 +256,26 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    public class DeleteVolunteerVisbilty : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var v = (VolunteerInList)value;
+            if (value is VolunteerInList volunteerInList)
+            {
+                if (volunteerInList.numCallsCancelled == 0 && volunteerInList.numCallsExpired == 0 && volunteerInList.numCallsHandled == 0 && volunteerInList.callT== BO.CallType.None)
+                {
+                    return Visibility.Visible;
+                }
+            }
+            return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
 

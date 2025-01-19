@@ -39,8 +39,6 @@ namespace PL.VolunteerScreens
         public NewCallWindow(int id)
         {
             Id = id;
-            queryOpenCallsList();
-            s_bl.Call.AddObserver(CallsListObserver);
             this.Closed += Window_Closed;
             this.Loaded += Window_Loaded;
             InitializeComponent();

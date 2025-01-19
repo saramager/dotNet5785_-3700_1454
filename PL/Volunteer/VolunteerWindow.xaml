@@ -126,7 +126,7 @@
          HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2"/>
 
                     <!-- Address -->
-                    <TextBlock Text="Address:" Grid.Row="3" Grid.Column="0" Margin="0,0,5,2" Style="{StaticResource }" VerticalAlignment="Center"/>
+                    <TextBlock Text="Address:" Grid.Row="3" Grid.Column="0" Margin="0,0,5,2"  VerticalAlignment="Center"/>
                     <TextBox Text="{Binding CurrentVolunteer.callProgress.address, Mode=OneWay}" 
          Style="{StaticResource ElegantTextBox}"
          Grid.Row="3" Margin="116,7,0,10" IsReadOnly="True" 
