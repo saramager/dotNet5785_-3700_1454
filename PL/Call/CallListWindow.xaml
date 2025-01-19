@@ -27,14 +27,14 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="File to filter:" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Top"  Style="{StaticResource SubHeaderLabel2}" Height="36" Margin="118,3,0,0" Width="101" Grid.ColumnSpan="2"/>
-            <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" 
+            <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" Style="{StaticResource CustomComboBox}" 
                       ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" Grid.Column="2" SelectionChanged="CallFilter" Margin="111,0,89,-9" Grid.ColumnSpan="2" />
 
             <Label Content="Value to filter:" HorizontalAlignment="Left" Grid.Column="3" VerticalAlignment="Top" Style="{StaticResource SubHeaderLabel2}" Height="33" Width="114" Margin="85,1,0,0" Grid.ColumnSpan="2" RenderTransformOrigin="0.733,0.456" />
             <TextBox Text="{Binding Filter, Mode=TwoWay}" Grid.Column="4" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" Width="126" KeyDown="CallFilter" Margin="34,0,0,0" />
 
             <Label Content="File to sort:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" Style="{StaticResource SubHeaderLabel2}" Height="31" />
-            <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" 
+            <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" Style="{StaticResource CustomComboBox}" 
                       ItemsSource="{Binding Source={StaticResource FiledToSortCallColecthionKey}}" SelectionChanged="CallSort" Margin="144,1,56,-9" Grid.ColumnSpan="2" />
         </Grid>
 
