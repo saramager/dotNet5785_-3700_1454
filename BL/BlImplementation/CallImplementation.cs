@@ -459,7 +459,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         assignment = assignment with
         {
-            finishTreatment = DateTime.Now,
+            finishTreatment = _dal.Config.Clock,
             finishT = DO.FinishType.Treated
         };
 
@@ -524,7 +524,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         assignment = assignment with
         {
-            finishTreatment = DateTime.Now,
+            finishTreatment = _dal.Config.Clock,
             finishT = (assignment.VolunteerId == volunteerId) ? DO.FinishType.SelfCancel : DO.FinishType.ManagerCancel
         };
 
@@ -576,7 +576,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             CallId = callId,
             VolunteerId = volunteerId,
-            startTreatment = DateTime.Now,  // Set the entry time for the treatment
+            startTreatment = _dal.Config.Clock,  // Set the entry time for the treatment
             finishTreatment = null,  // Treatment is not finished yet
             finishT = null  // Treatment type is not specified yet
         };

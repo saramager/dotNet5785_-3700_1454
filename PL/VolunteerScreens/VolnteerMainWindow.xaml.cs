@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 /// לסדר עוד קצת להוסיף משקיפים לCALL ולעשות לחצנים לכלל דבר 
 namespace PL.VolunteerScreens
 {
@@ -89,6 +90,30 @@ namespace PL.VolunteerScreens
                 Dispatcher.Invoke(() =>
                 {
                     CurrentVolunteer = volunteer;
+                    if (Call != null)
+                    {
+                        if (CurrentVolunteer.callProgress == null || CurrentVolunteer.callProgress.CallId != Call.ID)
+                        {
+                            s_bl.Call.RemoveObserver(Call.ID, callObserver);
+
+                        }
+
+                    }
+                    if (CurrentVolunteer.callProgress != null && Call != null && CurrentVolunteer.callProgress.CallId != Call.ID)
+                    {
+                        s_bl.Call.AddObserver(CurrentVolunteer.callProgress.CallId, callObserver);
+                    }
+                    else
+
+
+
+                        Call = null;
+                    if (CurrentVolunteer.callProgress != null)
+                    {
+
+                        Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
+                    }
+               
                 });
             });
         }
@@ -108,29 +133,6 @@ namespace PL.VolunteerScreens
         private void queryCall()
         {
             queryVolunteer();
-            if (Call != null)
-            {
-                if (CurrentVolunteer.callProgress == null|| CurrentVolunteer.callProgress.CallId!= Call.ID)
-                {
-                    s_bl.Call.RemoveObserver(Call.ID, callObserver);
-                    
-                }
-             
-            }
-            if (CurrentVolunteer.callProgress != null && Call!= null && CurrentVolunteer.callProgress.CallId != Call.ID)
-            {
-                s_bl.Call.AddObserver(CurrentVolunteer.callProgress.CallId, callObserver);
-            }
-            else
-
-
-
-                Call = null;
-            if (CurrentVolunteer.callProgress != null)
-            {
-                
-                Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
-            }
         }
         /// <summary>
         /// Adds the observer when the window is loaded

@@ -64,17 +64,28 @@
 
                     <!-- Assignment List -->
                     <Label Content="Call Assign In List:" Margin="0,5,0,0"/>
-                    <ListBox ItemsSource="{Binding CurrentCall.CallAssign, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                         Style="{StaticResource CustomListBox}" Width="150" Height="100" HorizontalAlignment="Left">
+                    <ListBox  ItemsSource="{Binding CurrentCall.CallAssign}" Width="300"
+           Style="{StaticResource CustomListBox}" Height="200">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding VolunteerId}" />
-                                    <TextBlock Text="{Binding fullName}" />
-                                    <TextBlock Text="{Binding startTreatment}" />
-                                    <TextBlock Text="{Binding finishTreatment}" />
-                                    <TextBlock Text="{Binding finishT}" />
-                                </StackPanel>
+                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
+                                    <StackPanel>
+                                        <!-- Volunteer ID -->
+                                        <TextBlock><Run Text="Volunteer ID: " FontWeight="Bold" /><Run Text=" "/><Run Text="{Binding VolunteerId}" /></TextBlock>
+
+                                        <!-- Full Name -->
+                                        <TextBlock><Run Text="Name: " FontWeight="Bold" /><Run Text=" "/><Run Text="{Binding fullName}" /></TextBlock>
+
+                                        <!-- Start Treatment -->
+                                        <TextBlock><Run Text="Start Treatment: " FontWeight="Bold" /><Run Text=" "/><Run Text="{Binding startTreatment, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" /></TextBlock>
+
+                                        <!-- Finish Treatment -->
+                                        <TextBlock><Run Text="Finish Treatment: " FontWeight="Bold" /><Run Text=" "/><Run Text="{Binding finishTreatment, StringFormat=\{0:yyyy-MM-dd HH:mm\}}" /></TextBlock>
+
+                                        <!-- Finish Type -->
+                                        <TextBlock><Run Text="Finish Type: " FontWeight="Bold" /><Run Text=" "/><Run Text="{Binding finishT}" /></TextBlock>
+                                    </StackPanel>
+                                </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

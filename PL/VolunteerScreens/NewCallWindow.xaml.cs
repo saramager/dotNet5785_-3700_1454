@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,11 +49,15 @@ namespace PL.VolunteerScreens
            try {
                 Task.Run(() =>
             {
-                var openCalls = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls);
+            IEnumerable<BO.OpenCallInList> openCallIns;
+                if (filterOpenCalls== BO.CallType.None) 
+                        openCallIns = s_bl.Call.ReadOpenCallsVolunteer(Id, null, sortOpenCalls);
+                  else
+                    openCallIns = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls);
 
                 Dispatcher.Invoke(() =>
                 {
-                    OpenCallsList = openCalls;
+                    OpenCallsList = openCallIns;
                 });
             });
             }
