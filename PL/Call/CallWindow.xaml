@@ -22,7 +22,7 @@
                     <!-- Call Type -->
                     <Label Content="Call Type:" Margin="0,5,0,0"/>
                     <ComboBox SelectedItem="{Binding CurrentCall.callT, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                          ItemsSource="{Binding Source={StaticResource callTypeKey}}" 
+                          ItemsSource="{Binding Source={StaticResource callTypeKey}}" Style="{StaticResource CustomComboBox}" 
                           IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='callT'}" 
                           Height="35" Width="Auto"/>
 

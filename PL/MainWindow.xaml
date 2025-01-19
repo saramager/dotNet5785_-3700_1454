@@ -22,28 +22,28 @@
             <!-- Clock value -->
             <Label Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="20" Width="190" Height="51" HorizontalAlignment="Center" Style="{StaticResource SubHeaderLabel}"/>
             <!-- Buttons -->
-            <Button Content="Add One Minute" Click="clickAddOneMinute" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton}"/>
-            <Button Content="Add One Hour" Click="clickAddOnehour" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton}"/>
-            <Button Content="Add One Day" Click="clickAddOneDay" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton}"/>
-            <Button Content="Add One Month" Click="clickAddOneMonth" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton}"/>
-            <Button Content="Add One Year" Click="clickAddOneYear" Width="190" Height="30" Style="{StaticResource MenuButton}"/>
+            <Button Content="Add One Minute" Click="clickAddOneMinute" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton3}"/>
+            <Button Content="Add One Hour" Click="clickAddOnehour" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton2}"/>
+            <Button Content="Add One Day" Click="clickAddOneDay" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton4}"/>
+            <Button Content="Add One Month" Click="clickAddOneMonth" HorizontalAlignment="Center" Width="190" Height="30" VerticalAlignment="Center" Style="{StaticResource MenuButton2}"/>
+            <Button Content="Add One Year" Click="clickAddOneYear" Width="190" Height="30" Style="{StaticResource MenuButton3}"/>
         </StackPanel>
 
         <!--Update Risk Range-->
-        <TextBox HorizontalAlignment="Left" Height="47" Margin="142,73,0,0" TextWrapping="Wrap" Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="144" Style="{StaticResource ElegantTextBox}"/>
-        <Button Content="Update Risk Range" HorizontalAlignment="Left" Height="77" VerticalAlignment="Top" Width="160" Click="SetRiskRangeButton_Click" Margin="142,153,0,0" Style="{StaticResource MenuButton}"/>
+        <TextBox HorizontalAlignment="Left" Height="47" Margin="142,81,0,0" TextWrapping="Wrap" Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="156" Style="{StaticResource ElegantTextBox}"/>
+        <Button Content="Update Risk Range" HorizontalAlignment="Left" Height="77" VerticalAlignment="Top" Width="220" Click="SetRiskRangeButton_Click" Margin="107,156,0,0" Style="{StaticResource MenuButton4}"/>
 
         <!-- list of volunteers -->
-        <Button Grid.Column="1" Content="Handle Volunteers" HorizontalAlignment="Left" Height="77" Margin="234,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="138" Click="ButtonVolunteerList_Click" Style="{StaticResource MenuButton}"/>
+        <Button Grid.Column="1" Content="Handle Volunteers" HorizontalAlignment="Left" Height="77" Margin="216,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="156" Click="ButtonVolunteerList_Click" Style="{StaticResource MenuButton2}"/>
 
         <!-- list of calls -->
-        <Button Grid.Column="1" Content="Handle Calls" HorizontalAlignment="Left" Height="77" Margin="234,158,0,0" Grid.Row="2" VerticalAlignment="Top" Width="138" Click="ButtonCallList_Click" Style="{StaticResource MenuButton}"/>
+        <Button Grid.Column="1" Content="Handle Calls" HorizontalAlignment="Left" Height="77" Margin="216,158,0,0" Grid.Row="2" VerticalAlignment="Top" Width="156" Click="ButtonCallList_Click" Style="{StaticResource MenuButton2}" RenderTransformOrigin="0.41,0.487"/>
 
         <!-- reset DB -->
-        <Button Content="Restet DB" HorizontalAlignment="Left" Height="77" Margin="142,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="138" Click="ButtonReset_Click" Style="{StaticResource MenuButton}"/>
+        <Button Content="Restet DB" HorizontalAlignment="Left" Height="77" Margin="130,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="156" Click="ButtonReset_Click" Style="{StaticResource MenuButton3}"/>
 
         <!-- Initialization -->
-        <Button Content="Initialization" HorizontalAlignment="Left" Height="77" Margin="142,158,0,0" Grid.Row="2" VerticalAlignment="Top" Width="138" Click="Initialize_Click" Style="{StaticResource MenuButton}"/>
+        <Button Content="Initialization" HorizontalAlignment="Left" Height="77" Margin="130,155,0,0" Grid.Row="2" VerticalAlignment="Top" Width="156" Click="Initialize_Click" Style="{StaticResource MenuButton3}"/>
 
         <!-- Statistics Panel -->
         <GroupBox Grid.Column="1" Header="Calls Statutes" HorizontalAlignment="Left" Background="White" VerticalAlignment="Center" Margin="10,0,0,0" Width="180" Height="292" MinHeight="250" Grid.Row="2" FontSize="20" FontFamily="Cooper Black">

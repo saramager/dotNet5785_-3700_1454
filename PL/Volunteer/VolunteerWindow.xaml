@@ -24,41 +24,41 @@
                     <StackPanel Margin="5">
                         <!-- ID -->
                         <Label Content="ID:" Margin="0,5,0,0"/>
-                        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
+                        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Center"
                           Style="{StaticResource ElegantTextBox}" Height="35" 
-                         IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" Width="Auto" />
+                         IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" Width="590" />
 
                         <!-- Name -->
                         <Label Content="Name:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.fullName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
-                           Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="Auto"/>
+                           Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="590"/>
 
                         <!-- Email -->
                         <Label Content="Email:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
-                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="Auto"/>
+                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="590"/>
 
                         <!-- Phone -->
                         <Label Content="Phone Number:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
-                          Style="{StaticResource ElegantTextBox}" Height="35" Margin="0,0,0,10" Width="Auto"/>
+                          Style="{StaticResource ElegantTextBox}" Height="35" Margin="0,0,0,10" Width="590"/>
 
                         <!-- Password -->
                         <Label Content="Password:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
-                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="Auto"/>
+                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="590"/>
 
                         <!-- Address -->
                         <Label Content="Full Address:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
-                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="Auto"/>
+                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="590"/>
                        
 
                         <!-- Role -->
                         <Label Content="Role:"/>
-                        <ComboBox Height="25"
+                        <ComboBox Height="25" Style="{StaticResource ElegantComboBox}" 
                           SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                          ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}"/>
+                          ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" Width="590"/>
 
                         <!-- Active Status -->
                         <CheckBox IsChecked="{Binding Path=CurrentVolunteer.active}"
@@ -68,13 +68,13 @@
                         <!-- Max Distance -->
                         <Label Content="Max Distance for Call:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Style="{StaticResource ElegantTextBox}" Height="25" Margin="0,0,0,10"/>
+                         Style="{StaticResource ElegantTextBox}" Height="25" Margin="0,0,0,10" Width="590"/>
 
                         <!-- Distance Type -->
                         <Label Content="Distance Type:" Margin="0,5,0,0"/>
-                        <ComboBox Height="25" Margin="0,0,0,10"
+                        <ComboBox Height="25" Margin="0,0,0,10" Style="{StaticResource ElegantComboBox}" 
                           SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                          ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}"/>
+                          ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" Width="590"/>
                     </StackPanel>
                 </ScrollViewer>
             </GroupBox>
@@ -86,7 +86,7 @@
 
         <!-- Right Side - Current Call Information -->
         <GroupBox Grid.Column="1" Visibility="{Binding CurrentVolunteer.callProgress, Converter={StaticResource ConvertNullToVisibilityKey}}"
-                   Background="{StaticResource pinkPurple}" Header="Current Call Information" Margin="10" >
+                   Background="{StaticResource PinkGrey}" Header="Current Call Information" Margin="10" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
@@ -126,7 +126,7 @@
          HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2"/>
 
                     <!-- Address -->
-                    <TextBlock Text="Address:" Grid.Row="3" Grid.Column="0" Margin="0,0,5,2"  VerticalAlignment="Center"/>
+                    <TextBlock Text="Address:" Grid.Row="3" Grid.Column="0" Margin="0,0,5,2" VerticalAlignment="Center"/>
                     <TextBox Text="{Binding CurrentVolunteer.callProgress.address, Mode=OneWay}" 
          Style="{StaticResource ElegantTextBox}"
          Grid.Row="3" Margin="116,7,0,10" IsReadOnly="True" 

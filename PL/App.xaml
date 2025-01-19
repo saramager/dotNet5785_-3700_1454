@@ -40,19 +40,20 @@
         <SolidColorBrush x:Key="litePurple" Color="#dcc6e0"/>
         <SolidColorBrush x:Key="cream" Color="#fff5e1"/>
         <SolidColorBrush x:Key="darkCream" Color="#F5E1A4"/>
-        <SolidColorBrush x:Key="tile" Color="#98c8b9"/>
+        <SolidColorBrush x:Key="tile" Color="#98c8b9 "/>
+        <SolidColorBrush x:Key="liteTile" Color="#cfe6dd"/>
         <SolidColorBrush x:Key="liteBrowne" Color="#ba9884"/>
-        <SolidColorBrush x:Key="liteBlue" Color="#aee5ff"/>
+        <SolidColorBrush x:Key="liteBlue" Color="#B0E4F7"/>
         <SolidColorBrush x:Key="liteBlueGrey" Color="#E0F7FA"/>
-        <SolidColorBrush x:Key="litePink" Color="#f1c1cc"/>
         <SolidColorBrush x:Key="brown" Color="#573c2b"/>
         <SolidColorBrush x:Key="Turquoise" Color="#30D5C8"/>
         <SolidColorBrush x:Key="liteTurquoise" Color="#b3f0e9"/>
-        <SolidColorBrush x:Key="Pink" Color="#FFC0CB"/>
         <SolidColorBrush x:Key="pinkPurple" Color="#F1D0D6"/>
+        <SolidColorBrush x:Key="litePink" Color="#f1c1cc"/>
         <SolidColorBrush x:Key="DarkPink" Color="#FF1493"/>
+        <SolidColorBrush x:Key="PinkGrey" Color="#FFEBEE"/>
 
-        
+       
         <!-- Window Style -->
             <Style x:Key="MainWindow" TargetType="Window">
                 <Setter Property="Background" Value="{StaticResource cream}"/>
@@ -208,7 +209,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{StaticResource litePink}"/>
+                        <Setter Property="Background" Value="{StaticResource liteBrowne}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -247,7 +248,7 @@
 
         <!--Cancel Button-->
         <Style x:Key="CancelButton" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource Pink}"/>
+            <Setter Property="Background" Value="{StaticResource litePink}"/>
             <Setter Property="Foreground" Value="{StaticResource brown}"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="15,8"/>
@@ -380,6 +381,8 @@
                 </Style.Triggers>
             </Style>
 
+        <!-- Navigation Menu2 -->
+       
         <Style x:Key="MainHeaderLabel" TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource brown}"/>
             <Setter Property="FontSize" Value="24"/>
@@ -396,6 +399,9 @@
             </Setter>
         </Style>
 
+       
+
+        
         <!-- כותרת משנית -->
         <Style x:Key="SubHeaderLabel" TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource brown}"/>
@@ -456,6 +462,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Menu Button -->
         <Style x:Key="MenuButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="{StaticResource brown}"/>
@@ -484,7 +492,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="overlay" Property="Opacity" Value="0.2"/>
+                                <Setter Property="Background" Value="{StaticResource liteTile}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -492,8 +500,119 @@
             </Setter>
         </Style>
 
-      
-             <!--ListBox Style--> 
+        <!--Menu Button 2-->
+        <Style x:Key="MenuButton2" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PinkGrey}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Cooper Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                    CornerRadius="15"
+                    BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" 
+                                    Direction="315"
+                                    ShadowDepth="3" 
+                                    Opacity="0.2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border x:Name="overlay" 
+                            Background="{StaticResource tile}"
+                            Opacity="0"
+                            CornerRadius="15"/>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"  Value="{StaticResource litePink}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Menu Button 3-->
+        <Style x:Key="MenuButton3" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource liteBlueGrey}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Cooper Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+             CornerRadius="15"
+             BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" 
+                             Direction="315"
+                             ShadowDepth="3" 
+                             Opacity="0.2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border x:Name="overlay" 
+                     Background="{StaticResource tile}"
+                     Opacity="0"
+                     CornerRadius="15"/>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                             VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource liteBlue}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Menu Button 4-->
+        <Style x:Key="MenuButton4" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource liteTile}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Cooper Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+     CornerRadius="15"
+     BorderThickness="0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" 
+                     Direction="315"
+                     ShadowDepth="3" 
+                     Opacity="0.2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border x:Name="overlay" 
+             Background="{StaticResource tile}"
+             Opacity="0"
+             CornerRadius="15"/>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                     VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource tile}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <!--ListBox Style--> 
             <Style x:Key="CustomListBox" TargetType="ListBox">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -528,5 +647,190 @@
                 </Style.Resources>
             </Style>
 
-        </Application.Resources>
+        <!--ComboBox Style-->
+        <Style x:Key="ElegantComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource pinkPurple}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                        Background="{TemplateBinding Background}" 
+                                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                        Focusable="false">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderBrush="{StaticResource liteBrowne}"
+                                BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Grid.Column="0"
+                                                Content="{Binding Path=SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                ContentTemplate="{Binding Path=SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                Margin="5,0,0,0"
+                                                VerticalAlignment="Center"/>
+                                                <Path Grid.Column="1"
+                                            Fill="{StaticResource brown}"
+                                            Data="M0,0 L4,4 L8,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource liteBlueGrey}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                             Placement="Bottom" PopupAnimation="Slide" AllowsTransparency="True">
+                                <Border Background="{StaticResource PinkGrey}"
+                                    BorderBrush="{StaticResource liteBrowne}" BorderThickness="1" Margin="0,5,0,0">
+                                    <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True" Margin="0,5"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--ComboBox Style-->
+        <Style x:Key="CustomComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource pinkPurple}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                    Background="{TemplateBinding Background}" 
+                    IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                    Focusable="false">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                        CornerRadius="0"
+                                            BorderBrush="{StaticResource liteBrowne}"
+                                        BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Grid.Column="0"
+                                                         Content="{Binding Path=SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                         ContentTemplate="{Binding Path=SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                         Margin="5,0,0,0"
+                                                         VerticalAlignment="Center"/>
+                                                <Path Grid.Column="1"
+                                              Fill="{StaticResource brown}"
+                                              Data="M0,0 L4,4 L8,0"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource liteBlueGrey}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                           Placement="Bottom" PopupAnimation="Slide" AllowsTransparency="True">
+                                <Border Background="{StaticResource PinkGrey}"
+                                BorderBrush="{StaticResource liteBrowne}" BorderThickness="1" Margin="0,5,0,0">
+                                    <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True" Margin="0,5"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--ComboBox2 Style-->
+        <Style x:Key="CustomComboBox2" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource liteTile}"/>
+            <Setter Property="Foreground" Value="{StaticResource brown}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+             Background="{TemplateBinding Background}" 
+             IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+             Focusable="false">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                 CornerRadius="0"
+                                     BorderBrush="{StaticResource liteBrowne}"
+                                 BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Grid.Column="0"
+                                                  Content="{Binding Path=SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                  ContentTemplate="{Binding Path=SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                  Margin="5,0,0,0"
+                                                  VerticalAlignment="Center"/>
+                                                <Path Grid.Column="1"
+                                       Fill="{StaticResource brown}"
+                                       Data="M0,0 L4,4 L8,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource litePink}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                    Placement="Bottom" PopupAnimation="Slide" AllowsTransparency="True">
+                                <Border Background="{StaticResource liteBlueGrey}"
+                         BorderBrush="{StaticResource liteBrowne}" BorderThickness="1" Margin="0,5,0,0">
+                                    <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True" Margin="0,5"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
+
+    </Application.Resources>
 </Application>

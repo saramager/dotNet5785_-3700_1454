@@ -101,7 +101,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Role" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90" Grid.ColumnSpan="2"/>
-                    <ComboBox Grid.Column="2" SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="200"
+                    <ComboBox Grid.Column="2" Style="{StaticResource ElegantComboBox}"  SelectedItem="{Binding CurrentVolunteer.role, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource VolunteerRolesKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="200"
                         IsEnabled="False"/>
                 </Grid>
 
@@ -135,7 +135,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Distance Type" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="90" Grid.ColumnSpan="2"/>
-                    <ComboBox Grid.Column="2" SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="200"/>
+                    <ComboBox Grid.Column="2" Style="{StaticResource ElegantComboBox}" SelectedItem="{Binding CurrentVolunteer.distanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" ItemsSource="{Binding Source={StaticResource DistanceTypeKey}}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="200"/>
                 </Grid>
                 <!-- Number of calls handled -->
                 <Grid Margin="0,0,0,5">
@@ -203,7 +203,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Call Type" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <ComboBox Grid.Column="1" IsEnabled="False" SelectedItem="{Binding Call.callT}"  ItemsSource="{Binding Source={StaticResource callTypeKey}}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <ComboBox Grid.Column="1" Style="{StaticResource ElegantComboBox}"  IsEnabled="False" SelectedItem="{Binding Call.callT}"  ItemsSource="{Binding Source={StaticResource callTypeKey}}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="25"/>
                 </Grid>
 
                 <!-- Verbal Description -->
@@ -264,7 +264,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Status" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <ComboBox Grid.Column="1" SelectedItem="{Binding Call.statusC}" IsEnabled="False"  ItemsSource="{Binding Source={StaticResource statusCKey}}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" Margin="140,0,0,0"/>
+                    <ComboBox Grid.Column="1" Style="{StaticResource ElegantComboBox}" SelectedItem="{Binding Call.statusC}" IsEnabled="False"  ItemsSource="{Binding Source={StaticResource statusCKey}}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="25" Margin="140,0,0,0"/>
                 </Grid>
 
                 <!-- Call Assignments -->
