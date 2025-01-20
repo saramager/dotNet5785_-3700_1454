@@ -30,6 +30,7 @@ namespace PL.Volunteer
         /// Text for the add/update button
         /// </summary>
         public string ButtonText { get; set; }= "";
+        public int ManagerID { get; set; }
 
         /// <summary>
         /// Current volunteer being managed
@@ -50,11 +51,13 @@ namespace PL.Volunteer
         /// Constructor for the VolunteerWindow
         /// </summary>
         /// <param name="id">ID of the volunteer (0 for new volunteer)</param>
-        public VolunteerWindow(int id = 0)
+        public VolunteerWindow(int id = 0, int managerid=0)
         {
             this.Closed += Window_Closed;
             this.Loaded += Window_Loaded;
             ButtonText = id == 0 ? "Add" : "Update";
+            ManagerID = managerid;
+
             Task.Run(() =>
             {
                 var volunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
@@ -83,7 +86,7 @@ namespace PL.Volunteer
                     }
                     else
                     {
-                        s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer.Id, CurrentVolunteer);
+                        s_bl.Volunteer.UpdateVolunteer(ManagerID, CurrentVolunteer);
                         MessageBox.Show("Successful update");
                     }
                     this.Close();

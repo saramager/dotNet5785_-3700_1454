@@ -40,7 +40,7 @@ namespace PL.Volunteer
 
             if (SelectedVolunteer != null)
             {
-                new VolunteerWindow(SelectedVolunteer.ID).ShowDialog();
+                new VolunteerWindow(SelectedVolunteer.ID, ManagerID).ShowDialog();
             }
         }
 
@@ -108,6 +108,7 @@ namespace PL.Volunteer
         /// Current sort field for volunteers.
         /// </summary>
         public BO.FiledOfVolunteerInList filedToSort { get; set; } = BO.FiledOfVolunteerInList.ID;
+        public int ManagerID { get; set; }
 
         public static readonly DependencyProperty FilterActiveProperty =
             DependencyProperty.Register(
@@ -124,7 +125,7 @@ namespace PL.Volunteer
         /// <summary>
         /// Initializes the VolunteerListWindow and loads the volunteer list.
         /// </summary>
-        public VolunteerListWindow()
+        public VolunteerListWindow(int managerID)
         {
             if (IsOpen)
             {
@@ -133,12 +134,14 @@ namespace PL.Volunteer
             else
             {
                 IsOpen = true;
-            }
+          
             InitializeComponent();
             queryVolunteerList();
             this.Closed += Window_Closed;
             this.Loaded += Window_Loaded;
             s_bl.Volunteer.AddObserver(VolunteerListObserver);
+            this.ManagerID = managerID;
+            }
         }
 
         /// <summary>

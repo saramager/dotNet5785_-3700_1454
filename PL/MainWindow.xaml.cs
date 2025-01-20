@@ -192,7 +192,7 @@ namespace PL
         {
             try
             {
-                new VolunteerListWindow().Show();
+                new VolunteerListWindow(managerID).Show();
             }
             catch (Exception ex)
             {

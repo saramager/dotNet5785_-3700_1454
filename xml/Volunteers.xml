@@ -14,20 +14,6 @@
     <latitude>31.78659</latitude>
   </Volunteer>
   <Volunteer>
-    <ID>126967116</ID>
-    <fullName>David Levy</fullName>
-    <phone>0521234567</phone>
-    <email>levy.david@email.com</email>
-    <isActive>false</isActive>
-    <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Amram Gaon 6, Jerusalem, Israel</address>
-    <longitude>35.19285</longitude>
-    <latitude>31.79141</latitude>
-    <maxDistance>3.0038822840669575</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>109151084</ID>
     <fullName>Miriam Cohen</fullName>
     <phone>0532345678</phone>
@@ -40,20 +26,6 @@
     <longitude>35.19262</longitude>
     <latitude>31.79052</latitude>
     <maxDistance>4.608590758125891</maxDistance>
-  </Volunteer>
-  <Volunteer>
-    <ID>349449793</ID>
-    <fullName>Yosef Katz</fullName>
-    <phone>0543456789</phone>
-    <email>yosef.katz@outlook.com</email>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-    <maxDistance>1.232217420941768</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>384104360</ID>
@@ -250,5 +222,33 @@
     <longitude>35.185592</longitude>
     <latitude>31.7864039</latitude>
     <maxDistance>0.5</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>126967116</ID>
+    <fullName>David Levy</fullName>
+    <phone>0521234567</phone>
+    <email>levy.david@email.com</email>
+    <isActive>false</isActive>
+    <role>Volunteer</role>
+    <distance>DrivingDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <longitude>35.1929374</longitude>
+    <latitude>31.7913918</latitude>
+    <maxDistance>3.0038822840669575</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>349449793</ID>
+    <fullName>Yosef Katz</fullName>
+    <phone>0543456789</phone>
+    <email>yosef.katz@outlook.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
+    <maxDistance>1.232217420941768</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

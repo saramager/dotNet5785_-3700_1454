@@ -346,22 +346,21 @@ OPTION Options:
 
                     // Full Address
                     Console.WriteLine("Full Address:");
-                    string fullAddress = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                    if (string.IsNullOrEmpty(fullAddress))
-                    {
-                        throw new BO.BlWrongInputException("the addres not valid");
-                    }
-
+                    string? fullAddress = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                   
 
 
                     // Max Reading
                     Console.WriteLine("Max Reading:");
 
-                    int maxReadingUP;
-                    if (!int.TryParse(Console.ReadLine(), out maxReadingUP))
+                    int maxCalls;
+                    int? maxReadingUP;
+                    if (!int.TryParse(Console.ReadLine(), out maxCalls))
                     {
-                        throw new BO.BlWrongInputException("Invalid input for Max Reading. Keeping current value.");
+                        maxReadingUP = null;
                     }
+                    else
+                        maxReadingUP = maxCalls;
 
                     BO.Volunteer volunteerToUpdate = new BO.Volunteer
                     {
