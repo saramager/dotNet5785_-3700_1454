@@ -65,8 +65,8 @@
                 <DataGridTemplateColumn Header="Actions" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                         
-                                <Button Content="Delete" 
+
+                            <Button Content="Delete" Style="{StaticResource DeleteButton}" 
                                     Visibility="{Binding ID, Converter={StaticResource DeleteVolunteerVisbiltyKey}}" Click="DeleteButton_Click" />
                        
                         </DataTemplate>
