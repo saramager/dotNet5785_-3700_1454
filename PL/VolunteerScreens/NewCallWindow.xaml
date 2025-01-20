@@ -27,7 +27,7 @@
                   Margin="0,0,0,20"
                   Foreground="#333333"/>
 
-        <!-- Filters -->
+        <!-- Sort -->
         <StackPanel Grid.Row="1" 
                     Grid.Column="0"
                     Orientation="Horizontal" 
@@ -42,7 +42,7 @@
                       Margin="5,0,20,0"
                       ItemsSource="{StaticResource FiledOfOpenListColecthionKey}"
                       SelectedItem="{Binding sortOpenCalls}"
-                      SelectionChanged="ComboBox_SelectionChanged"/>
+                      SelectionChanged="sort_SelectionChanged"/>
 
             <Label Content="Call Type:"
                    Grid.Column="2"

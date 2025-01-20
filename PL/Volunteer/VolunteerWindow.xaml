@@ -68,7 +68,7 @@
                         <!-- Max Distance -->
                         <Label Content="Max Distance for Call:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.maxDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Style="{StaticResource ElegantTextBox}" Height="25" Margin="0,0,0,10" Width="590"/>
+                         Style="{StaticResource ElegantTextBox}" Height="30" Margin="0,0,0,10" Width="590"/>
 
                         <!-- Distance Type -->
                         <Label Content="Distance Type:" Margin="0,5,0,0"/>

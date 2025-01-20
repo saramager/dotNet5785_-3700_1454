@@ -395,6 +395,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             Calls.AddRange(from item in previousCalls
                            let DataCall = ReadCall(item.ID)
                            where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
+                           where callT == null || callT == BO.CallType.None || DataCall.callT == callT
                            let volunteerData = _dal.Volunteer.Read(v => v.ID == id)
                            let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
                            where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
@@ -511,7 +512,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.", ex);
         }
 
-        if (call.maxTime.HasValue && DateTime.Now > call.maxTime.Value)
+        if (call.maxTime.HasValue && _dal.Config.Clock > call.maxTime.Value)
         {
             throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
         }

@@ -18,24 +18,29 @@
 
         <!--Internal, Upper Grid-->
         <Grid HorizontalAlignment="Stretch" Height="Auto" Grid.Row="0" VerticalAlignment="Stretch" Width="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+
             </Grid.ColumnDefinitions>
 
-            <Label Content="File to filter:" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Top"  Style="{StaticResource SubHeaderLabel2}" Height="36" Margin="118,3,0,0" Width="101" Grid.ColumnSpan="2"/>
+            <Label Content="File to filter:" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Top"  Style="{StaticResource SubHeaderLabel2}" Height="31" Width="124" Margin="0,1,0,0"/>
             <ComboBox SelectedValue="{Binding Path=filedToFilter, Mode=TwoWay}" Style="{StaticResource CustomComboBox}" 
-                      ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}" Grid.Column="2" SelectionChanged="CallFilter" Margin="111,0,89,-9" Grid.ColumnSpan="2" />
+                      ItemsSource="{Binding Source={StaticResource FiledToFilterCallColecthionKey}}"  Grid.Row="0" Grid.Column="3" SelectionChanged="CallFilter" Margin="0,-1,10,4" />
 
-            <Label Content="Value to filter:" HorizontalAlignment="Left" Grid.Column="3" VerticalAlignment="Top" Style="{StaticResource SubHeaderLabel2}" Height="33" Width="114" Margin="85,1,0,0" Grid.ColumnSpan="2" RenderTransformOrigin="0.733,0.456" />
-            <TextBox Text="{Binding Filter, Mode=TwoWay}" Grid.Column="4" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" Width="126" KeyDown="CallFilter" Margin="34,0,0,0" />
+            <Label Content="Value to filter:" HorizontalAlignment="Center" Grid.Column="4"  Grid.Row="0" VerticalAlignment="Center" Style="{StaticResource SubHeaderLabel2}" Height="33" Width="114" Margin="0,-1,0,0" RenderTransformOrigin="0.733,0.456" />
+            <TextBox Text="{Binding Filter, Mode=TwoWay}" Style="{StaticResource ElegantTextBox}"  Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap" Width="120" KeyDown="CallFilter" VerticalAlignment="Center" />
 
-            <Label Content="File to sort:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" Style="{StaticResource SubHeaderLabel2}" Height="31" />
-            <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" Style="{StaticResource CustomComboBox}" 
-                      ItemsSource="{Binding Source={StaticResource FiledToSortCallColecthionKey}}" SelectionChanged="CallSort" Margin="144,1,56,-9" Grid.ColumnSpan="2" />
+            <Label Content="File to sort:" HorizontalAlignment="Left"  Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Style="{StaticResource SubHeaderLabel2}" Height="31" />
+            <ComboBox SelectedValue="{Binding Path=filedToSort, Mode=TwoWay}" Style="{StaticResource CustomComboBox}" Grid.Column="1"
+                    Grid.Row="0"  ItemsSource="{Binding Source={StaticResource FiledToSortCallColecthionKey}}" SelectionChanged="CallSort" RenderTransformOrigin="-0.835,0.44" HorizontalAlignment="Left" VerticalAlignment="Center" Width="135" />
         </Grid>
 
         <!--DataGrid-->
@@ -55,10 +60,10 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding openTime}" Header="Open Time" Width="auto" />
-                <DataGridTextColumn Binding="{Binding timeEndCall}" Header="Time End Call" Width="auto" />
+                <DataGridTextColumn Binding="{Binding openTime  ,StringFormat='dd/MM/yyyy HH:mm'}" Header="Open Time" Width="auto" />
+                <DataGridTextColumn Binding="{Binding timeEndCall  ,StringFormat='hh\\:mm\\:ss'}" Header="Time End Call" Width="auto" />
                 <DataGridTextColumn Binding="{Binding volunteerLast}" Header="Volunteer Last" Width="auto" />
-                <DataGridTextColumn Binding="{Binding TimeEndTreat}" Header="Time End Treat" Width="auto" />
+                <DataGridTextColumn Binding="{Binding TimeEndTreat  ,StringFormat='hh\\:mm\\:ss'}" Header="Time End Treat" Width="auto" />
 
                 <DataGridTextColumn Binding="{Binding status}" Header="Call Status" Width="auto">
                     <DataGridTextColumn.ElementStyle>

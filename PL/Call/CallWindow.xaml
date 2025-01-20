@@ -41,19 +41,15 @@
 
                     <!-- Open Time -->
                     <Label Content="Open Time:" Margin="0,5,0,0"/>
-                    <DatePicker SelectedDate="{Binding CurrentCall.openTime, Mode=OneWay}" 
-                            IsHitTestVisible="False" Focusable="False" Width="Auto">
-                        <DatePicker.Resources>
-                            <Style TargetType="DatePickerTextBox">
-                                <Setter Property="IsReadOnly" Value="True" />
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
+                    <TextBox Text="{Binding CurrentCall.openTime, StringFormat='dd/MM/yyyy HH:mm',Mode=TwoWay}" 
+       IsReadOnly="true" Style="{StaticResource ElegantTextBox}"
+         Height="35" Width="Auto"/>
 
                     <!-- Max Time -->
                     <Label Content="Max Time:" Margin="0,5,0,0"/>
-                    <DatePicker SelectedDate="{Binding CurrentCall.maxTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                    <TextBox Text="{Binding CurrentCall.maxTime, StringFormat='dd/MM/yyyy HH:mm',Mode=TwoWay}" 
                             IsEnabled="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsEnabled}, ConverterParameter='maxTime'}" 
+                             Style="{StaticResource ElegantTextBox}"
                             Height="35" Width="Auto"/>
 
                     <!-- Call Status -->

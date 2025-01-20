@@ -244,17 +244,18 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Content="Open Time" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <DatePicker Grid.Column="1" SelectedDate="{Binding Call.openTime}" HorizontalAlignment="Right" IsEnabled="False" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource ElegantTextBox}" Text="{Binding Call.openTime ,StringFormat='dd/MM/yyyy HH:mm'}" HorizontalAlignment="Right" IsEnabled="False" VerticalAlignment="Top" Width="200" Height="34"/>
                 </Grid>
 
                 <!-- Max Time -->
-                <Grid Margin="0,0,0,5">
+                <Grid Margin="0,0,0,5" Visibility="{Binding Call.maxTime, Converter={StaticResource ConvertNullToVisibilityKey}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="23*" />
+                        <ColumnDefinition Width="11*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Max Time" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130"/>
-                    <DatePicker Grid.Column="1" SelectedDate="{Binding Call.maxTime}" HorizontalAlignment="Right" IsEnabled="False" VerticalAlignment="Top" Width="200" Height="25"/>
+                    <Label Content="Max Time" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Margin="20,0,0,0"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource ElegantTextBox}" Text="{Binding Call.maxTime ,StringFormat='dd/MM/yyyy HH:mm'}" HorizontalAlignment="Left" IsEnabled="False" VerticalAlignment="Center" Width="200" Height="34" Grid.ColumnSpan="2" Margin="140,0,0,0"/>
                 </Grid>
 
                 <!-- Status -->

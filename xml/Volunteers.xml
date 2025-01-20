@@ -244,11 +244,11 @@
     <email>sarahaya454@gmail.com</email>
     <isActive>true</isActive>
     <role>Manager</role>
-    <distance>walkingDistance</distance>
+    <distance>AirDistance</distance>
     <password>Sdvvzrug45</password>
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.185592</longitude>
     <latitude>31.7864039</latitude>
-    <maxDistance>10</maxDistance>
+    <maxDistance>0.5</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

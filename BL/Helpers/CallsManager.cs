@@ -47,7 +47,7 @@ namespace Helpers
         internal static BO.CallInList ConvertDOCallToBOCallInList(DO.Call doCall)
         {
             var assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.ID);
-            var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.startTreatment).FirstOrDefault();
+            var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.ID).FirstOrDefault();
             return new BO.CallInList
             {
                 ID = lastAssignmentsForCall?.ID,
