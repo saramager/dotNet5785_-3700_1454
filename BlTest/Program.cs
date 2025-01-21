@@ -168,7 +168,7 @@ Config Options:
                     s_bl.Admin.RestartDB();
                     break;
                 case IAdmin.INITIALIZATION:
-                    s_bl.Admin.UpdateDB();
+                    s_bl.Admin.InitializeDB();
                     break;
                 case IAdmin.EXIT:
                     break;

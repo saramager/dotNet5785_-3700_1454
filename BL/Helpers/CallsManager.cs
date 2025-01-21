@@ -46,8 +46,11 @@ namespace Helpers
 
         internal static BO.CallInList ConvertDOCallToBOCallInList(DO.Call doCall)
         {
-            var assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.ID);
+            IEnumerable<Assignment>? assignmentsForCall;
+            lock (AdminManager.BlMutex)
+                assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.ID);
             var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.ID).FirstOrDefault();
+            lock (AdminManager.BlMutex)
             return new BO.CallInList
             {
                 ID = lastAssignmentsForCall?.ID,

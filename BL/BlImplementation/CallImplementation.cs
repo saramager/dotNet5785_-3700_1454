@@ -221,6 +221,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void UpdateCall(BO.Call c)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
 
         try
         {
@@ -250,6 +251,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void DeleteCall(int id)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             var doCall = _dal.Call.Read(c => c.ID == id);
@@ -301,6 +303,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void CreateCall(BO.Call c)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             CallsManager.CheckCallFormat(c);
@@ -443,6 +446,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void FinishTreat(int volunteerId, int assignmentId)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         DO.Assignment assignment;
         try
         {
@@ -489,6 +493,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public void cancelTreat(int volunteerId, int? assignmentId)
 
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         DO.Assignment assignment;
         DO.Call call;
 
@@ -552,6 +557,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void ChooseCallTreat(int volunteerId, int callId)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve the call data based on the callId
         var doCall = _dal.Call.Read(c => c.ID == callId);
 

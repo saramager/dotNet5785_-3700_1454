@@ -25,6 +25,7 @@ internal class AdminImplementation : IAdmin
 
     public void AddToClock(TimeUnit unit)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         switch (unit)
         {
             case TimeUnit.Minute:
@@ -57,23 +58,32 @@ internal class AdminImplementation : IAdmin
 
     public void RestartDB()
     {
-       _dal.ResetDB();
-        AdminManager.UpdateClock(AdminManager.Now);
-        AdminManager.RiskRange = AdminManager.RiskRange;
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.ResetDB(); //stage 7
+
     }
 
     public void SetRiskRange(TimeSpan range)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
 
         AdminManager.RiskRange = range;
     }
 
-    public void UpdateDB()
+    public void InitializeDB()
     {
 
-        DalTest.Initialization.Do();
-        AdminManager.UpdateClock(AdminManager.Now);
-        AdminManager.RiskRange = AdminManager.RiskRange;
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.InitializeDB(); //stage 7
+
 
     }
+    public void StartSimulator(int interval)  //stage 7
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.Start(interval); //stage 7
+    }
+    public void StopSimulator()
+    => AdminManager.Stop(); //stage 7
+
 }

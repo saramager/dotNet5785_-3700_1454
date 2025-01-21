@@ -240,7 +240,7 @@ namespace PL
             {
                 Mouse.OverrideCursor = Cursors.Wait;
                 CloseAllWindowsExceptMain();
-                s_bl.Admin.UpdateDB();
+                s_bl.Admin.InitializeDB();
                 managerID= s_bl.Volunteer.ManagerID();   
             }
             catch (Exception ex)

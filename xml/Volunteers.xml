@@ -14,20 +14,6 @@
     <latitude>31.78659</latitude>
   </Volunteer>
   <Volunteer>
-    <ID>109151084</ID>
-    <fullName>Miriam Cohen</fullName>
-    <phone>0532345678</phone>
-    <email>miriamCohen@gmail.com</email>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>walkingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>4.608590758125891</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>384104360</ID>
     <fullName>Sarah Gold</fullName>
     <phone>0554567890</phone>
@@ -250,5 +236,19 @@
     <longitude>35.185592</longitude>
     <latitude>31.7864039</latitude>
     <maxDistance>1.232217420941768</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>109151084</ID>
+    <fullName>Miriam Cohen</fullName>
+    <phone>0532345678</phone>
+    <email>miriamCohen@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Amram Gaon 14, Jerusalem, Israel</address>
+    <longitude>35.1928275</longitude>
+    <latitude>31.7905996</latitude>
+    <maxDistance>4.608590758125891</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

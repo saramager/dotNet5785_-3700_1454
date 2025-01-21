@@ -23,7 +23,8 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void CreateVolunteer(BO.Volunteer volToAdd)
     {
-       VolunteersManager.checkeVolunteerFormat(volToAdd);
+        AdminManager.ThrowOnSimulatorIsRunning();
+        VolunteersManager.checkeVolunteerFormat(volToAdd);
         VolunteersManager.checkeVolunteerlogic(volToAdd);
         DO.Volunteer  DoVlo = VolunteersManager.convertFormBOVolunteerToDo(volToAdd);
         try 
@@ -37,6 +38,7 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public void DeleteVolunteer(int id)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
         if (assForVol == null) { }
         else if (assForVol!.Count() > 0)
@@ -127,8 +129,9 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
    
     public void UpdateVolunteer(int id, BO.Volunteer vol)
     {
-     
-       if (id!=vol.Id )
+        AdminManager.ThrowOnSimulatorIsRunning();
+
+        if (id!=vol.Id )
        {
 
             if (_dal.Volunteer.Read(vol => vol.ID == id)?.role != 0)
@@ -163,6 +166,7 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
     }
     public int ManagerID()
     {
+
        var manager= _dal.Volunteer.Read(v=>v.role==DO.RoleType.Manager);
         if (manager!= null)
             return manager.ID;

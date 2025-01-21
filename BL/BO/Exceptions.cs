@@ -121,7 +121,14 @@ public class NoManagerException : Exception
 {
     public NoManagerException(string message) : base(message) { }
 }
+
+[Serializable]
 public class cantFilterCallException: Exception
 {
     public cantFilterCallException(string message) : base(message) { }
+}
+[Serializable]
+public class BLTemporaryNotAvailableException : Exception
+{
+    public BLTemporaryNotAvailableException(string message) : base(message) { }
 }

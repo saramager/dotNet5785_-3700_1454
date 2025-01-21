@@ -14,10 +14,13 @@ public interface IAdmin
     TimeSpan GetRiskRange();
     void SetRiskRange(TimeSpan range);
     void RestartDB();
-    void UpdateDB();
+    void InitializeDB();
     void AddConfigObserver(Action configObserver);
     void RemoveConfigObserver(Action configObserver);
     void AddClockObserver(Action clockObserver);
     void RemoveClockObserver(Action clockObserver);
+    void StartSimulator(int interval); //stage 7
+    void StopSimulator(); //stage 7
+
 
 }
