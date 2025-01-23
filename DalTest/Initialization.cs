@@ -152,86 +152,165 @@ public static class Initialization
         }
 
     }
+    //private static void createAssignment()
+    //{ 
+
+    //    for (int i = 0; i < 60; i++)
+    //    {
+    //        //We made adjustments for rule sets and not just a List
+    //        int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
+    //        Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll().ElementAt(randVolunteer);
+    //        int randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
+    //        Call callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+
+    //        while (callToAssig.openTime> s_dal!.Config.Clock)
+    //        {
+    //            randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
+    //            callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+    //        }
+    //        DO.Assignment lastass = s_dal.Assignment.ReadAll(ass=>ass.CallId==callToAssig.ID).OrderByDescending(ass=>ass.startTreatment).FirstOrDefault();
+    //        while( (lastass!=null && lastass.finishT== FinishType.Treated )|| (lastass!=null&&lastass.finishTreatment==null&& lastass.finishT==null))
+    //        {
+    //            randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
+    //            callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+    //            lastass = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.ID).OrderByDescending(ass => ass.startTreatment).FirstOrDefault();
+
+    //        }
+    //        DateTime startTime= s_dal.Config.Clock;
+
+    //        FinishType? finish= null;
+    //        DateTime? finishTime= null;
+
+    //        if (callToAssig.maxTime!=null&& callToAssig.maxTime <= s_dal!.Config.Clock)
+    //        {
+    //            if (lastass == null)
+    //            {
+    //                finish = FinishType.ExpiredCancel;
+    //                startTime = GenerateRandomDate(callToAssig.openTime, callToAssig.maxTime ?? s_dal!.Config.Clock);
+    //                finishTime = GenerateRandomDate(startTime, callToAssig.maxTime?? s_dal!.Config.Clock);
+
+    //            }
+    //            else
+    //            {
+    //                var lastAss = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.ID)
+    //                         .OrderByDescending(ass => ass.startTreatment)
+    //                         .LastOrDefault();
+    //                startTime = GenerateRandomDate(callToAssig.openTime, lastAss.startTreatment);
+    //                finishTime = GenerateRandomDate(startTime, lastass.startTreatment);
+
+    //               int rand = s_rand.Next(2);
+    //               finish = rand == 0 ? FinishType.SelfCancel : FinishType.ManagerCancel;
+
+
+    //            }
+
+    //        }
+    //        else
+    //        {
+    //            int randFinish = s_rand.Next(0, 4);
+    //            startTime = GenerateRandomDate(lastass == null ? callToAssig.openTime : lastass.finishTreatment ?? s_dal.Config.Clock, s_dal.Config.Clock);
+
+
+
+    //            switch (randFinish)
+    //            {
+    //                case 0: finish = FinishType.Treated;
+    //                    finishTime = GenerateRandomDate(startTime,s_dal.Config.Clock);
+    //                    break;
+    //                case 1: finish = FinishType.SelfCancel;
+    //                    finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
+
+    //                    break;
+    //                case 2: finish = FinishType.ManagerCancel; 
+    //                    finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
+    //                    break ;
+    //            }
+    //        }
+    //        s_dal!.Assignment.Create(new Assignment(0,callToAssig.ID,volunteerToAssig.ID, startTime, finishTime,finish));  
+
+
+    //    }
+
+    //}
     private static void createAssignment()
-    { 
-        
+    {
         for (int i = 0; i < 60; i++)
         {
-            //We made adjustments for rule sets and not just a List
+            // Randomly select a volunteer
             int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
-            Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll().ElementAt(randVolunteer);
-            int randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
-            Call callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+            Volunteer volunteerToAssign = s_dal.Volunteer.ReadAll().ElementAt(randVolunteer);
 
-            while (callToAssig.openTime> s_dal!.Config.Clock)
+            Call? callToAssign = null;
+            DO.Assignment? lastAssignment = null;
+
+            // Validate that the volunteer does not have an open assignment
+            if (s_dal.Assignment.ReadAll(ass => ass.VolunteerId == volunteerToAssign.ID && ass.finishTreatment == null).Any())
             {
-                randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
-                callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
+                i--; // Adjust the loop counter to retry this iteration
+                continue; ; // Skip this iteration if the volunteer has an open assignment
             }
-            DO.Assignment lastass = s_dal.Assignment.ReadAll(ass=>ass.CallId==callToAssig.ID).OrderByDescending(ass=>ass.startTreatment).FirstOrDefault();
-            while( (lastass!=null && lastass.finishT== FinishType.Treated )|| (lastass!=null&&lastass.finishTreatment==null&& lastass.finishT==null))
+
+            // Select a valid call
+            do
             {
-                randCAll = s_rand.Next(s_dal!.Call.ReadAll().Count() - 15);
-                callToAssig = s_dal.Call.ReadAll().ElementAt(randCAll);
-                lastass = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.ID).OrderByDescending(ass => ass.startTreatment).FirstOrDefault();
+                int randCall = s_rand.Next(s_dal.Call.ReadAll().Count() - 15);
+                callToAssign = s_dal.Call.ReadAll().ElementAt(randCall);
+
+                // Fetch the most recent assignment for the call, ordered by assignment ID
+                lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssign.ID)
+                                .OrderByDescending(ass => ass.ID).FirstOrDefault();
 
             }
-            DateTime startTime= s_dal.Config.Clock;
+            while (
+            callToAssign.openTime > s_dal.Config.Clock || // Call opened in the future
+            (lastAssignment != null && lastAssignment.finishT == FinishType.Treated) || // Call already treated
+            (lastAssignment != null && lastAssignment.finishTreatment == null) || // Call still being processed
+            (lastAssignment != null && lastAssignment.finishT == FinishType.ExpiredCancel) || // Call has expired
+            s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssign.ID && ass.finishTreatment == null).Any() // Call already has an open assignment
+        );
 
-            FinishType? finish= null;
-            DateTime? finishTime= null;
-  
-            if (callToAssig.maxTime!=null&& callToAssig.maxTime <= s_dal!.Config.Clock)
+            DateTime startTime = s_dal.Config.Clock;
+            FinishType? finish = null;
+            DateTime? finishTime = null;
+
+            if (callToAssign.maxTime != null && callToAssign.maxTime <= s_dal.Config.Clock)
             {
-                if (lastass == null)
-                {
-                    finish = FinishType.ExpiredCancel;
-                    startTime = GenerateRandomDate(callToAssig.openTime, callToAssig.maxTime ?? s_dal!.Config.Clock);
-                    finishTime = GenerateRandomDate(startTime, callToAssig.maxTime?? s_dal!.Config.Clock);
-
-                }
-                else
-                {
-                    var lastAss = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.ID)
-                             .OrderByDescending(ass => ass.startTreatment)
-                             .LastOrDefault();
-                    startTime = GenerateRandomDate(callToAssig.openTime, lastAss.startTreatment);
-                    finishTime = GenerateRandomDate(startTime, lastass.startTreatment);
-
-                   int rand = s_rand.Next(2);
-                   finish = rand == 0 ? FinishType.SelfCancel : FinishType.ManagerCancel;
-
-
-                }
-
+                // Call expired
+                finish = FinishType.ExpiredCancel;
+                startTime = GenerateRandomDate(callToAssign.openTime, callToAssign.maxTime ?? s_dal.Config.Clock);
+                finishTime = GenerateRandomDate(startTime, callToAssign.maxTime ?? s_dal.Config.Clock);
             }
             else
             {
+                // Randomly determine finish type
                 int randFinish = s_rand.Next(0, 4);
-                startTime = GenerateRandomDate(lastass == null ? callToAssig.openTime : lastass.finishTreatment ?? s_dal.Config.Clock, s_dal.Config.Clock);
-
-
+                startTime = GenerateRandomDate(
+                    lastAssignment == null ? callToAssign.openTime : lastAssignment.finishTreatment ?? s_dal.Config.Clock,
+                    s_dal.Config.Clock
+                );
 
                 switch (randFinish)
                 {
-                    case 0: finish = FinishType.Treated;
-                        finishTime = GenerateRandomDate(startTime,s_dal.Config.Clock);
-                        break;
-                    case 1: finish = FinishType.SelfCancel;
+                    case 0:
+                        finish = FinishType.Treated;
                         finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
-
                         break;
-                    case 2: finish = FinishType.ManagerCancel; 
+                    case 1:
+                        finish = FinishType.SelfCancel;
                         finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
-                        break ;
+                        break;
+                    case 2:
+                        finish = FinishType.ManagerCancel;
+                        finishTime = GenerateRandomDate(startTime, s_dal.Config.Clock);
+                        break;
                 }
             }
-            s_dal!.Assignment.Create(new Assignment(0,callToAssig.ID,volunteerToAssig.ID, startTime, finishTime,finish));  
 
-
+            // Create the assignment
+            s_dal.Assignment.Create(new Assignment(0, callToAssign.ID, volunteerToAssign.ID, startTime, finishTime, finish));
         }
-
     }
+
     private static void createCall()
     {
         string[][] VolunteerDescriptions = new string[][] {
