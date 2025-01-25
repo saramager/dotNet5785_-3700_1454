@@ -20,8 +20,20 @@ namespace Helpers
 
         internal static BO.Call ConvertDOCallToBOCall(DO.Call doCall)
         {
-            var assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.ID);
-
+            IEnumerable<DO.Assignment> assignmentsForCall;
+          List<BO.CallAssignInList> callAss;
+            lock (AdminManager.BlMutex)
+            {
+                assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.ID);
+                callAss = assignmentsForCall.Select(a => new BO.CallAssignInList
+                {
+                    VolunteerId = a.VolunteerId,
+                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName ?? string.Empty,
+                    startTreatment = a.startTreatment,
+                    finishTreatment = a.finishTreatment,
+                    finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
+                }).ToList();
+            }
             return new BO.Call
             {
                 ID = doCall.ID,
@@ -33,14 +45,7 @@ namespace Helpers
                 openTime = doCall.openTime,
                 maxTime = doCall.maxTime,
                 statusC = GetCallStatus(doCall),
-                CallAssign = assignmentsForCall.Select(a => new BO.CallAssignInList
-                {
-                    VolunteerId = a.VolunteerId,
-                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName ?? string.Empty,
-                    startTreatment = a.startTreatment,
-                    finishTreatment = a.finishTreatment,
-                    finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
-                }).ToList()
+               CallAssign= callAss
             };
         }
 
@@ -66,12 +71,18 @@ namespace Helpers
         }
         internal static BO.Status GetCallStatus(DO.Call doCall)
         {
+           DO.Assignment? lastAssignment;
+            DateTime now;
+            lock (AdminManager.BlMutex)
+            {
+                lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.ID).FirstOrDefault();
+                now = s_dal.Config.Clock;
 
-            var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.ID).FirstOrDefault();
+            }
 
             if (lastAssignment == null)
             {
-                if (doCall.maxTime != null && doCall.maxTime < s_dal.Config.Clock)
+                if (doCall.maxTime != null && doCall.maxTime < now)
                     return BO.Status.Expired;
                 if (IsInRisk(doCall!))
                     return BO.Status.OpenInRisk;
@@ -81,7 +92,7 @@ namespace Helpers
             {
                 return BO.Status.Close;
             }
-            if (doCall.maxTime != null && doCall.maxTime < s_dal.Config.Clock)
+            if (doCall.maxTime != null && doCall.maxTime <  now)
             {
                 return Status.Expired;
             }
@@ -156,6 +167,7 @@ namespace Helpers
 
         internal static BO.Call ConvertDOCallWithAssignments(DO.Call doCall, IEnumerable<DO.Assignment> assignmentsForCall)
         {
+
             return new BO.Call
             {
                 ID = doCall.ID,
