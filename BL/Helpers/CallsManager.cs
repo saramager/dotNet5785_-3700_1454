@@ -1,10 +1,12 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,7 +18,7 @@ namespace Helpers
     {
         internal static ObserverManager Observers = new(); //stage 5 
 
-        private static IDal s_dal = Factory.Get; //stage 4
+        private static IDal s_dal = DalApi.Factory.Get; //stage 4
 
         internal static BO.Call ConvertDOCallToBOCall(DO.Call doCall)
         {
@@ -167,27 +169,34 @@ namespace Helpers
 
         internal static BO.Call ConvertDOCallWithAssignments(DO.Call doCall, IEnumerable<DO.Assignment> assignmentsForCall)
         {
-
-            return new BO.Call
+            BO.Status status;
+            lock (AdminManager.BlMutex)
             {
-                ID = doCall.ID,
-                callT = (BO.CallType)doCall.callT,
-                verbalDescription = doCall.verbalDescription,
-                address = doCall.address,
-                latitude = doCall.latitude,
-                longitude = doCall.longitude,
-                openTime = doCall.openTime,
-                maxTime = doCall.maxTime,
-                statusC = GetCallStatus(doCall),
-                CallAssign = assignmentsForCall.Select(a => new BO.CallAssignInList
+                status = GetCallStatus(doCall);
+
+
+
+                return new BO.Call
                 {
-                    VolunteerId = a.VolunteerId,
-                    fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName,
-                    startTreatment = a.startTreatment,
-                    finishTreatment = a.finishTreatment,
-                    finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
-                }).ToList()
-            };
+                    ID = doCall.ID,
+                    callT = (BO.CallType)doCall.callT,
+                    verbalDescription = doCall.verbalDescription,
+                    address = doCall.address,
+                    latitude = doCall.latitude,
+                    longitude = doCall.longitude,
+                    openTime = doCall.openTime,
+                    maxTime = doCall.maxTime,
+                    statusC = status,
+                    CallAssign = assignmentsForCall.Select(a => new BO.CallAssignInList
+                    {
+                        VolunteerId = a.VolunteerId,
+                        fullName = s_dal.Volunteer.Read(v => v.ID == a.VolunteerId)?.fullName,
+                        startTreatment = a.startTreatment,
+                        finishTreatment = a.finishTreatment,
+                        finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
+                    }).ToList()
+                };
+            }       
         }
         public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;
         internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, DO.Assignment lastAssignment)
@@ -205,7 +214,11 @@ namespace Helpers
         }
         internal static BO.OpenCallInList ConvertDOCallToBOOpenCallInList(DO.Call doCall, int id)
         {
-            var vol = s_dal.Volunteer.Read(v => v.ID == id);
+            DO.Volunteer vol;
+            lock (AdminManager.BlMutex)
+            {
+                vol = s_dal.Volunteer.Read(v => v.ID == id)!;
+            }
             double? idLat = vol?.Latitude;
             double? idLon = vol?.Longitude;
 
@@ -249,12 +262,21 @@ namespace Helpers
         /// This function checks if a call has expired based on its max time and whether it has been assigned.
         /// If the call is expired, it handles the assignment status accordingly.
         /// </summary>
-        internal static void checkIfExpiredCall()
+        private static int s_periodicCounter = 0;
+        internal static void checkIfExpiredCall(DateTime oldClock, DateTime newClock)
         {
-            IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
-            IEnumerable<BO.Call> boCalls = from dCall in calls
-                                           where (dCall.maxTime == null ? true : dCall.maxTime < s_dal.Config.Clock)
-                                           select (ConvertDOCallToBOCall(dCall));
+            Thread.CurrentThread.Name = $"Periodic{++s_periodicCounter}"; //stage 7 (optional)
+            IEnumerable<BO.Call> boCalls;
+            List<int> idSThatCahnges= new List<int>();
+
+            lock (AdminManager.BlMutex)
+            {
+                IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
+                boCalls = from dCall in calls
+                          where (dCall.maxTime == null ? true : dCall.maxTime < newClock)
+                          select (ConvertDOCallToBOCall(dCall));
+                boCalls = boCalls.ToList();
+            }
             foreach (BO.Call call in boCalls)
             {
                 if (call.CallAssign == null|| call.CallAssign.Count==0)
@@ -266,23 +288,39 @@ namespace Helpers
                 }
                 else
                 {
-                    var lastAss = call.CallAssign.OrderByDescending(a => a.startTreatment).First();
+                    var lastAss = call.CallAssign.OrderByDescending(a=>a.startTreatment).First();
                     if (lastAss.finishT == null)
                     {
-                        var assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
-                        s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
-                        VolunteersManager.Observers.NotifyItemUpdated(assing.VolunteerId);
-                        VolunteersManager.Observers.NotifyListUpdated();
+                        DO.Assignment? assing;
+                        DateTime clock;
+                        lock (AdminManager.BlMutex)
+                        {
+                            assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null); 
+                            clock= s_dal.Config.Clock;
+                        }
+                        s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
+                        idSThatCahnges.Add(assing.VolunteerId);
 
                     }
 
 
                 }
-                CallsManager.Observers.NotifyItemUpdated(call.ID);  //stage 5
+
+               
+
+            }
+            foreach (int id in  idSThatCahnges)
+                VolunteersManager.Observers.NotifyItemUpdated(id);
+          if (idSThatCahnges.Count!=0)
+                VolunteersManager.Observers.NotifyListUpdated();
+          foreach (var  calll in boCalls)
+                CallsManager.Observers.NotifyItemUpdated(calll.ID);  //stage 5
+            if (boCalls.Count()!= 0)
                 CallsManager.Observers.NotifyListUpdated();
 
 
-            }
+
+
 
         }
     }

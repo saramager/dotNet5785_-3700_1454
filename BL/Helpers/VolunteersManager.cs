@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Helpers
 {
-    /*internal*/  public static class VolunteersManager
+    internal static class VolunteersManager
     {
         internal static ObserverManager Observers = new(); //stage 5 
 
@@ -26,12 +26,16 @@ namespace Helpers
         /// <returns> the BO vlounteerInList  </returns>
         internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
         {
-            var calls = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
+            List<DO.Assignment>? calls;
+            lock (AdminManager.BlMutex)  //stage 7
+                calls = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
             int sumCalls = calls.Count(ass => ass.finishT == DO.FinishType.Treated);
             int sumCanceld = calls.Count(ass => ass.finishT == DO.FinishType.SelfCancel);
             int sumExpired = calls.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel);
-            var call = calls.Find(ass => ass.finishT== null);
-            DO.Call? callD = call==null ? null :s_dal.Call.Read(c=> c.ID==call.CallId);
+            var call = calls.Find(ass => ass.finishT == null);
+            DO.Call? callD;
+            lock (AdminManager.BlMutex)  //stage 7
+                callD = call == null ? null : s_dal.Call.Read(c => c.ID == call.CallId);
             return new()
             {
                 ID = doVolunteer.ID,
@@ -40,8 +44,8 @@ namespace Helpers
                 numCallsHandled = sumCalls,
                 numCallsCancelled = sumCanceld,
                 numCallsExpired = sumExpired,
-                CallId = call==null?null:call.CallId,
-                callT= callD == null ? CallType.None :(BO.CallType)callD.callT 
+                CallId = call == null ? null : call.CallId,
+                callT = callD == null ? CallType.None : (BO.CallType)callD.callT
             };
         }
         /// <summary>
@@ -51,7 +55,9 @@ namespace Helpers
         /// <returns>the bo vlounteer </returns>
         internal static BO.Volunteer convertDOToBOVolunteer(DO.Volunteer doVolunteer)
         {
-            var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
+            List<DO.Assignment>? call;
+            lock (AdminManager.BlMutex)  //stage 7
+                call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
             int sumCalls = call.Count(ass => ass.finishT == DO.FinishType.Treated);
             int sumCanceld = call.Count(ass => ass.finishT == DO.FinishType.SelfCancel);
             int sumExpired = call.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel);
@@ -75,7 +81,6 @@ namespace Helpers
                 maxDistance = doVolunteer.maxDistance,
                 distanceType = (BO.Distance)doVolunteer.distanceType,
                 callProgress = c
-
             };
         }
         /// <summary>
@@ -85,20 +90,24 @@ namespace Helpers
         /// <returns>callin progerss th this spsifiec volunteer </returns>
         internal static BO.CallInProgress? GetCallIn(DO.Volunteer doVolunteer)
         {
+            List<DO.Assignment>? call;
+            lock (AdminManager.BlMutex)  //stage 7
+                call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
+            DO.Assignment? assignmentTreat = call.Find(ass => ass.finishT == null);
 
-            var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.ID).ToList();
-            DO.Assignment? assignmentTreat = call.Find(ass =>  ass.finishT==null);
-            
+            DO.Call? callTreat;
             if (assignmentTreat != null)
             {
-                DO.Call? callTreat = s_dal.Call.Read(c => c.ID == assignmentTreat.CallId);
-              
+                lock (AdminManager.BlMutex)  //stage 7
+                    callTreat = s_dal.Call.Read(c => c.ID == assignmentTreat.CallId);
+
                 if (callTreat != null)
-                   {
+                {
                     double distanceOfCall = 0;
                     if (doVolunteer.Latitude != null && doVolunteer.Longitude != null)
                     {
-                        distanceOfCall = Tools.CalculateDistance(
+                        distanceOfCall = Tools.CalculateDistance
+                        (
                             callTreat.latitude,
                             callTreat.longitude,
                             doVolunteer.Latitude.Value,
@@ -106,25 +115,27 @@ namespace Helpers
                             (BO.Distance)doVolunteer.distanceType
                         );
                     }
-                    return new()
+                    lock (AdminManager.BlMutex)  //stage 7
                     {
-                        ID = assignmentTreat.ID,
-                        CallId = assignmentTreat.CallId,
-                        callT = (BO.CallType)callTreat.callT,
-                        verbalDescription = callTreat.verbalDescription,
-                        address = callTreat.address,
-                        openTime = callTreat.openTime,
-                        maxTime = callTreat.maxTime,
-                        startTreatment = assignmentTreat.startTreatment,
-                        CallDistance=distanceOfCall,
-                        //CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
-                        statusT = (callTreat.maxTime - AdminManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
-                    };}
+                        return new()
+                        {
+                            ID = assignmentTreat.ID,
+                            CallId = assignmentTreat.CallId,
+                            callT = (BO.CallType)callTreat.callT,
+                            verbalDescription = callTreat.verbalDescription,
+                            address = callTreat.address,
+                            openTime = callTreat.openTime,
+                            maxTime = callTreat.maxTime,
+                            startTreatment = assignmentTreat.startTreatment,
+                            CallDistance = distanceOfCall,
+                            //CallDistance = Tools.CalculateDistance(callTreat.latitude, callTreat.longitude, latitude, longitude,(BO.Distance)doVolunteer.distanceType),
+                            statusT = (callTreat.maxTime - AdminManager.Now <= s_dal.Config.RiskRange ? BO.Status.TreatInRisk : BO.Status.InTreat),
+                        };
+                    }
+                }
             }
             return null;
         }
-
-        
         /// /// <summary>
         /// This function checks the format of a volunteer's email, phone, and max distance.
         /// It validates the email format (must be in a basic email format with '@' and domain),
@@ -132,7 +143,7 @@ namespace Helpers
         /// that the maximum distance is a non-negative value.
         /// </summary>
         /// <param name="volunteer">The volunteer object containing the email, phone, and max distance fields to validate.</param>
-        internal static void  checkeVolunteerFormat(BO.Volunteer volunteer)
+        internal static void checkeVolunteerFormat(BO.Volunteer volunteer)
         {
             if (string.IsNullOrEmpty(volunteer.email) || volunteer.email.Count(c => c == '@') != 1)
             {
@@ -151,11 +162,6 @@ namespace Helpers
 
             if (volunteer.maxDistance < 0)
                 throw new MaxDistanceDoesNotcoretct("Max Distance can't be negavite ");
-
-
-
-           
-
         }
         /// <summary>
         /// This function checks the validity of a volunteer's ID and password.
@@ -164,7 +170,7 @@ namespace Helpers
         /// contains an uppercase letter, and includes a digit.
         /// </summary>
         /// <param name="volunteer">The volunteer object that contains the ID and password to be validated.</param>
-        internal static void  checkeVolunteerlogic(BO.Volunteer volunteer)
+        internal static void checkeVolunteerlogic(BO.Volunteer volunteer)
         {
             if (!(IsValidId(volunteer.Id)))
                 throw new BO.IdDoesNotVaildException("the id isnt valid ");
@@ -181,8 +187,6 @@ namespace Helpers
         /// </remarks>
         internal static bool IsValidId(long id)
         {
-           
-
             // Check if ID is exactly 9 digits.
             if (id < 100000000 || id > 999999999)
             {
@@ -222,15 +226,12 @@ namespace Helpers
         /// <returns>A DO.Volunteer object populated with the data from the BO.Volunteer object.</returns>
         internal static DO.Volunteer convertFormBOVolunteerToDo(BO.Volunteer BoVolunteer)
         {
-           
-            if (BoVolunteer.currentAddress !=null && BoVolunteer.currentAddress!= "")
+
+            if (BoVolunteer.currentAddress != null && BoVolunteer.currentAddress != "")
             {
-               
-               
-                   double[] cordintes = Tools.GetGeolocationCoordinates(BoVolunteer.currentAddress);
-                    BoVolunteer.Latitude = cordintes[0];
-                    BoVolunteer.Longitude = cordintes[1];
-                             
+                double[] cordintes = Tools.GetGeolocationCoordinates(BoVolunteer.currentAddress);
+                BoVolunteer.Latitude = cordintes[0];
+                BoVolunteer.Longitude = cordintes[1];
             }
             else
             {
@@ -238,14 +239,15 @@ namespace Helpers
                 BoVolunteer.Longitude = null;
                 BoVolunteer.currentAddress = null;
             }
-            DO.Volunteer doVl = new(
+            DO.Volunteer doVl = new
+                (
                  ID: BoVolunteer.Id,
                  fullName: BoVolunteer.fullName,
                   phone: BoVolunteer.phone,
                  email: BoVolunteer.email,
                  active: BoVolunteer.active,
                  role: (DO.RoleType)BoVolunteer.role,
-                distanceType:(DO.Distance)BoVolunteer.distanceType,
+                distanceType: (DO.Distance)BoVolunteer.distanceType,
                password: BoVolunteer.password != null ? Encrypt(BoVolunteer.password) : null,
                currentAddress: BoVolunteer.currentAddress,
               Latitude: BoVolunteer.Latitude,
@@ -327,12 +329,7 @@ namespace Helpers
             // Must contain at least one uppercase letter and one digit
             return password.Any(char.IsUpper) && password.Any(char.IsDigit);
         }
-
-
-        
-    
     }
-
 }
 
 

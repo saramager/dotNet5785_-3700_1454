@@ -24,10 +24,13 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public int[] SumOfCalls()
     {
-        IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
+        IEnumerable<BO.Call> boCalls;
+        lock (AdminManager.BlMutex)
+           { IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
             ?? throw new BO.BlNullPropertyException("There are no calls in the database");
 
-        IEnumerable<BO.Call> boCalls = allCalls.Select(call => CallsManager.ConvertDOCallToBOCall(call));
+            boCalls = allCalls.Select(call => CallsManager.ConvertDOCallToBOCall(call));
+        }
 
         var groupedCalls = boCalls
             .GroupBy(call => call.statusC)
@@ -47,9 +50,11 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public IEnumerable<CallInList> GetCallInList(FiledOfCallInList? filedToFilter, object? filter, FiledOfCallInList? filedToSort)
     {
-        IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
-        IEnumerable<CallInList> boCallsInList = _dal.Call.ReadAll().Select(call => CallsManager.ConvertDOCallToBOCallInList(call));
-
+        IEnumerable<CallInList> boCallsInList;
+        lock(AdminManager.BlMutex)
+       { IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
+            boCallsInList = _dal.Call.ReadAll().Select(call => CallsManager.ConvertDOCallToBOCallInList(call));
+}
         if (filedToFilter != null && filter != null)
         {
             switch (filedToFilter)
@@ -207,12 +212,19 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public BO.Call ReadCall(int id)
     {
-        var doCall = _dal.Call.Read(c => c.ID == id);
+        DO.Call? doCall;
+        IEnumerable<DO.Assignment> assignmentsForCall;
+        lock(AdminManager.BlMutex)
+        {
+            doCall = _dal.Call.Read(c => c.ID == id);
+            assignmentsForCall = _dal.Assignment.ReadAll(a => a.CallId == id);
+
+        }
+
 
         if (doCall == null)
             throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
 
-        var assignmentsForCall = _dal.Assignment.ReadAll(a => a.CallId == id);
 
         var boCall = CallsManager.ConvertDOCallWithAssignments(doCall, assignmentsForCall);
 
@@ -254,14 +266,17 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
-            var doCall = _dal.Call.Read(c => c.ID == id);
+            DO.Call? doCall;
+            lock(AdminManager.BlMutex)
+             doCall = _dal.Call.Read(c => c.ID == id);
 
             if (doCall != null)
             {
+                bool hasAssignments;
 
                 BO.Status callStatus = CallsManager.GetCallStatus(doCall);
-
-                var hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == id).Any();
+                lock (AdminManager.BlMutex)
+                hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == id).Any();
 
                 if (hasAssignments || callStatus != BO.Status.Open)
                 {
@@ -282,13 +297,20 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     {
         try
         {
-            var doCall = _dal.Call.Read(c => c.ID == callId);
+
+            DO.Call? doCall;
+            lock (AdminManager.BlMutex)
+                doCall = _dal.Call.Read(c => c.ID == callId);
+
+
 
             if (doCall != null)
             {
-                BO.Status callStatus = CallsManager.GetCallStatus(doCall);
-                var hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == callId).Any();
+                bool hasAssignments;
 
+                BO.Status callStatus = CallsManager.GetCallStatus(doCall);
+                lock (AdminManager.BlMutex)
+                    hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == callId).Any();
                 // אם הקריאה לא בסטטוס פתוח או הוקצתה למתנדב, לא ניתן למחוק
                 return !(hasAssignments || callStatus != BO.Status.Open);
             }
@@ -329,18 +351,20 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
-        IEnumerable<DO.Assignment> assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
        List < BO.ClosedCallInList >  closedCallInLists = new List<BO.ClosedCallInList>();
+        lock(AdminManager.BlMutex)
+      {  IEnumerable<DO.Assignment> assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
 
-         closedCallInLists.AddRange(from assig in assignments
-                       where assig.finishT != null
-                       let listForCall = ReadCall(assig.CallId).CallAssign
-                       let assinmetNotTothisvlounteer = listForCall.Count(assForCall => assForCall.VolunteerId != id)
-                       where assinmetNotTothisvlounteer == 0
-                       select CallsManager.ConvertDOCallToBOCloseCallInList(_dal.Call.Read(c => c.ID == assig.CallId), assig)
+            closedCallInLists.AddRange(from assig in assignments
+                                       where assig.finishT != null
+                                       let listForCall = ReadCall(assig.CallId).CallAssign
+                                       let assinmetNotTothisvlounteer = listForCall.Count(assForCall => assForCall.VolunteerId != id)
+                                       where assinmetNotTothisvlounteer == 0
+                                       select CallsManager.ConvertDOCallToBOCloseCallInList(_dal.Call.Read(c => c.ID == assig.CallId), assig)
 
 
-            );
+                );
+        }
         closedCallInLists = closedCallInLists
    .OrderByDescending(closeCall => closeCall.openTime)  // סדר את השיחות לפי openTime
    .DistinctBy(closeCall => closeCall.callT)  // דאג לכך שכל callT יהיה ייחודי
@@ -392,7 +416,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         if (openCallIns == null)
         {
-            IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
+            lock(AdminManager.BlMutex)
+            {IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
             List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
             Calls.AddRange(from item in previousCalls
@@ -404,7 +429,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
                            where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
                            select openCall);
 
-            openCallInLists = Calls;
+                openCallInLists = Calls;
+            }
         }
         else
             openCallInLists = openCallIns;
@@ -450,6 +476,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         DO.Assignment assignment;
         try
         {
+            lock(AdminManager.BlMutex)
             assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
                 ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
         }
@@ -476,7 +503,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         try
         {
-            _dal.Assignment.Update(assignment);
+            lock (AdminManager.BlMutex)
+
+                _dal.Assignment.Update(assignment);
             VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
             VolunteersManager.Observers.NotifyListUpdated();
             CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
@@ -493,13 +522,16 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public void cancelTreat(int volunteerId, int? assignmentId)
 
     {
+
         AdminManager.ThrowOnSimulatorIsRunning();
         DO.Assignment assignment;
         DO.Call call;
 
         try
         {
-            assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
+            lock (AdminManager.BlMutex)
+
+                assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
                 ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
         }
         catch (DO.DalDoesNotExistException ex)
@@ -509,7 +541,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         try
         {
-            call = _dal.Call.Read(c => c.ID == assignment.CallId)
+            lock (AdminManager.BlMutex)
+
+                call = _dal.Call.Read(c => c.ID == assignment.CallId)
                 ?? throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.");
         }
         catch (DO.DalDoesNotExistException ex)
@@ -521,9 +555,12 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
         }
-
-        if (!_dal.Volunteer.Read(v => v.ID == volunteerId)?.role.Equals(DO.RoleType.Manager) == true &&
-    _dal.Volunteer.Read(v => v.ID == volunteerId)?.ID != assignment.VolunteerId)
+        DO.Volunteer volunteer;
+        lock (AdminManager.BlMutex) { 
+            volunteer = _dal.Volunteer.Read(v => v.ID == volunteerId);
+        }
+        if (volunteer?.role.Equals(DO.RoleType.Manager) == true &&
+    volunteer?.ID != assignment.VolunteerId)
         {
             throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to cancel this assignment.");
         }
@@ -542,7 +579,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         try
         {
-            _dal.Assignment.Update(assignment);
+            lock (AdminManager.BlMutex)
+
+                _dal.Assignment.Update(assignment);
             VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
             VolunteersManager.Observers.NotifyListUpdated();
             CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
@@ -559,10 +598,14 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve the call data based on the callId
-        var doCall = _dal.Call.Read(c => c.ID == callId);
+        DO.Call? doCall;
+        lock (AdminManager.BlMutex)  //stage 7
+            doCall = _dal.Call.Read(c => c.ID == callId);
 
         // Retrieve all assignments related to the call
-        var assignmentsForCall = _dal.Assignment.ReadAll(a => a.CallId == callId);
+        IEnumerable<Assignment>? assignmentsForCall;
+        lock (AdminManager.BlMutex)  //stage 7
+            assignmentsForCall = _dal.Assignment.ReadAll(a => a.CallId == callId);
 
         // Check if the call has already been treated
         BO.Status callStatus = CallsManager.GetCallStatus(doCall);
@@ -584,18 +627,24 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             throw new InvalidOperationException("The call has expired.");
         }
 
+
         // Once all checks pass, create a new assignment
-        var newAssignment = new DO.Assignment
+        Assignment? newAssignment;
+        lock (AdminManager.BlMutex)  //stage 7
         {
-            CallId = callId,
-            VolunteerId = volunteerId,
-            startTreatment = _dal.Config.Clock,  // Set the entry time for the treatment
-            finishTreatment = null,  // Treatment is not finished yet
-            finishT = null  // Treatment type is not specified yet
-        };
+            newAssignment = new DO.Assignment
+            {
+                CallId = callId,
+                VolunteerId = volunteerId,
+                startTreatment = _dal.Config.Clock,  // Set the entry time for the treatment
+                finishTreatment = null,  // Treatment is not finished yet
+                finishT = null  // Treatment type is not specified yet
+            };
+        }
 
         // Attempt to add the new assignment to the data layer
-        _dal.Assignment.Create(newAssignment);
+        lock (AdminManager.BlMutex)  //stage 7
+            _dal.Assignment.Create(newAssignment);
         VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
         VolunteersManager.Observers.NotifyListUpdated();
         CallsManager.Observers.NotifyItemUpdated(newAssignment.CallId);  //stage 5

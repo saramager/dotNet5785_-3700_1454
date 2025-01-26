@@ -26,10 +26,11 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         AdminManager.ThrowOnSimulatorIsRunning();
         VolunteersManager.checkeVolunteerFormat(volToAdd);
         VolunteersManager.checkeVolunteerlogic(volToAdd);
-        DO.Volunteer  DoVlo = VolunteersManager.convertFormBOVolunteerToDo(volToAdd);
+        DO.Volunteer DoVlo = VolunteersManager.convertFormBOVolunteerToDo(volToAdd);
         try 
         {
-            _dal.Volunteer.Create(DoVlo);
+            lock (AdminManager.BlMutex)  //stage 7
+                _dal.Volunteer.Create(DoVlo);
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
         }
         catch(DO.DalAlreadyExistsException dEx) { throw new BO.BlDoesAlreadyExistException(dEx.Message, dEx); }
@@ -39,34 +40,32 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
     public void DeleteVolunteer(int id)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
+        IEnumerable<Assignment>? assForVol;
+        lock (AdminManager.BlMutex)  //stage 7
+             assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
         if (assForVol == null) { }
         else if (assForVol!.Count() > 0)
             throw new BO.volunteerHandleCallException($"volunteer with id={id} has assigments in his name");
         try
         {
-            _dal.Volunteer.Delete(id);
+            lock (AdminManager.BlMutex)  //stage 7
+                _dal.Volunteer.Delete(id);
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
         }
         catch(DO.DalDoesNotExistException dEx ) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
-
-
     }
 
     public BO.RoleType EnterToSystem(int id, string password)
     {
         DO.Volunteer? v;
-       
-
+        lock (AdminManager.BlMutex)  //stage 7
             v = _dal.Volunteer.Read(v => v.ID == id)??throw new BO.BlDoesNotExistException($"there is no vlounteer with id : {id} ");
-            if (v.password == null || v.password.Length == 0)
+        if (v.password == null || v.password.Length == 0)
                 throw new PaswordDoesNotExistException("The passport is not Exist");
         string VpassWord = VolunteersManager.Decrypt(v.password!);
             if (/*VolunteersManager.Decrypt(v.password!)*/ VpassWord != password)
                 throw new PasswordIsNotCorrectException($"for Id: {v.ID} the password {password} is not true");
-            return (BO.RoleType)v.role;
-       
-        
+            return (BO.RoleType)v.role;  
     }
  
     public IEnumerable<VolunteerInList> GetVolunteerInList(bool? IsActive, FiledOfVolunteerInList? filedToSort)
@@ -74,8 +73,10 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         IEnumerable<VolunteerInList> volunteers;
        
             if (IsActive != null)
-               volunteers = _dal.Volunteer.ReadAll(v => v.active == IsActive).Select(v=>VolunteersManager.convertDOToBOInList(v));
+            lock (AdminManager.BlMutex)  //stage 7
+                volunteers = _dal.Volunteer.ReadAll(v => v.active == IsActive).Select(v=>VolunteersManager.convertDOToBOInList(v));
             else
+            lock (AdminManager.BlMutex)  //stage 7
                 volunteers = _dal.Volunteer.ReadAll().Select(v => VolunteersManager.convertDOToBOInList(v));
             if (filedToSort == null)
             volunteers = volunteers.OrderBy(v => v.ID).ToList();
@@ -114,13 +115,12 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
                     break;
             }
         return volunteers;
-
  }
     
     public BO.Volunteer ReadVolunteer(int id)
     {
         DO.Volunteer? v;
-        
+        lock (AdminManager.BlMutex)  //stage 7
             v = _dal.Volunteer.Read(v => v.ID == id);
             if (v == null)
                 throw new BO.BlDoesNotExistException("($\"there is no Volunteer with id : {id} \"");
@@ -132,23 +132,33 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         AdminManager.ThrowOnSimulatorIsRunning();
 
         if (id!=vol.Id )
-       {
-
-            if (_dal.Volunteer.Read(vol => vol.ID == id)?.role != 0)
+        {  
+            lock (AdminManager.BlMutex)  //stage 7
+                if (_dal.Volunteer.Read(vol => vol.ID == id)?.role != 0)
                 throw new BO.VolunteerCantUpadeOtherVolunteerException("volunteer can't update other volunteer ");
         }
-       VolunteersManager.checkeVolunteerFormat(vol);
+        VolunteersManager.checkeVolunteerFormat(vol);
         VolunteersManager.checkeVolunteerlogic(vol);
-       var role = _dal.Volunteer.Read(vol => vol.ID == id)?.role;
-        DO.Volunteer vDo = _dal.Volunteer.Read(vo => vo.ID == vol.Id)!;
-       if (vol.active == false)
+
+        DO.RoleType? role;
+        DO.Volunteer vDo;
+        IEnumerable<Assignment>? assForVol;
+        lock (AdminManager.BlMutex)  //stage 7
         {
-            var assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == vol.Id );
+            role = _dal.Volunteer.Read(vol => vol.ID == id)?.role;
+            vDo = _dal.Volunteer.Read(vo => vo.ID == vol.Id)!;
+        }
+            
+        if (vol.active == false)
+        {
+            lock (AdminManager.BlMutex)  //stage 7
+                assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == vol.Id );
             if (assForVol!= null)
-           { if (assForVol.Count(ass => ass.finishT == null) > 0)
+            {  
+                if (assForVol.Count(ass => ass.finishT == null) > 0)
                     throw new  CantUpdatevolunteer($"vlounteer with id {id} have open assigments ");
             }
-         }
+        }
        if (role == DO.RoleType.Volunteer )
             if (vol.role ==0 && vDo.role == DO.RoleType.Volunteer)
                 throw new CantUpdatevolunteer($"vlounteer with id {id} cant change to manager  ");
@@ -157,13 +167,15 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
             throw new CantUpdatevolunteer($"vlounteer with id {id} can't change his id  ");
 
         try
-        { 
-            _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));
+        {
+            lock (AdminManager.BlMutex)  //stage 7
+                _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
             VolunteersManager.Observers.NotifyItemUpdated(vol.Id); // stage 5
         } 
         catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
     }
+
     public int ManagerID()
     {
 
@@ -173,6 +185,7 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         else
            throw new BO.NoManagerException("there is no manger avilble ");
     }
+
     public bool CanDeleteVoluenteer(int id)
     {
         var vol = _dal.Volunteer.Read(v=>v.ID==id);
@@ -182,5 +195,4 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         return (volunteerInList.callT== BO.CallType.None&&  volunteerInList.numCallsCancelled == 0 && volunteerInList.numCallsExpired == 0 && volunteerInList.numCallsHandled == 0);
 
     }
-
 }
