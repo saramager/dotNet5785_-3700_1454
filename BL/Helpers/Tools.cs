@@ -74,6 +74,9 @@ namespace Helpers
                         {
                             throw new AdressDoesNotExistException("No geolocation data found for the given address.");
                         }
+                        if (locationData.Length>1)
+
+                            throw new AdressDoesNotExistException("The address is not speasific.");
 
                         // Return latitude and longitude
                         return new double[] { double.Parse(locationData[0].Lat), double.Parse(locationData[0].Lon) };
