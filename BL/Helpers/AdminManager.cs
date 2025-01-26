@@ -83,7 +83,7 @@ internal static class AdminManager //stage 4
 
         //StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4
         if (_periodicTask is null || _periodicTask.IsCompleted) //stage 7
-            _periodicTask = Task.Run(() => CallsManager.checkIfExpiredCall(/*להוסיף זמנים*/ ));
+            _periodicTask = Task.Run(() => CallsManager.checkIfExpiredCall(oldClock,newClock));
         //etc ...
 
         //Calling all the observers of clock update
