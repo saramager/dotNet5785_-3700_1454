@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.VolunteerScreens
 {
@@ -63,8 +64,25 @@ namespace PL.VolunteerScreens
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR ", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+
+        /// <summary>
+        /// Observer for the list of calls.
+        /// </summary>
         private void CallsListObserver()
-           => queryOpenCallsList();
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryOpenCallsList();
+                });
+        }
+        /// <summary>
+        /// Handles the window loaded event to add the observer.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             s_bl.Call.AddObserver(CallsListObserver);

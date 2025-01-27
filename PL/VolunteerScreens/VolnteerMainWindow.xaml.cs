@@ -78,9 +78,34 @@ namespace PL.VolunteerScreens
             }
         }
 
+        private volatile DispatcherOperation? _observerOperation1 = null; //stage 7
+        private volatile DispatcherOperation? _observerOperation2 = null; //stage 7
 
+        /// <summary>
+        /// Observer for volunteer changes
+        /// </summary>
+        private void volunteerObserver()
+        {
+            if (_observerOperation1 is null || _observerOperation1.Status == DispatcherOperationStatus.Completed)
+                _observerOperation1 = Dispatcher.BeginInvoke(() =>
+                {
+                    queryCall();
+                });
+        }
 
-        private void queryVolunteer()
+        /// <summary>
+        /// Observer for Call changes
+        /// </summary>
+        private void callObserver()
+        {
+            if (_observerOperation2 is null || _observerOperation2.Status == DispatcherOperationStatus.Completed)
+                _observerOperation2 = Dispatcher.BeginInvoke(() =>
+                {
+                    queryCall();
+                });
+        }
+
+        private void queryCall()
         {
             int id = CurrentVolunteer!.Id;
             Task.Run(() =>
@@ -113,26 +138,9 @@ namespace PL.VolunteerScreens
 
                         Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
                     }
-               
+
                 });
             });
-        }
-
-        /// <summary>
-        /// Observer for volunteer changes
-        /// </summary>
-        private void volunteerObserver()
-            => queryCall();
-
-        /// <summary>
-        /// Observer for Call changes
-        /// </summary>
-        private void callObserver()
-            => queryCall();
-
-        private void queryCall()
-        {
-            queryVolunteer();
         }
         /// <summary>
         /// Adds the observer when the window is loaded

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.VolunteerScreens
 {
@@ -54,11 +55,23 @@ namespace PL.VolunteerScreens
         }
         private void queryCloseCallsList()
            => CloseCallsList = s_bl.Call.ReadCloseCallsVolunteer(Id, filterCloseCalls, sortCloseCalls);
+
+
+
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+
         /// <summary>
         /// Observer function to update the volunteer list.
         /// </summary>
         private void CallsListObserver()
-            => queryCloseCallsList();
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryCloseCallsList();
+                });
+        }
+       
 
         /// <summary>
         /// Handles the window loaded event to add the observer and load the list.

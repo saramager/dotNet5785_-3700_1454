@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL
 {
@@ -102,18 +103,32 @@ namespace PL
             s_bl.Admin.SetRiskRange(RiskRange);
         }
 
+        private volatile DispatcherOperation? _observerOperation1 = null; //stage 7
+
         /// <summary>
         /// Updates CurrentTime by observing clock changes
         /// </summary>
         private void clockObserver()
         {
-            CurrentTime = s_bl.Admin.GetClock();
-            CallSums = s_bl.Call.SumOfCalls();
-
+            if (_observerOperation1 is null || _observerOperation1.Status == DispatcherOperationStatus.Completed)
+                _observerOperation1 = Dispatcher.BeginInvoke(() =>
+                {
+                    CurrentTime = s_bl.Admin.GetClock();
+                    CallSums = s_bl.Call.SumOfCalls();
+                });
         }
+
+        private volatile DispatcherOperation? _observerOperation2 = null; //stage 7
+        /// <summary>
+        /// Updates CallSums by observing call changes
+        /// </summary>
         private void callsListObserver()
         {
-            CallSums= s_bl.Call.SumOfCalls();   
+            if (_observerOperation2 is null || _observerOperation2.Status == DispatcherOperationStatus.Completed)
+                _observerOperation2 = Dispatcher.BeginInvoke(() =>
+                {
+                    CallSums = s_bl.Call.SumOfCalls();
+                });
         }
 
         /// <summary>
