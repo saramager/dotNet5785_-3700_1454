@@ -267,7 +267,7 @@ namespace Helpers
         {
             Thread.CurrentThread.Name = $"Periodic{++s_periodicCounter}"; //stage 7 (optional)
             IEnumerable<BO.Call> boCalls;
-            List<int> idSThatCahnges= new List<int>();
+            List<int> idSThatChanges= new List<int>();
 
             lock (AdminManager.BlMutex)
             {
@@ -299,7 +299,7 @@ namespace Helpers
                             clock= s_dal.Config.Clock;
                         }
                         s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
-                        idSThatCahnges.Add(assing.VolunteerId);
+                        idSThatChanges.Add(assing.VolunteerId);
 
                     }
 
@@ -309,9 +309,9 @@ namespace Helpers
                
 
             }
-            foreach (int id in  idSThatCahnges)
+            foreach (int id in  idSThatChanges)
                 VolunteersManager.Observers.NotifyItemUpdated(id);
-          if (idSThatCahnges.Count!=0)
+          if (idSThatChanges.Count!=0)
                 VolunteersManager.Observers.NotifyListUpdated();
           foreach (var  calll in boCalls)
                 CallsManager.Observers.NotifyItemUpdated(calll.ID);  //stage 5
