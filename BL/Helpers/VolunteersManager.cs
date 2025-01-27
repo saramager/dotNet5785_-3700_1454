@@ -4,6 +4,7 @@ using BO;
 using DalApi;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -23,7 +24,7 @@ namespace Helpers
         /// convert volunteer form Do to volunteerINList  from BO
         /// </summary>
         /// <param name="doVolunteer"> get the volunteer to return </param>
-        /// <returns> the BO vlounteerInList  </returns>
+        /// <returns> the BO volunteerInList  </returns>
         internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
         {
             List<DO.Assignment>? calls;
@@ -329,8 +330,145 @@ namespace Helpers
             // Must contain at least one uppercase letter and one digit
             return password.Any(char.IsUpper) && password.Any(char.IsDigit);
         }
+
+        /// <summary>
+        /// Simulates volunteer activity by randomly selecting calls for treatment.
+        /// </summary>
+        /// <returns></returns>
+        internal static List<BO.Volunteer> GetActiveVolunteers()
+        {
+            List<DO.Volunteer> doVolunteers;
+            lock (s_dal)
+            {
+                doVolunteers = s_dal.Volunteer.ReadAll(v => v.active).ToList();// Read all active volunteers from the DAL
+            }
+
+            return doVolunteers.Select(convertDOToBOVolunteer).ToList();// Convert the volunteers to BO and return the list
+        }
+
+        private static readonly object _lock = new object();// Lock object for synchronization
+        private static readonly Random _random = new Random();// Random number generator for the simulation
+        /// <summary>
+        /// Calculates the time required for a volunteer to treat a call based on the distance and time.
+        /// </summary>
+        /// <param name="volunteer"></param>
+        /// <param name="callInProgress"></param>
+        /// <returns></returns>
+        private static TimeSpan CalculateRequiredTime(Volunteer volunteer, CallInProgress callInProgress)
+        {
+            // Calculate the time needed for the treatment based on the distance and time
+            return TimeSpan.FromMinutes(_random.Next(5, 15)); // Random time between 5 and 15 minutes
+        }
+
+        /// <summary>
+        /// Simulates volunteer activity by randomly selecting calls for treatment.
+        /// </summary>
+        internal static void SimulateVolunteerActivity()
+        {
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    List<BO.Volunteer> activeVolunteers;
+                    lock (_lock)
+                    {
+                        activeVolunteers = GetActiveVolunteers(); // Receiving a list of active volunteers
+                    }
+
+                    // Synchronized on all volunteers
+                    foreach (var volunteer in activeVolunteers)
+                    {
+                        if (volunteer.callProgress == null) // Volunteer without reading in treatment
+                        { 
+                            if (_random.NextDouble() < 0.2) // 20% probability to select a call for treatment
+                            {
+                                lock (_lock)
+                                {
+                                    var allCalls = s_dal.Call.ReadAll().ToList(); // Read all calls from the DAL
+                                    var possibleCalls = allCalls
+                                        .Where(c => CallsManager.GetCallStatus(c) == BO.Status.Open && c.latitude != null && c.longitude != null) // filter by open calls with coordinates
+                                        .ToList();
+
+                                    if (possibleCalls.Any())
+                                    {
+                                        // Random choice of reading
+                                        var call = possibleCalls[_random.Next(possibleCalls.Count)];
+                                        volunteer.callProgress = new BO.CallInProgress
+                                        {
+                                            ID = call.ID,
+                                            CallId = call.ID,
+                                            callT = (BO.CallType)call.callT,
+                                            verbalDescription = call.verbalDescription,
+                                            address = call.address,
+                                            openTime = call.openTime,
+                                            maxTime = call.maxTime,
+                                            startTreatment = DateTime.Now,
+                                            CallDistance = Tools.CalculateDistance(call.latitude, call.longitude, volunteer.Latitude.Value, volunteer.Longitude.Value, volunteer.distanceType),
+                                            statusT = BO.Status.InTreat
+                                        };
+
+                                        // Adding a new task to the volunteer
+                                        s_dal.Assignment.Create(new DO.Assignment
+                                        {
+                                            VolunteerId = volunteer.Id,
+                                            CallId = call.ID,
+                                            startTreatment = DateTime.Now
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Volunteer with reading in therapy
+                            var timeSinceStart = DateTime.Now - volunteer.callProgress.startTreatment;
+                            var requiredTime = CalculateRequiredTime(volunteer, volunteer.callProgress); // Calculate the time needed
+
+                            if (timeSinceStart >= requiredTime)
+                            {
+                                // if enough time has passed
+                                lock (_lock)
+                                {
+                                    // Update call as handling is finished
+                                    s_dal.Assignment.Update(new DO.Assignment
+                                    {
+                                        ID = volunteer.callProgress.ID,
+                                        VolunteerId = volunteer.Id,
+                                        CallId = volunteer.callProgress.CallId,
+                                        startTreatment = volunteer.callProgress.startTreatment,
+                                        finishT = DO.FinishType.Treated
+                                    });
+
+                                    volunteer.callProgress = null; // End of treatment
+                                }
+                            }
+                            else if (_random.NextDouble() < 0.1) // 10% probability of canceling treatment
+                            {
+                                lock (_lock)
+                                {
+                                    // Update call as canceled by the volunteer
+                                    s_dal.Assignment.Update(new DO.Assignment
+                                    {
+                                        ID = volunteer.callProgress.ID,
+                                        VolunteerId = volunteer.Id,
+                                        CallId = volunteer.callProgress.CallId,
+                                        startTreatment = volunteer.callProgress.startTreatment,
+                                        finishT = DO.FinishType.SelfCancel
+                                    });
+
+                                    volunteer.callProgress = null; // Cancel handling
+                                }
+                            }
+                        }
+                    }
+
+                    await Task.Delay(1000); // Wait a second before repeating the simulation
+                }
+            });
+        }
     }
 }
+
 
 
 
