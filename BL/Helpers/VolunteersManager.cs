@@ -2,6 +2,7 @@
 using BlImplementation;
 using BO;
 using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,8 +46,7 @@ namespace Helpers
                 numCallsHandled = sumCalls,
                 numCallsCancelled = sumCanceld,
                 numCallsExpired = sumExpired,
-                CallId = call == null ? null : call.CallId,
-                callT = callD == null ? CallType.None : (BO.CallType)callD.callT
+                callT = callD == null ? BO.CallType.None : (BO.CallType)callD.callT
             };
         }
         /// <summary>
@@ -85,7 +85,7 @@ namespace Helpers
             };
         }
         /// <summary>
-        /// get volunteer and return Call in prgers if there is one 
+        /// get volunteer and return Call in progress if there is one 
         /// </summary>
         /// <param name="doVolunteer"> the volunteer we wnat to check if there is </param>
         /// <returns>callin progerss th this spsifiec volunteer </returns>
@@ -108,8 +108,8 @@ namespace Helpers
                     if (doVolunteer.Latitude != null && doVolunteer.Longitude != null)
                     {
                         distanceOfCall = 0;
-                        if (callTreat.latitude!=null && callTreat.longitude!= null)
-                         
+                        if (callTreat.latitude != null && callTreat.longitude != null)
+
                             Tools.CalculateDistance
                         (
                           (double)callTreat.latitude,
@@ -254,7 +254,7 @@ namespace Helpers
                 distanceType: (DO.Distance)BoVolunteer.distanceType,
                password: BoVolunteer.password != null ? Encrypt(BoVolunteer.password) : null,
                currentAddress: BoVolunteer.currentAddress,
-            null,null,
+            null, null,
              maxDistance: BoVolunteer.maxDistance
 
                         );
@@ -348,147 +348,307 @@ namespace Helpers
                 }
             }
         }
-        /// <summary>
-        /// Simulates volunteer activity by randomly selecting calls for treatment.
-        /// </summary>
-        /// <returns></returns>
-        internal static List<BO.Volunteer> GetActiveVolunteers()
-        {
-            List<DO.Volunteer> doVolunteers;
-            lock (s_dal)
-            {
-                doVolunteers = s_dal.Volunteer.ReadAll(v => v.active).ToList();// Read all active volunteers from the DAL
-            }
 
-            return doVolunteers.Select(convertDOToBOVolunteer).ToList();// Convert the volunteers to BO and return the list
-        }
+        private static readonly Random s_rand = new();
+        private static int s_simulatorCounter = 0;
 
-        private static readonly object _lock = new object();// Lock object for synchronization
-        private static readonly Random _random = new Random();// Random number generator for the simulation
-        /// <summary>
-        /// Calculates the time required for a volunteer to treat a call based on the distance and time.
-        /// </summary>
-        /// <param name="volunteer"></param>
-        /// <param name="callInProgress"></param>
-        /// <returns></returns>
-        private static TimeSpan CalculateRequiredTime(Volunteer volunteer, CallInProgress callInProgress)
-        {
-            // Calculate the time needed for the treatment based on the distance and time
-            return TimeSpan.FromMinutes(_random.Next(5, 15)); // Random time between 5 and 15 minutes
-        }
-      
-        
-
-        /// <summary>
-        /// Simulates volunteer activity by randomly selecting calls for treatment.
-        /// </summary>
         internal static void SimulateVolunteerActivity()
         {
-            Task.Run(async () =>
+            Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
+            LinkedList<int> volunteersToUpdate = new();
+            List<DO.Volunteer> doVoluList;
+
+            lock (AdminManager.BlMutex)
+                doVoluList = s_dal.Volunteer.ReadAll(v => v.active == true).ToList();
+
+            foreach (var doVolunteer in doVoluList)
             {
-                while (true)
+                int volunteerId = doVolunteer.ID;
+
+                lock (AdminManager.BlMutex)
                 {
-                    List<BO.Volunteer> activeVolunteers;
-                    lock (AdminManager.BlMutex)
+                    BO.Volunteer volunteer = convertDOToBOVolunteer(doVolunteer);
+
+                    if (volunteer.callProgress == null) // אין קריאה בטיפול
                     {
-                        activeVolunteers = GetActiveVolunteers(); // Receiving a list of active volunteers
-                    }
+                        //  קריאה לרשימת הקריאות הפתוחות עם הקואורדינטות המתאימות 
+                        IEnumerable<BO.OpenCallInList> openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
 
-                    // Synchronized on all volunteers
-                    foreach (var volunteer in activeVolunteers)
-                    {
-                        if (volunteer.callProgress == null) // Volunteer without reading in treatment
-                        { 
-                            if (_random.NextDouble() < 0.2) // 20% probability to select a call for treatment
-                            {
-                                lock (AdminManager.BlMutex)
-                                {
-                                    var allCalls = s_dal.Call.ReadAll().ToList(); // Read all calls from the DAL
-                                    var possibleCalls = allCalls
-                                        .Where(c => CallsManager.GetCallStatus(c) == BO.Status.Open && c.latitude != null && c.longitude != null) // filter by open calls with coordinates
-                                        .ToList();
-
-                                    if (possibleCalls.Any())
-                                    {
-                                        // Random choice of reading
-                                        var call = possibleCalls[_random.Next(possibleCalls.Count)];
-                                        volunteer.callProgress = new BO.CallInProgress
-                                        {
-                                            ID = call.ID,
-                                            CallId = call.ID,
-                                            callT = (BO.CallType)call.callT,
-                                            verbalDescription = call.verbalDescription,
-                                            address = call.address,
-                                            openTime = call.openTime,
-                                            maxTime = call.maxTime,
-                                            startTreatment = DateTime.Now,
-                                            CallDistance = Tools.CalculateDistance(call.latitude, call.longitude, volunteer.Latitude.Value, volunteer.Longitude.Value, volunteer.distanceType),
-                                            statusT = BO.Status.InTreat
-                                        };
-
-                                        // Adding a new task to the volunteer
-                                        s_dal.Assignment.Create(new DO.Assignment
-                                        {
-                                            VolunteerId = volunteer.Id,
-                                            CallId = call.ID,
-                                            startTreatment = DateTime.Now
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                        else
+                        // בחירה רנדומלית עם הסתברות
+                        if (openCalls.Any() && s_rand.NextDouble() <= 0.2) // הסתברות 20%
                         {
-                            // Volunteer with reading in therapy
-                            var timeSinceStart = DateTime.Now - volunteer.callProgress.startTreatment;
-                            var requiredTime = CalculateRequiredTime(volunteer, volunteer.callProgress); // Calculate the time needed
+                            var selectedCall = openCalls.ElementAt(s_rand.Next(openCalls.Count()));
 
-                            if (timeSinceStart >= requiredTime)
+                            lock (AdminManager.BlMutex)
                             {
-                                // if enough time has passed
-                                lock (AdminManager.BlMutex)
-                                {
-                                    // Update call as handling is finished
-                                    s_dal.Assignment.Update(new DO.Assignment
-                                    {
-                                        ID = volunteer.callProgress.ID,
-                                        VolunteerId = volunteer.Id,
-                                        CallId = volunteer.callProgress.CallId,
-                                        startTreatment = volunteer.callProgress.startTreatment,
-                                        finishT = DO.FinishType.Treated
-                                    });
-
-                                    volunteer.callProgress = null; // End of treatment
-                                }
-                            }
-                            else if (_random.NextDouble() < 0.1) // 10% probability of canceling treatment
-                            {
-                                lock (AdminManager.BlMutex)
-                                {
-                                    // Update call as canceled by the volunteer
-                                    s_dal.Assignment.Update(new DO.Assignment
-                                    {
-                                        ID = volunteer.callProgress.ID,
-                                        VolunteerId = volunteer.Id,
-                                        CallId = volunteer.callProgress.CallId,
-                                        startTreatment = volunteer.callProgress.startTreatment,
-                                        finishT = DO.FinishType.SelfCancel
-                                    });
-
-                                    volunteer.callProgress = null; // Cancel handling
-                                }
+                                ChooseCallTreatHelp(volunteer.Id, selectedCall.ID);//
+                                volunteersToUpdate.AddLast(volunteerId);
                             }
                         }
                     }
+                    else // יש קריאה בטיפול
+                    {
+                        BO.CallInProgress activeCall = volunteer.callProgress;
 
-                    await Task.Delay(1000); // Wait a second before repeating the simulation
+                        
+
+                        if (treatmentDuration.TotalMinutes >= distance / 2 + s_rand.Next(5, 15)) // מספיק זמן לטיפול
+                        {
+                            try
+                            {
+                                lock (AdminManager.BlMutex)
+                                {
+                                    FinishTreatHelp(volunteerId, activeCall.ID);
+                                    volunteersToUpdate.AddLast(volunteerId);
+                                }
+                            }
+                            catch (BO.BlDoesNotExistException ex)
+                            {
+                                // טיפול בחריגה במקרה של בעיה במתודה FinishTreat
+                                Console.WriteLine($"Error finishing treatment: {ex.Message}");
+                            }
+                        }
+                        else if (s_rand.NextDouble() <= 0.1) // הסתברות 10% לביטול
+                        {
+                            try
+                            {
+                                lock (AdminManager.BlMutex)
+                                {
+                                    cancelTreatHelp(volunteerId, activeCall.ID);
+                                    volunteersToUpdate.AddLast(volunteerId);
+                                }
+                            }
+                            catch (BO.BlDoesNotExistException ex)
+                            {
+                                // טיפול בחריגה במקרה של בעיה במתודה cancelTreat
+                                Console.WriteLine($"Error canceling treatment: {ex.Message}");
+                            }
+                        }
+                    }
                 }
-            });
+            }
+
+            foreach (int id in volunteersToUpdate)
+                Observers.NotifyItemUpdated(id);
+        }
+
+        private static void ChooseCallTreatHelp(int volunteerId, int callId)
+        {
+            // Retrieve the call data based on the callId
+            DO.Call? doCall;
+            lock (AdminManager.BlMutex)  //stage 7
+                doCall = s_dal.Call.Read(c => c.ID == callId);
+
+            // Retrieve all assignments related to the call
+            IEnumerable<Assignment>? assignmentsForCall;
+            lock (AdminManager.BlMutex)  //stage 7
+                assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == callId);
+
+            // Check if the call has already been treated
+            BO.Status callStatus = CallsManager.GetCallStatus(doCall);
+            if (callStatus == BO.Status.Close)
+            {
+                throw new InvalidOperationException("The call has already been treated.");
+            }
+
+            // Check if there is an open assignment for the call
+            var openAssignment = assignmentsForCall.FirstOrDefault(a => a.startTreatment != default(DateTime) && a.finishT == null);
+            if (openAssignment != null)
+            {
+                throw new InvalidOperationException("The call is already being treated.");
+            }
+
+            // Check if the call has expired
+            if (callStatus == BO.Status.Expired)
+            {
+                throw new InvalidOperationException("The call has expired.");
+            }
+
+
+            // Once all checks pass, create a new assignment
+            Assignment? newAssignment;
+            lock (AdminManager.BlMutex)  //stage 7
+            {
+                newAssignment = new DO.Assignment
+                {
+                    CallId = callId,
+                    VolunteerId = volunteerId,
+                    startTreatment = s_dal.Config.Clock,  // Set the entry time for the treatment
+                    finishTreatment = null,  // Treatment is not finished yet
+                    finishT = null  // Treatment type is not specified yet
+                };
+            }
+
+            // Attempt to add the new assignment to the data layer
+            lock (AdminManager.BlMutex)  //stage 7
+                s_dal.Assignment.Create(newAssignment);
+            Observers.NotifyItemUpdated(volunteerId);
+            Observers.NotifyListUpdated();
+            CallsManager.Observers.NotifyItemUpdated(newAssignment.CallId);  //stage 5
+            CallsManager.Observers.NotifyListUpdated();  //stage 5
+        }
+
+        private static void FinishTreatHelp(int volunteerId, int assignmentId)
+        {
+            DO.Assignment assignment;
+            try
+            {
+                lock (AdminManager.BlMutex)
+                    assignment = s_dal.Assignment.Read(a => a.ID == assignmentId)
+                        ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex);
+            }
+
+            if (assignment.VolunteerId != volunteerId)
+            {
+                throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to finish this assignment.");
+            }
+
+            if (assignment.finishTreatment != null || assignment.finishT != null)
+            {
+                throw new BO.AssignmentAlreadyClosedException($"Assignment with ID {assignmentId} is already closed.");
+            }
+
+            assignment = assignment with
+            {
+                finishTreatment = s_dal.Config.Clock,
+                finishT = DO.FinishType.Treated
+            };
+
+            try
+            {
+                lock (AdminManager.BlMutex)
+                    s_dal.Assignment.Update(assignment);
+                VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
+                VolunteersManager.Observers.NotifyListUpdated();
+                CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
+                CallsManager.Observers.NotifyListUpdated();  //stage 5
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException($"An error occurred while updating the assignment.", ex);
+            }
+        }
+        private static void cancelTreatHelp(int volunteerId, int assignmentId)
+        {
+            DO.Assignment assignment;
+            DO.Call call;
+
+            try
+            {
+                lock (AdminManager.BlMutex)
+                    assignment = s_dal.Assignment.Read(a => a.ID == assignmentId)
+                    ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex);
+            }
+
+            try
+            {
+                lock (AdminManager.BlMutex)
+                    call = s_dal.Call.Read(c => c.ID == assignment.CallId)
+                    ?? throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.");
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.", ex);
+            }
+
+            if (call.maxTime.HasValue && s_dal.Config.Clock > call.maxTime.Value)
+            {
+                throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
+            }
+            DO.Volunteer volunteer;
+            lock (AdminManager.BlMutex)
+            {
+                volunteer = s_dal.Volunteer.Read(v => v.ID == volunteerId);
+            }
+            if (volunteer?.role.Equals(DO.RoleType.Manager) == true &&
+                volunteer?.ID != assignment.VolunteerId)
+            {
+                throw new BO.VolunteerCantUpadeOtherVolunteerException($"Volunteer with ID {volunteerId} is not authorized to cancel this assignment.");
+            }
+
+            if (assignment.finishTreatment != null || assignment.finishT != null)
+            {
+                throw new BO.CantUpdatevolunteer($"Assignment with ID {assignmentId} is already closed or cancelled.");
+            }
+
+            assignment = assignment with
+            {
+                finishTreatment = s_dal.Config.Clock,
+                finishT = (assignment.VolunteerId == volunteerId) ? DO.FinishType.SelfCancel : DO.FinishType.ManagerCancel
+            };
+
+            try
+            {
+                lock (AdminManager.BlMutex)
+                    s_dal.Assignment.Update(assignment);
+                VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
+                VolunteersManager.Observers.NotifyListUpdated();
+                CallsManager.Observers.NotifyItemUpdated(assignment.CallId);  //stage 5
+                CallsManager.Observers.NotifyListUpdated();  //stage 5
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException($"An error occurred while updating the assignment.", ex);
+            }
+        }
+        private static IEnumerable<OpenCallInList> ReadOpenCallsVolunteerHelp(int id)
+        {
+            IEnumerable<BO.OpenCallInList> openCallInLists;
+
+            lock (AdminManager.BlMutex)
+            {
+                // קריאת כל הקריאות ממקור הנתונים
+                IEnumerable<DO.Call> previousCalls = s_dal.Call.ReadAll(null);
+
+                // קריאת פרטי המתנדב לפי המזהה
+                DO.Volunteer volunteerData = s_dal.Volunteer.Read(v => v.ID == id)
+                    ?? throw new BO.BlDoesNotExistException($"Volunteer with ID {id} does not exist.");
+
+                // יצירת רשימת הקריאות הפתוחות המתאימות
+                List<BO.OpenCallInList> calls = new List<BO.OpenCallInList>();
+                calls.AddRange(
+                    from item in previousCalls
+                    let dataCall = ReadCallHelp(item.ID)
+                    where dataCall.statusC == BO.Status.Open || dataCall.statusC == BO.Status.OpenInRisk
+                    let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
+                    where volunteerData.maxDistance == null || volunteerData.maxDistance >= openCall.distance
+                    select openCall
+                );
+
+                openCallInLists = calls;
+            }
+
+            return openCallInLists;
+        }
+
+        private static BO.Call ReadCallHelp(int id)
+        {
+            DO.Call? doCall;
+            IEnumerable<DO.Assignment> assignmentsForCall;
+            lock (AdminManager.BlMutex)
+            {
+                doCall = s_dal.Call.Read(c => c.ID == id);
+                assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == id);
+
+            }
+
+
+            if (doCall == null)
+                throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
+
+
+            var boCall = CallsManager.ConvertDOCallWithAssignments(doCall, assignmentsForCall);
+
+            return boCall;
+
         }
     }
 }
-
-
-
-
-

@@ -9,7 +9,7 @@ namespace BO
 {
     public class CallInProgress // init or set??????
     {
-        public int ID { get; init; }
+        public int ID { get; init; }//assignmentId
         public int CallId { get; init; }
         public CallType callT { get; init; }
         public string? verbalDescription { get; init; }
