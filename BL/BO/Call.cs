@@ -14,8 +14,8 @@ namespace BO
         public CallType callT { get; set; }
         public string? verbalDescription { get; set; }
         public string address { get; set; }
-        public double latitude { get; set; }
-        public double longitude { get; set; }
+        public double? latitude { get; set; }
+        public double? longitude { get; set; }
         public DateTime openTime { get; set; }
         public DateTime? maxTime { get; set; }
         public Status statusC { get; set; }

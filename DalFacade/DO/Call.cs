@@ -19,8 +19,8 @@ public record Call
     int ID,
     string address,
     CallType callT,
-    double latitude,
-    double longitude,
+    double? latitude,
+    double? longitude,
     DateTime openTime,
     DateTime? maxTime = null,
     string? verbalDescription = null

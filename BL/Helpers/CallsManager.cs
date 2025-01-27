@@ -130,19 +130,7 @@ namespace Helpers
                 throw new BlUpdateCallException("Max completion time must be later than the opening time.");
             }
 
-            try
-            {
-                // Validate address and update geolocation data
-                double[] coordinates = Tools.GetGeolocationCoordinates(call.address);
-                call.latitude = coordinates[0];
-                call.longitude = coordinates[1];
-                Observers.NotifyItemUpdated(call.ID);
-
-            }
-            catch (AdressDoesNotExistException ex)
-            {
-                throw new BlUpdateCallException("Invalid address: " + ex.Message);
-            }
+           
            
         }
         internal static void CheckCallFormat(BO.Call call)
@@ -165,6 +153,7 @@ namespace Helpers
             {
                 throw new BlUpdateCallException("Invalid address format. The address must follow the format: street (optional number), city, country.");
             }
+            // add for adress
         }
 
         internal static BO.Call ConvertDOCallWithAssignments(DO.Call doCall, IEnumerable<DO.Assignment> assignmentsForCall)
@@ -221,10 +210,11 @@ namespace Helpers
             }
             double? idLat = vol?.Latitude;
             double? idLon = vol?.Longitude;
-
+            double? callLat = doCall.latitude;
+            double? callLon = doCall.longitude;
             double dis = 0;
-            if (idLat.HasValue && idLon.HasValue)
-                dis = Tools.CalculateDistance(doCall.latitude, doCall.longitude, idLat.Value, idLon.Value, (BO.Distance)vol.distanceType);
+            if (idLat.HasValue && idLon.HasValue&& callLat.HasValue && callLon.HasValue) 
+                dis = Tools.CalculateDistance(callLat.Value, callLon.Value, idLat.Value, idLon.Value, (BO.Distance)vol.distanceType);
             //double? idLat = vol == null ? null : vol.Latitude ?? null;
             //double? idLon = vol == null ? null : vol.Longitude ?? null;
 
@@ -249,8 +239,8 @@ namespace Helpers
              ID: boCall.ID,
              address: boCall.address,
              callT: (DO.CallType)boCall.callT,
-             latitude: boCall.latitude,
-             longitude: boCall.longitude,
+             latitude:null,
+             longitude: null,
              openTime: boCall.openTime,
              maxTime: boCall.maxTime,
              verbalDescription: boCall.verbalDescription
@@ -322,6 +312,21 @@ namespace Helpers
 
 
 
+        }
+        internal static async Task updateCoordinatesForCallAddressAsync(DO.Call doCall)
+        {
+            if (doCall.address is not null)
+            {
+                double[] loctions = await Tools.GetGeolocationCoordinatesAsync(doCall.address);
+                if (loctions is not null)
+                {
+                    doCall = doCall with { latitude = loctions[0], longitude = loctions[1] };
+                    lock (AdminManager.BlMutex)
+                        s_dal.Call.Update(doCall);
+                    Observers.NotifyListUpdated();
+                    Observers.NotifyItemUpdated(doCall.ID);
+                }
+            }
         }
     }
 

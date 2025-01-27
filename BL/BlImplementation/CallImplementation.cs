@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DalApi;
 using DO;
 using Helpers;
 
@@ -234,14 +235,13 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public void UpdateCall(BO.Call c)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-
+        DO.Call Docall;
         try
         {
             CallsManager.CheckCallFormat(c);
             CallsManager.CheckCallLogic(c);
-            _dal.Call.Update(Helpers.CallsManager.convertFormBOCallToDo(c));
-            CallsManager.Observers.NotifyItemUpdated(Helpers.CallsManager.convertFormBOCallToDo(c).ID);  //stage 5
-            CallsManager.Observers.NotifyListUpdated();  //stage 5
+            Docall= Helpers.CallsManager.convertFormBOCallToDo(c);
+            _dal.Call.Update(Docall);
 
         }
         catch (BO.BlUpdateCallException ex)
@@ -256,7 +256,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             throw new BO.BlDoesNotExistException("An error occurred while updating the call:", ex);
         }
-        
+        CallsManager.Observers.NotifyItemUpdated(Docall.ID);  //stage 5
+        CallsManager.Observers.NotifyListUpdated();  //stage 5
+        _=CallsManager.updateCoordinatesForCallAddressAsync(Docall);
     }
 
 
@@ -326,14 +328,14 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public void CreateCall(BO.Call c)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
+        DO.Call  doCall;
         try
         {
             CallsManager.CheckCallFormat(c);
             CallsManager.CheckCallLogic(c);
-
-            _dal.Call.Create(Helpers.CallsManager.convertFormBOCallToDo(c));
-            CallsManager.Observers.NotifyItemUpdated(c.ID);
-            CallsManager.Observers.NotifyListUpdated(); //stage 5               
+            doCall = Helpers.CallsManager.convertFormBOCallToDo(c);
+            _dal.Call.Create(doCall);
+                    
         }
         catch (BO.BlValidationException ex)
         {
@@ -347,6 +349,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             throw new BO.BlDoesNotExistException("An error occurred while creating the call:", ex);
         }
+        CallsManager.Observers.NotifyItemUpdated(c.ID);
+        CallsManager.Observers.NotifyListUpdated(); //stage 5      
+        _=CallsManager.updateCoordinatesForCallAddressAsync(doCall);
     }
 
     IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
