@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.Call
 {
@@ -92,20 +93,20 @@ namespace PL.Call
             }
         }
 
-        /// <summary>
-        /// Queries the current Call details
-        /// </summary>
-        private void queryCall()
-        {
-            int id = CurrentCall?.ID ?? 0;
-            CurrentCall = id != 0 ? s_bl.Call.ReadCall(id) : null;
-        }
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
 
         /// <summary>
         /// Observer for Call changes
         /// </summary>
         private void callObserver()
-            => queryCall();
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    int id = CurrentCall?.ID ?? 0;
+                    CurrentCall = id != 0 ? s_bl.Call.ReadCall(id) : null;
+                });
+        }
 
         /// <summary>
         /// Adds the observer when the window is loaded

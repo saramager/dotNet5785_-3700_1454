@@ -107,38 +107,39 @@ namespace PL.Volunteer
 
         }
 
-        /// <summary>
-        /// Queries the current volunteer details
-        /// </summary>
-        private void queryVolunteer()
-        {
-            int id = CurrentVolunteer?.Id ?? 0;
-            if (id != 0)
-            {
-                try
-                {
-                    Task.Run(() =>
-                    {
-                        var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
-
-                        Dispatcher.Invoke(() =>
-                        {
-                            CurrentVolunteer = volunteer;
-                        });
-                    });
-                }
-                catch (BlDoesNotExistException ex) { MessageBox.Show(ex.Message); }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
-            }
-            else
-                CurrentVolunteer = null;
-        }
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
 
         /// <summary>
         /// Observer for volunteer changes
         /// </summary>
         private void volunteerObserver()
-            => queryVolunteer();
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    int id = CurrentVolunteer?.Id ?? 0;
+                    if (id != 0)
+                    {
+                        try
+                        {
+                            Task.Run(() =>
+                            {
+                                var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
+
+                                Dispatcher.Invoke(() =>
+                                {
+                                    CurrentVolunteer = volunteer;
+                                });
+                            });
+                        }
+                        catch (BlDoesNotExistException ex) { MessageBox.Show(ex.Message); }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    }
+                    else
+                        CurrentVolunteer = null;
+                });
+            
+        }
 
         /// <summary>
         /// Adds the observer when the window is loaded
@@ -151,13 +152,6 @@ namespace PL.Volunteer
         /// </summary>
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteer.RemoveObserver(volunteerObserver);
-
-        private void TextBox_TextChanged()
-        {
-
-        }
-
-       
     }
 }
 

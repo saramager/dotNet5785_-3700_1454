@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.Volunteer
 {
@@ -168,11 +169,20 @@ namespace PL.Volunteer
             => VolunteerList = (filedToSort == BO.FiledOfVolunteerInList.ID) ?
                 s_bl?.Volunteer.GetVolunteerInList(FilterActive, null)! : s_bl?.Volunteer.GetVolunteerInList(FilterActive, filedToSort)!;
 
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+
         /// <summary>
         /// Observer function to update the volunteer list.
         /// </summary>
         private void VolunteerListObserver()
-            => queryVolunteerList();
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryVolunteerList();
+                });
+        }
+       
 
         /// <summary>
         /// Handles the window loaded event to add the observer and load the list.
