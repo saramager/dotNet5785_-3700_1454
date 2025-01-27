@@ -361,6 +361,21 @@ namespace Helpers
             // Calculate the time needed for the treatment based on the distance and time
             return TimeSpan.FromMinutes(_random.Next(5, 15)); // Random time between 5 and 15 minutes
         }
+        internal static async Task updateCoordinatesForStudentAddressAsync(DO.Volunteer doVolunteer)
+        {
+            if (doVolunteer.currentAddress is not null)
+            {
+                double[] loctions = await Tools.GetGeolocationCoordinatesAsync(doVolunteer.currentAddress);
+                if (loctions is not null)
+                {
+                    doVolunteer = doVolunteer with { Latitude = loctions[0], Longitude = loctions[1] };
+                    lock (AdminManager.BlMutex)
+                        s_dal.Volunteer.Update(doVolunteer);
+                    Observers.NotifyListUpdated();
+                    Observers.NotifyItemUpdated(doVolunteer.ID);
+                }
+            }
+        }
 
         /// <summary>
         /// Simulates volunteer activity by randomly selecting calls for treatment.
@@ -372,7 +387,7 @@ namespace Helpers
                 while (true)
                 {
                     List<BO.Volunteer> activeVolunteers;
-                    lock (_lock)
+                    lock (AdminManager.BlMutex)
                     {
                         activeVolunteers = GetActiveVolunteers(); // Receiving a list of active volunteers
                     }
@@ -384,7 +399,7 @@ namespace Helpers
                         { 
                             if (_random.NextDouble() < 0.2) // 20% probability to select a call for treatment
                             {
-                                lock (_lock)
+                                lock (AdminManager.BlMutex)
                                 {
                                     var allCalls = s_dal.Call.ReadAll().ToList(); // Read all calls from the DAL
                                     var possibleCalls = allCalls
@@ -429,7 +444,7 @@ namespace Helpers
                             if (timeSinceStart >= requiredTime)
                             {
                                 // if enough time has passed
-                                lock (_lock)
+                                lock (AdminManager.BlMutex)
                                 {
                                     // Update call as handling is finished
                                     s_dal.Assignment.Update(new DO.Assignment
@@ -446,7 +461,7 @@ namespace Helpers
                             }
                             else if (_random.NextDouble() < 0.1) // 10% probability of canceling treatment
                             {
-                                lock (_lock)
+                                lock (AdminManager.BlMutex)
                                 {
                                     // Update call as canceled by the volunteer
                                     s_dal.Assignment.Update(new DO.Assignment
