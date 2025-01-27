@@ -376,21 +376,8 @@ namespace Helpers
             // Calculate the time needed for the treatment based on the distance and time
             return TimeSpan.FromMinutes(_random.Next(5, 15)); // Random time between 5 and 15 minutes
         }
-        internal static async Task updateCoordinatesForStudentAddressAsync(DO.Volunteer doVolunteer)
-        {
-            if (doVolunteer.currentAddress is not null)
-            {
-                double[] loctions = await Tools.GetGeolocationCoordinatesAsync(doVolunteer.currentAddress);
-                if (loctions is not null)
-                {
-                    doVolunteer = doVolunteer with { Latitude = loctions[0], Longitude = loctions[1] };
-                    lock (AdminManager.BlMutex)
-                        s_dal.Volunteer.Update(doVolunteer);
-                    Observers.NotifyListUpdated();
-                    Observers.NotifyItemUpdated(doVolunteer.ID);
-                }
-            }
-        }
+      
+        
 
         /// <summary>
         /// Simulates volunteer activity by randomly selecting calls for treatment.
