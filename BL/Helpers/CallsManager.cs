@@ -108,6 +108,7 @@ namespace Helpers
                 return BO.Status.OpenInRisk;
             return BO.Status.Open;//default
         }
+
         internal static void CheckCallLogic(BO.Call call)
         {
             if (call == null)
