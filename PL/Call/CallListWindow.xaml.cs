@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.Call
 {
@@ -212,11 +213,20 @@ namespace PL.Call
             => CallList = (filedToFilter == BO.FiledOfCallInList.ID) ?
                 s_bl?.Call.GetCallInList(null, null, null)! : s_bl?.Call.GetCallInList(filedToFilter, null, filedToSort)!;
 
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+
         /// <summary>
         /// Observer function to update the Call list.
         /// </summary>
         private void CallListObserver()
-            => queryCallList();
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryCallList();
+                });
+        }
+        
 
         /// <summary>
         /// Handles the window loaded event to add the observer and load the list.

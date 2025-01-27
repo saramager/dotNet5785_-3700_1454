@@ -333,6 +333,21 @@ namespace Helpers
             return password.Any(char.IsUpper) && password.Any(char.IsDigit);
         }
 
+        internal static async Task updateCoordinatesForStudentAddressAsync(DO.Volunteer doVolunteer)
+        {
+            if (doVolunteer.currentAddress is not null)
+            {
+                double[] loctions = await Tools.GetGeolocationCoordinatesAsync(doVolunteer.currentAddress);
+                if (loctions is not null)
+                {
+                    doVolunteer = doVolunteer with { Latitude = loctions[0], Longitude = loctions[1] };
+                    lock (AdminManager.BlMutex)
+                        s_dal.Volunteer.Update(doVolunteer);
+                    Observers.NotifyListUpdated();
+                    Observers.NotifyItemUpdated(doVolunteer.ID);
+                }
+            }
+        }
         /// <summary>
         /// Simulates volunteer activity by randomly selecting calls for treatment.
         /// </summary>
