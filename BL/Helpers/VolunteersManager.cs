@@ -107,13 +107,16 @@ namespace Helpers
                     double distanceOfCall = 0;
                     if (doVolunteer.Latitude != null && doVolunteer.Longitude != null)
                     {
-                        distanceOfCall = Tools.CalculateDistance
+                        distanceOfCall = 0;
+                        if (callTreat.latitude!=null && callTreat.longitude!= null)
+                         
+                            Tools.CalculateDistance
                         (
-                            callTreat.latitude,
-                            callTreat.longitude,
-                            doVolunteer.Latitude.Value,
-                            doVolunteer.Longitude.Value,
-                            (BO.Distance)doVolunteer.distanceType
+                          (double)callTreat.latitude,
+                          (double)callTreat.longitude,
+                          (double)doVolunteer.Latitude,
+                          (double)doVolunteer.Longitude,
+                          (BO.Distance)doVolunteer.distanceType
                         );
                     }
                     lock (AdminManager.BlMutex)  //stage 7
@@ -219,27 +222,27 @@ namespace Helpers
         /// <summary>
         /// Converts a BO.Volunteer object to a DO.Volunteer object.
         /// This method performs the following operations:
-        /// - Converts coordinates based on the volunteer's current address.
         /// - Maps the properties from BO.Volunteer to DO.Volunteer.
         /// - Encrypts the password if present.
+        /// - Doesnt treat coordinates
         /// </summary>
         /// <param name="BoVolunteer">The BO.Volunteer object that contains the volunteer data to be converted.</param>
         /// <returns>A DO.Volunteer object populated with the data from the BO.Volunteer object.</returns>
         internal static DO.Volunteer convertFormBOVolunteerToDo(BO.Volunteer BoVolunteer)
         {
 
-            if (BoVolunteer.currentAddress != null && BoVolunteer.currentAddress != "")
-            {
-                double[] cordintes = Tools.GetGeolocationCoordinates(BoVolunteer.currentAddress);
-                BoVolunteer.Latitude = cordintes[0];
-                BoVolunteer.Longitude = cordintes[1];
-            }
-            else
-            {
-                BoVolunteer.Latitude = null;
-                BoVolunteer.Longitude = null;
-                BoVolunteer.currentAddress = null;
-            }
+            //if (BoVolunteer.currentAddress != null && BoVolunteer.currentAddress != "")
+            //{
+            //    double[] cordintes = Tools.GetGeolocationCoordinates(BoVolunteer.currentAddress);
+            //    BoVolunteer.Latitude = cordintes[0];
+            //    BoVolunteer.Longitude = cordintes[1];
+            //}
+            //else
+            //{
+            //    BoVolunteer.Latitude = null;
+            //    BoVolunteer.Longitude = null;
+            //    BoVolunteer.currentAddress = null;
+            //}
             DO.Volunteer doVl = new
                 (
                  ID: BoVolunteer.Id,
@@ -251,8 +254,7 @@ namespace Helpers
                 distanceType: (DO.Distance)BoVolunteer.distanceType,
                password: BoVolunteer.password != null ? Encrypt(BoVolunteer.password) : null,
                currentAddress: BoVolunteer.currentAddress,
-              Latitude: BoVolunteer.Latitude,
-              Longitude: BoVolunteer.Longitude,
+            null,null,
              maxDistance: BoVolunteer.maxDistance
 
                         );

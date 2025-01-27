@@ -40,7 +40,7 @@ namespace Helpers
         /// <remarks>
         /// Written with the help of ChatGPT from OpenAI (https://openai.com).
         /// </remarks>
-        internal static double[] GetGeolocationCoordinates(string address)
+        internal async static Task<double[]> GetGeolocationCoordinatesAsync(string address)
         {
             // Check if the address is valid
             if (string.IsNullOrWhiteSpace(address))
@@ -56,7 +56,7 @@ namespace Helpers
             try
             {
                 // Send request and get response
-                using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
+                using (HttpWebResponse webResponse = (HttpWebResponse)await webRequest.GetResponseAsync())
                 {
                     if (webResponse.StatusCode != HttpStatusCode.OK)
                     {

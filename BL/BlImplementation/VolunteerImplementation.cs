@@ -34,6 +34,7 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
         }
         catch(DO.DalAlreadyExistsException dEx) { throw new BO.BlDoesAlreadyExistException(dEx.Message, dEx); }
+        _ =Helpers.VolunteersManager.updateCoordinatesForStudentAddressAsync(DoVlo);
 
     }
 
@@ -165,15 +166,17 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
 
         if (vol.Id != vDo.ID)
             throw new CantUpdatevolunteer($"vlounteer with id {id} can't change his id  ");
-
+        DO.Volunteer updateDo;
         try
         {
-            lock (AdminManager.BlMutex)  //stage 7
-                _dal.Volunteer.Update(Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol));
+            lock (AdminManager.BlMutex)
+                updateDo = Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol);
+            _dal.Volunteer.Update(updateDo);
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
             VolunteersManager.Observers.NotifyItemUpdated(vol.Id); // stage 5
         } 
         catch (DO.DalDoesNotExistException dEx) { throw new BO.BlDoesNotExistException(dEx.Message, dEx); }
+        _ = Helpers.VolunteersManager.updateCoordinatesForStudentAddressAsync(updateDo);
     }
 
     public int ManagerID()
