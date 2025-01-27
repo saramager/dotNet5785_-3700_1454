@@ -108,6 +108,8 @@ namespace PL
         private void clockObserver()
         {
             CurrentTime = s_bl.Admin.GetClock();
+            CallSums = s_bl.Call.SumOfCalls();
+
         }
         private void callsListObserver()
         {
@@ -120,6 +122,8 @@ namespace PL
         private void configObserver()
         {
             RiskRange = s_bl.Admin.GetRiskRange();
+            CallSums = s_bl.Call.SumOfCalls();
+
         }
 
         /// <summary>
