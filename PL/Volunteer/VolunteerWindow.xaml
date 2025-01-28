@@ -51,8 +51,17 @@
                         <!-- Address -->
                         <Label Content="Full Address:" Margin="0,5,0,0"/>
                         <TextBox Text="{Binding CurrentVolunteer.currentAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left"
-                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="590"/>
-                       
+                          Style="{StaticResource ElegantTextBox}" Height="37" Margin="0,0,0,10" Width="590">
+                            <TextBox.Background>
+                                <MultiBinding Converter="{StaticResource ConverterThreeValueNullToColorKey}">
+                                    <Binding Path="CurrentVolunteer.currentAddress" />
+                                    <Binding Path="CurrentVolunteer.Latitude" />
+                                    <Binding Path="CurrentVolunteer.Longitude" />
+                                </MultiBinding>
+                            </TextBox.Background>
+
+                        </TextBox>
+
 
                         <!-- Role -->
                         <Label Content="Role:"/>
@@ -108,7 +117,7 @@
 
                     <!-- Call ID -->
                     <TextBlock Text="ID:" Grid.Row="0" Grid.Column="0" Margin="0,0,5,2" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding CurrentVolunteer.callProgress.ID , Mode=OneWay}"  Style="{StaticResource ElegantTextBox}"
+                    <TextBox Text="{Binding CurrentVolunteer.callProgress.CallId , Mode=OneWay}"  Style="{StaticResource ElegantTextBox}"
                              Grid.Row="0" Margin="116,0,0,2" Height="35" IsReadOnly="True" Grid.ColumnSpan="2"/>
 
                     <!-- Call Type -->

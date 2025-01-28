@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -231,6 +232,30 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    public class FinishTypesToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is FinishType finishType)
+            {
+                return finishType switch
+                {
+                    FinishType.ManagerCancel => Brushes.Green,
+                   FinishType.SelfCancel => Brushes.Blue,
+                    FinishType.Treated => Brushes.Gray,
+                    FinishType.ExpiredCancel => Brushes.Red,
+
+                    _ => Brushes.Black
+                };
+            }
+            return Brushes.Black;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class CallTypeToColorConverter : IValueConverter
     {
@@ -318,6 +343,30 @@ namespace PL
         {
             throw new NotImplementedException();
         }
+    }
+    public class ConverterThreeValueNullToColor : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length < 3) return Brushes.White;
+
+            object firstValue = values[0];
+            object secondValue = values[1];
+            object thirdValue = values[2];
+
+            if (firstValue != null && (secondValue == null || thirdValue == null))
+            {
+                return Brushes.Red;
+            }
+
+            return Brushes.White ;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 
 }

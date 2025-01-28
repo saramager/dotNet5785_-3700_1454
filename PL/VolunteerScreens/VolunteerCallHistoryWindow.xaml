@@ -54,11 +54,25 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="*"/>
                 <DataGridTextColumn Header="Address" Binding="{Binding address}" Width="*"/>
-                <DataGridTextColumn Header="Call Type" Binding="{Binding callT}" Width="*"/>
+                <DataGridTextColumn Header="Call Type" Binding="{Binding callT}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" 
+    Value="{Binding callT, Converter={StaticResource CallTypeToColorConverter}}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Open Time" Binding="{Binding openTime}" Width="*"/>
                 <DataGridTextColumn Header="Start Treatment" Binding="{Binding startTreatment}" Width="*"/>
                 <DataGridTextColumn Header="Finish Treatment" Binding="{Binding finishTreatment}" Width="*"/>
-                <DataGridTextColumn Header="Finish Type" Binding="{Binding finishT}" Width="*"/>
+                <DataGridTextColumn Header="Finish Type" Binding="{Binding finishT}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" 
+    Value="{Binding finishT, Converter={StaticResource FinishTypesToColorConverterKey}}" />
+        </Style>
+    </DataGridTextColumn.ElementStyle>
+</DataGridTextColumn>
                 <DataGridTextColumn Header="Distance" Binding="{Binding CallDistance}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

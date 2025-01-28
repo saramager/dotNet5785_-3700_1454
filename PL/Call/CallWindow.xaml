@@ -37,7 +37,16 @@
                     <Label Content="Address:" Margin="0,5,0,0"/>
                     <TextBox Text="{Binding CurrentCall.address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                          Style="{StaticResource ElegantTextBox}" IsReadOnly="{Binding CurrentCall.statusC, Converter={StaticResource ConvertStatusEditableForIsReadOnlyKey}, ConverterParameter='address'}" 
-                         Height="35" Width="Auto"/>
+                         Height="35" Width="Auto">
+                        <TextBox.Background>
+                            <MultiBinding Converter="{StaticResource ConverterThreeValueNullToColorKey}">
+                                <Binding Path="CurrentCall.address" />
+                                <Binding Path="CurrentCall.latitude" />
+                                <Binding Path="CurrentCall.longitude" />
+                            </MultiBinding>
+                        </TextBox.Background>
+
+                    </TextBox>
 
                     <!-- Open Time -->
                     <Label Content="Open Time:" Margin="0,5,0,0"/>

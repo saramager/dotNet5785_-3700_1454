@@ -1,94 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>214592065</ID>
+    <ID>214093700</ID>
+    <fullName>Neomy Ivgi</fullName>
+    <phone>0533121809</phone>
+    <email>Neomy053@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.18556</longitude>
+    <latitude>31.78659</latitude>
+  </Volunteer>
+  <Volunteer>
+    <ID>633276753</ID>
     <fullName>David Levy</fullName>
     <phone>0521234567</phone>
     <email>levy.david@email.com</email>
     <isActive>false</isActive>
     <role>Volunteer</role>
-    <distance>AirDistance</distance>
+    <distance>walkingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>2.188390575117674</maxDistance>
+    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
+    <longitude>35.19136</longitude>
+    <latitude>31.78878</latitude>
+    <maxDistance>0.3561165421209156</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>715840385</ID>
+    <ID>745686394</ID>
     <fullName>Miriam Cohen</fullName>
     <phone>0532345678</phone>
     <email>miriamCohen@gmail.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
+    <distance>AirDistance</distance>
     <password>Sdvvzrug45</password>
     <address>Givat Shaul 25, Jerusalem, Israel</address>
     <longitude>35.19087</longitude>
     <latitude>31.79251</latitude>
-    <maxDistance>2.8967216673856395</maxDistance>
+    <maxDistance>0.27833255469385865</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>445038359</ID>
+    <ID>500559794</ID>
     <fullName>Yosef Katz</fullName>
     <phone>0543456789</phone>
     <email>yosef.katz@outlook.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
+    <distance>walkingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-    <maxDistance>4.427320363442367</maxDistance>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <longitude>35.19087</longitude>
+    <latitude>31.79251</latitude>
+    <maxDistance>3.1007063021020036</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>694909292</ID>
+    <ID>341233591</ID>
     <fullName>Sarah Gold</fullName>
     <phone>0554567890</phone>
     <email>sarahGold789@yahoo.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
+    <distance>AirDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <longitude>35.19383</longitude>
-    <latitude>31.78827</latitude>
-    <maxDistance>0.4217093530087246</maxDistance>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <longitude>35.18921</longitude>
+    <latitude>31.7857</latitude>
+    <maxDistance>0.05661517432334007</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>369717350</ID>
+    <ID>290160316</ID>
     <fullName>Shlomo Klein</fullName>
     <phone>0585678901</phone>
     <email>shlomo.klein@live.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>walkingDistance</distance>
+    <distance>AirDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
-    <longitude>35.1867</longitude>
-    <latitude>31.78813</latitude>
-    <maxDistance>1.4724271171254673</maxDistance>
+    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
+    <longitude>35.19136</longitude>
+    <latitude>31.78878</latitude>
+    <maxDistance>1.8516304231884095</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>582413944</ID>
+    <ID>569993322</ID>
     <fullName>Chana Rosen</fullName>
     <phone>0596789012</phone>
     <email>chana.rosen@icloud.com</email>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <longitude>35.19383</longitude>
-    <latitude>31.78827</latitude>
-    <maxDistance>0.6059726193038173</maxDistance>
-  </Volunteer>
-  <Volunteer>
-    <ID>976372904</ID>
-    <fullName>Aharon Azulay</fullName>
-    <phone>0577890123</phone>
-    <email>aharonAzulay@mail.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
     <distance>AirDistance</distance>
@@ -96,10 +95,24 @@
     <address>HaIlui 9, Jerusalem, Israel</address>
     <longitude>35.19566</longitude>
     <latitude>31.78888</latitude>
-    <maxDistance>0.3940817631959437</maxDistance>
+    <maxDistance>3.483468335673523</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>914688411</ID>
+    <ID>704389246</ID>
+    <fullName>Aharon Azulay</fullName>
+    <phone>0577890123</phone>
+    <email>aharonAzulay@mail.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>AirDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <longitude>35.18921</longitude>
+    <latitude>31.7857</latitude>
+    <maxDistance>2.133450981977449</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>581166899</ID>
     <fullName>Tova Benita</fullName>
     <phone>0588901234</phone>
     <email>tova.benita@webmail.com</email>
@@ -107,69 +120,69 @@
     <role>Volunteer</role>
     <distance>DrivingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 9, Jerusalem, Israel</address>
-    <longitude>35.18921</longitude>
-    <latitude>31.7857</latitude>
-    <maxDistance>2.7354536894904706</maxDistance>
+    <address>Najara 3, Jerusalem, Israel</address>
+    <longitude>35.19214</longitude>
+    <latitude>31.79202</latitude>
+    <maxDistance>3.450309880708023</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>715807855</ID>
+    <ID>618431027</ID>
     <fullName>Yaakov Pinto</fullName>
     <phone>0529012345</phone>
     <email>yaakov.pinto@zoho.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>walkingDistance</distance>
+    <distance>DrivingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
-    <longitude>35.19622</longitude>
-    <latitude>31.78776</latitude>
-    <maxDistance>1.780657857395382</maxDistance>
+    <address>Amram Gaon 14, Jerusalem, Israel</address>
+    <longitude>35.19262</longitude>
+    <latitude>31.79052</latitude>
+    <maxDistance>2.376933001308328</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>977254788</ID>
+    <ID>914988944</ID>
     <fullName>Esther Bar</fullName>
     <phone>0530123456</phone>
     <email>esther.bar@aol.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>walkingDistance</distance>
+    <distance>DrivingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
-    <longitude>35.18475</longitude>
-    <latitude>31.78737</latitude>
-    <maxDistance>4.435023762011949</maxDistance>
+    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
+    <longitude>35.18392</longitude>
+    <latitude>31.78792</latitude>
+    <maxDistance>3.144339288792239</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>794702746</ID>
+    <ID>386775464</ID>
     <fullName>Dov Cohen</fullName>
     <phone>0541234567</phone>
     <email>dov.cohen@ymail.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>walkingDistance</distance>
+    <distance>AirDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>2.8888901235198876</maxDistance>
+    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
+    <longitude>35.19252</longitude>
+    <latitude>31.78846</latitude>
+    <maxDistance>2.830623449403692</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>218982742</ID>
+    <ID>735935991</ID>
     <fullName>Rivka Dayan</fullName>
     <phone>0552345678</phone>
     <email>rivka.dayan@fastmail.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>walkingDistance</distance>
+    <distance>DrivingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <longitude>35.19262</longitude>
-    <latitude>31.79052</latitude>
-    <maxDistance>4.930709565349397</maxDistance>
+    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <longitude>35.1867</longitude>
+    <latitude>31.78813</latitude>
+    <maxDistance>0.12942651974718222</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>881484133</ID>
+    <ID>339889941</ID>
     <fullName>Yitzhak Azulay</fullName>
     <phone>0583456789</phone>
     <email>yitzhak.azulay@protonmail.com</email>
@@ -177,41 +190,41 @@
     <role>Volunteer</role>
     <distance>walkingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Najara 14, Jerusalem, Israel</address>
-    <longitude>35.19139</longitude>
-    <latitude>31.79062</latitude>
-    <maxDistance>1.8395358611977575</maxDistance>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <longitude>35.19285</longitude>
+    <latitude>31.79141</latitude>
+    <maxDistance>1.3046114305937428</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>454096363</ID>
+    <ID>696669159</ID>
     <fullName>Malkah Shalom</fullName>
     <phone>0574567890</phone>
     <email>malkah.shalom@gmx.com</email>
     <isActive>true</isActive>
     <role>Volunteer</role>
-    <distance>walkingDistance</distance>
+    <distance>DrivingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <longitude>35.195</longitude>
-    <latitude>31.79003</latitude>
-    <maxDistance>3.29711645572715</maxDistance>
+    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
+    <longitude>35.19136</longitude>
+    <latitude>31.78878</latitude>
+    <maxDistance>4.635397944403493</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>416436657</ID>
+    <ID>103547238</ID>
     <fullName>Avraham Segal</fullName>
     <phone>0595678901</phone>
     <email>avraham.segal@tutanota.com</email>
     <isActive>false</isActive>
     <role>Volunteer</role>
-    <distance>AirDistance</distance>
+    <distance>walkingDistance</distance>
     <password>Sdvvzrug45</password>
-    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
-    <longitude>35.18392</longitude>
-    <latitude>31.78792</latitude>
-    <maxDistance>2.5925517395798368</maxDistance>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <longitude>35.18921</longitude>
+    <latitude>31.7857</latitude>
+    <maxDistance>3.825235634453063</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>349809525</ID>
+    <ID>624434007</ID>
     <fullName>Moshe Chaim</fullName>
     <phone>050897463</phone>
     <email>moshe342@gmail.co.il</email>
@@ -222,21 +235,7 @@
     <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
     <longitude>35.18475</longitude>
     <latitude>31.78737</latitude>
-    <maxDistance>0.8426286714888304</maxDistance>
-  </Volunteer>
-  <Volunteer>
-    <ID>214093700</ID>
-    <fullName>Neomy Ivgi</fullName>
-    <phone>0533121809</phone>
-    <email>Neomy053@gmail.com</email>
-    <isActive>true</isActive>
-    <role>Manager</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.185592</longitude>
-    <latitude>31.7864039</latitude>
-    <maxDistance>1</maxDistance>
+    <maxDistance>0.5885806731676824</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>326301454</ID>
@@ -245,11 +244,11 @@
     <email>sarahaya454@gmail.com</email>
     <isActive>true</isActive>
     <role>Manager</role>
-    <distance>walkingDistance</distance>
+    <distance>DrivingDistance</distance>
     <password>Sdvvzrug45</password>
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
     <longitude>35.185592</longitude>
     <latitude>31.7864039</latitude>
-    <maxDistance>1.5</maxDistance>
+    <maxDistance>0.52</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

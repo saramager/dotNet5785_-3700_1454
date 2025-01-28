@@ -34,6 +34,10 @@
         <local:DeleteVolunteerVisbilty x:Key="DeleteVolunteerVisbiltyKey" />
         <local:ConvertTextSimulatorState x:Key="ConvertTextSimulatorStateKey" />
         <local:ConvertBoolToNotBool x:Key="ConvertBoolToNotBoolKey" />
+        <local:ConverterThreeValueNullToColor x:Key="ConverterThreeValueNullToColorKey" />
+        <local:FinishTypesToColorConverter x:Key="FinishTypesToColorConverterKey" />
+
+
 
 
 

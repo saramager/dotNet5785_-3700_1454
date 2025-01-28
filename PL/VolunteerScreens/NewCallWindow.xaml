@@ -73,10 +73,18 @@
                                   Width="Auto" />
                 <DataGridTextColumn Header="Type" 
                                   Binding="{Binding callT}" 
-                                  Width="Auto" />
+                                  Width="Auto" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" 
+    Value="{Binding callT, Converter={StaticResource CallTypeToColorConverter}}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="Address" 
                                   Binding="{Binding address}" 
                                   Width="*" />
+
                 <DataGridTextColumn Header="Open Time" 
                                   Binding="{Binding openTime, StringFormat={}{0:dd/MM/yyyy HH:mm}}" 
                                   Width="Auto" />

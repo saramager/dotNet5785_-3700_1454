@@ -290,7 +290,7 @@ namespace Helpers
                             assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
                             clock = s_dal.Config.Clock;
 
-                            s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
+                            s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.CallId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
                         }
                             idSThatChanges.Add(assing.VolunteerId);
 
