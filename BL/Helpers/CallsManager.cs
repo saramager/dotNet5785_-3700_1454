@@ -238,16 +238,15 @@ namespace Helpers
         internal static DO.Call convertFormBOCallToDo(BO.Call boCall)
         {
             DO.Call doCall = new(
-             ID: boCall.ID,
-             address: boCall.address,
-             callT: (DO.CallType)boCall.callT,
-             latitude:null,
-             longitude: null,
-             openTime: boCall.openTime,
-             maxTime: boCall.maxTime,
-             verbalDescription: boCall.verbalDescription
-
-             );
+                ID: boCall.ID,
+                address: boCall.address,
+                callT: (DO.CallType)boCall.callT,
+                latitude: boCall.latitude ?? 0, // Provide a default value instead of null
+                longitude: boCall.longitude ?? 0, // Provide a default value instead of null
+                openTime: boCall.openTime,
+                maxTime: boCall.maxTime,
+                verbalDescription: boCall.verbalDescription
+            );
             return doCall;
         }
         /// <summary>
