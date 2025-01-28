@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Helpers
 {
+
     internal static class CallsManager
     {
         internal static ObserverManager Observers = new(); //stage 5 
@@ -188,7 +189,7 @@ namespace Helpers
                 };
             }       
         }
-        public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;
+        public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;//להוסיף נעילה???
         internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, DO.Assignment lastAssignment)
         {
             return new BO.ClosedCallInList
@@ -272,7 +273,8 @@ namespace Helpers
             {
                 if (call.CallAssign == null|| call.CallAssign.Count==0)
                 {
-                    s_dal.Assignment.Create(new DO.Assignment(0, call.ID, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
+                    lock (AdminManager.BlMutex)
+                        s_dal.Assignment.Create(new DO.Assignment(0, call.ID, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
 
                     
 
@@ -286,11 +288,12 @@ namespace Helpers
                         DateTime clock;
                         lock (AdminManager.BlMutex)
                         {
-                            assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null); 
-                            clock= s_dal.Config.Clock;
+                            assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
+                            clock = s_dal.Config.Clock;
+
+                            s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
                         }
-                        s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.VolunteerId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
-                        idSThatChanges.Add(assing.VolunteerId);
+                            idSThatChanges.Add(assing.VolunteerId);
 
                     }
 

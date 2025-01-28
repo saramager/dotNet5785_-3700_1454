@@ -241,7 +241,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             CallsManager.CheckCallFormat(c);
             CallsManager.CheckCallLogic(c);
             Docall= Helpers.CallsManager.convertFormBOCallToDo(c);
-            _dal.Call.Update(Docall);
+            lock (AdminManager.BlMutex)
+                _dal.Call.Update(Docall);
 
         }
         catch (BO.BlUpdateCallException ex)
@@ -285,7 +286,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
                     throw new CantDeleteCallException($"Cannot delete call with ID {id} as it is not in an open status or has been assigned.");
                 }
             }
-            _dal.Call.Delete(id);
+            _dal.Call.Delete(id);//להוסיף נעילה
             CallsManager.Observers.NotifyItemUpdated(id);
             CallsManager.Observers.NotifyListUpdated();  //stage 5  	
 
@@ -329,13 +330,15 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         DO.Call  doCall;
+
         try
         {
             CallsManager.CheckCallFormat(c);
             CallsManager.CheckCallLogic(c);
             doCall = Helpers.CallsManager.convertFormBOCallToDo(c);
+            lock (AdminManager.BlMutex)
             _dal.Call.Create(doCall);
-                    
+
         }
         catch (BO.BlValidationException ex)
         {
@@ -502,7 +505,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         assignment = assignment with
         {
-            finishTreatment = _dal.Config.Clock,
+            
+            finishTreatment = _dal.Config.Clock,////להוסיף נעילה???
             finishT = DO.FinishType.Treated
         };
 
@@ -555,8 +559,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} does not exist.", ex);
         }
-
-        if (call.maxTime.HasValue && _dal.Config.Clock > call.maxTime.Value)
+        lock (AdminManager.BlMutex)
+            if (call.maxTime.HasValue && _dal.Config.Clock > call.maxTime.Value)
         {
             throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
         }
@@ -578,7 +582,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         assignment = assignment with
         {
-            finishTreatment = _dal.Config.Clock,
+            finishTreatment = _dal.Config.Clock,//להוסיף נעילה???
             finishT = (assignment.VolunteerId == volunteerId) ? DO.FinishType.SelfCancel : DO.FinishType.ManagerCancel
         };
 

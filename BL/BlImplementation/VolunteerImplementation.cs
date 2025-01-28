@@ -170,8 +170,10 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         try
         {
             lock (AdminManager.BlMutex)
+            {
                 updateDo = Helpers.VolunteersManager.convertFormBOVolunteerToDo(vol);
-            _dal.Volunteer.Update(updateDo);
+                _dal.Volunteer.Update(updateDo);
+            }
             VolunteersManager.Observers.NotifyListUpdated(); // stage 5
             VolunteersManager.Observers.NotifyItemUpdated(vol.Id); // stage 5
         } 
@@ -181,8 +183,9 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public int ManagerID()
     {
-
-       var manager= _dal.Volunteer.Read(v=>v.role==DO.RoleType.Manager);
+        DO.Volunteer? manager;
+        lock (AdminManager.BlMutex)
+            manager= _dal.Volunteer.Read(v=>v.role==DO.RoleType.Manager);
         if (manager!= null)
             return manager.ID;
         else
@@ -191,7 +194,9 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public bool CanDeleteVoluenteer(int id)
     {
-        var vol = _dal.Volunteer.Read(v=>v.ID==id);
+        DO.Volunteer? vol;
+        lock (AdminManager.BlMutex)
+             vol = _dal.Volunteer.Read(v=>v.ID==id);
         if (vol == null)
             return false;
         BO.VolunteerInList volunteerInList= VolunteersManager.convertDOToBOInList(vol);

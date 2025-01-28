@@ -355,7 +355,7 @@ namespace Helpers
         internal static List<BO.Volunteer> GetActiveVolunteers()
         {
             List<DO.Volunteer> doVolunteers;
-            lock (s_dal)
+            lock (AdminManager.BlMutex)
             {
                 doVolunteers = s_dal.Volunteer.ReadAll(v => v.active).ToList();// Read all active volunteers from the DAL
             }
