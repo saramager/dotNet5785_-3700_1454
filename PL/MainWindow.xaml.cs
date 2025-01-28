@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using Newtonsoft.Json.Linq;
 using PL.Volunteer;
 using System.Text;
 using System.Windows;
@@ -17,12 +18,33 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+  
     public partial class MainWindow : Window
     {
+
         /// <summary>
         /// Instance of the BL layer
         /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public int Interval
+        {
+            get { return (int)GetValue(IntervalProperty); }
+            set { SetValue(IntervalProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty IntervalProperty =
+            DependencyProperty.Register("Interval", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
+        public bool  IsSimulatorWork
+        {
+            get { return (bool)GetValue(IsSimulatorWorkProperty); }
+            set { SetValue(IsSimulatorWorkProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty IsSimulatorWorkProperty =
+            DependencyProperty.Register("IsSimulatorWork", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+       
         public int managerID { get; set; } 
         public static  bool IsOpen { get; private set; } = false;
 
@@ -149,6 +171,12 @@ namespace PL
             s_bl.Admin.RemoveClockObserver(clockObserver);
             s_bl.Admin.RemoveConfigObserver(configObserver);
             IsOpen = false;
+            if (IsSimulatorWork)
+            {
+                s_bl.Admin.StopSimulator();
+                IsSimulatorWork = false;
+
+            }
         }
 
         /// <summary>
@@ -313,6 +341,23 @@ namespace PL
                     window.Close();
                 }
             }
+        }
+
+        private void ButtonSimulator_Click(object sender, RoutedEventArgs e)
+        {
+            if(IsSimulatorWork)
+            {
+                s_bl.Admin.StopSimulator();
+                IsSimulatorWork = false;
+                
+            }
+            else
+            {
+                s_bl.Admin.StartSimulator(Interval);
+                IsSimulatorWork=true;
+            }
+       
+
         }
     }
 }

@@ -168,10 +168,22 @@ namespace PL.VolunteerScreens
         {
             try
             {
-                s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.Id, CurrentVolunteer);
-                MessageBox.Show("Successful update");
-            }
+                MessageBoxResult result = MessageBox.Show(
+                    "Do you want to update Volunteer Details?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
 
+                if (result == MessageBoxResult.Yes)
+                {
+                    s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.Id, CurrentVolunteer);
+                    MessageBox.Show("Successful update", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Update canceled", "Canceled", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
             catch (BlDoesAlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message);

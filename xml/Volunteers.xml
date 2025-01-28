@@ -1,19 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>326301454</ID>
-    <fullName>sara</fullName>
-    <phone>0552708855</phone>
-    <email>sarahaya454@gmail.com</email>
-    <isActive>true</isActive>
-    <role>Manager</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-  </Volunteer>
-  <Volunteer>
     <ID>214592065</ID>
     <fullName>David Levy</fullName>
     <phone>0521234567</phone>
@@ -250,5 +237,19 @@
     <longitude>35.185592</longitude>
     <latitude>31.7864039</latitude>
     <maxDistance>1</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>326301454</ID>
+    <fullName>sara</fullName>
+    <phone>0552708855</phone>
+    <email>sarahaya454@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>walkingDistance</distance>
+    <password>Sdvvzrug45</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
+    <maxDistance>1.5</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

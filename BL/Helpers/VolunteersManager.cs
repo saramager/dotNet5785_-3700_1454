@@ -394,7 +394,7 @@ namespace Helpers
 
                         
 
-                        if (treatmentDuration.TotalMinutes >= distance / 2 + s_rand.Next(5, 15)) // מספיק זמן לטיפול
+                        if (/*treatmentDuration.TotalMinutes >= distance / 2 + s_rand.Next(5, 15)*/ true) // מספיק זמן לטיפול
                         {
                             try
                             {

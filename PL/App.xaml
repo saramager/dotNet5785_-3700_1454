@@ -32,6 +32,10 @@
         <local:StatusToColorConverter x:Key="StatusToColorConverter" />
         <local:CallTypeToColorConverter x:Key="CallTypeToColorConverter" />
         <local:DeleteVolunteerVisbilty x:Key="DeleteVolunteerVisbiltyKey" />
+        <local:ConvertTextSimulatorState x:Key="ConvertTextSimulatorStateKey" />
+        <local:ConvertBoolToNotBool x:Key="ConvertBoolToNotBoolKey" />
+
+
 
 
 
@@ -500,7 +504,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="Gray" />
+                    <Setter Property="Background" Value="LightGray" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -540,6 +544,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!--Menu Button 3-->
@@ -577,6 +586,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!--Menu Button 4-->
@@ -614,6 +628,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
 

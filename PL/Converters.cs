@@ -279,5 +279,47 @@ namespace PL
         }
     }
 
+    public class ConvertTextSimulatorState: IValueConverter
+    {
+
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+           if(value != null&& value is bool)
+            {
+                if ((bool)value == false)
+                    return "start Simulator";
+                return "stop Simulator";
+            }
+
+            return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ConvertBoolToNotBool : IValueConverter
+    {
+
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null && value is bool)
+            {
+                return !(bool)value;
+            }
+
+            return true;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }
+
 
