@@ -46,8 +46,7 @@ namespace Helpers
                 numCallsHandled = sumCalls,
                 numCallsCancelled = sumCanceld,
                 numCallsExpired = sumExpired,
-                callT = callD == null ? BO.CallType.None : (BO.CallType)callD.callT,
-                CallId= callD == null? null :callD.ID
+                callT = callD == null ? BO.CallType.None : (BO.CallType)callD.callT
             };
         }
         /// <summary>
@@ -355,8 +354,6 @@ namespace Helpers
 
         internal static void SimulateVolunteerActivity()
         {
-            List<DO.Volunteer> doVolunteers;
-            lock (AdminManager.BlMutex)
             Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
             LinkedList<int> volunteersToUpdate = new();
             List<DO.Volunteer> doVoluList;
@@ -393,9 +390,7 @@ namespace Helpers
                     {
                         BO.CallInProgress activeCall = volunteer.callProgress;
 
-                        
-
-                        if (/*treatmentDuration.TotalMinutes >= distance / 2 + s_rand.Next(5, 15)*/ true) // מספיק זמן לטיפול
+                        if ((DateTime.Now - activeCall.openTime).TotalDays >= 2)//אם עברו יותר מיומיים הקריאה טופלה (לא נתייחס למחרק כי אצלינו המרחקים זניחים )
                         {
                             try
                             {
