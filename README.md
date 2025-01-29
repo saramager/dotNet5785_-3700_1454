@@ -11,45 +11,45 @@ Password encryption - 2 points
 Distance calculations - by air, drive or walking - 3 points
 
 
-Project Bonus Features and Evaluation Criteria
+#*_Project Bonus Features and Evaluation Criteria_*
 
-Icon Integration (Window Title and Taskbar)
+_Icon Integration (Window Title and Taskbar)_
 Adds a custom icon to the window title and displays it in the taskbar.
 Evaluation Points: 1
 
-Use of Property Trigger
+_Use of Property Trigger_
 Trigger based on property value changes to enhance UI responsiveness.
 Evaluation Points: 1
 
-Use of Event Trigger
+_Use of Event Trigger_
 Trigger based on specific events to improve application interactivity.
 Evaluation Points: 1
 
-IMultiValueConverter Implementation
+_IMultiValueConverter Implementation_
 Handles complex data binding scenarios by combining multiple values into one.
 Evaluation Points: 1
 
-Conditional Button Display in Call Screen
+_Conditional Button Display in Call Screen_
 The delete button is displayed only if the call can be deleted.
 Evaluation Points: 2
 
-Conditional Button Display in Volunteer Screen
+_Conditional Button Display in Volunteer Screen_
 Allows deleting a volunteer only if no task has ever been assigned to them.
 Evaluation Points: 2
 
-Error Handling in BLTest and DLTest
+_Error Handling in BLTest and DLTest_
 Ensures comprehensive error handling using full try-phase blocks (try-finally or try-catch).
 Evaluation Points: 1
 
-Password Property Addition
+_Password Property Addition_
 Includes a secure property for handling user passwords.
 Evaluation Points: 2
 
-Strong Password Validation
+_Strong Password Validation_
 Checks for password strength criteria such as length, special characters, and case sensitivity.
 Evaluation Points: 1
 
-Password Encryption
+_Password Encryption_
 Implements encryption for storing passwords securely.
 Evaluation Points: 2
 
