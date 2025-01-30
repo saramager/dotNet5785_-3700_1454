@@ -42,6 +42,7 @@ namespace Helpers
         /// </remarks>
         internal async static Task<double[]> GetGeolocationCoordinatesAsync(string address)
         {
+            Thread.Sleep(200);
             // Check if the address is valid
             if (string.IsNullOrWhiteSpace(address))
             {
@@ -124,18 +125,21 @@ namespace Helpers
         /// <remarks>
         /// Code by ChatGPT (OpenAI).
         /// </remarks>
+        /// 
+
         public static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2, BO.Distance distanceType)
         {
 
-            double distance = 0;
-            if (lat1 != null && lon1 != null && lat2!=null&& lon1!=null)
+            double distance = 0; // נכון עבור nullable double
+
+            if (lat1 != null && lon1 != null && lat2 != null && lon1 != null)
             {
                 switch (distanceType)
                 {
                     case BO.Distance.AirDistance:
                         const double R = 6371; // Radius of the Earth in kilometers
 
-                        double lat1Rad = ToRadians(lat1??0);
+                        double lat1Rad = ToRadians(lat1 ?? 0);
                         double lon1Rad = ToRadians(lon1 ?? 0);
                         double lat2Rad = ToRadians(lat2 ?? 0);
                         double lon2Rad = ToRadians(lon2 ?? 0);
@@ -156,11 +160,12 @@ namespace Helpers
                         {
                             distance = GetDistanceAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking").Result;
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             throw new Exception(ex.Message);
                         }
                         break;
+
                     case BO.Distance.DrivingDistance:
                         distance = GetDistanceAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car").Result;
                         break;
@@ -195,7 +200,8 @@ namespace Helpers
         /// <exception cref="Exception">Thrown when there is an issue with the API request or response.</exception>
         public static async Task<double> GetDistanceAsync(double lat1, double lon1, double lat2, double lon2, string profile)
         {
-
+            Thread.Sleep(200);
+   
             using (HttpClient client = new HttpClient())
             {
                 try

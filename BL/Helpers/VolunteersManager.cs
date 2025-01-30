@@ -382,13 +382,15 @@ namespace Helpers
                             {
                                 openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
                             }
-                            catch (Exception ex) {
+                            catch (Exception ex)
+                            {
                                 Thread.Sleep(60000);
                                 openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
                             }
                             
                             if(openCalls.Any() )
-                           { var selectedCall = openCalls.ElementAt(s_rand.Next(openCalls.Count()));
+                           { 
+                                var selectedCall = openCalls.ElementAt(s_rand.Next(openCalls.Count()));
 
                                 lock (AdminManager.BlMutex)
                                 {
@@ -500,16 +502,20 @@ namespace Helpers
 
         private static void FinishTreatHelp(int volunteerId, int assignmentId)
         {
-            DO.Assignment assignment;
+            DO.Assignment? assignment;
             try
             {
                 lock (AdminManager.BlMutex)
-                    assignment = s_dal.Assignment.Read(a => a.ID == assignmentId)
-                        ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
+                    assignment = s_dal.Assignment.Read(a => a.ID == assignmentId);
             }
             catch (DO.DalDoesNotExistException ex)
             {
                 throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex);
+            }
+
+            if (assignment == null)
+            {
+                throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
             }
 
             if (assignment.VolunteerId != volunteerId)
