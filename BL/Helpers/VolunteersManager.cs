@@ -383,7 +383,7 @@ namespace Helpers
                                 openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
                             }
                             catch (Exception ex) {
-                                Thread.Sleep(600000);
+                                Thread.Sleep(60000);
                                 openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
                             }
                             
