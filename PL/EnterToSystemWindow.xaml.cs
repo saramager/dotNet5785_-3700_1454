@@ -33,7 +33,7 @@ namespace PL
        
 
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(int), typeof(EnterToSystemWindow), new PropertyMetadata(0));
+            DependencyProperty.Register("Id", typeof(int), typeof(EnterToSystemWindow), new PropertyMetadata(null));
         public string Password 
         {
             get { return (string)GetValue(PasswordProperty); }

@@ -124,41 +124,52 @@ namespace Helpers
         /// <remarks>
         /// Code by ChatGPT (OpenAI).
         /// </remarks>
-        public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2, BO.Distance distanceType)
+        public static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2, BO.Distance distanceType)
         {
-        
+
             double distance = 0;
-            switch (distanceType)
+            if (lat1 != null && lon1 != null && lat2!=null&& lon1!=null)
             {
-                case BO.Distance.AirDistance:
-                    const double R = 6371; // Radius of the Earth in kilometers
+                switch (distanceType)
+                {
+                    case BO.Distance.AirDistance:
+                        const double R = 6371; // Radius of the Earth in kilometers
 
-                    double lat1Rad = ToRadians(lat1);
-                    double lon1Rad = ToRadians(lon1);
-                    double lat2Rad = ToRadians(lat2);
-                    double lon2Rad = ToRadians(lon2);
+                        double lat1Rad = ToRadians(lat1??0);
+                        double lon1Rad = ToRadians(lon1 ?? 0);
+                        double lat2Rad = ToRadians(lat2 ?? 0);
+                        double lon2Rad = ToRadians(lon2 ?? 0);
 
-                    double dLat = lat2Rad - lat1Rad;
-                    double dLon = lon2Rad - lon1Rad;
+                        double dLat = lat2Rad - lat1Rad;
+                        double dLon = lon2Rad - lon1Rad;
 
-                    double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                               Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
-                               Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+                        double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                                   Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+                                   Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
-                    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+                        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-                    distance = R * c; // Distance in kilometers
-                    break;
-                case BO.Distance.walkingDistance:
-                    distance = GetDistanceAsync(lat1, lon1, lat2, lon2, "foot-walking").Result;
-                    break;
-                case BO.Distance.DrivingDistance:
-                    distance = GetDistanceAsync(lat1, lon1, lat2, lon2, "driving-car").Result;
-                    break;
+                        distance = R * c; // Distance in kilometers
+                        break;
+                    case BO.Distance.walkingDistance:
+                        try
+                        {
+                            distance = GetDistanceAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking").Result;
+                        }
+                        catch(Exception ex)
+                        {
+                            throw new Exception(ex.Message);
+                        }
+                        break;
+                    case BO.Distance.DrivingDistance:
+                        distance = GetDistanceAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car").Result;
+                        break;
+                }
+
             }
-            
             return distance;
         }
+
 
         /// <summary>
         /// Converts degrees to radians.

@@ -253,7 +253,7 @@ namespace Helpers
                  role: (DO.RoleType)BoVolunteer.role,
                 distanceType: (DO.Distance)BoVolunteer.distanceType,
                password: BoVolunteer.password != null ? Encrypt(BoVolunteer.password) : null,
-               currentAddress: BoVolunteer.currentAddress,
+               currentAddress: BoVolunteer.currentAddress==""? null : BoVolunteer.currentAddress,
             null, null,
              maxDistance: BoVolunteer.maxDistance
 
@@ -369,20 +369,32 @@ namespace Helpers
                 {
                     BO.Volunteer volunteer = convertDOToBOVolunteer(doVolunteer);
 
-                    if (volunteer.callProgress == null) // אין קריאה בטיפול
+                    if (volunteer.callProgress == null && volunteer.active==true) // אין קריאה בטיפול
                     {
                         //  קריאה לרשימת הקריאות הפתוחות עם הקואורדינטות המתאימות 
-                        IEnumerable<BO.OpenCallInList> openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
-
+                        
+                        
                         // בחירה רנדומלית עם הסתברות
-                        if (openCalls.Any() && s_rand.NextDouble() <= 0.2) // הסתברות 20%
+                        if ( s_rand.NextDouble() <= 0.2) // הסתברות 20%
                         {
-                            var selectedCall = openCalls.ElementAt(s_rand.Next(openCalls.Count()));
-
-                            lock (AdminManager.BlMutex)
+                            IEnumerable<BO.OpenCallInList> openCalls;
+                            try
                             {
-                                ChooseCallTreatHelp(volunteer.Id, selectedCall.ID);//
-                                volunteersToUpdate.AddLast(volunteerId);
+                                openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
+                            }
+                            catch (Exception ex) {
+                                Thread.Sleep(600000);
+                                openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
+                            }
+                            
+                            if(openCalls.Any() )
+                           { var selectedCall = openCalls.ElementAt(s_rand.Next(openCalls.Count()));
+
+                                lock (AdminManager.BlMutex)
+                                {
+                                    ChooseCallTreatHelp(volunteer.Id, selectedCall.ID);//
+                                    volunteersToUpdate.AddLast(volunteerId);
+                                }
                             }
                         }
                     }

@@ -433,6 +433,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
                            where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
                            where callT == null || callT == BO.CallType.None || DataCall.callT == callT
                            let volunteerData = _dal.Volunteer.Read(v => v.ID == id)
+                           let airDistance = Tools.CalculateDistance(item.latitude, item.longitude, volunteerData.Latitude, volunteerData.Longitude,BO.Distance.AirDistance) // חישוב המרחק האווירי
+                           where volunteerData.maxDistance == null
+                                 || airDistance <= volunteerData.maxDistance // אם המרחק האווירי קטן או שווה למקסימום
                            let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
                            where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
                            select openCall);

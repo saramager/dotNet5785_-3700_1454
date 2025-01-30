@@ -10,49 +10,49 @@ Checked for a strong password - 1 point
 Password encryption - 2 points 
 Distance calculations - by air, drive or walking - 3 points
 
+**Project Bonus Features and Evaluation Criteria**
 
-#*_Project Bonus Features and Evaluation Criteria_*
-
-_Icon Integration (Window Title and Taskbar)_
+* Icon Integration (Window Title and Taskbar)
 Adds a custom icon to the window title and displays it in the taskbar.
 Evaluation Points: 1
 
-_Use of Property Trigger_
+* Use of Property Trigger
 Trigger based on property value changes to enhance UI responsiveness.
 Evaluation Points: 1
 
-_Use of Event Trigger_
+* Use of Event Trigger
 Trigger based on specific events to improve application interactivity.
 Evaluation Points: 1
 
-_IMultiValueConverter Implementation_
+* IMultiValueConverter Implementation
 Handles complex data binding scenarios by combining multiple values into one.
 Evaluation Points: 1
 
-_Conditional Button Display in Call Screen_
+* Conditional Button Display in Call Screen
 The delete button is displayed only if the call can be deleted.
 Evaluation Points: 2
 
-_Conditional Button Display in Volunteer Screen_
+* Conditional Button Display in Volunteer Screen
 Allows deleting a volunteer only if no task has ever been assigned to them.
 Evaluation Points: 2
 
-_Error Handling in BLTest and DLTest_
-Ensures comprehensive error handling using full try-phase blocks (try-finally or try-catch).
+* Error Handling in BLTest and DLTest
+Ensures comprehensive error handling using full try- phase blocks (try-finally or try-catch).
 Evaluation Points: 1
 
-_Password Property Addition_
+
+* Password Property Addition
 Includes a secure property for handling user passwords.
 Evaluation Points: 2
 
-_Strong Password Validation_
+* Strong Password Validation
 Checks for password strength criteria such as length, special characters, and case sensitivity.
 Evaluation Points: 1
 
-_Password Encryption_
+* Password Encryption
 Implements encryption for storing passwords securely.
 Evaluation Points: 2
 
-Distance Calculations
+* Distance Calculations
 Provides distance computations by air, driving, or walking routes.
 Evaluation Points: 3
