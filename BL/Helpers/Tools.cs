@@ -158,7 +158,7 @@ namespace Helpers
                     case BO.Distance.walkingDistance:
                         try
                         {
-                            distance = GetDistanceAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking").Result;
+                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking")/*.Result*/;
                         }
                         catch (Exception ex)
                         {
@@ -167,7 +167,15 @@ namespace Helpers
                         break;
 
                     case BO.Distance.DrivingDistance:
-                        distance = GetDistanceAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car").Result;
+                        try
+                        {
+                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car")/*.Result*/;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception(ex.Message);
+                        }
+                       
                         break;
                 }
 
@@ -175,6 +183,7 @@ namespace Helpers
             return distance;
         }
 
+        
 
         /// <summary>
         /// Converts degrees to radians.
@@ -198,10 +207,63 @@ namespace Helpers
         /// <param name="profile">The transportation mode (e.g., "driving-car" or "foot-walking").</param>
         /// <returns>The distance in kilometers between the two points, or -1 if an error occurs.</returns>
         /// <exception cref="Exception">Thrown when there is an issue with the API request or response.</exception>
-        public static async Task<double> GetDistanceAsync(double lat1, double lon1, double lat2, double lon2, string profile)
+        //public static async Task<double> GetDistanceAsync(double lat1, double lon1, double lat2, double lon2, string profile)
+        //{
+        //    Thread.Sleep(200);
+
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        try
+        //        {
+        //            string url = $"https://api.openrouteservice.org/v2/directions/{profile}/json";
+        //            var body = new
+        //            {
+        //                coordinates = new[]
+        //                {
+        //                    new[] { lon1, lat1 },
+        //                    new[] { lon2, lat2 }
+        //                }
+        //            };
+
+        //            string jsonBody = JsonConvert.SerializeObject(body);
+        //            client.DefaultRequestHeaders.Add("Authorization", openRouteServiceApiKey);
+
+        //            var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        //            HttpResponseMessage response = await client.PostAsync(url, content);
+
+        //            if (!response.IsSuccessStatusCode)
+        //            {
+        //                throw new Exception($"Error: {response.StatusCode}");
+        //            }
+
+        //            string responseBody = response.Content.ReadAsStringAsync().Result;
+        //            dynamic? responseData = JsonConvert.DeserializeObject(responseBody);
+        //            if (responseData == null)
+        //            {
+        //                throw new Exception("Deserialization returned null.");
+        //            }
+
+        //            if (responseData.routes != null && responseData.routes.Count > 0)
+        //            {
+        //                var route = responseData.routes[0];
+        //                return route.summary.distance / 1000.0;
+        //            }
+        //            else
+        //            {
+        //                throw new Exception("No route found.");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw new Exception("An error occurred: " + ex.Message);
+        //        }
+        //    }
+        //}
+
+        public static double GetDistanceNotAsync(double lat1, double lon1, double lat2, double lon2, string profile)
         {
             Thread.Sleep(200);
-   
+
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -211,16 +273,16 @@ namespace Helpers
                     {
                         coordinates = new[]
                         {
-                            new[] { lon1, lat1 },
-                            new[] { lon2, lat2 }
-                        }
+                    new[] { lon1, lat1 },
+                    new[] { lon2, lat2 }
+                }
                     };
 
                     string jsonBody = JsonConvert.SerializeObject(body);
                     client.DefaultRequestHeaders.Add("Authorization", openRouteServiceApiKey);
 
                     var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync(url, content);
+                    HttpResponseMessage response = client.PostAsync(url, content).Result;
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -250,6 +312,7 @@ namespace Helpers
                 }
             }
         }
+
 
     }
 

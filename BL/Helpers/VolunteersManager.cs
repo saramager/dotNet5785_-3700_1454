@@ -369,27 +369,36 @@ namespace Helpers
                 {
                     BO.Volunteer volunteer = convertDOToBOVolunteer(doVolunteer);
 
-                    if (volunteer.callProgress == null && volunteer.active==true) // אין קריאה בטיפול
+                    if (volunteer.callProgress == null && volunteer.active == true) // אין קריאה בטיפול
                     {
                         //  קריאה לרשימת הקריאות הפתוחות עם הקואורדינטות המתאימות 
-                        
-                        
+                        IEnumerable<BO.OpenCallInList> openCalls = Enumerable.Empty<BO.OpenCallInList>();
+
                         // בחירה רנדומלית עם הסתברות
-                        if ( s_rand.NextDouble() <= 0.2) // הסתברות 20%
+                        if (s_rand.NextDouble() <= 0.2) // הסתברות 20%
                         {
-                            IEnumerable<BO.OpenCallInList> openCalls;
-                            try
+                            int attempts = 0;
+                            const int maxAttempts = 3;
+                            while (attempts < maxAttempts)
                             {
-                                openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
+                                try
+                                {
+                                    openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
+                                    break; // אם הצליח, יוצאים מהלולאה
+                                }
+                                catch (Exception ex)
+                                {
+                                    attempts++;
+                                    if (attempts >= maxAttempts)
+                                    {
+                                        throw new Exception($"Failed to read open calls after {maxAttempts} attempts.", ex);
+                                    }
+                                    Thread.Sleep(60000); // מחכים דקה ואז מנסים שוב
+                                }
                             }
-                            catch (Exception ex)
+
+                            if (openCalls.Any())
                             {
-                                Thread.Sleep(60000);
-                                openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
-                            }
-                            
-                            if(openCalls.Any() )
-                           { 
                                 var selectedCall = openCalls.ElementAt(s_rand.Next(openCalls.Count()));
 
                                 lock (AdminManager.BlMutex)

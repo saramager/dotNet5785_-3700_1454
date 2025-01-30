@@ -614,6 +614,11 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         lock (AdminManager.BlMutex)  //stage 7
             doCall = _dal.Call.Read(c => c.ID == callId);
 
+        if (doCall == null)
+        {
+            throw new BO.BlDoesNotExistException($"Call with ID {callId} does not exist.");
+        }
+
         // Retrieve all assignments related to the call
         IEnumerable<Assignment>? assignmentsForCall;
         lock (AdminManager.BlMutex)  //stage 7
@@ -639,7 +644,6 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             throw new InvalidOperationException("The call has expired.");
         }
 
-
         // Once all checks pass, create a new assignment
         Assignment? newAssignment;
         lock (AdminManager.BlMutex)  //stage 7
@@ -660,7 +664,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         VolunteersManager.Observers.NotifyItemUpdated(volunteerId);
         VolunteersManager.Observers.NotifyListUpdated();
         CallsManager.Observers.NotifyItemUpdated(newAssignment.CallId);  //stage 5
-        CallsManager.Observers.NotifyListUpdated();  //stage 5
+        CallsManager.Observers.NotifyListUpdated();  //stage 5
     }
 
 }

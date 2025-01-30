@@ -215,8 +215,17 @@ namespace Helpers
             double? callLat = doCall.latitude;
             double? callLon = doCall.longitude;
             double dis = 0;
-            if (idLat.HasValue && idLon.HasValue&& callLat.HasValue && callLon.HasValue) 
-                dis = Tools.CalculateDistance(callLat.Value, callLon.Value, idLat.Value, idLon.Value, (BO.Distance)vol.distanceType);
+            try
+            {
+                if (idLat.HasValue && idLon.HasValue && callLat.HasValue && callLon.HasValue)
+                {
+                    dis = Tools.CalculateDistance(callLat.Value, callLon.Value, idLat.Value, idLon.Value, (BO.Distance)vol.distanceType);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             //double? idLat = vol == null ? null : vol.Latitude ?? null;
             //double? idLon = vol == null ? null : vol.Longitude ?? null;
 
