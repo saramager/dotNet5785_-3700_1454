@@ -54,7 +54,7 @@ internal class AssignmentImplementation : IAssignment
     public Assignment? Read(Func<Assignment, bool> filter)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_Assignments_xml);
-        return Assignments.FirstOrDefault(filter)?? throw new DO.DalDoesNotExistException($"volunteer with   {filter} does not  exist"); ;
+        return Assignments.FirstOrDefault(filter) ;
     }
     /// <summary>
     /// Reads all assignments. Optionally filters the list based on a given filter function.

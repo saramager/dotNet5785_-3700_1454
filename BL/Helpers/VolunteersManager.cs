@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Helpers;
 
 namespace Helpers
 {
@@ -377,25 +378,10 @@ namespace Helpers
                         // בחירה רנדומלית עם הסתברות
                         if (s_rand.NextDouble() <= 0.2) // הסתברות 20%
                         {
-                            int attempts = 0;
-                            const int maxAttempts = 3;
-                            while (attempts < maxAttempts)
-                            {
-                                try
-                                {
-                                    openCalls = ReadOpenCallsVolunteerHelp(volunteerId);
-                                    break; // אם הצליח, יוצאים מהלולאה
-                                }
-                                catch (Exception ex)
-                                {
-                                    attempts++;
-                                    if (attempts >= maxAttempts)
-                                    {
-                                        throw new Exception($"Failed to read open calls after {maxAttempts} attempts.", ex);
-                                    }
-                                    Thread.Sleep(60000); // מחכים דקה ואז מנסים שוב
-                                }
-                            }
+                          
+                                    openCalls = CallsManager.ReadOpenCallsVolunteerHelp(volunteerId,null,null,null);
+                                   
+                      
 
                             if (openCalls.Any())
                             {
@@ -408,6 +394,7 @@ namespace Helpers
                                 }
                             }
                         }
+                       
                     }
                     else // יש קריאה בטיפול
                     {
@@ -624,35 +611,32 @@ namespace Helpers
                 throw new BO.BlDoesNotExistException($"An error occurred while updating the assignment.", ex);
             }
         }
-        private static IEnumerable<OpenCallInList> ReadOpenCallsVolunteerHelp(int id)
-        {
-            IEnumerable<BO.OpenCallInList> openCallInLists;
+            //IEnumerable<BO.OpenCallInList> openCallInLists;
 
-            lock (AdminManager.BlMutex)
-            {
-                // קריאת כל הקריאות ממקור הנתונים
-                IEnumerable<DO.Call> previousCalls = s_dal.Call.ReadAll(null);
+            //lock (AdminManager.BlMutex)
+            //{
+            //    IEnumerable<DO.Call> previousCalls = s_dal.Call.ReadAll(null);
 
-                // קריאת פרטי המתנדב לפי המזהה
-                DO.Volunteer volunteerData = s_dal.Volunteer.Read(v => v.ID == id)
-                    ?? throw new BO.BlDoesNotExistException($"Volunteer with ID {id} does not exist.");
+            //    // קריאת פרטי המתנדב לפי המזהה
+            //    DO.Volunteer volunteerData = s_dal.Volunteer.Read(v => v.ID == id)
+            //        ?? throw new BO.BlDoesNotExistException($"Volunteer with ID {id} does not exist.");
 
-                // יצירת רשימת הקריאות הפתוחות המתאימות
-                List<BO.OpenCallInList> calls = new List<BO.OpenCallInList>();
-                calls.AddRange(
-                    from item in previousCalls
-                    let dataCall = ReadCallHelp(item.ID)
-                    where dataCall.statusC == BO.Status.Open || dataCall.statusC == BO.Status.OpenInRisk
-                    let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
-                    where volunteerData.maxDistance == null || volunteerData.maxDistance >= openCall.distance
-                    select openCall
-                );
+            //    // יצירת רשימת הקריאות הפתוחות המתאימות
+            //    List<BO.OpenCallInList> calls = new List<BO.OpenCallInList>();
+            //    calls.AddRange(
+            //        from item in previousCalls
+            //        let dataCall = ReadCallHelp(item.ID)
+            //        where dataCall.statusC == BO.Status.Open || dataCall.statusC == BO.Status.OpenInRisk
+            //        let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
+            //        where volunteerData.maxDistance == null || volunteerData.maxDistance >= openCall.distance
+            //        select openCall
+            //    );
 
-                openCallInLists = calls;
-            }
+            //    openCallInLists = calls;
+            //}
 
-            return openCallInLists;
-        }
+            //return openCallInLists;
+       
 
         private static BO.Call ReadCallHelp(int id)
         {

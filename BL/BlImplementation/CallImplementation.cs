@@ -213,23 +213,11 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     public BO.Call ReadCall(int id)
     {
-        DO.Call? doCall;
-        IEnumerable<DO.Assignment> assignmentsForCall;
-        lock(AdminManager.BlMutex)
-        {
-            doCall = _dal.Call.Read(c => c.ID == id);
-            assignmentsForCall = _dal.Assignment.ReadAll(a => a.CallId == id);
+        BO.Call toReturn;
+        lock(AdminManager.BlMutex) 
+     toReturn =CallsManager.ReadCallHelper(id);
+        return toReturn;
 
-        }
-
-
-        if (doCall == null)
-            throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
-
-
-        var boCall = CallsManager.ConvertDOCallWithAssignments(doCall, assignmentsForCall);
-
-        return boCall;
     }
 
     public void UpdateCall(BO.Call c)
@@ -419,6 +407,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
     IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort, IEnumerable<OpenCallInList> openCallIns = null)
     {
+
+        
         IEnumerable<BO.OpenCallInList> openCallInLists;
 
 

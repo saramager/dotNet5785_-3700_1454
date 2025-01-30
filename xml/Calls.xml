@@ -2,612 +2,602 @@
 <ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Call>
     <ID>1000</ID>
-    <address>Beit Hadfus 9, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.7857</latitude>
-    <longitude>35.18921</longitude>
-    <openTime>2025-01-03T02:27:48.5955904</openTime>
-    <maxTime>2025-01-14T00:15:47.9496439</maxTime>
-    <verbalDescription>The new parents have everything they need except for clothes for their baby girl. A gift box with onesies, socks, and baby booties would be a nice and practical gesture.</verbalDescription>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78582</latitude>
+    <longitude>35.18081</longitude>
+    <openTime>2025-01-28T05:22:11.2666936</openTime>
+    <maxTime>2025-01-29T14:03:59.588942</maxTime>
+    <verbalDescription>A mother is struggling to manage her older children and a newborn. You could help by looking after the older kids for a couple of hours so the mom can rest or focus on the baby.</verbalDescription>
   </Call>
   <Call>
     <ID>1001</ID>
-    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78792</latitude>
-    <longitude>35.18392</longitude>
-    <openTime>2025-01-28T21:00:14.3169823</openTime>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78582</latitude>
+    <longitude>35.18081</longitude>
+    <openTime>2025-01-12T02:54:42.4874536</openTime>
     <maxTime xsi:nil="true" />
-    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
+    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
   </Call>
   <Call>
     <ID>1002</ID>
-    <address>HaIlui 9, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.78888</latitude>
-    <longitude>35.19566</longitude>
-    <openTime>2025-01-22T04:41:26.9166514</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The family has a baby girl, and they need some practical clothing. A set of baby shirts, pants, and a blanket would be greatly appreciated during the first few weeks of the baby's life.</verbalDescription>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.79251</latitude>
+    <longitude>35.19087</longitude>
+    <openTime>2025-01-01T01:16:22.9578067</openTime>
+    <maxTime>2025-02-20T11:09:20.0808639</maxTime>
+    <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
   </Call>
   <Call>
     <ID>1003</ID>
-    <address>Amram Gaon 6, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.79141</latitude>
-    <longitude>35.19285</longitude>
-    <openTime>2025-01-20T17:08:26.6503426</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A mother of twins who gave birth last week is overwhelmed and in need of personal care items. You could provide soaps, lotions, and a bath kit to help her feel more comfortable during her recovery.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1004</ID>
-    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.78776</latitude>
-    <longitude>35.19622</longitude>
-    <openTime>2025-01-05T05:06:08.5757358</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1005</ID>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.79003</latitude>
-    <longitude>35.195</longitude>
-    <openTime>2025-01-19T08:52:08.624026</openTime>
-    <maxTime>2025-02-01T20:58:17.9820594</maxTime>
-    <verbalDescription>The new parents have everything they need except for clothes for their baby girl. A gift box with onesies, socks, and baby booties would be a nice and practical gesture.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1006</ID>
-    <address>Amram Gaon 14, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.79052</latitude>
-    <longitude>35.19262</longitude>
-    <openTime>2025-01-20T06:35:40.1227899</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family following strict kosher guidelines is in need of a meal. Prepare a kosher meal with BD”C certification, such as a kosher meat dish, rice, and a vegetable side dish, ensuring everything is compliant with their dietary needs.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1007</ID>
-    <address>Beit Shearim 4, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.79032</latitude>
-    <longitude>35.19624</longitude>
-    <openTime>2025-01-11T15:04:01.4513907</openTime>
-    <maxTime>2025-02-22T02:10:20.6693785</maxTime>
-    <verbalDescription>A friend recently had a baby girl and could use some baby clothes. A small set of soft cotton onesies, mittens, and a cozy baby hat would make a perfect gift.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1008</ID>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78659</latitude>
-    <longitude>35.18556</longitude>
-    <openTime>2025-01-24T02:33:06.1913638</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family with two parents and four kids is struggling to make dinner every night. You could help by preparing a dairy supper of pasta, a simple salad, and bread for the family.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1009</ID>
-    <address>Beit Hadfus 9, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.7857</latitude>
-    <longitude>35.18921</longitude>
-    <openTime>2025-01-25T05:26:07.4542734</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1010</ID>
-    <address>Amram Gaon 6, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.79141</latitude>
-    <longitude>35.19285</longitude>
-    <openTime>2025-01-25T14:38:42.0147759</openTime>
-    <maxTime>2025-01-26T10:12:31.6311088</maxTime>
-    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1011</ID>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78827</latitude>
-    <longitude>35.19383</longitude>
-    <openTime>2025-01-10T21:33:15.0169536</openTime>
-    <maxTime>2025-02-18T06:28:46.3052936</maxTime>
-    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1012</ID>
-    <address>Najara 14, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.79062</latitude>
-    <longitude>35.19139</longitude>
-    <openTime>2025-01-07T21:37:54.1984572</openTime>
-    <maxTime>2025-02-17T19:06:09.969532</maxTime>
-    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1013</ID>
-    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.78776</latitude>
-    <longitude>35.19622</longitude>
-    <openTime>2025-01-20T16:49:25.9897928</openTime>
-    <maxTime>2025-02-18T02:25:21.6789475</maxTime>
-    <verbalDescription>A mother of twins who gave birth last week is overwhelmed and in need of personal care items. You could provide soaps, lotions, and a bath kit to help her feel more comfortable during her recovery.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1014</ID>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78659</latitude>
-    <longitude>35.18556</longitude>
-    <openTime>2025-01-26T22:38:26.4106273</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1015</ID>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.78659</latitude>
-    <longitude>35.18556</longitude>
-    <openTime>2025-01-20T19:51:30.6736989</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1016</ID>
-    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.78813</latitude>
-    <longitude>35.1867</longitude>
-    <openTime>2025-01-13T18:49:12.6113325</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1017</ID>
-    <address>Beit Hadfus 35, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78582</latitude>
-    <longitude>35.18081</longitude>
-    <openTime>2025-01-30T09:14:24.4123945</openTime>
-    <maxTime>2025-02-16T04:02:37.4960422</maxTime>
-    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1018</ID>
-    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78813</latitude>
-    <longitude>35.1867</longitude>
-    <openTime>2025-01-03T02:52:47.9755634</openTime>
-    <maxTime>2025-01-31T01:48:50.2120851</maxTime>
-    <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1019</ID>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78827</latitude>
-    <longitude>35.19383</longitude>
-    <openTime>2025-01-14T04:42:05.8083696</openTime>
-    <maxTime>2025-02-25T03:13:57.6729618</maxTime>
-    <verbalDescription>A family with young kids is in need of meals to help ease their busy days. You could prepare a large batch of soup, sandwiches, and fresh fruit for them to enjoy throughout the week.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1020</ID>
-    <address>Givat Shaul 25, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.79251</latitude>
-    <longitude>35.19087</longitude>
-    <openTime>2025-01-13T02:51:04.3958534</openTime>
-    <maxTime>2025-01-14T03:57:13.5921068</maxTime>
-    <verbalDescription>The family needs a kosher meal, so you could prepare a dinner that complies with their dietary restrictions. A simple kosher chicken dish, rice, and a vegetable side would be perfect for the family of six.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1021</ID>
-    <address>Najara 3, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.79202</latitude>
-    <longitude>35.19214</longitude>
-    <openTime>2025-01-19T13:41:03.8083047</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1022</ID>
-    <address>Najara 14, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.79062</latitude>
-    <longitude>35.19139</longitude>
-    <openTime>2025-01-02T14:09:25.146082</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1023</ID>
     <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
     <callT>MomGift</callT>
     <latitude>31.78737</latitude>
     <longitude>35.18475</longitude>
-    <openTime>2025-01-14T05:01:35.7280106</openTime>
-    <maxTime>2025-02-13T10:41:04.0275623</maxTime>
-    <verbalDescription>A mother of twins who gave birth last week is overwhelmed and in need of personal care items. You could provide soaps, lotions, and a bath kit to help her feel more comfortable during her recovery.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1024</ID>
-    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78846</latitude>
-    <longitude>35.19252</longitude>
-    <openTime>2025-01-09T10:24:07.7190276</openTime>
-    <maxTime>2025-02-20T03:20:53.5628351</maxTime>
-    <verbalDescription>A family following strict kosher guidelines is in need of a meal. Prepare a kosher meal with BD”C certification, such as a kosher meat dish, rice, and a vegetable side dish, ensuring everything is compliant with their dietary needs.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1025</ID>
-    <address>Najara 3, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.79202</latitude>
-    <longitude>35.19214</longitude>
-    <openTime>2025-01-19T04:48:23.7484126</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1026</ID>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.78827</latitude>
-    <longitude>35.19383</longitude>
-    <openTime>2025-01-22T08:48:06.6658025</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The family has a baby girl, and they need some practical clothing. A set of baby shirts, pants, and a blanket would be greatly appreciated during the first few weeks of the baby's life.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1027</ID>
-    <address>Harav Haim Vital 8, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78845</latitude>
-    <longitude>35.19285</longitude>
-    <openTime>2025-01-30T04:58:38.0554649</openTime>
-    <maxTime>2025-02-26T10:35:56.5254545</maxTime>
-    <verbalDescription>A family with young kids is in need of meals to help ease their busy days. You could prepare a large batch of soup, sandwiches, and fresh fruit for them to enjoy throughout the week.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1028</ID>
-    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78846</latitude>
-    <longitude>35.19252</longitude>
-    <openTime>2025-01-02T09:54:14.3699344</openTime>
-    <maxTime>2025-02-04T19:41:38.4432881</maxTime>
-    <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1029</ID>
-    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78792</latitude>
-    <longitude>35.18392</longitude>
-    <openTime>2025-01-03T01:30:45.9309199</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1030</ID>
-    <address>Beit Hadfus 9, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.7857</latitude>
-    <longitude>35.18921</longitude>
-    <openTime>2025-01-13T01:59:53.9221854</openTime>
-    <maxTime>2025-01-25T03:22:26.1075458</maxTime>
-    <verbalDescription>The family has a baby girl, and they need some practical clothing. A set of baby shirts, pants, and a blanket would be greatly appreciated during the first few weeks of the baby's life.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1031</ID>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.78827</latitude>
-    <longitude>35.19383</longitude>
-    <openTime>2025-01-03T17:55:38.8443953</openTime>
-    <maxTime xsi:nil="true" />
+    <openTime>2025-01-16T18:49:00.8054373</openTime>
+    <maxTime>2025-02-10T13:05:22.2511439</maxTime>
     <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
   </Call>
   <Call>
-    <ID>1032</ID>
-    <address>Beit Hadfus 35, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.78582</latitude>
-    <longitude>35.18081</longitude>
-    <openTime>2025-01-19T11:59:49.9367627</openTime>
-    <maxTime>2025-02-24T18:00:36.0199091</maxTime>
-    <verbalDescription>A mother of twins who gave birth last week is overwhelmed and in need of personal care items. You could provide soaps, lotions, and a bath kit to help her feel more comfortable during her recovery.</verbalDescription>
+    <ID>1004</ID>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.79141</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-18T01:19:10.4718303</openTime>
+    <maxTime>2025-02-09T11:29:09.1736591</maxTime>
+    <verbalDescription>A friend recently had a baby girl and could use some baby clothes. A small set of soft cotton onesies, mittens, and a cozy baby hat would make a perfect gift.</verbalDescription>
   </Call>
   <Call>
-    <ID>1033</ID>
+    <ID>1005</ID>
+    <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78737</latitude>
+    <longitude>35.18475</longitude>
+    <openTime>2025-01-25T19:12:17.308562</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1006</ID>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-02T17:52:37.1331464</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1007</ID>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.79251</latitude>
+    <longitude>35.19087</longitude>
+    <openTime>2025-01-19T16:01:53.3006656</openTime>
+    <maxTime>2025-02-06T20:48:41.337781</maxTime>
+    <verbalDescription>A friend recently had a baby girl and could use some baby clothes. A small set of soft cotton onesies, mittens, and a cozy baby hat would make a perfect gift.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1008</ID>
+    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78776</latitude>
+    <longitude>35.19622</longitude>
+    <openTime>2025-01-17T02:03:15.3645423</openTime>
+    <maxTime>2025-02-16T08:21:36.7827989</maxTime>
+    <verbalDescription>The family has a baby girl, and they need some practical clothing. A set of baby shirts, pants, and a blanket would be greatly appreciated during the first few weeks of the baby's life.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1009</ID>
+    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78846</latitude>
+    <longitude>35.19252</longitude>
+    <openTime>2025-01-17T07:45:42.5063079</openTime>
+    <maxTime>2025-02-11T07:26:52.7898259</maxTime>
+    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1010</ID>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-20T04:53:51.7465306</openTime>
+    <maxTime>2025-01-28T16:50:47.0289513</maxTime>
+    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1011</ID>
+    <address>Najara 3, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.79202</latitude>
+    <longitude>35.19214</longitude>
+    <openTime>2025-01-24T08:14:58.595928</openTime>
+    <maxTime>2025-02-17T18:27:23.6742948</maxTime>
+    <verbalDescription>A new family with a newborn is having trouble keeping the house organized. You could volunteer to help tidy up the nursery, fold baby clothes, and organize baby gear.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1012</ID>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78582</latitude>
+    <longitude>35.18081</longitude>
+    <openTime>2025-01-13T17:49:55.5953653</openTime>
+    <maxTime>2025-02-24T22:27:50.0783409</maxTime>
+    <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1013</ID>
     <address>HaIlui 9, Jerusalem, Israel</address>
     <callT>MomGift</callT>
     <latitude>31.78888</latitude>
     <longitude>35.19566</longitude>
-    <openTime>2025-01-20T23:11:00.1531781</openTime>
+    <openTime>2025-01-19T20:49:08.6312408</openTime>
     <maxTime xsi:nil="true" />
-    <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
+    <verbalDescription>The new mom is in need of items that will help her feel better after a difficult delivery. A thoughtful care package with postpartum essentials like breast pads, bath salts, and chocolate would be a great gift.</verbalDescription>
   </Call>
   <Call>
-    <ID>1034</ID>
-    <address>Harav Haim Vital 8, Jerusalem, Israel</address>
+    <ID>1014</ID>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.7857</latitude>
+    <longitude>35.18921</longitude>
+    <openTime>2025-01-19T09:43:32.3338646</openTime>
+    <maxTime>2025-02-03T04:14:29.9627065</maxTime>
+    <verbalDescription>A family with young kids is in need of meals to help ease their busy days. You could prepare a large batch of soup, sandwiches, and fresh fruit for them to enjoy throughout the week.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1015</ID>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78582</latitude>
+    <longitude>35.18081</longitude>
+    <openTime>2025-01-24T08:41:13.2229281</openTime>
+    <maxTime>2025-02-27T15:30:05.7716932</maxTime>
+    <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1016</ID>
+    <address>HaIlui 9, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78888</latitude>
+    <longitude>35.19566</longitude>
+    <openTime>2025-01-26T17:47:17.0403761</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>The family needs a kosher meal, so you could prepare a dinner that complies with their dietary restrictions. A simple kosher chicken dish, rice, and a vegetable side would be perfect for the family of six.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1017</ID>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-05T07:29:24.8153992</openTime>
+    <maxTime>2025-01-31T22:08:28.3288862</maxTime>
+    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1018</ID>
+    <address>Najara 14, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.79062</latitude>
+    <longitude>35.19139</longitude>
+    <openTime>2025-01-25T13:06:51.6479064</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1019</ID>
+    <address>Harav Reines 30, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.79003</latitude>
+    <longitude>35.195</longitude>
+    <openTime>2025-01-07T04:45:38.8071557</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1020</ID>
+    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78827</latitude>
+    <longitude>35.19383</longitude>
+    <openTime>2025-01-23T08:30:29.0692248</openTime>
+    <maxTime>2025-01-27T23:48:04.9468007</maxTime>
+    <verbalDescription>A new mother is organizing a baby shower and would appreciate a thoughtful gift for her newborn girl. Consider giving a cute outfit or a set of baby care essentials, like lotions and diapers.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1021</ID>
+    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
     <callT>HouseholdHelp</callT>
-    <latitude>31.78845</latitude>
-    <longitude>35.19285</longitude>
-    <openTime>2025-01-18T18:52:20.2069841</openTime>
-    <maxTime>2025-02-07T01:57:01.3867765</maxTime>
+    <latitude>31.78813</latitude>
+    <longitude>35.1867</longitude>
+    <openTime>2025-01-15T23:27:48.0210135</openTime>
+    <maxTime>2025-02-15T10:35:19.4920207</maxTime>
+    <verbalDescription>A new family with a newborn is having trouble keeping the house organized. You could volunteer to help tidy up the nursery, fold baby clothes, and organize baby gear.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1022</ID>
+    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78792</latitude>
+    <longitude>35.18392</longitude>
+    <openTime>2025-01-22T20:01:32.300943</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1023</ID>
+    <address>Beit Shearim 4, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.79032</latitude>
+    <longitude>35.19624</longitude>
+    <openTime>2025-01-26T13:27:39.6060731</openTime>
+    <maxTime xsi:nil="true" />
     <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
   </Call>
   <Call>
-    <ID>1035</ID>
-    <address>Givat Shaul 25, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.79251</latitude>
-    <longitude>35.19087</longitude>
-    <openTime>2025-01-28T15:05:39.5242749</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
+    <ID>1024</ID>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.79141</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-10T07:34:15.0674592</openTime>
+    <maxTime>2025-02-27T13:11:21.4493829</maxTime>
+    <verbalDescription>A new mother is organizing a baby shower and would appreciate a thoughtful gift for her newborn girl. Consider giving a cute outfit or a set of baby care essentials, like lotions and diapers.</verbalDescription>
   </Call>
   <Call>
-    <ID>1036</ID>
+    <ID>1025</ID>
+    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78827</latitude>
+    <longitude>35.19383</longitude>
+    <openTime>2025-01-08T10:38:29.9499052</openTime>
+    <maxTime>2025-02-14T18:28:06.6784684</maxTime>
+    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1026</ID>
+    <address>Najara 14, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.79062</latitude>
+    <longitude>35.19139</longitude>
+    <openTime>2025-01-13T11:49:15.5708729</openTime>
+    <maxTime>2025-02-09T22:31:22.4982805</maxTime>
+    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1027</ID>
+    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78813</latitude>
+    <longitude>35.1867</longitude>
+    <openTime>2025-01-29T09:13:36.9127676</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A family following strict kosher guidelines is in need of a meal. Prepare a kosher meal with BD”C certification, such as a kosher meat dish, rice, and a vegetable side dish, ensuring everything is compliant with their dietary needs.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1028</ID>
     <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
     <callT>BabyGift</callT>
     <latitude>31.78846</latitude>
     <longitude>35.19252</longitude>
-    <openTime>2025-01-12T12:17:25.3603073</openTime>
-    <maxTime xsi:nil="true" />
+    <openTime>2025-01-04T05:56:25.4295085</openTime>
+    <maxTime>2025-02-16T23:42:56.8661731</maxTime>
     <verbalDescription>A friend recently had a baby girl and could use some baby clothes. A small set of soft cotton onesies, mittens, and a cozy baby hat would make a perfect gift.</verbalDescription>
   </Call>
   <Call>
-    <ID>1037</ID>
-    <address>Najara 14, Jerusalem, Israel</address>
+    <ID>1029</ID>
+    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.78776</latitude>
+    <longitude>35.19622</longitude>
+    <openTime>2025-01-11T10:36:21.9785016</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1030</ID>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
     <callT>BabyGift</callT>
-    <latitude>31.79062</latitude>
-    <longitude>35.19139</longitude>
-    <openTime>2025-01-09T23:50:08.7610872</openTime>
+    <latitude>31.79141</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-14T02:57:33.5490566</openTime>
+    <maxTime>2025-01-22T20:46:20.2541726</maxTime>
+    <verbalDescription>The new parents have everything they need except for clothes for their baby girl. A gift box with onesies, socks, and baby booties would be a nice and practical gesture.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1031</ID>
+    <address>Najara 3, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.79202</latitude>
+    <longitude>35.19214</longitude>
+    <openTime>2025-01-17T04:07:58.5761359</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A mother is struggling to manage her older children and a newborn. You could help by looking after the older kids for a couple of hours so the mom can rest or focus on the baby.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1032</ID>
+    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78776</latitude>
+    <longitude>35.19622</longitude>
+    <openTime>2025-01-04T05:12:21.7775623</openTime>
+    <maxTime>2025-02-07T07:28:28.9785105</maxTime>
+    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1033</ID>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.79141</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-28T06:42:23.9729682</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1034</ID>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-12T00:49:54.6950338</openTime>
+    <maxTime>2025-02-08T03:59:10.9522907</maxTime>
+    <verbalDescription>The family needs a kosher meal, so you could prepare a dinner that complies with their dietary restrictions. A simple kosher chicken dish, rice, and a vegetable side would be perfect for the family of six.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1035</ID>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.79141</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-04T13:43:58.3961701</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1036</ID>
+    <address>Beit Shearim 4, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.79032</latitude>
+    <longitude>35.19624</longitude>
+    <openTime>2025-01-19T07:07:36.8580547</openTime>
+    <maxTime>2025-02-24T20:31:32.4988849</maxTime>
+    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1037</ID>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-13T13:23:22.5709049</openTime>
     <maxTime xsi:nil="true" />
     <verbalDescription>The family has a baby girl, and they need some practical clothing. A set of baby shirts, pants, and a blanket would be greatly appreciated during the first few weeks of the baby's life.</verbalDescription>
   </Call>
   <Call>
     <ID>1038</ID>
-    <address>Harav Haim Vital 8, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78845</latitude>
-    <longitude>35.19285</longitude>
-    <openTime>2025-01-17T14:19:04.9561389</openTime>
+    <address>Beit Shearim 4, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.79032</latitude>
+    <longitude>35.19624</longitude>
+    <openTime>2025-01-07T11:36:39.2965048</openTime>
     <maxTime xsi:nil="true" />
-    <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
+    <verbalDescription>The new parents have everything they need except for clothes for their baby girl. A gift box with onesies, socks, and baby booties would be a nice and practical gesture.</verbalDescription>
   </Call>
   <Call>
     <ID>1039</ID>
-    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <address>Amram Gaon 6, Jerusalem, Israel</address>
     <callT>HouseholdHelp</callT>
-    <latitude>31.78813</latitude>
-    <longitude>35.1867</longitude>
-    <openTime>2025-01-15T08:23:53.1947839</openTime>
+    <latitude>31.79141</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-10T00:53:39.0607569</openTime>
     <maxTime xsi:nil="true" />
-    <verbalDescription>A new family with a newborn is having trouble keeping the house organized. You could volunteer to help tidy up the nursery, fold baby clothes, and organize baby gear.</verbalDescription>
+    <verbalDescription>A friend with a newborn has a lot of things to do around the house but lacks the time. You could volunteer to run errands, such as picking up groceries, or help with organizing the baby’s items.</verbalDescription>
   </Call>
   <Call>
     <ID>1040</ID>
-    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78776</latitude>
-    <longitude>35.19622</longitude>
-    <openTime>2025-01-16T14:52:33.7600961</openTime>
-    <maxTime>2025-01-20T09:46:46.6686319</maxTime>
-    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1041</ID>
-    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.78878</latitude>
-    <longitude>35.19136</longitude>
-    <openTime>2025-01-26T22:48:57.372966</openTime>
-    <maxTime>2025-02-27T21:01:12.7304958</maxTime>
-    <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1042</ID>
-    <address>Beit Hadfus 35, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78582</latitude>
-    <longitude>35.18081</longitude>
-    <openTime>2025-01-18T15:12:06.7676228</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1043</ID>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.78827</latitude>
-    <longitude>35.19383</longitude>
-    <openTime>2025-01-20T23:09:41.4471164</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new mom is in need of items that will help her feel better after a difficult delivery. A thoughtful care package with postpartum essentials like breast pads, bath salts, and chocolate would be a great gift.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1044</ID>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <callT>BabyGift</callT>
-    <latitude>31.78659</latitude>
-    <longitude>35.18556</longitude>
-    <openTime>2025-01-26T05:25:50.8586858</openTime>
-    <maxTime>2025-02-10T02:05:46.4966212</maxTime>
-    <verbalDescription>A friend recently had a baby girl and could use some baby clothes. A small set of soft cotton onesies, mittens, and a cozy baby hat would make a perfect gift.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1045</ID>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.79003</latitude>
-    <longitude>35.195</longitude>
-    <openTime>2025-01-24T09:23:21.4367592</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A mother is struggling to manage her older children and a newborn. You could help by looking after the older kids for a couple of hours so the mom can rest or focus on the baby.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1046</ID>
-    <address>Harav Reines 30, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.79003</latitude>
-    <longitude>35.195</longitude>
-    <openTime>2025-01-27T05:20:01.472359</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A mother with four kids is busy with household duties and would appreciate a meal prepared for her family. You could make a hearty chicken soup, some bread, and a salad to nourish the whole family.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1047</ID>
-    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78827</latitude>
-    <longitude>35.19383</longitude>
-    <openTime>2025-01-06T01:19:31.2388677</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>A family with young kids is in need of meals to help ease their busy days. You could prepare a large batch of soup, sandwiches, and fresh fruit for them to enjoy throughout the week.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1048</ID>
-    <address>Givat Shaul 25, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.79251</latitude>
-    <longitude>35.19087</longitude>
-    <openTime>2025-01-25T06:47:25.4615275</openTime>
-    <maxTime>2025-02-14T04:50:42.1498437</maxTime>
-    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1049</ID>
-    <address>Givat Shaul 25, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
-    <latitude>31.79251</latitude>
-    <longitude>35.19087</longitude>
-    <openTime>2025-01-24T22:29:04.1370071</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new mom is in need of items that will help her feel better after a difficult delivery. A thoughtful care package with postpartum essentials like breast pads, bath salts, and chocolate would be a great gift.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1050</ID>
     <address>Najara 14, Jerusalem, Israel</address>
     <callT>MomGift</callT>
     <latitude>31.79062</latitude>
     <longitude>35.19139</longitude>
-    <openTime>2025-01-08T05:07:06.0454433</openTime>
-    <maxTime>2025-01-29T14:14:03.9071625</maxTime>
-    <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
+    <openTime>2025-01-11T00:42:50.5721722</openTime>
+    <maxTime>2025-01-18T07:15:54.2614633</maxTime>
+    <verbalDescription>After giving birth to twins, a mother could use a little pampering. A set of lotions, oils, and some comfortable pajamas or slippers would help her feel more comfortable while recovering at home.</verbalDescription>
   </Call>
   <Call>
-    <ID>1051</ID>
-    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <ID>1041</ID>
+    <address>Beit Hadfus 9, Jerusalem, Israel</address>
     <callT>MomGift</callT>
-    <latitude>31.78582</latitude>
-    <longitude>35.18081</longitude>
-    <openTime>2025-01-29T16:37:41.4613135</openTime>
-    <maxTime xsi:nil="true" />
+    <latitude>31.7857</latitude>
+    <longitude>35.18921</longitude>
+    <openTime>2025-01-09T02:34:20.4706508</openTime>
+    <maxTime>2025-02-01T02:56:58.2770901</maxTime>
     <verbalDescription>A new mom with twins is exhausted and could really use some personal care items to feel refreshed. Consider gifting her some relaxing bath essentials like body wash, lotions, and a towel set.</verbalDescription>
   </Call>
   <Call>
-    <ID>1052</ID>
-    <address>HaIlui 9, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78888</latitude>
-    <longitude>35.19566</longitude>
-    <openTime>2025-01-09T21:03:58.0842395</openTime>
-    <maxTime>2025-02-23T11:00:37.8903095</maxTime>
-    <verbalDescription>A new family with a newborn is having trouble keeping the house organized. You could volunteer to help tidy up the nursery, fold baby clothes, and organize baby gear.</verbalDescription>
+    <ID>1042</ID>
+    <address>Harav Reines 30, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.79003</latitude>
+    <longitude>35.195</longitude>
+    <openTime>2025-01-17T12:32:13.0163463</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
   </Call>
   <Call>
-    <ID>1053</ID>
-    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
+    <ID>1043</ID>
+    <address>Najara 3, Jerusalem, Israel</address>
     <callT>MomGift</callT>
-    <latitude>31.78878</latitude>
-    <longitude>35.19136</longitude>
-    <openTime>2025-01-25T08:37:54.7142633</openTime>
-    <maxTime>2025-02-25T10:57:54.2007525</maxTime>
+    <latitude>31.79202</latitude>
+    <longitude>35.19214</longitude>
+    <openTime>2025-01-17T07:16:05.7722573</openTime>
+    <maxTime>2025-01-31T01:43:13.1454224</maxTime>
     <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
   </Call>
   <Call>
-    <ID>1054</ID>
-    <address>Kanfei Nesharim 24, Jerusalem, Israel</address>
+    <ID>1044</ID>
+    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78776</latitude>
+    <longitude>35.19622</longitude>
+    <openTime>2025-01-23T13:38:19.1238517</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A mother is struggling to manage her older children and a newborn. You could help by looking after the older kids for a couple of hours so the mom can rest or focus on the baby.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1045</ID>
+    <address>Harav Shrira Gaon 5, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78827</latitude>
+    <longitude>35.19383</longitude>
+    <openTime>2025-01-29T14:46:09.5641128</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A new family with a newborn is having trouble keeping the house organized. You could volunteer to help tidy up the nursery, fold baby clothes, and organize baby gear.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1046</ID>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <callT>HouseholdHelp</callT>
+    <latitude>31.78582</latitude>
+    <longitude>35.18081</longitude>
+    <openTime>2025-01-23T08:00:26.2954647</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>The new parents are overwhelmed with housework and could really use a hand. Offering to clean the kitchen or do the laundry can be a huge help to relieve some of the burden.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1047</ID>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-16T18:14:01.439963</openTime>
+    <maxTime>2025-02-14T10:22:14.5708839</maxTime>
+    <verbalDescription>A new mother is organizing a baby shower and would appreciate a thoughtful gift for her newborn girl. Consider giving a cute outfit or a set of baby care essentials, like lotions and diapers.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1048</ID>
+    <address>Harav Reines 30, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.79003</latitude>
+    <longitude>35.195</longitude>
+    <openTime>2025-01-03T10:53:55.6968579</openTime>
+    <maxTime>2025-02-09T01:07:54.0148268</maxTime>
+    <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1049</ID>
+    <address>Kanfei Nesharim 40, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.78792</latitude>
+    <longitude>35.18392</longitude>
+    <openTime>2025-01-11T01:21:33.8262125</openTime>
+    <maxTime>2025-02-11T02:18:33.9694739</maxTime>
+    <verbalDescription>A mother of twins who gave birth last week is overwhelmed and in need of personal care items. You could provide soaps, lotions, and a bath kit to help her feel more comfortable during her recovery.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1050</ID>
+    <address>Harav Tzvi Yehuda 16, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78776</latitude>
+    <longitude>35.19622</longitude>
+    <openTime>2025-01-12T07:24:09.9606279</openTime>
+    <maxTime>2025-01-15T17:35:30.6770862</maxTime>
+    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1051</ID>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
     <callT>MealPreparation</callT>
-    <latitude>31.78813</latitude>
-    <longitude>35.1867</longitude>
-    <openTime>2025-01-05T12:22:00.5920088</openTime>
-    <maxTime>2025-02-28T11:45:09.5701911</maxTime>
-    <verbalDescription>A large family is following a kosher diet and would appreciate a prepared meal. You could cook a kosher meal with the OU certification, such as a roast chicken, potatoes, and a fresh salad, making sure all ingredients are certified kosher.</verbalDescription>
+    <latitude>31.79251</latitude>
+    <longitude>35.19087</longitude>
+    <openTime>2025-01-09T20:53:40.3840334</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>The family needs a kosher meal, so you could prepare a dinner that complies with their dietary restrictions. A simple kosher chicken dish, rice, and a vegetable side would be perfect for the family of six.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1052</ID>
+    <address>Najara 3, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.79202</latitude>
+    <longitude>35.19214</longitude>
+    <openTime>2025-01-10T03:43:27.9577035</openTime>
+    <maxTime>2025-02-18T13:01:57.3715189</maxTime>
+    <verbalDescription>A new mother is organizing a baby shower and would appreciate a thoughtful gift for her newborn girl. Consider giving a cute outfit or a set of baby care essentials, like lotions and diapers.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1053</ID>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
+    <callT>MealPreparation</callT>
+    <latitude>31.79251</latitude>
+    <longitude>35.19087</longitude>
+    <openTime>2025-01-05T05:29:47.1628747</openTime>
+    <maxTime xsi:nil="true" />
+    <verbalDescription>A family following strict kosher guidelines is in need of a meal. Prepare a kosher meal with BD”C certification, such as a kosher meat dish, rice, and a vegetable side dish, ensuring everything is compliant with their dietary needs.</verbalDescription>
+  </Call>
+  <Call>
+    <ID>1054</ID>
+    <address>Harav Haim Vital 8, Jerusalem, Israel</address>
+    <callT>MomGift</callT>
+    <latitude>31.78845</latitude>
+    <longitude>35.19285</longitude>
+    <openTime>2025-01-15T09:15:23.2675439</openTime>
+    <maxTime>2025-02-02T06:52:39.3606582</maxTime>
+    <verbalDescription>A new mother just had twins and is struggling to find time for self-care. You could help by giving her a pampering gift set with soothing creams, oils, and nursing pads to help her recover.</verbalDescription>
   </Call>
   <Call>
     <ID>1055</ID>
     <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <callT>MomGift</callT>
+    <callT>BabyGift</callT>
     <latitude>31.78659</latitude>
     <longitude>35.18556</longitude>
-    <openTime>2025-01-11T02:07:22.449252</openTime>
+    <openTime>2025-01-02T04:13:05.7856492</openTime>
     <maxTime xsi:nil="true" />
-    <verbalDescription>After giving birth to twins, a mother could use a little pampering. A set of lotions, oils, and some comfortable pajamas or slippers would help her feel more comfortable while recovering at home.</verbalDescription>
+    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
   </Call>
   <Call>
     <ID>1056</ID>
-    <address>HaIlui 9, Jerusalem, Israel</address>
+    <address>Kanfei Nesharim 13, Jerusalem, Israel</address>
     <callT>HouseholdHelp</callT>
-    <latitude>31.78888</latitude>
-    <longitude>35.19566</longitude>
-    <openTime>2025-01-01T13:22:45.5154373</openTime>
+    <latitude>31.78737</latitude>
+    <longitude>35.18475</longitude>
+    <openTime>2025-01-28T01:36:18.6620053</openTime>
     <maxTime xsi:nil="true" />
     <verbalDescription>A mother is struggling to manage her older children and a newborn. You could help by looking after the older kids for a couple of hours so the mom can rest or focus on the baby.</verbalDescription>
   </Call>
   <Call>
     <ID>1057</ID>
-    <address>Harav Shrira Gaon 10, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78846</latitude>
-    <longitude>35.19252</longitude>
-    <openTime>2025-01-09T08:28:56.5582225</openTime>
-    <maxTime>2025-02-20T03:08:14.0455112</maxTime>
-    <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.78659</latitude>
+    <longitude>35.18556</longitude>
+    <openTime>2025-01-12T17:20:12.6726865</openTime>
+    <maxTime>2025-02-14T17:26:43.0623043</maxTime>
+    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
   </Call>
   <Call>
     <ID>1058</ID>
-    <address>Harav Shrira Gaon 18, Jerusalem, Israel</address>
-    <callT>MealPreparation</callT>
-    <latitude>31.78878</latitude>
-    <longitude>35.19136</longitude>
-    <openTime>2025-01-08T06:22:25.6231893</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new parents have a large family and need a break from cooking. You could prepare a large, easy-to-make meal, like mac and cheese, roasted vegetables, and some garlic bread to feed everyone.</verbalDescription>
+    <address>Najara 14, Jerusalem, Israel</address>
+    <callT>BabyGift</callT>
+    <latitude>31.79062</latitude>
+    <longitude>35.19139</longitude>
+    <openTime>2025-01-11T11:30:00.6943321</openTime>
+    <maxTime>2025-02-05T03:56:59.4538839</maxTime>
+    <verbalDescription>A friend recently had a baby girl and could use some baby clothes. A small set of soft cotton onesies, mittens, and a cozy baby hat would make a perfect gift.</verbalDescription>
   </Call>
   <Call>
     <ID>1059</ID>
-    <address>Beit Hadfus 35, Jerusalem, Israel</address>
-    <callT>HouseholdHelp</callT>
-    <latitude>31.78582</latitude>
-    <longitude>35.18081</longitude>
-    <openTime>2025-01-19T06:51:07.4444274</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>The new parents are so busy with their newborn that they haven’t been able to keep up with basic chores. Offering to clean the house, help with groceries, or cook a simple meal would be much appreciated.</verbalDescription>
-  </Call>
-  <Call>
-    <ID>1060</ID>
-    <address>Bar Ilan 3, Jerusalem, Israel</address>
+    <address>Givat Shaul 25, Jerusalem, Israel</address>
     <callT>BabyGift</callT>
-    <latitude>0</latitude>
-    <longitude>0</longitude>
-    <openTime>2025-01-30T17:00:00</openTime>
-    <maxTime xsi:nil="true" />
-    <verbalDescription>?????</verbalDescription>
+    <latitude>31.79251</latitude>
+    <longitude>35.19087</longitude>
+    <openTime>2025-01-20T18:28:34.6566605</openTime>
+    <maxTime>2025-01-31T22:50:38.1366315</maxTime>
+    <verbalDescription>A family is expecting a baby girl and is in need of some warm clothes for her first few months. You could provide a set of onesies, socks, and a soft blanket to help them prepare.</verbalDescription>
   </Call>
 </ArrayOfCall>

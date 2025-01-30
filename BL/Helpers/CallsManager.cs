@@ -24,7 +24,7 @@ namespace Helpers
         internal static BO.Call ConvertDOCallToBOCall(DO.Call doCall)
         {
             IEnumerable<DO.Assignment> assignmentsForCall;
-          List<BO.CallAssignInList> callAss;
+            List<BO.CallAssignInList> callAss;
             lock (AdminManager.BlMutex)
             {
                 assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.ID);
@@ -48,7 +48,7 @@ namespace Helpers
                 openTime = doCall.openTime,
                 maxTime = doCall.maxTime,
                 statusC = GetCallStatus(doCall),
-               CallAssign= callAss
+                CallAssign = callAss
             };
         }
 
@@ -59,22 +59,22 @@ namespace Helpers
                 assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.ID);
             var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.ID).FirstOrDefault();
             lock (AdminManager.BlMutex)
-            return new BO.CallInList
-            {
-                ID = lastAssignmentsForCall?.ID,
-                CallId = doCall.ID,
-                callT = (BO.CallType)doCall.callT,
-                openTime = doCall.openTime,
-                timeEndCall = (doCall.maxTime == null &&lastAssignmentsForCall!=null&& lastAssignmentsForCall.finishT == DO.FinishType.Treated && lastAssignmentsForCall.finishT == DO.FinishType.ExpiredCancel) ? null: doCall.maxTime - s_dal.Config.Clock,
-                volunteerLast = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)?.fullName : null,
-                TimeEndTreat = lastAssignmentsForCall?.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - doCall.openTime : null,
-                status = GetCallStatus(doCall),
-                numOfAssignments = assignmentsForCall.Count()
-            };
+                return new BO.CallInList
+                {
+                    ID = lastAssignmentsForCall?.ID,
+                    CallId = doCall.ID,
+                    callT = (BO.CallType)doCall.callT,
+                    openTime = doCall.openTime,
+                    timeEndCall = (doCall.maxTime == null && lastAssignmentsForCall != null && lastAssignmentsForCall.finishT == DO.FinishType.Treated && lastAssignmentsForCall.finishT == DO.FinishType.ExpiredCancel) ? null : doCall.maxTime - s_dal.Config.Clock,
+                    volunteerLast = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)?.fullName : null,
+                    TimeEndTreat = lastAssignmentsForCall?.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - doCall.openTime : null,
+                    status = GetCallStatus(doCall),
+                    numOfAssignments = assignmentsForCall.Count()
+                };
         }
         internal static BO.Status GetCallStatus(DO.Call doCall)
         {
-           DO.Assignment? lastAssignment;
+            DO.Assignment? lastAssignment;
             DateTime now;
             lock (AdminManager.BlMutex)
             {
@@ -95,7 +95,7 @@ namespace Helpers
             {
                 return BO.Status.Close;
             }
-            if (doCall.maxTime != null && doCall.maxTime <  now)
+            if (doCall.maxTime != null && doCall.maxTime < now)
             {
                 return Status.Expired;
             }
@@ -132,8 +132,8 @@ namespace Helpers
                 throw new BlUpdateCallException("Max completion time must be later than the opening time.");
             }
 
-           
-           
+
+
         }
         internal static void CheckCallFormat(BO.Call call)
         {
@@ -187,7 +187,7 @@ namespace Helpers
                         finishT = a.finishT.HasValue ? (BO.FinishType)a.finishT : null
                     }).ToList()
                 };
-            }       
+            }
         }
         public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;//להוסיף נעילה???
         internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, DO.Assignment lastAssignment)
@@ -217,7 +217,7 @@ namespace Helpers
             double dis = 0;
             try
             {
-                if (idLat.HasValue && idLon.HasValue && callLat.HasValue && callLon.HasValue)
+                if (idLat.HasValue && idLon.HasValue && callLat.HasValue && callLon.HasValue && vol != null && vol.distanceType != null)
                 {
                     dis = Tools.CalculateDistance(callLat.Value, callLon.Value, idLat.Value, idLon.Value, (BO.Distance)vol.distanceType);
                 }
@@ -238,7 +238,7 @@ namespace Helpers
                 ID = doCall.ID,
                 callT = (BO.CallType)doCall.callT,
                 verbalDescription = doCall.verbalDescription,
-                address= doCall.address,
+                address = doCall.address,
                 openTime = doCall.openTime,
                 maxTime = doCall.maxTime,
                 distance = dis,
@@ -267,7 +267,7 @@ namespace Helpers
         {
             Thread.CurrentThread.Name = $"Periodic{++s_periodicCounter}"; //stage 7 (optional)
             IEnumerable<BO.Call> boCalls;
-            List<int> idSThatChanges= new List<int>();
+            List<int> idSThatChanges = new List<int>();
 
             lock (AdminManager.BlMutex)
             {
@@ -279,17 +279,17 @@ namespace Helpers
             }
             foreach (BO.Call call in boCalls)
             {
-                if (call.CallAssign == null|| call.CallAssign.Count==0)
+                if (call.CallAssign == null || call.CallAssign.Count == 0)
                 {
                     lock (AdminManager.BlMutex)
                         s_dal.Assignment.Create(new DO.Assignment(0, call.ID, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.FinishType.ExpiredCancel));
 
-                    
+
 
                 }
                 else
                 {
-                    var lastAss = call.CallAssign.OrderByDescending(a=>a.startTreatment).First();
+                    var lastAss = call.CallAssign.OrderByDescending(a => a.startTreatment).First();
                     if (lastAss.finishT == null)
                     {
                         DO.Assignment? assing;
@@ -297,33 +297,57 @@ namespace Helpers
                         lock (AdminManager.BlMutex)
                         {
                             assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
-                            clock = s_dal.Config.Clock;
+                            if (assing != null)
+                            {
+                                clock = s_dal.Config.Clock;
 
-                            s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.CallId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
+                                s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.CallId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
+                            }
                         }
-                            idSThatChanges.Add(assing.VolunteerId);
+                        if (assing!=null)
+                        idSThatChanges.Add(assing.VolunteerId);
 
                     }
 
 
                 }
 
-               
+
 
             }
-            foreach (int id in  idSThatChanges)
+            foreach (int id in idSThatChanges)
                 VolunteersManager.Observers.NotifyItemUpdated(id);
-          if (idSThatChanges.Count!=0)
+            if (idSThatChanges.Count != 0)
                 VolunteersManager.Observers.NotifyListUpdated();
-          foreach (var  calll in boCalls)
+            foreach (var calll in boCalls)
                 CallsManager.Observers.NotifyItemUpdated(calll.ID);  //stage 5
-            if (boCalls.Count()!= 0)
+            if (boCalls.Count() != 0)
                 CallsManager.Observers.NotifyListUpdated();
 
 
 
 
 
+        }
+        internal  static BO.Call ReadCallHelper (int id)
+        {
+            DO.Call? doCall;
+            IEnumerable<DO.Assignment> assignmentsForCall;
+            lock (AdminManager.BlMutex)
+            {
+                doCall = s_dal.Call.Read(c => c.ID == id);
+                assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == id);
+
+            }
+
+
+            if (doCall == null)
+                throw new BO.BlDoesNotExistException($"Call with ID {id} does not exist in the database.");
+
+
+            var boCall = CallsManager.ConvertDOCallWithAssignments(doCall, assignmentsForCall);
+
+            return boCall;
         }
         internal static async Task updateCoordinatesForCallAddressAsync(DO.Call doCall)
         {
@@ -340,6 +364,70 @@ namespace Helpers
                 }
             }
         }
-    }
+  
+        internal static IEnumerable<OpenCallInList> ReadOpenCallsVolunteerHelp(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort, IEnumerable<OpenCallInList> openCallIns = null)
+        {
+            IEnumerable<BO.OpenCallInList> openCallInLists;
 
+
+            if (openCallIns == null)
+            {
+                lock (AdminManager.BlMutex)
+                {
+                    IEnumerable<DO.Call> previousCalls = s_dal.Call.ReadAll(null);
+                    List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
+
+                    Calls.AddRange(from item in previousCalls
+                                   let DataCall = ReadCallHelper(item.ID)
+                                   where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
+                                   where callT == null || callT == BO.CallType.None || DataCall.callT == callT
+                                   let volunteerData = s_dal.Volunteer.Read(v => v.ID == id)
+                                   let airDistance = Tools.CalculateDistance(item.latitude, item.longitude, volunteerData.Latitude, volunteerData.Longitude, BO.Distance.AirDistance) // חישוב המרחק האווירי
+                                   where volunteerData.maxDistance == null
+                                         || airDistance <= volunteerData.maxDistance // אם המרחק האווירי קטן או שווה למקסימום
+                                   let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
+                                   where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
+                                   select openCall);
+
+                    openCallInLists = Calls;
+                }
+            }
+            else
+                openCallInLists = openCallIns;
+
+            if (callT != null)
+            {
+                openCallInLists = openCallInLists.Where(c => c.callT == callT);
+            }
+
+            if (filedTosort != null)
+            {
+                switch (filedTosort)
+                {
+                    case BO.FiledOfOpenCallInList.ID:
+                        openCallInLists = openCallInLists.OrderBy(item => item.ID);
+                        break;
+                    case BO.FiledOfOpenCallInList.address:
+                        openCallInLists = openCallInLists.OrderBy(item => item.address);
+                        break;
+                    case BO.FiledOfOpenCallInList.callT:
+                        openCallInLists = openCallInLists.OrderBy(item => item.callT);
+                        break;
+                    case BO.FiledOfOpenCallInList.openTime:
+                        openCallInLists = openCallInLists.OrderBy(item => item.openTime);
+                        break;
+                    case BO.FiledOfOpenCallInList.maxTime:
+                        openCallInLists = openCallInLists.OrderBy(item => item.maxTime);
+                        break;
+                    case BO.FiledOfOpenCallInList.verbalDescription:
+                        openCallInLists = openCallInLists.OrderBy(item => item.verbalDescription);
+                        break;
+                }
+
+            }
+
+            return openCallInLists;
+        }
+
+    } 
 }

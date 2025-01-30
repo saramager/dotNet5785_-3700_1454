@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace Helpers
 {
-    internal  static class Tools
+    internal static class Tools
     {
         static string openRouteServiceApiKey = "5b3ce3597851110001cf62482999abdea2bf4cfd998ad34761d90c08";
 
@@ -75,7 +75,7 @@ namespace Helpers
                         {
                             throw new AdressDoesNotExistException("No geolocation data found for the given address.");
                         }
-                        if (locationData.Length>1)
+                        if (locationData.Length > 1)
 
                             throw new AdressDoesNotExistException("The address is not speasific.");
 
@@ -162,6 +162,9 @@ namespace Helpers
                         }
                         catch (Exception ex)
                         {
+
+                            //Thread.Sleep(new TimeSpan(0, 1, 0));
+                            //distance = GetDistanceNotAsync(lat1 ??0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking");
                             throw new Exception(ex.Message);
                         }
                         break;
@@ -173,9 +176,11 @@ namespace Helpers
                         }
                         catch (Exception ex)
                         {
+                            //Thread.Sleep(new TimeSpan(0, 1, 0));
+                            //distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car");
                             throw new Exception(ex.Message);
                         }
-                       
+
                         break;
                 }
 
@@ -183,7 +188,7 @@ namespace Helpers
             return distance;
         }
 
-        
+
 
         /// <summary>
         /// Converts degrees to radians.
@@ -260,7 +265,7 @@ namespace Helpers
         //    }
         //}
 
-        public static double GetDistanceNotAsync(double lat1, double lon1, double lat2, double lon2, string profile)
+        public static double GetDistanceNotAsync1(double lat1, double lon1, double lat2, double lon2, string profile)
         {
             Thread.Sleep(200);
 
@@ -314,7 +319,62 @@ namespace Helpers
         }
 
 
+
+
+
+        public static double GetDistanceNotAsync(double lat1, double lon1, double lat2, double lon2, string profile)
+        {
+            try
+            {
+                string url = $"https://api.openrouteservice.org/v2/directions/{profile}/json";
+                var body = new
+                {
+                    coordinates = new[] {
+                    new[] { lon1, lat1 },
+                    new[] { lon2, lat2 }
+                }
+                };
+
+                string jsonBody = JsonConvert.SerializeObject(body);
+
+                // יצירת WebRequest
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/json";
+                request.Headers.Add("Authorization", openRouteServiceApiKey);
+
+                // כתיבה ל-stream של הבקשה
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(jsonBody);
+                }
+
+                // קבלת התשובה באופן סינכרוני
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string responseBody = reader.ReadToEnd();
+                    dynamic responseData = JsonConvert.DeserializeObject(responseBody);
+
+                    if (responseData?.routes != null && responseData.routes.Count > 0)
+                    {
+                        var route = responseData.routes[0];
+                        return route.summary.distance / 1000.0; // המר את המרחק מקילומטרים
+                    }
+                    else
+                    {
+                        throw new Exception("No route found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred: " + ex.Message);
+            }
+        }
     }
+
 
 }
 
