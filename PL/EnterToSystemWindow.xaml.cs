@@ -25,16 +25,16 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         public RoleType Role { get; set; }
-        public int  Id
+        public int Id
         {
             get { return (int)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
-       
+
 
         public static readonly DependencyProperty IdProperty =
             DependencyProperty.Register("Id", typeof(int), typeof(EnterToSystemWindow), new PropertyMetadata(null));
-        public string Password 
+        public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
@@ -46,7 +46,7 @@ namespace PL
         public EnterToSystemWindow()
         {
             InitializeComponent();
-        
+
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -87,6 +87,48 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
             
+
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    Role = s_bl.Volunteer.EnterToSystem(Id, Password);
+                    if (Role == RoleType.Volunteer)
+
+                    {
+                        MessageBoxResult result = MessageBox.Show("Are you  want to open vlounteer window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            new VolnteerMainWindow(Id).Show();
+                        }
+
+                    }
+
+                    else
+                    {
+                        new ChoseForManagerWindow(Id).Show();
+                    }
+                }
+                catch (BO.BlDoesNotExistException blEx)
+                {
+                    MessageBox.Show("there is n volunteer with such Id");
+                }
+                catch (PaswordDoesNotExistException PasEx)
+                {
+                    MessageBox.Show("there is no password entered");
+                }
+                catch (PasswordIsNotCorrectException PasEx)
+                {
+                    MessageBox.Show(PasEx.Message);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
 
         }
     }

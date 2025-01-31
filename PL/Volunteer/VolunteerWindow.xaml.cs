@@ -58,14 +58,12 @@ namespace PL.Volunteer
             ButtonText = id == 0 ? "Add" : "Update";
             ManagerID = managerid;
 
-            Task.Run(() =>
-            {
+          
                 var volunteer = (id != 0) ? s_bl.Volunteer.ReadVolunteer(id)! : new BO.Volunteer() { Id = 0 };
-                Dispatcher.Invoke(() =>
-                {
+              
+               
                     CurrentVolunteer = volunteer;
-                }, DispatcherPriority.Send);
-            });
+               
             InitializeComponent();
 
         }
@@ -122,15 +120,13 @@ namespace PL.Volunteer
                     {
                         try
                         {
-                            Task.Run(() =>
-                            {
+                            
+                           
                                 var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
 
-                                Dispatcher.Invoke(() =>
-                                {
                                     CurrentVolunteer = volunteer;
-                                });
-                            });
+                             
+                           
                         }
                         catch (BlDoesNotExistException ex) { MessageBox.Show(ex.Message); }
                         catch (Exception ex) { MessageBox.Show(ex.Message); }

@@ -48,19 +48,17 @@ namespace PL.VolunteerScreens
         private void queryOpenCallsList()
         {
            try {
-                Task.Run(() =>
-            {
+                
             IEnumerable<BO.OpenCallInList> openCallIns;
                 if (filterOpenCalls== BO.CallType.None) 
                         openCallIns = s_bl.Call.ReadOpenCallsVolunteer(Id, null, sortOpenCalls);
                   else
                     openCallIns = s_bl.Call.ReadOpenCallsVolunteer(Id, filterOpenCalls, sortOpenCalls);
 
-                Dispatcher.Invoke(() =>
-                {
+            
                     OpenCallsList = openCallIns;
-                });
-            });
+               
+           
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR ", MessageBoxButton.OK, MessageBoxImage.Error); }
         }

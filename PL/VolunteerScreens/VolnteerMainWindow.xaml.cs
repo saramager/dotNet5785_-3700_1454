@@ -56,27 +56,25 @@ namespace PL.VolunteerScreens
             this.Loaded += Window_Loaded;
             Call = null;
 
-            {
-
-                Task.Run(() =>
+            try
             {
                 var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
 
-                Dispatcher.Invoke(() =>
-                {
-                    CurrentVolunteer = volunteer;
-                    if (CurrentVolunteer.callProgress != null)
-                    {
 
-                        Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
-                    }
-                    s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
-                    if (Call != null)
-                        s_bl.Call.AddObserver(Call.ID, callObserver);
-                });
-            });
+                CurrentVolunteer = volunteer;
+                if (CurrentVolunteer.callProgress != null)
+                {
+
+                    Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
+                }
+                s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, volunteerObserver);
+                if (Call != null)
+                    s_bl.Call.AddObserver(Call.ID, callObserver);
             }
+            catch ( Exception ex ) { MessageBox.Show(ex.Message, "ERROR ", MessageBoxButton.OK, MessageBoxImage.Error); }
+
         }
+       
 
         private volatile DispatcherOperation? _observerOperation1 = null; //stage 7
         private volatile DispatcherOperation? _observerOperation2 = null; //stage 7
@@ -108,12 +106,10 @@ namespace PL.VolunteerScreens
         private void queryCall()
         {
             int id = CurrentVolunteer!.Id;
-            Task.Run(() =>
-            {
+           
                 var volunteer = s_bl.Volunteer.ReadVolunteer(id)!;
 
-                Dispatcher.Invoke(() =>
-                {
+              
                     CurrentVolunteer = volunteer;
                     if (Call != null)
                     {
@@ -139,8 +135,7 @@ namespace PL.VolunteerScreens
                         Call = s_bl.Call.ReadCall(CurrentVolunteer.callProgress.CallId);
                     }
 
-                });
-            });
+            
         }
         /// <summary>
         /// Adds the observer when the window is loaded
@@ -224,8 +219,17 @@ namespace PL.VolunteerScreens
 
         private void EndCall_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+
+            MessageBoxResult result = MessageBox.Show(
+                    $"Do you want to finish treat for call {CurrentVolunteer!.callProgress!.ID}?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+
+                try
+                {
                 s_bl.Call.FinishTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
                 MessageBox.Show("finish Call ");
 
@@ -253,7 +257,15 @@ namespace PL.VolunteerScreens
 
         private void CancelCall_Click(object sender, RoutedEventArgs e)
         {
-            try
+            MessageBoxResult result = MessageBox.Show(
+                    $"Do you want to cancel call {CurrentVolunteer!.callProgress!.ID}?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+        
+                try
             {
                 s_bl.Call.cancelTreat(CurrentVolunteer.Id, CurrentVolunteer.callProgress.ID);
                 MessageBox.Show("cancel Call ");
