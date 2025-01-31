@@ -154,10 +154,10 @@ VolunteersManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             lock (AdminManager.BlMutex)  //stage 7
                 assForVol = _dal.Assignment.ReadAll(ass => ass.VolunteerId == vol.Id );
-            if (assForVol!= null)
+            if (assForVol!= null && vol.active==false)
             {  
                 if (assForVol.Count(ass => ass.finishT == null) > 0)
-                    throw new  CantUpdatevolunteer($"vlounteer with id {id} have open assigments ");
+                    throw new  CantUpdatevolunteer($"vlounteer with id {id} have open assigments and want to make hin unactive  ");
             }
         }
        if (role == DO.RoleType.Volunteer )

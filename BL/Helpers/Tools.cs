@@ -12,6 +12,9 @@ namespace Helpers
     internal static class Tools
     {
         static string openRouteServiceApiKey = "5b3ce3597851110001cf62482999abdea2bf4cfd998ad34761d90c08";
+        static string secondAPI = "5b3ce3597851110001cf6248fc840214514d46919ed8d8220701ecb5";
+        static string apiKey = "qNm0LxJfsk_2wh7AVzpRLr4ud3CKITJqOufRkJhpsZs";
+        static int request = 0;
 
 
         // The generic method works for any object, returning a string of its properties
@@ -132,7 +135,7 @@ namespace Helpers
 
             double distance = 0; // נכון עבור nullable double
 
-            if (lat1 != null && lon1 != null && lat2 != null && lon1 != null)
+            if (lat1 != null && lon1 != null && lat2 != null && lon2 != null)
             {
                 switch (distanceType)
                 {
@@ -156,36 +159,73 @@ namespace Helpers
                         distance = R * c; // Distance in kilometers
                         break;
                     case BO.Distance.walkingDistance:
-                        try
-                        {
-                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking")/*.Result*/;
-                        }
-                        catch (Exception ex)
-                        {
+                        //try
+                        //{
+                        //    distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking")/*.Result*/;
+                        //}
+                        //catch (Exception ex)
+                        //{
 
-                            //Thread.Sleep(new TimeSpan(0, 1, 0));
-                            //distance = GetDistanceNotAsync(lat1 ??0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking");
-                            throw new Exception(ex.Message);
+                        //    //Thread.Sleep(new TimeSpan(0, 1, 0));
+                        if (request < 40)
+                        {
+                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking", openRouteServiceApiKey);
+                            request++;
+                        }
+                        else if (request < 80)
+                        {
+                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "foot-walking", secondAPI);
+                            request++;
+                        }
+                        else if (request < 100)
+                        {
+                            
+                                distance = GetRouteDistanceSync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "pedestrian");
+                                request++;
+                                if (request == 100)
+                                    request = 0;
+                           
                         }
                         break;
 
                     case BO.Distance.DrivingDistance:
-                        try
-                        {
-                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car")/*.Result*/;
-                        }
-                        catch (Exception ex)
-                        {
-                            //Thread.Sleep(new TimeSpan(0, 1, 0));
-                            //distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car");
-                            throw new Exception(ex.Message);
-                        }
+                        //try
+                        //{
+                        //    distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car")/*.Result*/;
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    //Thread.Sleep(new TimeSpan(0, 1, 0));
+                        //    //distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car");
+                        //    throw new Exception(ex.Message);
+                        //}
 
+                        if (request < 40)
+                        {
+                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car", openRouteServiceApiKey);
+                            request++;
+                        }
+                        else if (request < 80)
+                        {
+                            distance = GetDistanceNotAsync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "driving-car", secondAPI);
+                            request++;
+                        }
+                        else if (request < 60)
+                        {
+                            
+                                distance = GetRouteDistanceSync(lat1 ?? 0, lon1 ?? 0, lat2 ?? 0, lon2 ?? 0, "car");
+                                request++;
+                                if (request == 60)
+                                    request = 0;
+                            
+                           
+                        }
                         break;
-                }
 
+                }
             }
             return distance;
+
         }
 
 
@@ -322,7 +362,7 @@ namespace Helpers
 
 
 
-        public static double GetDistanceNotAsync(double lat1, double lon1, double lat2, double lon2, string profile)
+        public static double GetDistanceNotAsync(double lat1, double lon1, double lat2, double lon2, string profile,string ApiKeys)
         {
             try
             {
@@ -341,7 +381,7 @@ namespace Helpers
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "POST";
                 request.ContentType = "application/json";
-                request.Headers.Add("Authorization", openRouteServiceApiKey);
+                request.Headers.Add("Authorization", ApiKeys);
 
                 // כתיבה ל-stream של הבקשה
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -370,12 +410,50 @@ namespace Helpers
             }
             catch (Exception ex)
             {
+                return 0;
                 throw new Exception("An error occurred: " + ex.Message);
             }
         }
+
+
+        public static double GetRouteDistanceSync(double lat1, double lon1, double lat2, double lon2, string transportMode)
+        {
+            try
+            {
+                // בניית URL לבקשה
+                string url = $"https://router.hereapi.com/v8/routes?apikey={apiKey}&transportMode={transportMode}&origin={lat1},{lon1}&destination={lat2},{lon2}&return=summary";
+
+                // יצירת WebRequest סינכרונית
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+
+                // קבלת התשובה באופן סינכרוני
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string responseBody = reader.ReadToEnd();
+                    dynamic responseData = JsonConvert.DeserializeObject(responseBody);
+
+                    // בדיקה אם יש תוצאה תקינה
+                    if (responseData?.routes != null && responseData.routes.Count > 0)
+                    {
+                        var route = responseData.routes[0];
+                        return route.sections[0].summary.length / 1000.0; // המרחק בקילומטרים
+                    }
+                    else
+                    {
+                        throw new Exception("No route found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+                throw new Exception("Error fetching route data: " + ex.Message);
+            }
+        }
     }
-
-
 }
 
 

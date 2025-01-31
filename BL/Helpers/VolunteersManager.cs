@@ -111,7 +111,7 @@ namespace Helpers
                         distanceOfCall = 0;
                         if (callTreat.latitude != null && callTreat.longitude != null)
 
-                            Tools.CalculateDistance
+                           distanceOfCall= Tools.CalculateDistance
                         (
                           (double)callTreat.latitude,
                           (double)callTreat.longitude,
@@ -379,7 +379,7 @@ namespace Helpers
                         if (s_rand.NextDouble() <= 0.2) // הסתברות 20%
                         {
                           
-                                    openCalls = CallsManager.ReadOpenCallsVolunteerHelp(volunteerId,null,null,null);
+                           openCalls = CallsManager.ReadOpenCallsVolunteerHelp(volunteerId,null,null,null);
                                    
                       
 
@@ -428,7 +428,6 @@ namespace Helpers
                             }
                             catch (BO.BlDoesNotExistException ex)
                             {
-                                // טיפול בחריגה במקרה של בעיה במתודה cancelTreat
                                 Console.WriteLine($"Error canceling treatment: {ex.Message}");
                             }
                         }
