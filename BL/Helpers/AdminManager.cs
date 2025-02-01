@@ -161,7 +161,7 @@ internal static class AdminManager //stage 4
 
             try
             {
-                Thread.Sleep(2000); // 1 second
+                Thread.Sleep(1500); // 1 second
             }
             catch (ThreadInterruptedException) { }
         }

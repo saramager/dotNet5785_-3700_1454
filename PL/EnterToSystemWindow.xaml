@@ -25,14 +25,23 @@
         <!-- ID Label -->
         <Label Style="{StaticResource  SubHeaderLabel}"  Content="ID:" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18" RenderTransformOrigin="2.272,0.262" Margin="0,20,8,0" FontFamily="Cooper Black"/>
 
-        <!-- ID TextBox -->
-        <TextBox Style="{StaticResource ElegantTextBox}" Text= "{Binding Id, Mode=TwoWay}" Grid.Column="2" HorizontalAlignment="Left" Height="40" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="132" Margin="0,20,0,29" RenderTransformOrigin="0.588,1.196" />
-
         <!-- Password Label -->
         <Label  Style="{StaticResource SubHeaderLabel }" Content="Password:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" FontSize="18" VerticalAlignment="Top" Margin="0,0,8,0" FontFamily="Cooper Black" />
 
+        <!-- ID TextBox -->
+        <TextBox Style="{StaticResource ElegantTextBox}" Text="{Binding Id, Mode=TwoWay}"
+         Grid.Column="2" HorizontalAlignment="Left" Height="40" Grid.Row="1"
+         TextWrapping="Wrap" VerticalAlignment="Bottom" Width="132" Margin="0,0,0,27"
+         RenderTransformOrigin="0.588,1.196"
+         KeyDown="TextBox_KeyDown" />
+
         <!-- Password TextBox -->
-        <TextBox  Style="{StaticResource  ElegantTextBox}" Grid.Column="2" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Password, Mode=TwoWay}" VerticalAlignment="Top" Width="132" Height="40"/>
+        <TextBox Style="{StaticResource ElegantTextBox}" Grid.Column="2" HorizontalAlignment="Left"
+         Margin="0,0,0,0" Grid.Row="2" TextWrapping="Wrap"
+         Text="{Binding Password, Mode=TwoWay}" VerticalAlignment="Top"
+         Width="132" Height="40"
+         KeyDown="TextBox_KeyDown"/>
+
 
         <!-- Login Button -->
         <Button Style="{StaticResource PrimaryBrownButton}"  Grid.Column="2" Content="login" HorizontalAlignment="Left" Height="40" Margin="0,60,0,0" Grid.Row="2" VerticalAlignment="Top" Width="132" Click="LoginButton_Click" FontFamily="Cooper Black"/>

@@ -89,6 +89,25 @@ namespace PL
             
 
         }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (sender is TextBox textBox)
+                {
+                    var request = new TraversalRequest(FocusNavigationDirection.Next);
+                    textBox.MoveFocus(request);
+                }
+
+                // בדיקה אם כל השדות מלאים לפני התחברות
+                if (!string.IsNullOrWhiteSpace(Id.ToString()) && !string.IsNullOrWhiteSpace(Password))
+                {
+                    LoginButton_Click(sender, e);
+                }
+            }
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
