@@ -65,15 +65,10 @@ namespace PL
             }
                 InitializeComponent();
 
-            s_bl.Admin.AddClockObserver(clockObserver);
-            s_bl.Admin.AddConfigObserver(configObserver);
-            s_bl.Call.AddObserver(callsListObserver);
-
+           
             this.Closed += OnWindowClosed;
             this.Loaded += OnWindowLoaded;
-            CurrentTime = s_bl.Admin.GetClock();
-            RiskRange = s_bl.Admin.GetRiskRange();
-            CallSums = s_bl.Call.SumOfCalls();
+    
             managerID = MId;
         }
 
@@ -190,6 +185,9 @@ namespace PL
 
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
+            s_bl.Admin.AddClockObserver(clockObserver);
+            
+
         }
 
         /// <summary>
