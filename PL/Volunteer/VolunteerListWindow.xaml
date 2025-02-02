@@ -37,7 +37,7 @@
 
         <DataGrid Style="{StaticResource CustomDataGridStyle}"  Margin="5,0,5,5" Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}"  IsReadOnly="True" AutoGenerateColumns="False"
                   EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected"
-                  SelectedItem="{Binding SelectedVolunteer}"   MouseDoubleClick="lsvVolunteersList_MouseDoubleClick" SelectionChanged="DataGrid_SelectionChanged_1">
+                  SelectedItem="{Binding SelectedVolunteer}"   MouseDoubleClick="lsvVolunteersList_MouseDoubleClick" >
                     <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ID}" Header="Id" Width="*" />
                 <DataGridTextColumn Binding="{Binding fullName}" Header="Name" Width="auto" />
