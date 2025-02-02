@@ -31,7 +31,7 @@
         </StackPanel>
 
         <!--Update Risk Range-->
-        <TextBox HorizontalAlignment="Left" Height="47" Margin="142,81,0,0" TextWrapping="Wrap" Text="{Binding RiskRange, Mode=TwoWay}" VerticalAlignment="Top" Width="156" Style="{StaticResource ElegantTextBox}"/>
+        <TextBox HorizontalAlignment="Left" Height="47" Margin="142,81,0,0" TextWrapping="Wrap" Text="{Binding RiskRange, Mode=TwoWay}"  IsReadOnly="{Binding IsSimulatorWork}" VerticalAlignment="Top" Width="156" Style="{StaticResource ElegantTextBox}"/>
         <Button Content="Update Risk Range"  IsEnabled="{Binding IsSimulatorWork, Converter={StaticResource ConvertBoolToNotBoolKey}}"  HorizontalAlignment="Left" Height="77" VerticalAlignment="Top" Width="220" Click="SetRiskRangeButton_Click" Margin="107,156,0,0" Style="{StaticResource MenuButton4}"/>
 
         <!-- list of volunteers -->
