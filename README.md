@@ -1,14 +1,8 @@
-sara 
+  
 # dotNet5785_-3700_1454
 dotNet porject 
 Hello welcome!
 Hii world! 
-Bonuses:
-full try phase in BLTest and DLTest- 1 points 
-password - properrty add - 2 points 
-Checked for a strong password - 1 point 
-Password encryption - 2 points 
-Distance calculations - by air, drive or walking - 3 points
 
 **Project Bonus Features and Evaluation Criteria**
 
@@ -36,7 +30,7 @@ Evaluation Points: 2
 Allows deleting a volunteer only if no task has ever been assigned to them.
 Evaluation Points: 2
 
-* Error Handling in BLTest and DLTest
+* Try-phase use in BLTest and DLTest
 Ensures comprehensive error handling using full try- phase blocks (try-finally or try-catch).
 Evaluation Points: 1
 
