@@ -67,7 +67,7 @@ namespace Helpers
                     openTime = doCall.openTime,
                     timeEndCall = (doCall.maxTime == null || (lastAssignmentsForCall != null && (lastAssignmentsForCall.finishT == DO.FinishType.Treated || lastAssignmentsForCall.finishT == DO.FinishType.ExpiredCancel))) ? null : doCall.maxTime - s_dal.Config.Clock,
                     volunteerLast = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(v => v.ID == lastAssignmentsForCall.VolunteerId)?.fullName : null,
-                    TimeEndTreat = lastAssignmentsForCall?.finishTreatment != null ? lastAssignmentsForCall.finishTreatment - doCall.openTime : null,
+                    TimeEndTreat = lastAssignmentsForCall!=null && lastAssignmentsForCall.finishT == DO.FinishType.Treated ? lastAssignmentsForCall.finishTreatment - doCall.openTime : null,
                     status = GetCallStatus(doCall),
                     numOfAssignments = assignmentsForCall.Count()
                 };

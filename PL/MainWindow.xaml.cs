@@ -147,14 +147,18 @@ namespace PL
                     CallSums = s_bl.Call.SumOfCalls();
                 });
         }
-
+        private volatile DispatcherOperation? _observerOperation3 = null; //stage 7
         /// <summary>
         /// Updates RiskRange by observing configuration changes
         /// </summary>
         private void configObserver()
         {
-            RiskRange = s_bl.Admin.GetRiskRange();
-            CallSums = s_bl.Call.SumOfCalls();
+            if (_observerOperation3 is null || _observerOperation3.Status == DispatcherOperationStatus.Completed)
+                _observerOperation3 = Dispatcher.BeginInvoke(() =>
+                {
+                    RiskRange = s_bl.Admin.GetRiskRange();
+                    CallSums = s_bl.Call.SumOfCalls();
+                });
 
         }
 
