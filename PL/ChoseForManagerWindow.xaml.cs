@@ -32,7 +32,7 @@ namespace PL
             MessageBoxResult result = MessageBox.Show("Are you  want to open vlounteer window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                new VolnteerMainWindow(Id).Show();
+                new VolunteerMainWindow(Id).Show();
             }
             this.Close();
         }

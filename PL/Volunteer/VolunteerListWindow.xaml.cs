@@ -100,17 +100,14 @@ namespace PL.Volunteer
             DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
         /// <summary>
-        /// Current filter field for volunteers.
-        /// </summary>
-        ///  צריך לבדוק אם לשנות את GetCallInList כי הוא כרגע לא מקבל ערך לסינון אלא רק למיון
-
-
-        /// <summary>
         /// Current sort field for volunteers.
         /// </summary>
         public BO.FiledOfVolunteerInList filedToSort { get; set; } = BO.FiledOfVolunteerInList.ID;
         public int ManagerID { get; set; }
 
+        /// <summary>
+        /// Dependency property for FilterActive.
+        /// </summary>
         public static readonly DependencyProperty FilterActiveProperty =
             DependencyProperty.Register(
                 "FilterActive",
@@ -118,6 +115,9 @@ namespace PL.Volunteer
                 typeof(VolunteerListWindow),
                 new PropertyMetadata(null));
 
+        /// <summary>
+        /// Filter for active volunteers.
+        /// </summary>
         public bool? FilterActive
         {
             get => (bool?)GetValue(FilterActiveProperty);
@@ -143,14 +143,6 @@ namespace PL.Volunteer
             s_bl.Volunteer.AddObserver(VolunteerListObserver);
             this.ManagerID = managerID;
             }
-        }
-
-        /// <summary>
-        /// Handles selection changes in the data grid.
-        /// </summary>
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -202,10 +194,6 @@ namespace PL.Volunteer
             IsOpen = false;
         }
 
-        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
 

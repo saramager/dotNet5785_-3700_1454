@@ -32,16 +32,24 @@ namespace PL
             set { SetValue(IntervalProperty, value); }
         }
 
-
+        /// <summary>
+        /// Dependency property for Interval
+        /// </summary>
         public static readonly DependencyProperty IntervalProperty =
             DependencyProperty.Register("Interval", typeof(int), typeof(MainWindow), new PropertyMetadata(0));
+
+        /// <summary>
+        /// Property for the IsSimulatorWork
+        /// </summary>
         public bool  IsSimulatorWork
         {
             get { return (bool)GetValue(IsSimulatorWorkProperty); }
             set { SetValue(IsSimulatorWorkProperty, value); }
         }
 
-
+        /// <summary>
+        /// Dependency property for IsSimulatorWork
+        /// </summary>
         public static readonly DependencyProperty IsSimulatorWorkProperty =
             DependencyProperty.Register("IsSimulatorWork", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
        
@@ -344,7 +352,11 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// Opens the Configuration window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonSimulator_Click(object sender, RoutedEventArgs e)
         {
             if(IsSimulatorWork)

@@ -84,6 +84,11 @@ namespace PL.Call
                 
             }
         }
+        /// <summary>
+        /// Handles the "Edit" button click to open the edit call window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -98,7 +103,6 @@ namespace PL.Call
             {
                 try
                 {
-                   // int managerID = (int)(s_bl.Volunteer.findVolunteer(v => v.role == BO.role.Manager)?.Id ?? throw new InvalidOperationException("No manager found"));
                     int? callID = call.ID;
                     s_bl.Call.cancelTreat(managerID, callID);
                     CallList = s_bl.Call.GetCallInList(filedToFilter, null, filedToSort);
@@ -159,14 +163,6 @@ namespace PL.Call
         }
 
         /// <summary>
-        /// Handles selection changes in the data grid.
-        /// </summary>
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
         /// Handles filtering calls based on the selected field.
         /// </summary>
         private void CallFilter(object sender, EventArgs e)
@@ -175,12 +171,10 @@ namespace PL.Call
             {
                 if (sender is ComboBox comboBox)
                 {
-                    // אם המשתמש בחר שדה חדש לסינון
                     filedToFilter = (FiledOfCallInList)comboBox.SelectedItem;
                 }
                 else if (sender is TextBox textBox && e is KeyEventArgs keyEventArgs)
                 {
-                    // אם המשתמש לחץ Enter ב-TextBox
                     if (keyEventArgs.Key == Key.Enter)
                     {
                         Filter = textBox.Text;
@@ -234,7 +228,7 @@ namespace PL.Call
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             s_bl.Volunteer.AddObserver(CallListObserver);
-            queryCallList(); // טוען מחדש את הרשימה עם פתיחת החלון
+            queryCallList();
         }
 
         /// <summary>

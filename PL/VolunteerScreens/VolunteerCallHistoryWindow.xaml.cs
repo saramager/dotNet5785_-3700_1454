@@ -42,7 +42,10 @@ namespace PL.VolunteerScreens
         public static readonly DependencyProperty CloseCallsListProperty =
             DependencyProperty.Register("CloseCallsList", typeof(IEnumerable<BO.ClosedCallInList>), typeof(VolunteerCallHistoryWindow), new PropertyMetadata(null));
 
-
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="id"></param>
         public VolunteerCallHistoryWindow(int id)
         {
             Id = id;
@@ -53,11 +56,16 @@ namespace PL.VolunteerScreens
             InitializeComponent();
 
         }
+        /// <summary>
+        /// Query the close calls list.
+        /// </summary>
         private void queryCloseCallsList()
            => CloseCallsList = s_bl.Call.ReadCloseCallsVolunteer(Id, filterCloseCalls, sortCloseCalls);
 
 
-
+        /// <summary>
+        /// Observer operation for the volunteer list.
+        /// </summary>
         private volatile DispatcherOperation? _observerOperation = null; //stage 7
 
         /// <summary>
@@ -88,6 +96,11 @@ namespace PL.VolunteerScreens
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteer.RemoveObserver(Id,CallsListObserver);
 
+        /// <summary>
+        /// Handles the selection changed event for the filter combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             queryCloseCallsList();
