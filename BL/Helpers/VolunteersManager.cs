@@ -422,8 +422,12 @@ namespace Helpers
                             {
                                 lock (AdminManager.BlMutex)
                                 {
-                                    cancelTreatHelp(volunteerId, activeCall.ID);
-                                    volunteersToUpdate.AddLast(volunteerId);
+                                    var call = s_dal.Call.Read(c => c.ID == activeCall.CallId);
+                                    if(CallsManager.GetCallStatus(call)== Status.Close|| CallsManager.GetCallStatus(call) == Status.Expired)
+                                    {cancelTreatHelp(volunteerId, activeCall.ID);
+                                        volunteersToUpdate.AddLast(volunteerId);
+                                    }
+                                    
                                 }
                             }
                             catch (BO.BlDoesNotExistException ex)
