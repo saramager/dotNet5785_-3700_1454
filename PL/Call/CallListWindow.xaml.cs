@@ -245,6 +245,8 @@ namespace PL.Call
             s_bl.Volunteer.RemoveObserver(CallListObserver);
             IsOpen = false;
         }
+
+        
     }
 }
 

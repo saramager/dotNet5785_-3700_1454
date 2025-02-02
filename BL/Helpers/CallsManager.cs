@@ -74,37 +74,38 @@ namespace Helpers
         }
         internal static BO.Status GetCallStatus(DO.Call doCall)
         {
+            IEnumerable<DO.Assignment> assignments;
             DO.Assignment? lastAssignment;
             DateTime now;
             lock (AdminManager.BlMutex)
             {
-                lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID).OrderByDescending(a => a.ID).FirstOrDefault();
+               assignments = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.ID);
                 now = s_dal.Config.Clock;
 
             }
 
-            if (lastAssignment == null)
+            if (assignments == null)
             {
-                if (doCall.maxTime != null && doCall.maxTime < now)
-                    return BO.Status.Expired;
+               
                 if (IsInRisk(doCall!))
                     return BO.Status.OpenInRisk;
                 else return BO.Status.Open;
             }
-            if (lastAssignment.finishT == DO.FinishType.Treated)
+            if (assignments.Count(ass=>ass.finishT == DO.FinishType.Treated)!=0)
             {
                 return BO.Status.Close;
             }
-            if (doCall.maxTime != null && doCall.maxTime < now)
+            if (assignments.Count(ass => ass.finishT == DO.FinishType.ExpiredCancel) != 0)
             {
                 return Status.Expired;
             }
-            if (lastAssignment.finishT == null)
+            if (assignments.Count(ass=> ass.finishTreatment==null)!=0)
             {
                 if (IsInRisk(doCall!))
                     return BO.Status.TreatInRisk;
-                else return BO.Status.InTreat;
+                return BO.Status.InTreat;//default
             }
+        
             if (IsInRisk(doCall!))
                 return BO.Status.OpenInRisk;
             return BO.Status.Open;//default
@@ -189,7 +190,7 @@ namespace Helpers
                 };
             }
         }
-        public static bool IsInRisk(DO.Call call) => call!.maxTime - s_dal.Config.Clock <= s_dal.Config.RiskRange;//להוסיף נעילה???
+        public static bool IsInRisk(DO.Call call) => call!.maxTime - AdminManager.Now <= s_dal.Config.RiskRange;//להוסיף נעילה???
         internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, DO.Assignment lastAssignment)
         {
             return new BO.ClosedCallInList
@@ -273,8 +274,11 @@ namespace Helpers
             {
                 IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
                 boCalls = from dCall in calls
-                          where (dCall.maxTime == null ? true : dCall.maxTime < newClock)
+                          where (dCall.maxTime == null ? false : dCall.maxTime < newClock)
+                          let callstatues = GetCallStatus(dCall)
+                          where callstatues != BO.Status.Expired&& callstatues!= BO.Status.Close
                           select (ConvertDOCallToBOCall(dCall));
+
                 boCalls = boCalls.ToList();
             }
             foreach (BO.Call call in boCalls)
@@ -293,13 +297,11 @@ namespace Helpers
                     if (lastAss.finishT == null)
                     {
                         DO.Assignment? assing;
-                        DateTime clock;
                         lock (AdminManager.BlMutex)
                         {
                             assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.finishTreatment == null && a.finishT == null);
                             if (assing != null)
                             {
-                                clock = s_dal.Config.Clock;
 
                                 s_dal.Assignment.Update(new DO.Assignment(assing.ID, assing.CallId, lastAss.VolunteerId, lastAss.startTreatment, newClock, DO.FinishType.ExpiredCancel));
                             }

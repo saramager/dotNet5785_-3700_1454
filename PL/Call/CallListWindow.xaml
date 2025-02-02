@@ -61,7 +61,7 @@
                 </DataGridTextColumn>
 
                 <DataGridTextColumn Binding="{Binding openTime  ,StringFormat='dd/MM/yyyy HH:mm'}" Header="Open Time" Width="auto" />
-                <DataGridTextColumn Binding="{Binding TimeEndTreat    ,StringFormat='{}{0:d\\.hh\\:mm\\:ss}'}"  Header="Time until call ends" Width="auto" />
+                <DataGridTextColumn Binding="{Binding timeEndCall    ,StringFormat='{}{0:d\\.hh\\:mm\\:ss}'}"  Header="Time until call ends" Width="auto" />
                 <DataGridTextColumn Binding="{Binding volunteerLast}" Header="Volunteer Last" Width="auto" />
                 <DataGridTextColumn Binding="{Binding TimeEndTreat  ,StringFormat='{}{0:d\\.hh\\:mm\\:ss}'}"  Header="Time Treat took" Width="auto" />
 
