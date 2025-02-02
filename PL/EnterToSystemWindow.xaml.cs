@@ -153,7 +153,7 @@ namespace PL
 
                     }
 
-                    else
+                   else
                     {
                         new ChoseForManagerWindow(Id).Show();
                     }
