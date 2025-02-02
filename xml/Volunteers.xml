@@ -14,19 +14,6 @@
     <latitude>31.78659</latitude>
   </Volunteer>
   <Volunteer>
-    <ID>214093700</ID>
-    <fullName>Neomy Ivgi</fullName>
-    <phone>0533121809</phone>
-    <email>Neomy053@gmail.com</email>
-    <isActive>true</isActive>
-    <role>Manager</role>
-    <distance>AirDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 22, Jerusalem, Israel</address>
-    <longitude>35.18556</longitude>
-    <latitude>31.78659</latitude>
-  </Volunteer>
-  <Volunteer>
     <ID>828465799</ID>
     <fullName>David Levy</fullName>
     <phone>0521234567</phone>
@@ -195,20 +182,6 @@
     <maxDistance>0.032982700162927925</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>363812082</ID>
-    <fullName>Yitzhak Azulay</fullName>
-    <phone>0583456789</phone>
-    <email>yitzhak.azulay@protonmail.com</email>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>DrivingDistance</distance>
-    <password>Sdvvzrug45</password>
-    <address>Beit Hadfus 35, Jerusalem, Israel</address>
-    <longitude>35.18081</longitude>
-    <latitude>31.78582</latitude>
-    <maxDistance>1.3095210060589413</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>343610028</ID>
     <fullName>Malkah Shalom</fullName>
     <phone>0574567890</phone>
@@ -249,5 +222,30 @@
     <longitude>35.19252</longitude>
     <latitude>31.78846</latitude>
     <maxDistance>0.4590782989893205</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>214093700</ID>
+    <fullName>Neomy Ivgi</fullName>
+    <phone>0533121809</phone>
+    <email>Neomy053@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>AirDistance</distance>
+    <password>Qgvl5356</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
+  </Volunteer>
+  <Volunteer>
+    <ID>363812082</ID>
+    <fullName>Yitzhak Azulay</fullName>
+    <phone>0583456789</phone>
+    <email>yitzhak.azulay@protonmail.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>DrivingDistance</distance>
+    <password>Sdvvzrug46</password>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <maxDistance>1.3095210060589413</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
