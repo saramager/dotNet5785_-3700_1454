@@ -250,4 +250,29 @@
     <latitude>31.78776</latitude>
     <maxDistance>1.4858196860942463</maxDistance>
   </Volunteer>
+  <Volunteer>
+    <ID>214093700</ID>
+    <fullName>Neomy Ivgi</fullName>
+    <phone>0533121809</phone>
+    <email>Neomy053@gmail.com</email>
+    <isActive>true</isActive>
+    <role>Manager</role>
+    <distance>AirDistance</distance>
+    <password>Qgvl5356</password>
+    <address>Beit Hadfus 22, Jerusalem, Israel</address>
+    <longitude>35.185592</longitude>
+    <latitude>31.7864039</latitude>
+  </Volunteer>
+  <Volunteer>
+    <ID>363812082</ID>
+    <fullName>Yitzhak Azulay</fullName>
+    <phone>0583456789</phone>
+    <email>yitzhak.azulay@protonmail.com</email>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>DrivingDistance</distance>
+    <password>Sdvvzrug46</password>
+    <address>Beit Hadfus 35, Jerusalem, Israel</address>
+    <maxDistance>1.3095210060589413</maxDistance>
+  </Volunteer>
 </ArrayOfVolunteer>
