@@ -25,30 +25,49 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         public RoleType Role { get; set; }
+
+        /// <summary>
+        /// the id of the volunteer
+        /// </summary>
         public int Id
         {
             get { return (int)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
 
-
+        /// <summary>
+        /// Using DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IdProperty =
             DependencyProperty.Register("Id", typeof(int), typeof(EnterToSystemWindow), new PropertyMetadata(null));
+        /// <summary>
+        /// the password of the volunteer
+        /// </summary>
         public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
         }
 
+        /// <summary>
+        /// Using DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(string), typeof(EnterToSystemWindow), new PropertyMetadata(""));
 
+        /// <summary>
+        /// the constructor of the window
+        /// </summary>
         public EnterToSystemWindow()
         {
             InitializeComponent();
 
         }
-
+        /// <summary>
+        /// the function that open the window of the volunteer or the manager
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -60,7 +79,7 @@ namespace PL
                     MessageBoxResult result = MessageBox.Show("Are you  want to open vlounteer window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        new VolnteerMainWindow(Id).Show();
+                        new VolunteerMainWindow(Id).Show();
                     }
 
                 }
@@ -89,7 +108,11 @@ namespace PL
             
 
         }
-        
+        /// <summary>
+        /// the function that open the window of the register
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -107,7 +130,11 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// the function that open the window of the register
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -121,7 +148,7 @@ namespace PL
                         MessageBoxResult result = MessageBox.Show("Are you  want to open vlounteer window ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
                         {
-                            new VolnteerMainWindow(Id).Show();
+                            new VolunteerMainWindow(Id).Show();
                         }
 
                     }

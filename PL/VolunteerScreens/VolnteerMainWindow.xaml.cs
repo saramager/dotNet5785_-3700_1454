@@ -15,16 +15,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-/// לסדר עוד קצת להוסיף משקיפים לCALL ולעשות לחצנים לכלל דבר 
+
 namespace PL.VolunteerScreens
 {
     /// <summary>
-    /// Interaction logic for VolnteerMainWindow.xaml
+    /// Interaction logic for VolunteerMainWindow.xaml
     /// </summary>
-    public partial class VolnteerMainWindow : Window
+    public partial class VolunteerMainWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        /// <summary>
+        /// Current Volunteer
+        /// </summary>
         public BO.Volunteer? CurrentVolunteer
         {
             get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
@@ -35,8 +38,11 @@ namespace PL.VolunteerScreens
         /// Dependency property for CurrentVolunteer
         /// </summary>
         public static readonly DependencyProperty CurrentVolunteerProperty =
-            DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolnteerMainWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerMainWindow), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Current Call
+        /// </summary>
         public BO.Call? Call
         {
             get { return (BO.Call?)GetValue(CallProperty); }
@@ -47,9 +53,13 @@ namespace PL.VolunteerScreens
         /// Dependency property for CurrentVolunteer
         /// </summary>
         public static readonly DependencyProperty CallProperty =
-            DependencyProperty.Register("Call", typeof(BO.Call), typeof(VolnteerMainWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("Call", typeof(BO.Call), typeof(VolunteerMainWindow), new PropertyMetadata(null));
 
-        public VolnteerMainWindow(int id)
+        /// <summary>
+        /// Constructor for VolunteerMainWindow
+        /// </summary>
+        /// <param name="id"></param>
+        public VolunteerMainWindow(int id)
         {
             InitializeComponent();
             this.Closed += Window_Closed;
@@ -74,8 +84,10 @@ namespace PL.VolunteerScreens
             catch ( Exception ex ) { MessageBox.Show(ex.Message, "ERROR ", MessageBoxButton.OK, MessageBoxImage.Error); }
 
         }
-       
 
+        /// <summary>
+        /// Observer operations
+        /// </summary>
         private volatile DispatcherOperation? _observerOperation1 = null; //stage 7
         private volatile DispatcherOperation? _observerOperation2 = null; //stage 7
 
@@ -103,6 +115,9 @@ namespace PL.VolunteerScreens
                 });
         }
 
+        /// <summary>
+        /// Queries the call
+        /// </summary>
         private void queryCall()
         {
             int id = CurrentVolunteer!.Id;
@@ -158,7 +173,11 @@ namespace PL.VolunteerScreens
             if (Call != null)
                 s_bl.Call.RemoveObserver(Call.ID,callObserver);
         }
-
+        /// <summary>
+        /// Opens the window for updating the volunteer details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -216,7 +235,11 @@ namespace PL.VolunteerScreens
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Opens the window for updating the volunteer password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EndCall_Click(object sender, RoutedEventArgs e)
         {
 
@@ -254,7 +277,11 @@ namespace PL.VolunteerScreens
 
 
         }
-
+        /// <summary>
+        /// Opens the window for updating the volunteer password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelCall_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(
@@ -290,7 +317,11 @@ namespace PL.VolunteerScreens
 
 
         }
-
+        /// <summary>
+        /// Opens the window for updating the volunteer password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewCall_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentVolunteer != null)
@@ -305,6 +336,11 @@ namespace PL.VolunteerScreens
             }
 
         }
+        /// <summary>
+        /// Opens the window for updating the volunteer password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CallHistory_Click(object sender, RoutedEventArgs e)
         {
             if (CurrentVolunteer != null)   
