@@ -1,4 +1,37 @@
-  
+
+  # Volunteer Management System for New Mothers
+
+A Windows desktop application built as a mini-project for managing volunteer assistance for new mothers.  
+The system allows coordinators to manage volunteers, schedule tasks, and track support activities in an intuitive way.
+
+## Features
+- **Volunteer & Task Management** – add, update, and delete volunteers or tasks with validation rules.  
+- **Layered Architecture (DAL, BL, UI)** – clear separation of data, business logic, and presentation layers.  
+- **WPF User Interface** – modern Windows UI using XAML with multiple screens and data binding.  
+- **Advanced UI Triggers** – property and event triggers to enhance responsiveness and interactivity.  
+- **Data Storage** – XML-based persistence for managing application data.  
+- **Security** – password handling with validation and encryption.  
+- **API Integration** – includes distance calculations (by air, driving, or walking) via mapping API.  
+
+## Tech Stack
+- **Language:** C#  
+- **Framework:** .NET (WPF)  
+- **UI Markup:** XAML  
+- **Data Storage:** XML  
+- **Architecture:** 3-Layered (Data Layer, Business Logic, Presentation)  
+
+## Extra Implementations (Bonuses)
+- Custom application icon (window title + taskbar).  
+- Conditional button visibility depending on business rules.  
+- IMultiValueConverter for advanced binding scenarios.  
+- Try-catch/finally error handling in BLTest and DLTest.  
+- Strong password validation & secure storage.  
+
+## Getting Started
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/saramager/dotNet5785_-3700_1454.git
+
 # dotNet5785_-3700_1454
 dotNet porject 
 Hello welcome!
