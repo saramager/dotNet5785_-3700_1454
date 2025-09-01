@@ -78,7 +78,12 @@
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" 
     Value="{Binding callT, Converter={StaticResource CallTypeToColorConverter}}" />
+                          
+                                <Setter Property="Background" 
+Value="{Binding callT, Converter={StaticResource CallTypeToColorBackConverterKey}}" />
+                           
                         </Style>
+                     
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="Address" 

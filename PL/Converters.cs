@@ -281,6 +281,30 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    public class CallTypeToColorBackConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is CallType callType)
+            {
+                return callType switch
+                {
+                    CallType.BabyGift => Brushes.Pink,
+                    CallType.MomGift => Brushes.Blue,
+                    CallType.HouseholdHelp => Brushes.Green,
+                    CallType.MealPreparation => Brushes.Turquoise,
+                    CallType.None => Brushes.Gray,
+                    _ => Brushes.Beige
+                };
+            }
+            return Brushes.Brown;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class DeleteVolunteerVisbilty : IValueConverter
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();

@@ -27,8 +27,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     {
         IEnumerable<BO.Call> boCalls;
         lock (AdminManager.BlMutex)
-           { IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
-            ?? throw new BO.BlNullPropertyException("There are no calls in the database");
+        {
+            IEnumerable<DO.Call> allCalls = _dal.Call.ReadAll()
+         ?? throw new BO.BlNullPropertyException("There are no calls in the database");
 
             boCalls = allCalls.Select(call => CallsManager.ConvertDOCallToBOCall(call));
         }
@@ -52,10 +53,11 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public IEnumerable<CallInList> GetCallInList(FiledOfCallInList? filedToFilter, object? filter, FiledOfCallInList? filedToSort)
     {
         IEnumerable<CallInList> boCallsInList;
-        lock(AdminManager.BlMutex)
-       { IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
+        lock (AdminManager.BlMutex)
+        {
+            IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
             boCallsInList = _dal.Call.ReadAll().Select(call => CallsManager.ConvertDOCallToBOCallInList(call));
-}
+        }
         if (filedToFilter != null && filter != null)
         {
             switch (filedToFilter)
@@ -214,8 +216,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public BO.Call ReadCall(int id)
     {
         BO.Call toReturn;
-        lock(AdminManager.BlMutex) 
-     toReturn =CallsManager.ReadCallHelper(id);
+        lock (AdminManager.BlMutex)
+            toReturn = CallsManager.ReadCallHelper(id);
         return toReturn;
 
     }
@@ -228,7 +230,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         {
             CallsManager.CheckCallFormat(c);
             CallsManager.CheckCallLogic(c);
-            Docall= Helpers.CallsManager.convertFormBOCallToDo(c);
+            Docall = Helpers.CallsManager.convertFormBOCallToDo(c);
             lock (AdminManager.BlMutex)
                 _dal.Call.Update(Docall);
 
@@ -247,7 +249,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         }
         CallsManager.Observers.NotifyItemUpdated(Docall.ID);  //stage 5
         CallsManager.Observers.NotifyListUpdated();  //stage 5
-        _=CallsManager.updateCoordinatesForCallAddressAsync(Docall);
+        _ = CallsManager.updateCoordinatesForCallAddressAsync(Docall);
     }
 
 
@@ -258,8 +260,8 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         try
         {
             DO.Call? doCall;
-            lock(AdminManager.BlMutex)
-             doCall = _dal.Call.Read(c => c.ID == id);
+            lock (AdminManager.BlMutex)
+                doCall = _dal.Call.Read(c => c.ID == id);
 
             if (doCall != null)
             {
@@ -267,7 +269,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
                 BO.Status callStatus = CallsManager.GetCallStatus(doCall);
                 lock (AdminManager.BlMutex)
-                hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == id).Any();
+                    hasAssignments = _dal.Assignment.ReadAll(ass => ass.CallId == id).Any();
 
                 if (hasAssignments || callStatus != BO.Status.Open)
                 {
@@ -280,9 +282,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         }
         catch (DO.DalDoesNotExistException ex)
-       {
+        {
             throw new BO.BlDoesNotExistException("An error occurred while updating the call.", ex);
-       }
+        }
     }
     public bool CanDeleteCall(int callId)
     {
@@ -317,7 +319,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     public void CreateCall(BO.Call c)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        DO.Call  doCall;
+        DO.Call doCall;
 
         try
         {
@@ -325,7 +327,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
             CallsManager.CheckCallLogic(c);
             doCall = Helpers.CallsManager.convertFormBOCallToDo(c);
             lock (AdminManager.BlMutex)
-            _dal.Call.Create(doCall);
+                _dal.Call.Create(doCall);
 
         }
         catch (BO.BlValidationException ex)
@@ -342,14 +344,15 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         }
         CallsManager.Observers.NotifyItemUpdated(c.ID);
         CallsManager.Observers.NotifyListUpdated(); //stage 5      
-        _=CallsManager.updateCoordinatesForCallAddressAsync(doCall);
+        _ = CallsManager.updateCoordinatesForCallAddressAsync(doCall);
     }
 
     IEnumerable<ClosedCallInList> BlApi.ICall.ReadCloseCallsVolunteer(int id, BO.CallType? callT, FiledOfClosedCallInList? filedTosort)
     {
-       List < BO.ClosedCallInList >  closedCallInLists = new List<BO.ClosedCallInList>();
-        lock(AdminManager.BlMutex)
-      {  IEnumerable<DO.Assignment> assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
+        List<BO.ClosedCallInList> closedCallInLists = new List<BO.ClosedCallInList>();
+        lock (AdminManager.BlMutex)
+        {
+            IEnumerable<DO.Assignment> assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
 
             closedCallInLists.AddRange(from assig in assignments
                                        where assig.finishT != null
@@ -408,27 +411,28 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
     IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort, IEnumerable<OpenCallInList> openCallIns = null)
     {
 
-        
+
         IEnumerable<BO.OpenCallInList> openCallInLists;
 
 
         if (openCallIns == null)
         {
-            lock(AdminManager.BlMutex)
-            {IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
-            List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
+            lock (AdminManager.BlMutex)
+            {
+                IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
+                List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
 
-            Calls.AddRange(from item in previousCalls
-                           let DataCall = ReadCall(item.ID)
-                           where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
-                           where callT == null || callT == BO.CallType.None || DataCall.callT == callT
-                           let volunteerData = _dal.Volunteer.Read(v => v.ID == id)
-                           let airDistance = Tools.CalculateDistance(item.latitude, item.longitude, volunteerData.Latitude, volunteerData.Longitude,BO.Distance.AirDistance) // חישוב המרחק האווירי
-                           where volunteerData.maxDistance == null
-                                 || airDistance <= volunteerData.maxDistance // אם המרחק האווירי קטן או שווה למקסימום
-                           let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
-                           where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
-                           select openCall);
+                Calls.AddRange(from item in previousCalls
+                               let DataCall = ReadCall(item.ID)
+                               where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
+                               where callT == null || callT == BO.CallType.None || DataCall.callT == callT
+                               let volunteerData = _dal.Volunteer.Read(v => v.ID == id)
+                               let airDistance = Tools.CalculateDistance(item.latitude, item.longitude, volunteerData.Latitude, volunteerData.Longitude, BO.Distance.AirDistance) // חישוב המרחק האווירי
+                               where volunteerData.maxDistance == null
+                                     || airDistance <= volunteerData.maxDistance // אם המרחק האווירי קטן או שווה למקסימום
+                               let openCall = CallsManager.ConvertDOCallToBOOpenCallInList(item, id)
+                               where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= openCall.distance
+                               select openCall);
 
                 openCallInLists = Calls;
             }
@@ -477,9 +481,9 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         DO.Assignment assignment;
         try
         {
-            lock(AdminManager.BlMutex)
-            assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
-                ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
+            lock (AdminManager.BlMutex)
+                assignment = _dal.Assignment.Read(a => a.ID == assignmentId)
+                    ?? throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.");
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -498,7 +502,7 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
 
         assignment = assignment with
         {
-            
+
             finishTreatment = _dal.Config.Clock,////להוסיף נעילה???
             finishT = DO.FinishType.Treated
         };
@@ -554,11 +558,12 @@ CallsManager.Observers.RemoveObserver(id, observer); //stage 5
         }
         lock (AdminManager.BlMutex)
             if (call.maxTime.HasValue && _dal.Config.Clock > call.maxTime.Value)
-        {
-            throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
-        }
+            {
+                throw new BO.CantUpdatevolunteer($"Call with ID {assignment.CallId} is expired and cannot be canceled.");
+            }
         DO.Volunteer volunteer;
-        lock (AdminManager.BlMutex) { 
+        lock (AdminManager.BlMutex)
+        {
             volunteer = _dal.Volunteer.Read(v => v.ID == volunteerId);
         }
         if (volunteer?.role.Equals(DO.RoleType.Manager) == true &&
